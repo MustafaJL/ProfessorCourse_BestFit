@@ -1,0 +1,18 @@
+﻿.warp {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+}
+
+.dipartmentlist {
+    position:relative;
+    border: 1px solid black;
+    border-radius: 10px;
+    text-align: center;
+    padding: 3%;
+    margin: 2%;
+}
+
+.viewbtn {
+    display: flex;
+    justify-content: start;
+} 

@@ -1,0 +1,49 @@
+﻿
+@{
+    ViewBag.Title = "ListDepartment";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>ListDepartment</h2>
+<input id="search-weeazer">
+<br />
+<div class="warp">
+    @for (int i = 0; i < 5; i++)
+    {
+        <div class="dipartmentlist">
+            <h1 class="Departmentname">Department @i</h1>
+            <p>to us<br /> you can see more</p>
+            <div class="viewbtn">
+                <button class="btn btn-warning" type="button">
+                    View Ditails
+                </button>
+            </div>
+        </div>
+
+    }
+</div>
+
+
+
+@section Scripts
+    {
+    <script>
+        var $searchBox = $('#search-weeazer');
+        var $motherdiv = $('.dipartmentlist');
+        var $userDivs = $('.dipartmentlist');
+
+        $searchBox.on('input', function () {
+            var scope = this;
+            if (!scope.value || scope.value == '') {
+                $userDivs.show();
+                return;
+            }
+
+            $userDivs.each(function (i, div) {
+                var $div = $(div);
+                $div.toggle($div.text().toLowerCase().indexOf(scope.value.toLowerCase()) > -1);
+            })
+        });
+    </script>
+
+}

@@ -12,20 +12,20 @@ namespace ProfessorCourse_BestFit.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Role
+    public partial class Keyword
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Role()
+        public Keyword()
         {
-            this.Permissions = new HashSet<Permission>();
+            this.Courses = new HashSet<Course>();
             this.Users = new HashSet<User>();
         }
     
-        public int RoleId { get; set; }
-        public string RoleName { get; set; }
+        public int KId { get; set; }
+        public string KName { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Permission> Permissions { get; set; }
+        public virtual ICollection<Course> Courses { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<User> Users { get; set; }
     }
