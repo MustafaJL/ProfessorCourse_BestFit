@@ -36,7 +36,10 @@ namespace ProfessorCourse_BestFit.Controllers
         // GET: ListDepartment
         public ActionResult ListDepartment(int? id)
         {
-            //var department = _context.Departments.ToList();
+            /*
+             get all Department in the database using 
+            stord proseduer.
+             */
             Department_DAL dal = new Department_DAL();
             return View(dal.GetDepartments(id, 4));
         }
@@ -52,13 +55,8 @@ namespace ProfessorCourse_BestFit.Controllers
         public ActionResult CreateDepartment(Department department)
         {
             /*
-            var newdepartment = new Department();
-            newdepartment.Dep_Name = department.Dep_Name;
-
-            _context.Departments.Add(newdepartment);
-            _context.SaveChanges();
-            */
-
+             Create new Department using stored proseduer.
+             */
             var newdepartment = new Department();
             newdepartment.Dep_Name = department.Dep_Name;
             _context.my_InsertUpdateDelete_Department(null, newdepartment.Dep_Name, 1);
@@ -70,7 +68,12 @@ namespace ProfessorCourse_BestFit.Controllers
         // GET: CreateDepartment
         public ActionResult ViewDepartmentsInfo(int id)
         {
+            /*
+             Select all specific Department information.
+             */
             var department = _context.Departments.Find(id);
+
+            //need to solve (we not useing proseduer)
             //Department_DAL dal = new Department_DAL();
             return View(department);
         }
@@ -78,14 +81,21 @@ namespace ProfessorCourse_BestFit.Controllers
         // GET: Edit Department
         public ActionResult EditDepartment(int id)
         {
+            /*
+             Select all specific Department information.
+             */
             var department = _context.Departments.Where(s => s.Dep_Id == id).FirstOrDefault();
+            //need to solve (we not useing proseduer)
             return View(department);
         }
 
         [HttpPost]
         public ActionResult EditDepartment(Department department,int id)
         {
-            //var d = _context.my_InsertUpdateDelete_Department(id,null, 5);
+            /*
+             Select all specific Department information.
+            in order to edit it.
+             */
             var d = _context.Departments.Where(s => s.Dep_Id == id).FirstOrDefault();
             var newdepartment = new Department();
             newdepartment.Dep_Name= department.Dep_Name;
