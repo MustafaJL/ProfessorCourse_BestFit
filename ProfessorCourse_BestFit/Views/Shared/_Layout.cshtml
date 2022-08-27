@@ -7,7 +7,7 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
-<body>
+<body style="background: #ffe;">
 
 
 
@@ -15,10 +15,14 @@
 
 
 
-    @RenderBody()
+    <div class="body-content">
+        @RenderBody()
+    </div>
 
+    <footer>
+        @Html.Partial("_FooterPartial")
 
-    @Html.Partial("_FooterPartial")
+    </footer>
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
