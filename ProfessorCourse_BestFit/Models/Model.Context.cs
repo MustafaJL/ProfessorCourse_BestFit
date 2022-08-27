@@ -18,7 +18,7 @@ namespace ProfessorCourse_BestFit.Models
     public partial class ApplicationDbContext : DbContext
     {
         public ApplicationDbContext()
-            : base("name=CourseProfessorEntities1")
+            : base("name=CourseProfessorEntities2")
         {
         }
     
@@ -37,6 +37,23 @@ namespace ProfessorCourse_BestFit.Models
         public virtual DbSet<UserCourse> UserCourses { get; set; }
         public virtual DbSet<UserDepartment> UserDepartments { get; set; }
         public virtual DbSet<User> Users { get; set; }
+    
+        public virtual ObjectResult<string> my_InsertUpdateDelete_Department(Nullable<int> departmentID, string departmentName, Nullable<int> query)
+        {
+            var departmentIDParameter = departmentID.HasValue ?
+                new ObjectParameter("DepartmentID", departmentID) :
+                new ObjectParameter("DepartmentID", typeof(int));
+    
+            var departmentNameParameter = departmentName != null ?
+                new ObjectParameter("DepartmentName", departmentName) :
+                new ObjectParameter("DepartmentName", typeof(string));
+    
+            var queryParameter = query.HasValue ?
+                new ObjectParameter("Query", query) :
+                new ObjectParameter("Query", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("my_InsertUpdateDelete_Department", departmentIDParameter, departmentNameParameter, queryParameter);
+        }
     
         public virtual int sp_alterdiagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
         {
