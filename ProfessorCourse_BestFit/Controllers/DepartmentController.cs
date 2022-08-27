@@ -1,11 +1,13 @@
 ﻿using ProfessorCourse_BestFit.Models;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using ProfessorCourse_BestFit.DAL;
 
 namespace ProfessorCourse_BestFit.Controllers
 {
@@ -32,18 +34,11 @@ namespace ProfessorCourse_BestFit.Controllers
         }
 
         // GET: ListDepartment
-        public ActionResult ListDepartment()
-        { //metadata=res://*/Models.Model.csdl|res://*/Models.Model.ssdl|res://*/Models.Model.msl;provider=System.Data.SqlClient;provider connection string="data source=MSI;initial catalog=CourseProfessor;integrated security=True;MultipleActiveResultSets=True;App=EntityFramework"
-            /*String connectionstring = "Data Source=MSI;database=CourseProfessor; providerName = System.Data.SqlClient";
-            SqlConnection sqlcon = new SqlConnection(connectionstring);
-            String pname = "my_InsertUpdateDelete_Department";
-            sqlcon.Open();
-            SqlCommand com = new SqlCommand(pname, sqlcon);
-            com.CommandType = CommandType.StoredProcedure;
-            SqlDataReader dr = com.ExecuteReader();
-            var department = dr;*/
-            var department = _context.Departments.ToList();
-            return View(department);
+        public ActionResult ListDepartment(int? id)
+        {
+            //var department = _context.Departments.ToList();
+            Department_DAL dal = new Department_DAL();
+            return View(dal.GetDepartments(id, 4));
         }
 
         // GET: CreateDepartment
@@ -56,10 +51,17 @@ namespace ProfessorCourse_BestFit.Controllers
         [HttpPost]
         public ActionResult CreateDepartment(Department department)
         {
+            /*
             var newdepartment = new Department();
             newdepartment.Dep_Name = department.Dep_Name;
 
             _context.Departments.Add(newdepartment);
+            _context.SaveChanges();
+            */
+
+            var newdepartment = new Department();
+            newdepartment.Dep_Name = department.Dep_Name;
+            _context.my_InsertUpdateDelete_Department(null, newdepartment.Dep_Name, 1);
             _context.SaveChanges();
 
             return View("CreateDepartment");
@@ -69,6 +71,7 @@ namespace ProfessorCourse_BestFit.Controllers
         public ActionResult ViewDepartmentsInfo(int id)
         {
             var department = _context.Departments.Find(id);
+            //Department_DAL dal = new Department_DAL();
             return View(department);
         }
 
