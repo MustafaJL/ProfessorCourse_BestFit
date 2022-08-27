@@ -640,7 +640,7 @@
           <End Role="Roles" Type="Self.Role" Multiplicity="*" />
           <End Role="Users" Type="Self.User" Multiplicity="*" />
         </Association>
-        <EntityContainer Name="CourseProfessorEntities2" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="CourseProfessorEntities3" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Courses" EntityType="Self.Course" />
           <EntitySet Name="Departments" EntityType="Self.Department" />
           <EntitySet Name="Keywords" EntityType="Self.Keyword" />
@@ -743,7 +743,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="CourseProfessorModelStoreContainer" CdmEntityContainer="CourseProfessorEntities2">
+        <EntityContainerMapping StorageEntityContainer="CourseProfessorModelStoreContainer" CdmEntityContainer="CourseProfessorEntities3">
           <EntitySetMapping Name="Courses">
             <EntityTypeMapping TypeName="CourseProfessorModel.Course">
               <MappingFragment StoreEntitySet="Course">
