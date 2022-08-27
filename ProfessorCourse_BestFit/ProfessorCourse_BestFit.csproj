@@ -2079,6 +2079,7 @@
     <Content Include="Content\bootstrap-icons\font\bootstrap-icons.json" />
     <Content Include="Content\bootstrap-icons\font\fonts\bootstrap-icons.woff" />
     <Content Include="Content\bootstrap-icons\font\fonts\bootstrap-icons.woff2" />
+    <Content Include="DB\%24R0JUOGG.bacpac" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
