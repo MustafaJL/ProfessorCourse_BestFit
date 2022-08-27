@@ -1,25 +1,31 @@
-﻿
+﻿@model IEnumerable<ProfessorCourse_BestFit.Models.Department>
 @{
     ViewBag.Title = "ListDepartment";
-    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>ListDepartment</h2>
-<input id="search-weeazer">
-<br />
+<h2>All Departments</h2>
+
+    <div class="form-group">
+        <label class="col-form-label col-xl-2">Search:</label>
+        <div class="col-xl-10">
+            <input id="search-weeazer">
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-xl-offset-2 col-xl-10">
+            <button class="btn btn-default" onclick="location.href='@Url.Action("CreateDepartment", "Department")';return false;">Create New</button>
+        </div>
+    </div>
+<hr />
 <div class="warp">
-    @for (int i = 0; i < 5; i++)
+    @foreach (var item in Model)
     {
         <div class="dipartmentlist">
-            <h1 class="Departmentname">Department @i</h1>
-            <p>to us<br /> you can see more</p>
-            <div class="viewbtn">
-                <button class="btn btn-warning" type="button">
-                    View Ditails
-                </button>
+            <h1 class="Departmentname">@item.Dep_Name</h1>
+            <div class="col-xl-offset-2 col-xl-10">
+                <button class="btn btn-warning btnstyleDpartmentList" onclick="location.href='@Url.Action("ViewDepartmentsInfo", "Department", new { id = item.Dep_Id })';return false;">View Ditails</button>
             </div>
         </div>
-
     }
 </div>
 

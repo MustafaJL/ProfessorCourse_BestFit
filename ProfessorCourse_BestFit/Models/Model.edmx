@@ -35,9 +35,9 @@
           <Key>
             <PropertyRef Name="Dep_Id" />
           </Key>
-          <Property Name="Dep_Id" Type="int" Nullable="false" />
           <Property Name="Dep_Name" Type="varchar" MaxLength="150" Nullable="false" />
           <Property Name="User_Id" Type="int" />
+          <Property Name="Dep_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
         <EntityType Name="Keywords">
           <Key>
@@ -191,18 +191,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_DepartmentUser">
-          <End Role="Department" Type="Self.Department" Multiplicity="1" />
-          <End Role="UserDepartment" Type="Self.UserDepartment" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Department">
-              <PropertyRef Name="Dep_Id" />
-            </Principal>
-            <Dependent Role="UserDepartment">
-              <PropertyRef Name="Dep_Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Keyword">
           <End Role="Keywords" Type="Self.Keywords" Multiplicity="1" />
           <End Role="CourseKeyword" Type="Self.CourseKeyword" Multiplicity="*" />
@@ -347,6 +335,37 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+        <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="CourseProfessorModelStoreContainer">
           <EntitySet Name="Course" EntityType="Self.Course" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CourseKeyword" EntityType="Self.CourseKeyword" Schema="dbo" store:Type="Tables" />
@@ -379,10 +398,6 @@
           <AssociationSet Name="FK_Department_Manager" Association="Self.FK_Department_Manager">
             <End Role="Users" EntitySet="Users" />
             <End Role="Department" EntitySet="Department" />
-          </AssociationSet>
-          <AssociationSet Name="FK_DepartmentUser" Association="Self.FK_DepartmentUser">
-            <End Role="Department" EntitySet="Department" />
-            <End Role="UserDepartment" EntitySet="UserDepartment" />
           </AssociationSet>
           <AssociationSet Name="FK_Keyword" Association="Self.FK_Keyword">
             <End Role="Keywords" EntitySet="Keywords" />
@@ -455,11 +470,10 @@
           <Key>
             <PropertyRef Name="Dep_Id" />
           </Key>
-          <Property Name="Dep_Id" Type="Int32" Nullable="false" />
           <Property Name="Dep_Name" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="User_Id" Type="Int32" />
+          <Property Name="Dep_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <NavigationProperty Name="User" Relationship="Self.FK_Department_Manager" FromRole="Department" ToRole="Users" />
-          <NavigationProperty Name="UserDepartments" Relationship="Self.FK_DepartmentUser" FromRole="Department" ToRole="UserDepartment" />
         </EntityType>
         <EntityType Name="Keyword">
           <Key>
@@ -528,7 +542,6 @@
           <Property Name="User_ID" Type="Int32" Nullable="false" />
           <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="EndDate" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Department" Relationship="Self.FK_DepartmentUser" FromRole="UserDepartment" ToRole="Department" />
           <NavigationProperty Name="User" Relationship="Self.FK_UserDepartment" FromRole="UserDepartment" ToRole="Users" />
         </EntityType>
         <EntityType Name="User">
@@ -571,18 +584,6 @@
             </Principal>
             <Dependent Role="Department">
               <PropertyRef Name="User_Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_DepartmentUser">
-          <End Role="Department" Type="Self.Department" Multiplicity="1" />
-          <End Role="UserDepartment" Type="Self.UserDepartment" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Department">
-              <PropertyRef Name="Dep_Id" />
-            </Principal>
-            <Dependent Role="UserDepartment">
-              <PropertyRef Name="Dep_Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -634,7 +635,7 @@
           <End Role="Roles" Type="Self.Role" Multiplicity="*" />
           <End Role="Users" Type="Self.User" Multiplicity="*" />
         </Association>
-        <EntityContainer Name="CourseProfessorEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="CourseProfessorEntities1" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Courses" EntityType="Self.Course" />
           <EntitySet Name="Departments" EntityType="Self.Department" />
           <EntitySet Name="Keywords" EntityType="Self.Keyword" />
@@ -652,10 +653,6 @@
           <AssociationSet Name="FK_Department_Manager" Association="Self.FK_Department_Manager">
             <End Role="Users" EntitySet="Users" />
             <End Role="Department" EntitySet="Departments" />
-          </AssociationSet>
-          <AssociationSet Name="FK_DepartmentUser" Association="Self.FK_DepartmentUser">
-            <End Role="Department" EntitySet="Departments" />
-            <End Role="UserDepartment" EntitySet="UserDepartments" />
           </AssociationSet>
           <AssociationSet Name="FK_UserCourse" Association="Self.FK_UserCourse">
             <End Role="Users" EntitySet="Users" />
@@ -689,13 +686,54 @@
             <End Role="Roles" EntitySet="Roles" />
             <End Role="Users" EntitySet="Users" />
           </AssociationSet>
+          <FunctionImport Name="sp_alterdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_creatediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_dropdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(CourseProfessorModel.sp_helpdiagramdefinition_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(CourseProfessorModel.sp_helpdiagrams_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_renamediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="new_diagramname" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_upgraddiagrams" />
         </EntityContainer>
+        <ComplexType Name="sp_helpdiagramdefinition_Result">
+          <Property Type="Int32" Name="version" Nullable="true" />
+          <Property Type="Binary" Name="definition" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagrams_Result">
+          <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="OwnerID" Nullable="false" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="CourseProfessorModelStoreContainer" CdmEntityContainer="CourseProfessorEntities">
+        <EntityContainerMapping StorageEntityContainer="CourseProfessorModelStoreContainer" CdmEntityContainer="CourseProfessorEntities1">
           <EntitySetMapping Name="Courses">
             <EntityTypeMapping TypeName="CourseProfessorModel.Course">
               <MappingFragment StoreEntitySet="Course">
@@ -710,9 +748,9 @@
           <EntitySetMapping Name="Departments">
             <EntityTypeMapping TypeName="CourseProfessorModel.Department">
               <MappingFragment StoreEntitySet="Department">
-                <ScalarProperty Name="Dep_Id" ColumnName="Dep_Id" />
                 <ScalarProperty Name="Dep_Name" ColumnName="Dep_Name" />
                 <ScalarProperty Name="User_Id" ColumnName="User_Id" />
+                <ScalarProperty Name="Dep_Id" ColumnName="Dep_Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -842,6 +880,30 @@
               <ScalarProperty Name="Uid" ColumnName="UserId" />
             </EndProperty>
           </AssociationSetMapping>
+          <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="CourseProfessorModel.Store.sp_alterdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="CourseProfessorModel.Store.sp_creatediagram" />
+          <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="CourseProfessorModel.Store.sp_dropdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="CourseProfessorModel.Store.sp_helpdiagramdefinition">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CourseProfessorModel.sp_helpdiagramdefinition_Result">
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="CourseProfessorModel.Store.sp_helpdiagrams">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CourseProfessorModel.sp_helpdiagrams_Result">
+                <ScalarProperty Name="Database" ColumnName="Database" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Owner" ColumnName="Owner" />
+                <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="CourseProfessorModel.Store.sp_renamediagram" />
+          <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="CourseProfessorModel.Store.sp_upgraddiagrams" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

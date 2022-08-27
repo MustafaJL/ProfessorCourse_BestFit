@@ -1,0 +1,36 @@
+﻿@model ProfessorCourse_BestFit.Models.Department
+
+@{
+    ViewBag.Title = "ViewDepartmentsInfo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>View Departments Information</h2>
+
+<div>
+    <h4>Department</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Dep_Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Dep_Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.User.FirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.User.FirstName)
+        </dd>
+
+    </dl>
+</div>
+
+<button class="btn btn-default" onclick="location.href='@Url.Action("CreateDepartment", "Department", new { id = Model.Dep_Id })';return false;">Edit</button>
+<button class="btn btn-default" onclick="location.href='@Url.Action("ListDepartment", "Department")';return false;">Back</button>
+
+

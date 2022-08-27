@@ -14,18 +14,10 @@ namespace ProfessorCourse_BestFit.Models
     
     public partial class Department
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Department()
-        {
-            this.UserDepartments = new HashSet<UserDepartment>();
-        }
-    
-        public int Dep_Id { get; set; }
         public string Dep_Name { get; set; }
         public Nullable<int> User_Id { get; set; }
+        public int Dep_Id { get; set; }
     
         public virtual User User { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<UserDepartment> UserDepartments { get; set; }
     }
 }

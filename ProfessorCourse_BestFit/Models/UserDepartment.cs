@@ -19,7 +19,6 @@ namespace ProfessorCourse_BestFit.Models
         public System.DateTime StartDate { get; set; }
         public Nullable<System.DateTime> EndDate { get; set; }
     
-        public virtual Department Department { get; set; }
         public virtual User User { get; set; }
     }
 }

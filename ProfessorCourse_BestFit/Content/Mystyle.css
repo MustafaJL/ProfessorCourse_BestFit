@@ -4,7 +4,6 @@
 }
 
 .dipartmentlist {
-    position:relative;
     border: 1px solid black;
     border-radius: 10px;
     text-align: center;
@@ -12,7 +11,6 @@
     margin: 2%;
 }
 
-.viewbtn {
-    display: flex;
-    justify-content: start;
-} 
+.btnstyleDpartmentList {
+    float: left;
+}
