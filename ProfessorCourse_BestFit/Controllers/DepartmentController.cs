@@ -14,9 +14,11 @@ namespace ProfessorCourse_BestFit.Controllers
     public class DepartmentController : Controller
     {
         /*
-         * My Stord Proseduer
+         * My Stord Procedure
          
-         _context.my_InsertUpdateDelete_Department(int? id,String name,int? QueryNumber);
+         _context.my_InsertUpdateDelete_Department(int? id,
+                                                   String name,
+                                                   int? QueryNumber);
         QueryNumbres:
         1: INSERT
         2: UPDATE
@@ -27,10 +29,12 @@ namespace ProfessorCourse_BestFit.Controllers
          */
 
         private readonly ApplicationDbContext _context;
+        private Department_DAL dal;
 
         public DepartmentController()
         {
             _context = new ApplicationDbContext();
+            dal = new Department_DAL();
         }
 
         // GET: ListDepartment
@@ -38,9 +42,8 @@ namespace ProfessorCourse_BestFit.Controllers
         {
             /*
              get all Department in the database using 
-            stord proseduer.
+            stord procedure.
              */
-            Department_DAL dal = new Department_DAL();
             return View(dal.GetDepartments(id, 4));
         }
 
@@ -55,7 +58,7 @@ namespace ProfessorCourse_BestFit.Controllers
         public ActionResult CreateDepartment(Department department)
         {
             /*
-             Create new Department using stored proseduer.
+             Create new Department using stored Procedure.
              */
             var newdepartment = new Department();
             newdepartment.Dep_Name = department.Dep_Name;
@@ -73,7 +76,7 @@ namespace ProfessorCourse_BestFit.Controllers
              */
             var department = _context.Departments.Find(id);
 
-            //need to solve (we not useing proseduer)
+            //need to solve (we not useing Procedure)
             //Department_DAL dal = new Department_DAL();
             return View(department);
         }
@@ -85,7 +88,7 @@ namespace ProfessorCourse_BestFit.Controllers
              Select all specific Department information.
              */
             var department = _context.Departments.Where(s => s.Dep_Id == id).FirstOrDefault();
-            //need to solve (we not useing proseduer)
+            //need to solve (we not useing Procedure)
             return View(department);
         }
 
