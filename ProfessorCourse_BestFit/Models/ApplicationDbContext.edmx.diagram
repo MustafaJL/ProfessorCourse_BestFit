@@ -4,10 +4,33 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="2e47a70d0171461083e7f2a95fa61383" Name="Diagram1">
-        <EntityTypeShape EntityType="ProfessorCourseBestFitModel.Role" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ProfessorCourseBestFitModel.UserRole" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ProfessorCourseBestFitModel.User" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
+      <Diagram DiagramId="2024a4edb56e46799828d4792d510174" Name="Diagram1">
+        <EntityTypeShape EntityType="ProfessorCourseBestFitModel.Course" Width="1.5" PointX="3" PointY="10.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProfessorCourseBestFitModel.CourseKeyword" Width="1.5" PointX="10.25" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProfessorCourseBestFitModel.Department" Width="1.5" PointX="5.25" PointY="6.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProfessorCourseBestFitModel.Keyword" Width="1.5" PointX="6" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProfessorCourseBestFitModel.Permission" Width="1.5" PointX="0.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProfessorCourseBestFitModel.Program" Width="1.5" PointX="5.25" PointY="13.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProfessorCourseBestFitModel.Role" Width="1.5" PointX="3" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProfessorCourseBestFitModel.UserCourse" Width="1.5" PointX="5.25" PointY="9.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProfessorCourseBestFitModel.UserDepartment" Width="1.5" PointX="7.5" PointY="6.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProfessorCourseBestFitModel.UserKeyword" Width="1.5" PointX="8.25" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProfessorCourseBestFitModel.UserRole" Width="1.5" PointX="5.25" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProfessorCourseBestFitModel.User" Width="1.5" PointX="3" PointY="6" IsExpanded="true" />
+        <AssociationConnector Association="ProfessorCourseBestFitModel.FK_Course" ManuallyRouted="false" />
+        <AssociationConnector Association="ProfessorCourseBestFitModel.FK_CourseUser" ManuallyRouted="false" />
+        <AssociationConnector Association="ProfessorCourseBestFitModel.FK_Keyword" ManuallyRouted="false" />
+        <AssociationConnector Association="ProfessorCourseBestFitModel.FK_Department_Manager" ManuallyRouted="false" />
+        <AssociationConnector Association="ProfessorCourseBestFitModel.FK_DepartmentUser" ManuallyRouted="false" />
+        <AssociationConnector Association="ProfessorCourseBestFitModel.FK_KeywordKeywords" ManuallyRouted="false" />
+        <AssociationConnector Association="ProfessorCourseBestFitModel.FK_RolesUser" ManuallyRouted="false" />
+        <AssociationConnector Association="ProfessorCourseBestFitModel.FK_UserCourse" ManuallyRouted="false" />
+        <AssociationConnector Association="ProfessorCourseBestFitModel.FK_UserDepartment" ManuallyRouted="false" />
+        <AssociationConnector Association="ProfessorCourseBestFitModel.FK_UserKeyword" ManuallyRouted="false" />
+        <AssociationConnector Association="ProfessorCourseBestFitModel.FK_UserRoles" ManuallyRouted="false" />
+        <AssociationConnector Association="ProfessorCourseBestFitModel.CourseProgram" ManuallyRouted="false" />
+        <AssociationConnector Association="ProfessorCourseBestFitModel.RolePermission" ManuallyRouted="false" />
+        <AssociationConnector Association="ProfessorCourseBestFitModel.UserPermission" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
