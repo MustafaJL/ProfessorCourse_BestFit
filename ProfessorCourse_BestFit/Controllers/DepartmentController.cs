@@ -18,6 +18,7 @@ namespace ProfessorCourse_BestFit.Controllers
          
          _context.my_InsertUpdateDelete_Department(int? id,
                                                    String name,
+                                                   int userID,
                                                    int? QueryNumber);
         QueryNumbres:
         1: INSERT
@@ -50,6 +51,7 @@ namespace ProfessorCourse_BestFit.Controllers
         // GET: CreateDepartment
         public ActionResult CreateDepartment()
         {
+            ViewData["Message"] = null;
             return View();
         }
 
@@ -62,8 +64,17 @@ namespace ProfessorCourse_BestFit.Controllers
              */
             var newdepartment = new Department();
             newdepartment.Dep_Name = department.Dep_Name;
-            _context.my_InsertUpdateDelete_Department(null, newdepartment.Dep_Name, 1);
-            _context.SaveChanges();
+            _context.my_InsertUpdateDelete_Department(null, newdepartment.Dep_Name, null, 1);
+            //To Display message to the user.
+            try
+            {
+                _context.SaveChanges();
+                ViewData["Message"] = "Done";
+            }
+            catch
+            {
+                ViewData["Message"] = "Fail";
+            }
 
             return View("CreateDepartment");
         }
@@ -102,9 +113,9 @@ namespace ProfessorCourse_BestFit.Controllers
             var d = _context.Departments.Where(s => s.Dep_Id == id).FirstOrDefault();
             var newdepartment = new Department();
             newdepartment.Dep_Name= department.Dep_Name;
-            _context.my_InsertUpdateDelete_Department(department.Dep_Id, newdepartment.Dep_Name,2);
+            _context.my_InsertUpdateDelete_Department(department.Dep_Id, newdepartment.Dep_Name, null, 2);
             _context.SaveChanges();
-            return RedirectToAction("ListDepartment");
+            return RedirectToAction("ViewDepartmentsInfo", new { id = id });
         }
     }
 }
