@@ -136,6 +136,7 @@
     <Compile Include="CustomSecurity\CustomAuthentication.cs" />
     <Compile Include="CustomSecurity\CustomAuthorization.cs" />
     <Compile Include="DAL\Department_DAL.cs" />
+    <Compile Include="DAL\Program_DAL.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -259,10 +260,11 @@
     <Content Include="Views\Department\CreateDepartment.cshtml" />
     <Content Include="Views\Department\ViewDepartmentsInfo.cshtml" />
     <Content Include="Views\Department\EditDepartment.cshtml" />
+    <Content Include="Views\Program\ListPrograms.cshtml" />
+    <Content Include="Views\Program\CreateProgram.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Program\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
