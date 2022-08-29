@@ -13,10 +13,10 @@ namespace ProfessorCourse_BestFit.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class ApplicationDbContext : DbContext
+    public partial class ProfessorCourseBestFitEntities : DbContext
     {
-        public ApplicationDbContext()
-            : base("name=ApplicationDbContext")
+        public ProfessorCourseBestFitEntities()
+            : base("name=ProfessorCourseBestFitEntities")
         {
         }
     
@@ -25,7 +25,16 @@ namespace ProfessorCourse_BestFit.Models
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<Course> Courses { get; set; }
+        public virtual DbSet<CourseKeyword> CourseKeywords { get; set; }
+        public virtual DbSet<Department> Departments { get; set; }
+        public virtual DbSet<Keyword> Keywords { get; set; }
+        public virtual DbSet<Permission> Permissions { get; set; }
+        public virtual DbSet<Program> Programs { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
+        public virtual DbSet<UserCourse> UserCourses { get; set; }
+        public virtual DbSet<UserDepartment> UserDepartments { get; set; }
+        public virtual DbSet<UserKeyword> UserKeywords { get; set; }
         public virtual DbSet<UserRole> UserRoles { get; set; }
         public virtual DbSet<User> Users { get; set; }
     }
