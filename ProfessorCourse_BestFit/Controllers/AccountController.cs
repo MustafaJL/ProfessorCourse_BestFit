@@ -1,4 +1,5 @@
 ﻿using ProfessorCourse_BestFit.CustomSecurity;
+using ProfessorCourse_BestFit.DAL;
 using ProfessorCourse_BestFit.Helper;
 using ProfessorCourse_BestFit.Models;
 using ProfessorCourse_BestFit.Models.ViewModels;
@@ -13,11 +14,12 @@ namespace ProfessorCourse_BestFit.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly ProfessorCourseBestFitEntities _context;
+        User_DAL userDAL = new User_DAL();
 
         public AccountController()
         {
-            _context = new ApplicationDbContext();
+            _context = new ProfessorCourseBestFitEntities();
         }
 
         public ActionResult Login()
@@ -58,9 +60,10 @@ namespace ProfessorCourse_BestFit.Controllers
                 ModelState.AddModelError("", "Email or Password is not valid");
                 return View(model);
             }
-
-            // split data from user
-            string Roles = "Admin";
+            // get Id of user
+            int UserId = dbObj.Uid;
+            // get roles for this user
+            string Roles = userDAL.UserRoleNames(UserId);
 
             // check if user select remember me option
             double timeOut = model.RememberMe ? 43200 : 30; // 525600 min = 1  year

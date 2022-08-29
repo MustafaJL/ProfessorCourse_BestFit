@@ -1,0 +1,1052 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="ProfessorCourseBestFitModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Course">
+          <Key>
+            <PropertyRef Name="CId" />
+          </Key>
+          <Property Name="CId" Type="int" Nullable="false" />
+          <Property Name="Code" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime" Nullable="false" />
+          <Property Name="Duration" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CourseKeyword">
+          <Key>
+            <PropertyRef Name="Keyword_Id" />
+            <PropertyRef Name="Course_Id" />
+          </Key>
+          <Property Name="Keyword_Id" Type="int" Nullable="false" />
+          <Property Name="Course_Id" Type="int" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CourseProgram">
+          <Key>
+            <PropertyRef Name="Prog_Id" />
+            <PropertyRef Name="Course_Id" />
+          </Key>
+          <Property Name="Prog_Id" Type="int" Nullable="false" />
+          <Property Name="Course_Id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Department">
+          <Key>
+            <PropertyRef Name="Dep_Id" />
+          </Key>
+          <Property Name="Dep_Id" Type="int" Nullable="false" />
+          <Property Name="Dep_Name" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="User_Id" Type="int" />
+        </EntityType>
+        <EntityType Name="Keywords">
+          <Key>
+            <PropertyRef Name="KId" />
+          </Key>
+          <Property Name="KId" Type="int" Nullable="false" />
+          <Property Name="KName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Permission">
+          <Key>
+            <PropertyRef Name="PId" />
+          </Key>
+          <Property Name="PId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PName" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Program">
+          <Key>
+            <PropertyRef Name="PId" />
+          </Key>
+          <Property Name="PId" Type="int" Nullable="false" />
+          <Property Name="Dep_Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="150" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RolePermission">
+          <Key>
+            <PropertyRef Name="RId" />
+            <PropertyRef Name="PId" />
+          </Key>
+          <Property Name="RId" Type="int" Nullable="false" />
+          <Property Name="PId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Roles">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoleName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="deleted" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserCourse">
+          <Key>
+            <PropertyRef Name="User_Id" />
+            <PropertyRef Name="Course_Id" />
+          </Key>
+          <Property Name="User_Id" Type="int" Nullable="false" />
+          <Property Name="Course_Id" Type="int" Nullable="false" />
+          <Property Name="StartDate" Type="datetime" Nullable="false" />
+          <Property Name="EndDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserDepartment">
+          <Key>
+            <PropertyRef Name="Dep_Id" />
+            <PropertyRef Name="User_ID" />
+          </Key>
+          <Property Name="Dep_Id" Type="int" Nullable="false" />
+          <Property Name="User_ID" Type="int" Nullable="false" />
+          <Property Name="StartDate" Type="datetime" Nullable="false" />
+          <Property Name="EndDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="UserKeyword">
+          <Key>
+            <PropertyRef Name="User_Id" />
+            <PropertyRef Name="Keyword_Id" />
+          </Key>
+          <Property Name="User_Id" Type="int" Nullable="false" />
+          <Property Name="Keyword_Id" Type="int" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserPermission">
+          <Key>
+            <PropertyRef Name="PId" />
+            <PropertyRef Name="UId" />
+          </Key>
+          <Property Name="PId" Type="int" Nullable="false" />
+          <Property Name="UId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserRoles">
+          <Key>
+            <PropertyRef Name="RoleId" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="RoleId" Type="int" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="Uid" />
+          </Key>
+          <Property Name="Uid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="LastName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="PasswordSalt" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime" Nullable="false" />
+          <Property Name="DateOfBirth" Type="date" />
+          <Property Name="deleted" Type="bit" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Course">
+          <End Role="Course" Type="Self.Course" Multiplicity="1" />
+          <End Role="CourseKeyword" Type="Self.CourseKeyword" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Course">
+              <PropertyRef Name="CId" />
+            </Principal>
+            <Dependent Role="CourseKeyword">
+              <PropertyRef Name="Course_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CourseProgram">
+          <End Role="Course" Type="Self.Course" Multiplicity="1" />
+          <End Role="CourseProgram" Type="Self.CourseProgram" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Course">
+              <PropertyRef Name="CId" />
+            </Principal>
+            <Dependent Role="CourseProgram">
+              <PropertyRef Name="Course_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CourseUser">
+          <End Role="Course" Type="Self.Course" Multiplicity="1" />
+          <End Role="UserCourse" Type="Self.UserCourse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Course">
+              <PropertyRef Name="CId" />
+            </Principal>
+            <Dependent Role="UserCourse">
+              <PropertyRef Name="Course_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Department_Manager">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Department" Type="Self.Department" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Uid" />
+            </Principal>
+            <Dependent Role="Department">
+              <PropertyRef Name="User_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DepartmentUser">
+          <End Role="Department" Type="Self.Department" Multiplicity="1" />
+          <End Role="UserDepartment" Type="Self.UserDepartment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="Dep_Id" />
+            </Principal>
+            <Dependent Role="UserDepartment">
+              <PropertyRef Name="Dep_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Keyword">
+          <End Role="Keywords" Type="Self.Keywords" Multiplicity="1" />
+          <End Role="CourseKeyword" Type="Self.CourseKeyword" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Keywords">
+              <PropertyRef Name="KId" />
+            </Principal>
+            <Dependent Role="CourseKeyword">
+              <PropertyRef Name="Keyword_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_KeywordKeywords">
+          <End Role="Keywords" Type="Self.Keywords" Multiplicity="1" />
+          <End Role="UserKeyword" Type="Self.UserKeyword" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Keywords">
+              <PropertyRef Name="KId" />
+            </Principal>
+            <Dependent Role="UserKeyword">
+              <PropertyRef Name="Keyword_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Permission">
+          <End Role="Permission" Type="Self.Permission" Multiplicity="1" />
+          <End Role="RolePermission" Type="Self.RolePermission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Permission">
+              <PropertyRef Name="PId" />
+            </Principal>
+            <Dependent Role="RolePermission">
+              <PropertyRef Name="PId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PermissionsUser">
+          <End Role="Permission" Type="Self.Permission" Multiplicity="1" />
+          <End Role="UserPermission" Type="Self.UserPermission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Permission">
+              <PropertyRef Name="PId" />
+            </Principal>
+            <Dependent Role="UserPermission">
+              <PropertyRef Name="PId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProgramCourse">
+          <End Role="Program" Type="Self.Program" Multiplicity="1" />
+          <End Role="CourseProgram" Type="Self.CourseProgram" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Program">
+              <PropertyRef Name="PId" />
+            </Principal>
+            <Dependent Role="CourseProgram">
+              <PropertyRef Name="Prog_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Role">
+          <End Role="Roles" Type="Self.Roles" Multiplicity="1" />
+          <End Role="RolePermission" Type="Self.RolePermission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="RolePermission">
+              <PropertyRef Name="RId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RolesUser">
+          <End Role="Roles" Type="Self.Roles" Multiplicity="1" />
+          <End Role="UserRoles" Type="Self.UserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="UserRoles">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserCourse">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="UserCourse" Type="Self.UserCourse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Uid" />
+            </Principal>
+            <Dependent Role="UserCourse">
+              <PropertyRef Name="User_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserDepartment">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="UserDepartment" Type="Self.UserDepartment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Uid" />
+            </Principal>
+            <Dependent Role="UserDepartment">
+              <PropertyRef Name="User_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserKeyword">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="UserKeyword" Type="Self.UserKeyword" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Uid" />
+            </Principal>
+            <Dependent Role="UserKeyword">
+              <PropertyRef Name="User_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserPermission">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="UserPermission" Type="Self.UserPermission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Uid" />
+            </Principal>
+            <Dependent Role="UserPermission">
+              <PropertyRef Name="UId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserRoles">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="UserRoles" Type="Self.UserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Uid" />
+            </Principal>
+            <Dependent Role="UserRoles">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="my_InsertUpdateDelete_Course" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="CourseID" Type="int" Mode="In" />
+          <Parameter Name="CourseCode" Type="nvarchar" Mode="In" />
+          <Parameter Name="CourseName" Type="nvarchar" Mode="In" />
+          <Parameter Name="CourseDateStart" Type="date" Mode="In" />
+          <Parameter Name="CourseDuration" Type="int" Mode="In" />
+          <Parameter Name="Query" Type="int" Mode="In" />
+        </Function>
+        <Function Name="my_InsertUpdateDelete_Department" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="DepartmentID" Type="int" Mode="In" />
+          <Parameter Name="DepartmentName" Type="nvarchar" Mode="In" />
+          <Parameter Name="UserID" Type="int" Mode="In" />
+          <Parameter Name="Query" Type="int" Mode="In" />
+        </Function>
+        <Function Name="my_InsertUpdateDelete_Program" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ProgramID" Type="int" Mode="In" />
+          <Parameter Name="ProgramName" Type="nvarchar" Mode="In" />
+          <Parameter Name="DepartmentID" Type="int" Mode="In" />
+          <Parameter Name="Query" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spGetUserRoles" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="spGetUserRolesById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserId" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="ProfessorCourseBestFitModelStoreContainer">
+          <EntitySet Name="Course" EntityType="Self.Course" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CourseKeyword" EntityType="Self.CourseKeyword" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CourseProgram" EntityType="Self.CourseProgram" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Department" EntityType="Self.Department" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Keywords" EntityType="Self.Keywords" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Permission" EntityType="Self.Permission" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Program" EntityType="Self.Program" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RolePermission" EntityType="Self.RolePermission" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserCourse" EntityType="Self.UserCourse" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserDepartment" EntityType="Self.UserDepartment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserKeyword" EntityType="Self.UserKeyword" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserPermission" EntityType="Self.UserPermission" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserRoles" EntityType="Self.UserRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Course" Association="Self.FK_Course">
+            <End Role="Course" EntitySet="Course" />
+            <End Role="CourseKeyword" EntitySet="CourseKeyword" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CourseProgram" Association="Self.FK_CourseProgram">
+            <End Role="Course" EntitySet="Course" />
+            <End Role="CourseProgram" EntitySet="CourseProgram" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CourseUser" Association="Self.FK_CourseUser">
+            <End Role="Course" EntitySet="Course" />
+            <End Role="UserCourse" EntitySet="UserCourse" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Department_Manager" Association="Self.FK_Department_Manager">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Department" EntitySet="Department" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DepartmentUser" Association="Self.FK_DepartmentUser">
+            <End Role="Department" EntitySet="Department" />
+            <End Role="UserDepartment" EntitySet="UserDepartment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Keyword" Association="Self.FK_Keyword">
+            <End Role="Keywords" EntitySet="Keywords" />
+            <End Role="CourseKeyword" EntitySet="CourseKeyword" />
+          </AssociationSet>
+          <AssociationSet Name="FK_KeywordKeywords" Association="Self.FK_KeywordKeywords">
+            <End Role="Keywords" EntitySet="Keywords" />
+            <End Role="UserKeyword" EntitySet="UserKeyword" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Permission" Association="Self.FK_Permission">
+            <End Role="Permission" EntitySet="Permission" />
+            <End Role="RolePermission" EntitySet="RolePermission" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PermissionsUser" Association="Self.FK_PermissionsUser">
+            <End Role="Permission" EntitySet="Permission" />
+            <End Role="UserPermission" EntitySet="UserPermission" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProgramCourse" Association="Self.FK_ProgramCourse">
+            <End Role="Program" EntitySet="Program" />
+            <End Role="CourseProgram" EntitySet="CourseProgram" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Role" Association="Self.FK_Role">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="RolePermission" EntitySet="RolePermission" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RolesUser" Association="Self.FK_RolesUser">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="UserRoles" EntitySet="UserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserCourse" Association="Self.FK_UserCourse">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="UserCourse" EntitySet="UserCourse" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserDepartment" Association="Self.FK_UserDepartment">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="UserDepartment" EntitySet="UserDepartment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserKeyword" Association="Self.FK_UserKeyword">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="UserKeyword" EntitySet="UserKeyword" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserPermission" Association="Self.FK_UserPermission">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="UserPermission" EntitySet="UserPermission" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserRoles" Association="Self.FK_UserRoles">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="UserRoles" EntitySet="UserRoles" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ProfessorCourseBestFitModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Course">
+          <Key>
+            <PropertyRef Name="CId" />
+          </Key>
+          <Property Name="CId" Type="Int32" Nullable="false" />
+          <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Duration" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="CourseKeywords" Relationship="Self.FK_Course" FromRole="Course" ToRole="CourseKeyword" />
+          <NavigationProperty Name="UserCourses" Relationship="Self.FK_CourseUser" FromRole="Course" ToRole="UserCourse" />
+          <NavigationProperty Name="Programs" Relationship="Self.CourseProgram" FromRole="Course" ToRole="Program" />
+        </EntityType>
+        <EntityType Name="CourseKeyword">
+          <Key>
+            <PropertyRef Name="Keyword_Id" />
+            <PropertyRef Name="Course_Id" />
+          </Key>
+          <Property Name="Keyword_Id" Type="Int32" Nullable="false" />
+          <Property Name="Course_Id" Type="Int32" Nullable="false" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Course" Relationship="Self.FK_Course" FromRole="CourseKeyword" ToRole="Course" />
+          <NavigationProperty Name="Keyword" Relationship="Self.FK_Keyword" FromRole="CourseKeyword" ToRole="Keywords" />
+        </EntityType>
+        <EntityType Name="Department">
+          <Key>
+            <PropertyRef Name="Dep_Id" />
+          </Key>
+          <Property Name="Dep_Id" Type="Int32" Nullable="false" />
+          <Property Name="Dep_Name" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="User_Id" Type="Int32" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Department_Manager" FromRole="Department" ToRole="Users" />
+          <NavigationProperty Name="UserDepartments" Relationship="Self.FK_DepartmentUser" FromRole="Department" ToRole="UserDepartment" />
+        </EntityType>
+        <EntityType Name="Keyword">
+          <Key>
+            <PropertyRef Name="KId" />
+          </Key>
+          <Property Name="KId" Type="Int32" Nullable="false" />
+          <Property Name="KName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="CourseKeywords" Relationship="Self.FK_Keyword" FromRole="Keywords" ToRole="CourseKeyword" />
+          <NavigationProperty Name="UserKeywords" Relationship="Self.FK_KeywordKeywords" FromRole="Keywords" ToRole="UserKeyword" />
+        </EntityType>
+        <EntityType Name="Permission">
+          <Key>
+            <PropertyRef Name="PId" />
+          </Key>
+          <Property Name="PId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Roles" Relationship="Self.RolePermission" FromRole="Permission" ToRole="Roles" />
+          <NavigationProperty Name="Users" Relationship="Self.UserPermission" FromRole="Permission" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Program">
+          <Key>
+            <PropertyRef Name="PId" />
+          </Key>
+          <Property Name="PId" Type="Int32" Nullable="false" />
+          <Property Name="Dep_Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Courses" Relationship="Self.CourseProgram" FromRole="Program" ToRole="Course" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="deleted" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="UserRoles" Relationship="Self.FK_RolesUser" FromRole="Roles" ToRole="UserRoles" />
+          <NavigationProperty Name="Permissions" Relationship="Self.RolePermission" FromRole="Roles" ToRole="Permission" />
+        </EntityType>
+        <EntityType Name="UserCourse">
+          <Key>
+            <PropertyRef Name="User_Id" />
+            <PropertyRef Name="Course_Id" />
+          </Key>
+          <Property Name="User_Id" Type="Int32" Nullable="false" />
+          <Property Name="Course_Id" Type="Int32" Nullable="false" />
+          <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EndDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Course" Relationship="Self.FK_CourseUser" FromRole="UserCourse" ToRole="Course" />
+          <NavigationProperty Name="User" Relationship="Self.FK_UserCourse" FromRole="UserCourse" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="UserDepartment">
+          <Key>
+            <PropertyRef Name="Dep_Id" />
+            <PropertyRef Name="User_ID" />
+          </Key>
+          <Property Name="Dep_Id" Type="Int32" Nullable="false" />
+          <Property Name="User_ID" Type="Int32" Nullable="false" />
+          <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EndDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Department" Relationship="Self.FK_DepartmentUser" FromRole="UserDepartment" ToRole="Department" />
+          <NavigationProperty Name="User" Relationship="Self.FK_UserDepartment" FromRole="UserDepartment" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="UserKeyword">
+          <Key>
+            <PropertyRef Name="User_Id" />
+            <PropertyRef Name="Keyword_Id" />
+          </Key>
+          <Property Name="User_Id" Type="Int32" Nullable="false" />
+          <Property Name="Keyword_Id" Type="Int32" Nullable="false" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Keyword" Relationship="Self.FK_KeywordKeywords" FromRole="UserKeyword" ToRole="Keywords" />
+          <NavigationProperty Name="User" Relationship="Self.FK_UserKeyword" FromRole="UserKeyword" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="UserRole">
+          <Key>
+            <PropertyRef Name="RoleId" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="RoleId" Type="Int32" Nullable="false" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Role" Relationship="Self.FK_RolesUser" FromRole="UserRoles" ToRole="Roles" />
+          <NavigationProperty Name="User" Relationship="Self.FK_UserRoles" FromRole="UserRoles" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Uid" />
+          </Key>
+          <Property Name="Uid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PasswordSalt" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DateOfBirth" Type="DateTime" Precision="0" />
+          <Property Name="deleted" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Departments" Relationship="Self.FK_Department_Manager" FromRole="Users" ToRole="Department" />
+          <NavigationProperty Name="UserCourses" Relationship="Self.FK_UserCourse" FromRole="Users" ToRole="UserCourse" />
+          <NavigationProperty Name="UserDepartments" Relationship="Self.FK_UserDepartment" FromRole="Users" ToRole="UserDepartment" />
+          <NavigationProperty Name="UserKeywords" Relationship="Self.FK_UserKeyword" FromRole="Users" ToRole="UserKeyword" />
+          <NavigationProperty Name="UserRoles" Relationship="Self.FK_UserRoles" FromRole="Users" ToRole="UserRoles" />
+          <NavigationProperty Name="Permissions" Relationship="Self.UserPermission" FromRole="Users" ToRole="Permission" />
+        </EntityType>
+        <Association Name="FK_Course">
+          <End Role="Course" Type="Self.Course" Multiplicity="1" />
+          <End Role="CourseKeyword" Type="Self.CourseKeyword" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Course">
+              <PropertyRef Name="CId" />
+            </Principal>
+            <Dependent Role="CourseKeyword">
+              <PropertyRef Name="Course_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CourseUser">
+          <End Role="Course" Type="Self.Course" Multiplicity="1" />
+          <End Role="UserCourse" Type="Self.UserCourse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Course">
+              <PropertyRef Name="CId" />
+            </Principal>
+            <Dependent Role="UserCourse">
+              <PropertyRef Name="Course_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Keyword">
+          <End Role="Keywords" Type="Self.Keyword" Multiplicity="1" />
+          <End Role="CourseKeyword" Type="Self.CourseKeyword" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Keywords">
+              <PropertyRef Name="KId" />
+            </Principal>
+            <Dependent Role="CourseKeyword">
+              <PropertyRef Name="Keyword_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Department_Manager">
+          <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Department" Type="Self.Department" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Uid" />
+            </Principal>
+            <Dependent Role="Department">
+              <PropertyRef Name="User_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DepartmentUser">
+          <End Role="Department" Type="Self.Department" Multiplicity="1" />
+          <End Role="UserDepartment" Type="Self.UserDepartment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="Dep_Id" />
+            </Principal>
+            <Dependent Role="UserDepartment">
+              <PropertyRef Name="Dep_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_KeywordKeywords">
+          <End Role="Keywords" Type="Self.Keyword" Multiplicity="1" />
+          <End Role="UserKeyword" Type="Self.UserKeyword" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Keywords">
+              <PropertyRef Name="KId" />
+            </Principal>
+            <Dependent Role="UserKeyword">
+              <PropertyRef Name="Keyword_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RolesUser">
+          <End Role="Roles" Type="Self.Role" Multiplicity="1" />
+          <End Role="UserRoles" Type="Self.UserRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="UserRoles">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserCourse">
+          <End Role="Users" Type="Self.User" Multiplicity="1" />
+          <End Role="UserCourse" Type="Self.UserCourse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Uid" />
+            </Principal>
+            <Dependent Role="UserCourse">
+              <PropertyRef Name="User_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserDepartment">
+          <End Role="Users" Type="Self.User" Multiplicity="1" />
+          <End Role="UserDepartment" Type="Self.UserDepartment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Uid" />
+            </Principal>
+            <Dependent Role="UserDepartment">
+              <PropertyRef Name="User_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserKeyword">
+          <End Role="Users" Type="Self.User" Multiplicity="1" />
+          <End Role="UserKeyword" Type="Self.UserKeyword" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Uid" />
+            </Principal>
+            <Dependent Role="UserKeyword">
+              <PropertyRef Name="User_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserRoles">
+          <End Role="Users" Type="Self.User" Multiplicity="1" />
+          <End Role="UserRoles" Type="Self.UserRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Uid" />
+            </Principal>
+            <Dependent Role="UserRoles">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="CourseProgram">
+          <End Role="Course" Type="Self.Course" Multiplicity="*" />
+          <End Role="Program" Type="Self.Program" Multiplicity="*" />
+        </Association>
+        <Association Name="RolePermission">
+          <End Role="Permission" Type="Self.Permission" Multiplicity="*" />
+          <End Role="Roles" Type="Self.Role" Multiplicity="*" />
+        </Association>
+        <Association Name="UserPermission">
+          <End Role="Permission" Type="Self.Permission" Multiplicity="*" />
+          <End Role="Users" Type="Self.User" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="ProfessorCourseBestFitEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Courses" EntityType="Self.Course" />
+          <EntitySet Name="CourseKeywords" EntityType="Self.CourseKeyword" />
+          <EntitySet Name="Departments" EntityType="Self.Department" />
+          <EntitySet Name="Keywords" EntityType="Self.Keyword" />
+          <EntitySet Name="Permissions" EntityType="Self.Permission" />
+          <EntitySet Name="Programs" EntityType="Self.Program" />
+          <EntitySet Name="Roles" EntityType="Self.Role" />
+          <EntitySet Name="UserCourses" EntityType="Self.UserCourse" />
+          <EntitySet Name="UserDepartments" EntityType="Self.UserDepartment" />
+          <EntitySet Name="UserKeywords" EntityType="Self.UserKeyword" />
+          <EntitySet Name="UserRoles" EntityType="Self.UserRole" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <AssociationSet Name="FK_Course" Association="Self.FK_Course">
+            <End Role="Course" EntitySet="Courses" />
+            <End Role="CourseKeyword" EntitySet="CourseKeywords" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CourseUser" Association="Self.FK_CourseUser">
+            <End Role="Course" EntitySet="Courses" />
+            <End Role="UserCourse" EntitySet="UserCourses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Keyword" Association="Self.FK_Keyword">
+            <End Role="Keywords" EntitySet="Keywords" />
+            <End Role="CourseKeyword" EntitySet="CourseKeywords" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Department_Manager" Association="Self.FK_Department_Manager">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Department" EntitySet="Departments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DepartmentUser" Association="Self.FK_DepartmentUser">
+            <End Role="Department" EntitySet="Departments" />
+            <End Role="UserDepartment" EntitySet="UserDepartments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_KeywordKeywords" Association="Self.FK_KeywordKeywords">
+            <End Role="Keywords" EntitySet="Keywords" />
+            <End Role="UserKeyword" EntitySet="UserKeywords" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RolesUser" Association="Self.FK_RolesUser">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="UserRoles" EntitySet="UserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserCourse" Association="Self.FK_UserCourse">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="UserCourse" EntitySet="UserCourses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserDepartment" Association="Self.FK_UserDepartment">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="UserDepartment" EntitySet="UserDepartments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserKeyword" Association="Self.FK_UserKeyword">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="UserKeyword" EntitySet="UserKeywords" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserRoles" Association="Self.FK_UserRoles">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="UserRoles" EntitySet="UserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="CourseProgram" Association="Self.CourseProgram">
+            <End Role="Course" EntitySet="Courses" />
+            <End Role="Program" EntitySet="Programs" />
+          </AssociationSet>
+          <AssociationSet Name="RolePermission" Association="Self.RolePermission">
+            <End Role="Permission" EntitySet="Permissions" />
+            <End Role="Roles" EntitySet="Roles" />
+          </AssociationSet>
+          <AssociationSet Name="UserPermission" Association="Self.UserPermission">
+            <End Role="Permission" EntitySet="Permissions" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          <FunctionImport Name="spGetUserRoles" ReturnType="Collection(ProfessorCourseBestFitModel.spGetUserRoles_Result)" />
+          <FunctionImport Name="spGetUserRolesById" ReturnType="Collection(ProfessorCourseBestFitModel.spGetUserRolesById_Result)">
+          <Parameter Name="UserId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="my_InsertUpdateDelete_Course" ReturnType="Collection(String)">
+            <Parameter Name="CourseID" Mode="In" Type="Int32" />
+            <Parameter Name="CourseCode" Mode="In" Type="String" />
+            <Parameter Name="CourseName" Mode="In" Type="String" />
+            <Parameter Name="CourseDateStart" Mode="In" Type="DateTime" />
+            <Parameter Name="CourseDuration" Mode="In" Type="Int32" />
+            <Parameter Name="Query" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="my_InsertUpdateDelete_Department" ReturnType="Collection(String)">
+            <Parameter Name="DepartmentID" Mode="In" Type="Int32" />
+            <Parameter Name="DepartmentName" Mode="In" Type="String" />
+            <Parameter Name="UserID" Mode="In" Type="Int32" />
+            <Parameter Name="Query" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="my_InsertUpdateDelete_Program" ReturnType="Collection(String)">
+            <Parameter Name="ProgramID" Mode="In" Type="Int32" />
+            <Parameter Name="ProgramName" Mode="In" Type="String" />
+            <Parameter Name="DepartmentID" Mode="In" Type="Int32" />
+            <Parameter Name="Query" Mode="In" Type="Int32" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="spGetUserRoles_Result">
+          <Property Type="Int32" Name="Uid" Nullable="false" />
+          <Property Type="String" Name="FirstName" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="LastName" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Email" Nullable="false" MaxLength="150" />
+          <Property Type="DateTime" Name="CreatedOn" Nullable="false" Precision="23" />
+          <Property Type="DateTime" Name="DateOfBirth" Nullable="true" />
+          <Property Type="String" Name="RoleName" Nullable="false" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="spGetUserRolesById_Result">
+          <Property Type="Int32" Name="Uid" Nullable="false" />
+          <Property Type="String" Name="FirstName" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="LastName" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Email" Nullable="false" MaxLength="150" />
+          <Property Type="DateTime" Name="CreatedOn" Nullable="false" Precision="23" />
+          <Property Type="DateTime" Name="DateOfBirth" Nullable="true" />
+          <Property Type="String" Name="RoleName" Nullable="false" MaxLength="50" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ProfessorCourseBestFitModelStoreContainer" CdmEntityContainer="ProfessorCourseBestFitEntities">
+          <EntitySetMapping Name="Courses">
+            <EntityTypeMapping TypeName="ProfessorCourseBestFitModel.Course">
+              <MappingFragment StoreEntitySet="Course">
+                <ScalarProperty Name="CId" ColumnName="CId" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="CName" ColumnName="CName" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="Duration" ColumnName="Duration" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CourseKeywords">
+            <EntityTypeMapping TypeName="ProfessorCourseBestFitModel.CourseKeyword">
+              <MappingFragment StoreEntitySet="CourseKeyword">
+                <ScalarProperty Name="Keyword_Id" ColumnName="Keyword_Id" />
+                <ScalarProperty Name="Course_Id" ColumnName="Course_Id" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Departments">
+            <EntityTypeMapping TypeName="ProfessorCourseBestFitModel.Department">
+              <MappingFragment StoreEntitySet="Department">
+                <ScalarProperty Name="Dep_Id" ColumnName="Dep_Id" />
+                <ScalarProperty Name="Dep_Name" ColumnName="Dep_Name" />
+                <ScalarProperty Name="User_Id" ColumnName="User_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Keywords">
+            <EntityTypeMapping TypeName="ProfessorCourseBestFitModel.Keyword">
+              <MappingFragment StoreEntitySet="Keywords">
+                <ScalarProperty Name="KId" ColumnName="KId" />
+                <ScalarProperty Name="KName" ColumnName="KName" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Permissions">
+            <EntityTypeMapping TypeName="ProfessorCourseBestFitModel.Permission">
+              <MappingFragment StoreEntitySet="Permission">
+                <ScalarProperty Name="PId" ColumnName="PId" />
+                <ScalarProperty Name="PName" ColumnName="PName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Programs">
+            <EntityTypeMapping TypeName="ProfessorCourseBestFitModel.Program">
+              <MappingFragment StoreEntitySet="Program">
+                <ScalarProperty Name="PId" ColumnName="PId" />
+                <ScalarProperty Name="Dep_Id" ColumnName="Dep_Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="ProfessorCourseBestFitModel.Role">
+              <MappingFragment StoreEntitySet="Roles">
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+                <ScalarProperty Name="deleted" ColumnName="deleted" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserCourses">
+            <EntityTypeMapping TypeName="ProfessorCourseBestFitModel.UserCourse">
+              <MappingFragment StoreEntitySet="UserCourse">
+                <ScalarProperty Name="User_Id" ColumnName="User_Id" />
+                <ScalarProperty Name="Course_Id" ColumnName="Course_Id" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserDepartments">
+            <EntityTypeMapping TypeName="ProfessorCourseBestFitModel.UserDepartment">
+              <MappingFragment StoreEntitySet="UserDepartment">
+                <ScalarProperty Name="Dep_Id" ColumnName="Dep_Id" />
+                <ScalarProperty Name="User_ID" ColumnName="User_ID" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserKeywords">
+            <EntityTypeMapping TypeName="ProfessorCourseBestFitModel.UserKeyword">
+              <MappingFragment StoreEntitySet="UserKeyword">
+                <ScalarProperty Name="User_Id" ColumnName="User_Id" />
+                <ScalarProperty Name="Keyword_Id" ColumnName="Keyword_Id" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserRoles">
+            <EntityTypeMapping TypeName="ProfessorCourseBestFitModel.UserRole">
+              <MappingFragment StoreEntitySet="UserRoles">
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="ProfessorCourseBestFitModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="Uid" ColumnName="Uid" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="PasswordSalt" ColumnName="PasswordSalt" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+                <ScalarProperty Name="deleted" ColumnName="deleted" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="CourseProgram" TypeName="ProfessorCourseBestFitModel.CourseProgram" StoreEntitySet="CourseProgram">
+            <EndProperty Name="Course">
+              <ScalarProperty Name="CId" ColumnName="Course_Id" />
+            </EndProperty>
+            <EndProperty Name="Program">
+              <ScalarProperty Name="PId" ColumnName="Prog_Id" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="RolePermission" TypeName="ProfessorCourseBestFitModel.RolePermission" StoreEntitySet="RolePermission">
+            <EndProperty Name="Permission">
+              <ScalarProperty Name="PId" ColumnName="PId" />
+            </EndProperty>
+            <EndProperty Name="Roles">
+              <ScalarProperty Name="RoleId" ColumnName="RId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="UserPermission" TypeName="ProfessorCourseBestFitModel.UserPermission" StoreEntitySet="UserPermission">
+            <EndProperty Name="Permission">
+              <ScalarProperty Name="PId" ColumnName="PId" />
+            </EndProperty>
+            <EndProperty Name="Users">
+              <ScalarProperty Name="Uid" ColumnName="UId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <FunctionImportMapping FunctionImportName="spGetUserRoles" FunctionName="ProfessorCourseBestFitModel.Store.spGetUserRoles">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ProfessorCourseBestFitModel.spGetUserRoles_Result">
+                <ScalarProperty Name="Uid" ColumnName="Uid" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spGetUserRolesById" FunctionName="ProfessorCourseBestFitModel.Store.spGetUserRolesById">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ProfessorCourseBestFitModel.spGetUserRolesById_Result">
+                <ScalarProperty Name="Uid" ColumnName="Uid" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="my_InsertUpdateDelete_Course" FunctionName="ProfessorCourseBestFitModel.Store.my_InsertUpdateDelete_Course" />
+          <FunctionImportMapping FunctionImportName="my_InsertUpdateDelete_Department" FunctionName="ProfessorCourseBestFitModel.Store.my_InsertUpdateDelete_Department" />
+          <FunctionImportMapping FunctionImportName="my_InsertUpdateDelete_Program" FunctionName="ProfessorCourseBestFitModel.Store.my_InsertUpdateDelete_Program" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

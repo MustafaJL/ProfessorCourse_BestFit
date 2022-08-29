@@ -5,12 +5,12 @@ namespace ProfessorCourse_BestFit.Controllers
 {
     public class HomeController : Controller
     {
-        [CustomAuthorization("Admian")]
+        [CustomAuthorization("Professor")]
         public ActionResult Index()
         {
             return View();
         }
-        [CustomAuthorization("Admin,Admian")]
+        [CustomAuthorization("Admin,Professor")]
 
         public ActionResult About()
         {
