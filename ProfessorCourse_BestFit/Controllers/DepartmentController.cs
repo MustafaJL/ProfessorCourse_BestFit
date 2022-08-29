@@ -9,6 +9,7 @@ using System.Web;
 using System.Web.Mvc;
 using ProfessorCourse_BestFit.DAL;
 using ProfessorCourse_BestFit.Models.ViewModels;
+using ProfessorCourse_BestFit.CustomSecurity;
 
 namespace ProfessorCourse_BestFit.Controllers
 {
@@ -50,6 +51,7 @@ namespace ProfessorCourse_BestFit.Controllers
         }
 
         // GET: CreateDepartment
+        [CustomAuthorization("Admin")]
         public ActionResult CreateDepartment()
         {
             ViewData["Message"] = null;
@@ -60,6 +62,8 @@ namespace ProfessorCourse_BestFit.Controllers
 
         // post: CreateDepartment
         [HttpPost]
+        [ValidateAntiForgeryToken]
+        [CustomAuthorization("Admin")]
         public ActionResult CreateDepartment(DepartmentViewModel department)
         {
 
@@ -102,6 +106,7 @@ namespace ProfessorCourse_BestFit.Controllers
         }
 
         // GET: Edit Department
+        [CustomAuthorization("Admin")]
         public ActionResult EditDepartment(int id)
         {
             /*
@@ -117,6 +122,8 @@ namespace ProfessorCourse_BestFit.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
+        [CustomAuthorization("Admin")]
         public ActionResult EditDepartment(DepartmentViewModel department,int id)
         {
             /*
@@ -131,6 +138,7 @@ namespace ProfessorCourse_BestFit.Controllers
         }
 
         // GET: isDeleted Department
+        [CustomAuthorization("Admin")]
         public ActionResult isDeletedDepartment(int id)
         {
             /*
@@ -146,6 +154,8 @@ namespace ProfessorCourse_BestFit.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
+        [CustomAuthorization("Admin")]
         public ActionResult isDeletedDepartment(DepartmentViewModel department, int id)
         {
             /*
@@ -157,6 +167,11 @@ namespace ProfessorCourse_BestFit.Controllers
             //To Display message to the user.
             _context.SaveChanges();
             return RedirectToAction("ListDepartment");
+        }
+
+        public ActionResult Container()
+        {
+         return View();
         }
     }
 }

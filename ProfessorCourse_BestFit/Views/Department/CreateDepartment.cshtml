@@ -43,6 +43,7 @@
             <h4 class="alert-heading">Done</h4>
             <hr>
             <p>The Department created successfully.</p>
+            <button class="btn btn-primary" onclick="location.href='@Url.Action("ListDepartment", "Department")';return false;">Add manager and programs</button>
         </div>
     }
     else if (ViewData["Message"] == "Fail")

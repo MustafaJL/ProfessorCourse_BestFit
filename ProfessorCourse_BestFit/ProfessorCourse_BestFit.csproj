@@ -2046,6 +2046,7 @@
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
     <Content Include="Content\bootstrapMinty.min.css" />
+    <Content Include="Content\DepartmentCalender\style.css" />
     <Content Include="Content\Mystyle.css" />
     <Content Include="Content\DataTables\DataTables-1.12.1\css\dataTables.bootstrap.css" />
     <Content Include="Content\DataTables\DataTables-1.12.1\css\dataTables.bootstrap.min.css" />
@@ -2183,6 +2184,7 @@
     <Content Include="Views\Roles\Index.cshtml" />
     <Content Include="Views\Roles\Upsert.cshtml" />
     <Content Include="Views\Department\AddUserPrograme.cshtml" />
+    <Content Include="Views\Department\Container.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
