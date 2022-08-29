@@ -4,6 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - My ASP.NET Application</title>
+    <link href="~/Content/DataTables/datatables.min.css" rel="stylesheet" />
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
@@ -19,13 +20,16 @@
         @RenderBody()
     </div>
 
-    <footer>
-        @Html.Partial("_FooterPartial")
 
-    </footer>
+    @Html.Partial("_FooterPartial")
+
+
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script src="~/Content/DataTables/datatables.min.js"></script>
     @RenderSection("scripts", required: false)
 </body>
 </html>

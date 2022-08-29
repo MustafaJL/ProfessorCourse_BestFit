@@ -33,6 +33,7 @@ namespace ProfessorCourse_BestFit.Models
         public string PasswordSalt { get; set; }
         public System.DateTime CreatedOn { get; set; }
         public Nullable<System.DateTime> DateOfBirth { get; set; }
+        public bool deleted { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Department> Departments { get; set; }

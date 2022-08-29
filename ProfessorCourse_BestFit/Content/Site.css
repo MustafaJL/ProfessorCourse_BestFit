@@ -5,16 +5,13 @@
 }
 
 .body-content {
-    height: 65vh;
+    height: auto;
   
 }
 
 footer{
     position: absolute;
     bottom: 0px;
-
-    width: 100vw;
-    height: auto
 }
 
 .login-tag {
@@ -45,4 +42,9 @@ footer{
 }
 .bi-linkedin:hover {
     color: #0a66c2;
+}
+
+
+.dropdown-item:hover {
+    background: rgba(0,0,0,.3);
 }

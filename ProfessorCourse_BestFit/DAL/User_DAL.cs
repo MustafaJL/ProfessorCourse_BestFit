@@ -15,8 +15,47 @@ namespace ProfessorCourse_BestFit.DAL
         {
             _connection = new SqlConnection(_Conn);
         }
-        // Get All Containers
-        public List<UserRolesViewModel> GetUserRoles(int? id)
+
+
+        public List<UserRolesViewModel> GetUserRoles()
+        {
+            List<UserRolesViewModel> UserRoles = new List<UserRolesViewModel>();
+
+            // create command
+            SqlCommand command = _connection.CreateCommand();
+            // specify the type of cammand
+            command.CommandType = CommandType.StoredProcedure;
+            // specify name of SP
+            command.CommandText = "spGetUserRoles";
+
+            SqlDataAdapter adapter = new SqlDataAdapter(command);
+            DataTable dtMails = new DataTable();
+
+            // open connection
+            _connection.Open();
+            adapter.Fill(dtMails);
+            // close connection
+            _connection.Close();
+
+            foreach (DataRow dr in dtMails.Rows)
+            {
+                UserRoles.Add(new UserRolesViewModel
+                {
+                    UserId = Convert.ToInt32(dr["Uid"]),
+                    FirstName = Convert.ToString(dr["FirstName"]),
+                    LastName = Convert.ToString(dr["LastName"]),
+                    Email = Convert.ToString(dr["Email"]),
+                    DateOfBirth = Convert.ToString(dr["DateOfBirth"]),
+                    CreatedOn = Convert.ToString(dr["CreatedOn"]),
+                    RoleName = Convert.ToString(dr["RoleName"])
+
+                });
+            }
+
+
+            return UserRoles;
+        }
+        public List<UserRolesViewModel> GetUserRolesById(int? id)
         {
             List<UserRolesViewModel> UserRoles = new List<UserRolesViewModel>();
 
@@ -57,7 +96,7 @@ namespace ProfessorCourse_BestFit.DAL
 
         public string UserRoleNames(int? id)
         {
-            List<UserRolesViewModel> userRolesViewModels = GetUserRoles(id);
+            List<UserRolesViewModel> userRolesViewModels = GetUserRolesById(id);
             string roles = "";
             foreach (UserRolesViewModel item in userRolesViewModels)
             {
