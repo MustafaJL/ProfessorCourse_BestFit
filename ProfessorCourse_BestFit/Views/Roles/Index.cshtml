@@ -1,0 +1,116 @@
+﻿@model List<ProfessorCourse_BestFit.Models.Role>
+
+@{
+    ViewBag.Title = "Index";
+    int id = 1;
+}
+
+<div class="container mt-5">
+    <h2>Roles</h2>
+    <div class="text-end">
+        <p>
+            <a href="/Roles/Upsert" class="btn btn-primary">
+                <i class="bi bi-plus-circle"></i>
+                Create
+            </a>
+        </p>
+    </div>
+
+
+    <div class="d-flex justify-content-start">
+        <table class="table table-striped" id="table-js">
+            <tr>
+                <th>
+                    RoleId
+                </th>
+                <th>
+                    RolesName
+                </th>
+                <th>
+                    Actions
+                </th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr class="js-row">
+                    <td>
+                        @(id++)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.RoleName)
+                    </td>
+                    <td>
+                        <div class="d-flex justify-content-start">
+                            <a class="btn btn-success me-2" href="/Roles/Upsert/@item.RoleId">
+                                <i class="bi bi-pencil"></i>
+
+                            </a>
+
+                            <button class="btn btn-danger js-delete" uid-data="@item.RoleId">
+                                <i class="bi bi-trash"></i>
+
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
+</div>
+
+@section Scripts{
+
+    <script>
+
+
+       
+
+    $(".js-row .js-delete").on("click", function () {
+        let button = $(this);
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+
+                $.ajax({
+                    url: "/Roles/Delete/" +  button.attr("uid-data"),
+                    method: "POST",
+                    success: function () {
+                        Swal.fire(
+                            'Deleted!',
+                            'Your file has been deleted.',
+                            'success'
+                        )
+
+                    button.parents(".js-row").fadeOut("slow");
+
+                    },
+                    error: function () {
+                        Swal.fire(
+                            'Not Deleted!',
+                            'Can Not Delete This User, Check If There is Any Dependencies',
+                            'error'
+                        )
+                    }
+
+                });
+
+
+            }
+        })
+
+
+
+    })
+    </script>
+
+
+}
