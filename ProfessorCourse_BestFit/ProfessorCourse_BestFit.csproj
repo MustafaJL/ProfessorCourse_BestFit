@@ -58,6 +58,9 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.9.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.9\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
@@ -66,6 +69,9 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Http, Version=5.2.9.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.9\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -126,10 +132,12 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\DepartmentController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProfessorController.cs" />
+    <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="CustomSecurity\CustomAuthentication.cs" />
     <Compile Include="CustomSecurity\CustomAuthorization.cs" />
     <Compile Include="DAL\Department_DAL.cs" />
@@ -196,7 +204,11 @@
     <Compile Include="Models\UserRole.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+<<<<<<< HEAD
     <Compile Include="Models\ViewModels\LoginViewModel.cs" />
+=======
+    <Compile Include="Models\ViewModels\RolesViewModel.cs" />
+>>>>>>> 2a9236c6024b0ba3809f75b77ec0bcdd3ce24c49
     <Compile Include="Models\ViewModels\UserRolesViewModel.cs" />
     <Compile Include="Models\ViewModels\UserViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -2033,7 +2045,55 @@
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
     <Content Include="Content\bootstrapMinty.min.css" />
+<<<<<<< HEAD
     <Content Include="Content\Mystyle.css" />
+=======
+    <Content Include="Content\DataTables\DataTables-1.12.1\css\dataTables.bootstrap.css" />
+    <Content Include="Content\DataTables\DataTables-1.12.1\css\dataTables.bootstrap.min.css" />
+    <Content Include="Content\DataTables\DataTables-1.12.1\css\dataTables.bootstrap4.css" />
+    <Content Include="Content\DataTables\DataTables-1.12.1\css\dataTables.bootstrap4.min.css" />
+    <Content Include="Content\DataTables\DataTables-1.12.1\css\dataTables.bootstrap5.css" />
+    <Content Include="Content\DataTables\DataTables-1.12.1\css\dataTables.bootstrap5.min.css" />
+    <Content Include="Content\DataTables\DataTables-1.12.1\css\dataTables.bulma.css" />
+    <Content Include="Content\DataTables\DataTables-1.12.1\css\dataTables.bulma.min.css" />
+    <Content Include="Content\DataTables\DataTables-1.12.1\css\dataTables.dataTables.css" />
+    <Content Include="Content\DataTables\DataTables-1.12.1\css\dataTables.dataTables.min.css" />
+    <Content Include="Content\DataTables\DataTables-1.12.1\css\dataTables.foundation.css" />
+    <Content Include="Content\DataTables\DataTables-1.12.1\css\dataTables.foundation.min.css" />
+    <Content Include="Content\DataTables\DataTables-1.12.1\css\dataTables.jqueryui.css" />
+    <Content Include="Content\DataTables\DataTables-1.12.1\css\dataTables.jqueryui.min.css" />
+    <Content Include="Content\DataTables\DataTables-1.12.1\css\dataTables.semanticui.css" />
+    <Content Include="Content\DataTables\DataTables-1.12.1\css\dataTables.semanticui.min.css" />
+    <Content Include="Content\DataTables\DataTables-1.12.1\css\jquery.dataTables.css" />
+    <Content Include="Content\DataTables\DataTables-1.12.1\css\jquery.dataTables.min.css" />
+    <Content Include="Content\DataTables\DataTables-1.12.1\images\sort_asc.png" />
+    <Content Include="Content\DataTables\DataTables-1.12.1\images\sort_asc_disabled.png" />
+    <Content Include="Content\DataTables\DataTables-1.12.1\images\sort_both.png" />
+    <Content Include="Content\DataTables\DataTables-1.12.1\images\sort_desc.png" />
+    <Content Include="Content\DataTables\DataTables-1.12.1\images\sort_desc_disabled.png" />
+    <Content Include="Content\DataTables\DataTables-1.12.1\js\dataTables.bootstrap.js" />
+    <Content Include="Content\DataTables\DataTables-1.12.1\js\dataTables.bootstrap.min.js" />
+    <Content Include="Content\DataTables\DataTables-1.12.1\js\dataTables.bootstrap4.js" />
+    <Content Include="Content\DataTables\DataTables-1.12.1\js\dataTables.bootstrap4.min.js" />
+    <Content Include="Content\DataTables\DataTables-1.12.1\js\dataTables.bootstrap5.js" />
+    <Content Include="Content\DataTables\DataTables-1.12.1\js\dataTables.bootstrap5.min.js" />
+    <Content Include="Content\DataTables\DataTables-1.12.1\js\dataTables.bulma.js" />
+    <Content Include="Content\DataTables\DataTables-1.12.1\js\dataTables.bulma.min.js" />
+    <Content Include="Content\DataTables\DataTables-1.12.1\js\dataTables.dataTables.js" />
+    <Content Include="Content\DataTables\DataTables-1.12.1\js\dataTables.dataTables.min.js" />
+    <Content Include="Content\DataTables\DataTables-1.12.1\js\dataTables.foundation.js" />
+    <Content Include="Content\DataTables\DataTables-1.12.1\js\dataTables.foundation.min.js" />
+    <Content Include="Content\DataTables\DataTables-1.12.1\js\dataTables.jqueryui.js" />
+    <Content Include="Content\DataTables\DataTables-1.12.1\js\dataTables.jqueryui.min.js" />
+    <Content Include="Content\DataTables\DataTables-1.12.1\js\dataTables.semanticui.js" />
+    <Content Include="Content\DataTables\DataTables-1.12.1\js\dataTables.semanticui.min.js" />
+    <Content Include="Content\DataTables\DataTables-1.12.1\js\jquery.dataTables.js" />
+    <Content Include="Content\DataTables\DataTables-1.12.1\js\jquery.dataTables.min.js" />
+    <Content Include="Content\DataTables\datatables.css" />
+    <Content Include="Content\DataTables\datatables.js" />
+    <Content Include="Content\DataTables\datatables.min.css" />
+    <Content Include="Content\DataTables\datatables.min.js" />
+>>>>>>> 2a9236c6024b0ba3809f75b77ec0bcdd3ce24c49
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -2117,14 +2177,19 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Account\UnAuthorized.cshtml" />
     <Content Include="Views\Shared\_FooterPartial.cshtml" />
+<<<<<<< HEAD
     <Content Include="Views\Department\CreateDepartment.cshtml" />
     <Content Include="Views\Department\EditDepartment.cshtml" />
     <Content Include="Views\Department\ListDepartment.cshtml" />
     <Content Include="Views\Department\ViewDepartmentsInfo.cshtml" />
+=======
+    <Content Include="Views\Professor\Index.cshtml" />
+    <Content Include="Views\Roles\Index.cshtml" />
+    <Content Include="Views\Roles\Upsert.cshtml" />
+>>>>>>> 2a9236c6024b0ba3809f75b77ec0bcdd3ce24c49
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Professor\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
