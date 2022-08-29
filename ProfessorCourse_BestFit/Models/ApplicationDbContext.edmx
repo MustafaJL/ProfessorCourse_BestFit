@@ -5,12 +5,79 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
       <Schema Namespace="ProfessorCourseBestFitModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Course">
+          <Key>
+            <PropertyRef Name="CId" />
+          </Key>
+          <Property Name="CId" Type="int" Nullable="false" />
+          <Property Name="Code" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime" Nullable="false" />
+          <Property Name="Duration" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CourseKeyword">
+          <Key>
+            <PropertyRef Name="Keyword_Id" />
+            <PropertyRef Name="Course_Id" />
+          </Key>
+          <Property Name="Keyword_Id" Type="int" Nullable="false" />
+          <Property Name="Course_Id" Type="int" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CourseProgram">
+          <Key>
+            <PropertyRef Name="Prog_Id" />
+            <PropertyRef Name="Course_Id" />
+          </Key>
+          <Property Name="Prog_Id" Type="int" Nullable="false" />
+          <Property Name="Course_Id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Department">
+          <Key>
+            <PropertyRef Name="Dep_Id" />
+          </Key>
+          <Property Name="Dep_Id" Type="int" Nullable="false" />
+          <Property Name="Dep_Name" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="User_Id" Type="int" />
+        </EntityType>
+        <EntityType Name="Keywords">
+          <Key>
+            <PropertyRef Name="KId" />
+          </Key>
+          <Property Name="KId" Type="int" Nullable="false" />
+          <Property Name="KName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Permission">
+          <Key>
+            <PropertyRef Name="PId" />
+          </Key>
+          <Property Name="PId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PName" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Program">
+          <Key>
+            <PropertyRef Name="PId" />
+          </Key>
+          <Property Name="PId" Type="int" Nullable="false" />
+          <Property Name="Dep_Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="150" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RolePermission">
+          <Key>
+            <PropertyRef Name="RId" />
+            <PropertyRef Name="PId" />
+          </Key>
+          <Property Name="RId" Type="int" Nullable="false" />
+          <Property Name="PId" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="Roles">
           <Key>
             <PropertyRef Name="RoleId" />
           </Key>
           <Property Name="RoleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="RoleName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="deleted" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="UserRoles">
           <Key>
@@ -32,14 +99,14 @@
           <Property Name="PasswordSalt" Type="varchar" MaxLength="500" Nullable="false" />
           <Property Name="CreatedOn" Type="datetime" Nullable="false" />
           <Property Name="DateOfBirth" Type="date" />
+          <Property Name="deleted" Type="bit" Nullable="false" />
         </EntityType>
         <EntityContainer Name="ProfessorCourseBestFitModelStoreContainer">
           <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserRoles" EntityType="Self.UserRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ProfessorCourseBestFitModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -49,6 +116,43 @@
           </Key>
           <Property Name="RoleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="RoleName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="UserRoles" Relationship="Self.FK_RolesUser" FromRole="Roles" ToRole="UserRoles" />
+          <NavigationProperty Name="Permissions" Relationship="Self.RolePermission" FromRole="Roles" ToRole="Permission" />
+        </EntityType>
+        <EntityType Name="UserCourse">
+          <Key>
+            <PropertyRef Name="User_Id" />
+            <PropertyRef Name="Course_Id" />
+          </Key>
+          <Property Name="User_Id" Type="Int32" Nullable="false" />
+          <Property Name="Course_Id" Type="Int32" Nullable="false" />
+          <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EndDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Course" Relationship="Self.FK_CourseUser" FromRole="UserCourse" ToRole="Course" />
+          <NavigationProperty Name="User" Relationship="Self.FK_UserCourse" FromRole="UserCourse" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="UserDepartment">
+          <Key>
+            <PropertyRef Name="Dep_Id" />
+            <PropertyRef Name="User_ID" />
+          </Key>
+          <Property Name="Dep_Id" Type="Int32" Nullable="false" />
+          <Property Name="User_ID" Type="Int32" Nullable="false" />
+          <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EndDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Department" Relationship="Self.FK_DepartmentUser" FromRole="UserDepartment" ToRole="Department" />
+          <NavigationProperty Name="User" Relationship="Self.FK_UserDepartment" FromRole="UserDepartment" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="UserKeyword">
+          <Key>
+            <PropertyRef Name="User_Id" />
+            <PropertyRef Name="Keyword_Id" />
+          </Key>
+          <Property Name="User_Id" Type="Int32" Nullable="false" />
+          <Property Name="Keyword_Id" Type="Int32" Nullable="false" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Keyword" Relationship="Self.FK_KeywordKeywords" FromRole="UserKeyword" ToRole="Keywords" />
+          <NavigationProperty Name="User" Relationship="Self.FK_UserKeyword" FromRole="UserKeyword" ToRole="Users" />
         </EntityType>
         <EntityType Name="UserRole">
           <Key>
@@ -70,6 +174,12 @@
           <Property Name="PasswordSalt" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="DateOfBirth" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Departments" Relationship="Self.FK_Department_Manager" FromRole="Users" ToRole="Department" />
+          <NavigationProperty Name="UserCourses" Relationship="Self.FK_UserCourse" FromRole="Users" ToRole="UserCourse" />
+          <NavigationProperty Name="UserDepartments" Relationship="Self.FK_UserDepartment" FromRole="Users" ToRole="UserDepartment" />
+          <NavigationProperty Name="UserKeywords" Relationship="Self.FK_UserKeyword" FromRole="Users" ToRole="UserKeyword" />
+          <NavigationProperty Name="UserRoles" Relationship="Self.FK_UserRoles" FromRole="Users" ToRole="UserRoles" />
+          <NavigationProperty Name="Permissions" Relationship="Self.UserPermission" FromRole="Users" ToRole="Permission" />
         </EntityType>
         <EntityContainer Name="ApplicationDbContext" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Roles" EntityType="Self.Role" />
@@ -85,6 +195,7 @@
           <EntitySetMapping Name="Roles">
             <EntityTypeMapping TypeName="ProfessorCourseBestFitModel.Role">
               <MappingFragment StoreEntitySet="Roles">
+                <ScalarProperty Name="deleted" ColumnName="deleted" />
                 <ScalarProperty Name="RoleId" ColumnName="RoleId" />
                 <ScalarProperty Name="RoleName" ColumnName="RoleName" />
               </MappingFragment>
@@ -101,6 +212,7 @@
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="ProfessorCourseBestFitModel.User">
               <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="deleted" ColumnName="deleted" />
                 <ScalarProperty Name="Uid" ColumnName="Uid" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="LastName" ColumnName="LastName" />
