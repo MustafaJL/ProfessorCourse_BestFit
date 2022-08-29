@@ -1,4 +1,5 @@
 ﻿using ProfessorCourse_BestFit.Models;
+using ProfessorCourse_BestFit.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -20,9 +21,9 @@ namespace ProfessorCourse_BestFit.DAL
         }
 
         // Get All Containers
-        public List<Department> GetDepartments(int? id, int? queryNum)
+        public List<DepartmentViewModel> GetDepartments(int? id, int? queryNum)
         {
-            List<Department> allDepartment = new List<Department>();
+            List<DepartmentViewModel> allDepartment = new List<DepartmentViewModel>();
 
             // create command
             SqlCommand command = _connection.CreateCommand();
@@ -44,7 +45,7 @@ namespace ProfessorCourse_BestFit.DAL
 
             foreach (DataRow dr in dtMails.Rows)
             {
-                allDepartment.Add(new Department
+                allDepartment.Add(new DepartmentViewModel
                 {
                     Dep_Id = Convert.ToInt32(dr["Dep_Id"]),
                     Dep_Name = Convert.ToString(dr["Dep_Name"])
@@ -54,5 +55,39 @@ namespace ProfessorCourse_BestFit.DAL
 
             return allDepartment;
         }
+/*
+        public List<DepartmentViewModel> GetProfessorss()
+        {
+            List<DepartmentViewModel> allProfessorss = new List<DepartmentViewModel>();
+
+            // create command
+            SqlCommand command = _connection.CreateCommand();
+            // specify the type of cammand
+            command.CommandType = CommandType.StoredProcedure;
+            // specify name of SP
+            command.CommandText = "JoinuserAndUserRole";
+            SqlDataAdapter adapter = new SqlDataAdapter(command);
+            DataTable dtMails = new DataTable();
+
+            // open connection
+            _connection.Open();
+            adapter.Fill(dtMails);
+            // close connection
+            _connection.Close();
+
+            foreach (DataRow dr in dtMails.Rows)
+            {
+                allProfessorss.Add(new DepartmentViewModel
+                {
+                    UserId = Convert.ToInt32(dr["Dep_Id"]),
+                    FirstName = Convert.ToString(dr["Dep_Name"]),
+                    LastName = Convert.ToString(dr["Dep_Name"])
+                });
+            }
+
+
+            return allProfessorss;
+        }
+*/
     }
 }

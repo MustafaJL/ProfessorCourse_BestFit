@@ -124,5 +124,10 @@ namespace ProfessorCourse_BestFit.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("my_InsertUpdateDelete_Program", programIDParameter, programNameParameter, departmentIDParameter, queryParameter);
         }
+    
+        public virtual ObjectResult<JoinuserAndUserRole_Result> JoinuserAndUserRole()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<JoinuserAndUserRole_Result>("JoinuserAndUserRole");
+        }
     }
 }

@@ -8,6 +8,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using ProfessorCourse_BestFit.DAL;
+using ProfessorCourse_BestFit.Models.ViewModels;
 
 namespace ProfessorCourse_BestFit.Controllers
 {
@@ -52,20 +53,25 @@ namespace ProfessorCourse_BestFit.Controllers
         public ActionResult CreateDepartment()
         {
             ViewData["Message"] = null;
+            //need to fix (do not add the admin)
+            //listusers.listUsers = _context.Users.ToList<User>();
             return View();
         }
 
         // post: CreateDepartment
         [HttpPost]
-        public ActionResult CreateDepartment(Department department)
+        public ActionResult CreateDepartment(DepartmentViewModel department)
         {
 
             ///modelstate.isvalid
             /*
              Create new Department using stored Procedure.
              */
-            //_context.my_InsertUpdateDelete_Department(null, department.Dep_Name, null, 1);
-            _context.Departments.Add(department);
+            var newDepartment = new Department();
+            newDepartment.Dep_Name = department.Dep_Name;
+            //Problem
+            //newDepartment.User_Id = department.User_Id;
+            _context.Departments.Add(newDepartment);
             //To Display message to the user.
             try
             {
@@ -86,10 +92,12 @@ namespace ProfessorCourse_BestFit.Controllers
             /*
              Select all specific Department information.
              */
-            var department = _context.Departments.Find(id);
-
-            //need to solve (we not useing Procedure)
-            //Department_DAL dal = new Department_DAL();
+            var department = new DepartmentViewModel();
+            var getdepartment = _context.Departments.Find(id);
+            department.Dep_Id = getdepartment.Dep_Id;
+            department.Dep_Name = getdepartment.Dep_Name;
+            //Problem
+            department.User_Id = getdepartment.User_Id;
             return View(department);
         }
 
@@ -99,13 +107,17 @@ namespace ProfessorCourse_BestFit.Controllers
             /*
              Select all specific Department information.
              */
-            var department = _context.Departments.Where(s => s.Dep_Id == id).FirstOrDefault();
-            //need to solve (we not useing Procedure)
+            var department = new DepartmentViewModel();
+            var getdepartment = _context.Departments.Where(s => s.Dep_Id == id).FirstOrDefault();
+            department.Dep_Id = getdepartment.Dep_Id;
+            department.Dep_Name = getdepartment.Dep_Name;
+            //Problem
+            department.User_Id = getdepartment.User_Id;
             return View(department);
         }
 
         [HttpPost]
-        public ActionResult EditDepartment(Department department,int id)
+        public ActionResult EditDepartment(DepartmentViewModel department,int id)
         {
             /*
              Select all specific Department information.
@@ -113,11 +125,38 @@ namespace ProfessorCourse_BestFit.Controllers
              */
             var d = _context.Departments.Where(s => s.Dep_Id == id).FirstOrDefault();
             d.Dep_Name = department.Dep_Name;
-            //var newdepartment = new Department();
-            //newdepartment.Dep_Name= department.Dep_Name;
-            //_context.my_InsertUpdateDelete_Department(department.Dep_Id, newdepartment.Dep_Name, null, 2);
+            //To Display message to the user.
             _context.SaveChanges();
             return RedirectToAction("ViewDepartmentsInfo", new { id = id });
+        }
+
+        // GET: isDeleted Department
+        public ActionResult isDeletedDepartment(int id)
+        {
+            /*
+             Select all specific Department information.
+             */
+            var department = new DepartmentViewModel();
+            var getdepartment = _context.Departments.Where(s => s.Dep_Id == id).FirstOrDefault();
+            department.Dep_Id = getdepartment.Dep_Id;
+            department.Dep_Name = getdepartment.Dep_Name;
+            //Problem
+            department.User_Id = getdepartment.User_Id;
+            return View(department);
+        }
+
+        [HttpPost]
+        public ActionResult isDeletedDepartment(DepartmentViewModel department, int id)
+        {
+            /*
+             Select all specific Department information.
+            in order to edit it.
+             */
+            var d = _context.Departments.Where(s => s.Dep_Id == id).FirstOrDefault();
+            d.isDeleted = true;
+            //To Display message to the user.
+            _context.SaveChanges();
+            return RedirectToAction("ListDepartment");
         }
     }
 }
