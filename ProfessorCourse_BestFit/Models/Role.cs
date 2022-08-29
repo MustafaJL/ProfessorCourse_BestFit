@@ -23,6 +23,7 @@ namespace ProfessorCourse_BestFit.Models
     
         public int RoleId { get; set; }
         public string RoleName { get; set; }
+        public bool deleted { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserRole> UserRoles { get; set; }

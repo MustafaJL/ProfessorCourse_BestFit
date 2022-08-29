@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="ProfessorCourseBestFitModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="ProfessorCourseBestFitModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Course">
           <Key>
             <PropertyRef Name="CId" />
@@ -77,6 +77,7 @@
           </Key>
           <Property Name="RoleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="RoleName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="deleted" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="UserCourse">
           <Key>
@@ -136,6 +137,7 @@
           <Property Name="PasswordSalt" Type="varchar" MaxLength="500" Nullable="false" />
           <Property Name="CreatedOn" Type="datetime" Nullable="false" />
           <Property Name="DateOfBirth" Type="date" />
+          <Property Name="deleted" Type="bit" Nullable="false" />
         </EntityType>
         <Association Name="FK_Course">
           <End Role="Course" Type="Self.Course" Multiplicity="1" />
@@ -341,6 +343,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="my_InsertUpdateDelete_Course" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="CourseID" Type="int" Mode="In" />
+          <Parameter Name="CourseCode" Type="nvarchar" Mode="In" />
+          <Parameter Name="CourseName" Type="nvarchar" Mode="In" />
+          <Parameter Name="CourseDateStart" Type="date" Mode="In" />
+          <Parameter Name="CourseDuration" Type="int" Mode="In" />
+          <Parameter Name="Query" Type="int" Mode="In" />
+        </Function>
+        <Function Name="my_InsertUpdateDelete_Department" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="DepartmentID" Type="int" Mode="In" />
+          <Parameter Name="DepartmentName" Type="nvarchar" Mode="In" />
+          <Parameter Name="UserID" Type="int" Mode="In" />
+          <Parameter Name="Query" Type="int" Mode="In" />
+        </Function>
+        <Function Name="my_InsertUpdateDelete_Program" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ProgramID" Type="int" Mode="In" />
+          <Parameter Name="ProgramName" Type="nvarchar" Mode="In" />
+          <Parameter Name="DepartmentID" Type="int" Mode="In" />
+          <Parameter Name="Query" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spGetUserRoles" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="spGetUserRolesById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserId" Type="int" Mode="In" />
+        </Function>
         <EntityContainer Name="ProfessorCourseBestFitModelStoreContainer">
           <EntitySet Name="Course" EntityType="Self.Course" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CourseKeyword" EntityType="Self.CourseKeyword" Schema="dbo" store:Type="Tables" />
@@ -426,8 +452,7 @@
             <End Role="UserRoles" EntitySet="UserRoles" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ProfessorCourseBestFitModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -499,6 +524,7 @@
           </Key>
           <Property Name="RoleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="RoleName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="deleted" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="UserRoles" Relationship="Self.FK_RolesUser" FromRole="Roles" ToRole="UserRoles" />
           <NavigationProperty Name="Permissions" Relationship="Self.RolePermission" FromRole="Roles" ToRole="Permission" />
         </EntityType>
@@ -560,6 +586,7 @@
           <Property Name="PasswordSalt" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="DateOfBirth" Type="DateTime" Precision="0" />
+          <Property Name="deleted" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Departments" Relationship="Self.FK_Department_Manager" FromRole="Users" ToRole="Department" />
           <NavigationProperty Name="UserCourses" Relationship="Self.FK_UserCourse" FromRole="Users" ToRole="UserCourse" />
           <NavigationProperty Name="UserDepartments" Relationship="Self.FK_UserDepartment" FromRole="Users" ToRole="UserDepartment" />
@@ -780,7 +807,49 @@
             <End Role="Permission" EntitySet="Permissions" />
             <End Role="Users" EntitySet="Users" />
           </AssociationSet>
+          <FunctionImport Name="spGetUserRoles" ReturnType="Collection(ProfessorCourseBestFitModel.spGetUserRoles_Result)" />
+          <FunctionImport Name="spGetUserRolesById" ReturnType="Collection(ProfessorCourseBestFitModel.spGetUserRolesById_Result)">
+          <Parameter Name="UserId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="my_InsertUpdateDelete_Course" ReturnType="Collection(String)">
+            <Parameter Name="CourseID" Mode="In" Type="Int32" />
+            <Parameter Name="CourseCode" Mode="In" Type="String" />
+            <Parameter Name="CourseName" Mode="In" Type="String" />
+            <Parameter Name="CourseDateStart" Mode="In" Type="DateTime" />
+            <Parameter Name="CourseDuration" Mode="In" Type="Int32" />
+            <Parameter Name="Query" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="my_InsertUpdateDelete_Department" ReturnType="Collection(String)">
+            <Parameter Name="DepartmentID" Mode="In" Type="Int32" />
+            <Parameter Name="DepartmentName" Mode="In" Type="String" />
+            <Parameter Name="UserID" Mode="In" Type="Int32" />
+            <Parameter Name="Query" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="my_InsertUpdateDelete_Program" ReturnType="Collection(String)">
+            <Parameter Name="ProgramID" Mode="In" Type="Int32" />
+            <Parameter Name="ProgramName" Mode="In" Type="String" />
+            <Parameter Name="DepartmentID" Mode="In" Type="Int32" />
+            <Parameter Name="Query" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
+        <ComplexType Name="spGetUserRoles_Result">
+          <Property Type="Int32" Name="Uid" Nullable="false" />
+          <Property Type="String" Name="FirstName" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="LastName" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Email" Nullable="false" MaxLength="150" />
+          <Property Type="DateTime" Name="CreatedOn" Nullable="false" Precision="23" />
+          <Property Type="DateTime" Name="DateOfBirth" Nullable="true" />
+          <Property Type="String" Name="RoleName" Nullable="false" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="spGetUserRolesById_Result">
+          <Property Type="Int32" Name="Uid" Nullable="false" />
+          <Property Type="String" Name="FirstName" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="LastName" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Email" Nullable="false" MaxLength="150" />
+          <Property Type="DateTime" Name="CreatedOn" Nullable="false" Precision="23" />
+          <Property Type="DateTime" Name="DateOfBirth" Nullable="true" />
+          <Property Type="String" Name="RoleName" Nullable="false" MaxLength="50" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -847,6 +916,7 @@
               <MappingFragment StoreEntitySet="Roles">
                 <ScalarProperty Name="RoleId" ColumnName="RoleId" />
                 <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+                <ScalarProperty Name="deleted" ColumnName="deleted" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -899,6 +969,7 @@
                 <ScalarProperty Name="PasswordSalt" ColumnName="PasswordSalt" />
                 <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
                 <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+                <ScalarProperty Name="deleted" ColumnName="deleted" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -926,6 +997,35 @@
               <ScalarProperty Name="Uid" ColumnName="UId" />
             </EndProperty>
           </AssociationSetMapping>
+          <FunctionImportMapping FunctionImportName="spGetUserRoles" FunctionName="ProfessorCourseBestFitModel.Store.spGetUserRoles">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ProfessorCourseBestFitModel.spGetUserRoles_Result">
+                <ScalarProperty Name="Uid" ColumnName="Uid" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spGetUserRolesById" FunctionName="ProfessorCourseBestFitModel.Store.spGetUserRolesById">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ProfessorCourseBestFitModel.spGetUserRolesById_Result">
+                <ScalarProperty Name="Uid" ColumnName="Uid" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="my_InsertUpdateDelete_Course" FunctionName="ProfessorCourseBestFitModel.Store.my_InsertUpdateDelete_Course" />
+          <FunctionImportMapping FunctionImportName="my_InsertUpdateDelete_Department" FunctionName="ProfessorCourseBestFitModel.Store.my_InsertUpdateDelete_Department" />
+          <FunctionImportMapping FunctionImportName="my_InsertUpdateDelete_Program" FunctionName="ProfessorCourseBestFitModel.Store.my_InsertUpdateDelete_Program" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
