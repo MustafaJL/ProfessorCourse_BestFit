@@ -15,11 +15,13 @@ namespace ProfessorCourse_BestFit.DAL
         private readonly SqlConnection _connection;
         private readonly string _Conn = ConfigurationManager.ConnectionStrings["DefaultConnection"].ToString();
         private Program_DAL program_dal;
+        private User_DAL user_DAL;
 
         public Department_DAL()
         {
             _connection = new SqlConnection(_Conn);
             program_dal = new Program_DAL();
+            user_DAL = new User_DAL();
         }
 
         // Get All Containers
@@ -58,39 +60,6 @@ namespace ProfessorCourse_BestFit.DAL
             return allDepartment;
         }
 
-        public List<ProfessorsViewModel> GetProfessorss()
-        {
-            List<ProfessorsViewModel> allProfessorss = new List<ProfessorsViewModel>();
-
-            // create command
-            SqlCommand command = _connection.CreateCommand();
-            // specify the type of cammand
-            command.CommandType = CommandType.StoredProcedure;
-            // specify name of SP
-            command.CommandText = "getAllProfessors";
-            SqlDataAdapter adapter = new SqlDataAdapter(command);
-            DataTable dtMails = new DataTable();
-
-            // open connection
-            _connection.Open();
-            adapter.Fill(dtMails);
-            // close connection
-            _connection.Close();
-
-            foreach (DataRow dr in dtMails.Rows)
-            {
-                allProfessorss.Add(new ProfessorsViewModel
-                {
-                    UserId = Convert.ToInt32(dr["Dep_Id"]),
-                    FirstName = Convert.ToString(dr["Dep_Name"]),
-                    LastName = Convert.ToString(dr["Dep_Name"])
-                });
-            }
-
-
-            return allProfessorss;
-        }
-
         public List<ProgramViewModel> GetPrograms(int? id)
         {
             /*
@@ -98,6 +67,11 @@ namespace ProfessorCourse_BestFit.DAL
              if id is not null this function will return the programs in the exact department
              */
             return program_dal.GetAllPrograms(id);
+        }
+
+        public List<UserRolesViewModel> GetAllProfessors()
+        {
+            return user_DAL.GetAllProfessors();
         }
     }
 }

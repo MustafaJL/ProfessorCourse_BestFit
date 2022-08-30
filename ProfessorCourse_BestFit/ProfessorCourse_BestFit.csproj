@@ -220,7 +220,6 @@
     </Compile>
     <Compile Include="Models\ViewModels\DepartmentViewModel.cs" />
     <Compile Include="Models\ViewModels\LoginViewModel.cs" />
-    <Compile Include="Models\ViewModels\ProfessorsViewModel.cs" />
     <Compile Include="Models\ViewModels\ProgramViewModel.cs" />
     <Compile Include="Models\ViewModels\RolesViewModel.cs" />
     <Compile Include="Models\ViewModels\UserRolesViewModel.cs" />
@@ -2196,9 +2195,10 @@
     <Content Include="Views\Roles\Index.cshtml" />
     <Content Include="Views\Roles\Upsert.cshtml" />
     <Content Include="Views\Department\AddUserPrograme.cshtml" />
-    <Content Include="Views\Department\Container.cshtml" />
     <Content Include="Views\Program\ListOfProgram.cshtml" />
     <Content Include="Views\Program\CreateProgram.cshtml" />
+    <Content Include="Views\Program\EditProgram.cshtml" />
+    <Content Include="Views\Program\viewProgramInfo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

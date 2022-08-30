@@ -19,11 +19,11 @@ namespace ProfessorCourse_BestFit.Models.ViewModels
         public Nullable<int> User_Id { get; set; }
 
         [Display(Name = "Manager User Name")]
+        [Required(ErrorMessage = "Select Name before submit")]
         public string Manager_User_Name { get; set; }
 
-        public List<ProfessorsViewModel> list_Professors { get; set; }
+        public List<UserRolesViewModel> list_Professors { get; set; }
 
-        [Display(Name = "The programs")]
         public List<ProgramViewModel> list_programs { get; set; }
 
 

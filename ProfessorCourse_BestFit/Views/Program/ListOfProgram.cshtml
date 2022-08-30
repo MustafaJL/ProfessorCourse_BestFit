@@ -21,7 +21,7 @@
         <div class="dipartmentlist">
             <h4 class="Departmentname">@item.Name</h4>
             <div class="col-xl-offset-2 col-xl-10">
-                <button class="btn btn-warning btnstyleDpartmentList" onclick="location.href='@Url.Action("ViewProgramsInfo", "Program", new { id = item.Dep_Id })';return false;">View Ditails</button>
+                <button class="btn btn-warning btnstyleDpartmentList" onclick="location.href='@Url.Action("viewProgramInfo", "Program", new { id = item.PId })';return false;">View Ditails</button>
             </div>
         </div>
     }

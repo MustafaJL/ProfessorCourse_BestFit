@@ -106,5 +106,37 @@ namespace ProfessorCourse_BestFit.DAL
             return roles;
 
         }
+
+        public List<UserRolesViewModel> GetAllProfessors()
+        {
+            List<UserRolesViewModel> allProfessors = new List<UserRolesViewModel>();
+
+            // create command
+            SqlCommand command = _connection.CreateCommand();
+            // specify the type of cammand
+            command.CommandType = CommandType.StoredProcedure;
+            // specify name of SP
+            command.CommandText = "getAllProfessors";
+            // pass the value of parameter
+            SqlDataAdapter adapter = new SqlDataAdapter(command);
+            DataTable dtMails = new DataTable();
+
+            // open connection
+            _connection.Open();
+            adapter.Fill(dtMails);
+            // close connection
+            _connection.Close();
+
+            foreach (DataRow dr in dtMails.Rows)
+            {
+                allProfessors.Add(new UserRolesViewModel
+                {
+                    UserId = Convert.ToInt32(dr["UserId"]),
+                    FirstName = Convert.ToString(dr["FirstName"]),
+                    LastName = Convert.ToString(dr["LastName"])
+                });
+            }
+            return allProfessors;
+        }
     }
 }

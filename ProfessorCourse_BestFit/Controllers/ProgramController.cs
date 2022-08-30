@@ -1,4 +1,5 @@
-﻿using ProfessorCourse_BestFit.DAL;
+﻿using ProfessorCourse_BestFit.CustomSecurity;
+using ProfessorCourse_BestFit.DAL;
 using ProfessorCourse_BestFit.Models;
 using ProfessorCourse_BestFit.Models.ViewModels;
 using System;
@@ -29,6 +30,7 @@ namespace ProfessorCourse_BestFit.Controllers
         }
 
         // GET: Create Page
+        [CustomAuthorization("Admin")]
         public ActionResult CreateProgram()
         {
             ViewData["Message"] = null;
@@ -37,6 +39,7 @@ namespace ProfessorCourse_BestFit.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [CustomAuthorization("Admin")]
         public ActionResult CreateProgram(ProgramViewModel programViewModel)
         {
             /*
@@ -56,7 +59,49 @@ namespace ProfessorCourse_BestFit.Controllers
             }
             return View("CreateProgram");
         }
-        
 
+        //Get
+        [CustomAuthorization("Admin")]
+        public ActionResult EditProgram(int id)
+        {
+            /*
+             Select all specific Program information.
+             */
+            var program = new ProgramViewModel();
+            var getprogram = _context.Programs.Where(s => s.PId == id).FirstOrDefault();
+            program.PId = getprogram.PId;
+            program.Name = getprogram.Name;
+            program.Dep_Id = getprogram.Dep_Id;
+            return View(program);
+        }
+
+        [HttpPost]
+        [CustomAuthorization("Admin")]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditProgram(ProgramViewModel programViewModel, int id)
+        {
+            /*
+             Select all specific Department information.
+            in order to edit it.
+             */
+            var program = _context.Programs.Where(s => s.PId == id).FirstOrDefault();
+            program.Name = programViewModel.Name;
+            _context.SaveChanges();
+            return RedirectToAction("viewProgramInfo", new { id = id });
+        }
+
+        //Get
+        public ActionResult viewProgramInfo(int id)
+        {
+            /*
+             Select all specific Program information.
+             */
+            var program = new ProgramViewModel();
+            var getprogram = _context.Programs.Find(id);
+            program.PId = getprogram.PId;
+            program.Name = getprogram.Name;
+            program.Dep_Id = getprogram.Dep_Id;
+            return View(program);
+        }
     }
 }

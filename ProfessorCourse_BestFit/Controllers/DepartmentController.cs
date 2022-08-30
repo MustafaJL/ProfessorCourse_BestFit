@@ -71,23 +71,27 @@ namespace ProfessorCourse_BestFit.Controllers
             /*
              Create new Department using stored Procedure.
              */
-            var newDepartment = new Department();
-            newDepartment.Dep_Name = department.Dep_Name;
-            //Problem
-            //newDepartment.User_Id = department.User_Id;
-            _context.Departments.Add(newDepartment);
-            //To Display message to the user.
-            try
+            if (ModelState.IsValid)
             {
-                _context.SaveChanges();
-                ViewData["Message"] = "Done";
+                var newDepartment = new Department();
+                newDepartment.Dep_Name = department.Dep_Name;
+                //Problem
+                //newDepartment.User_Id = department.User_Id;
+                _context.Departments.Add(newDepartment);
+                //To Display message to the user.
+                try
+                {
+                    _context.SaveChanges();
+                    ViewData["Message"] = "Done";
+                }
+                catch
+                {
+                    ViewData["Message"] = "Fail";
+                }
+                return View("CreateDepartment");
             }
-            catch
-            {
-                ViewData["Message"] = "Fail";
-            }
-
-            return View("CreateDepartment");
+           
+            return View();
         }
 
         // GET: CreateDepartment
@@ -109,17 +113,7 @@ namespace ProfessorCourse_BestFit.Controllers
             {
                 department.Manager_User_Name = "No manager in this department";
             }
-            //problem
-            //need to be in another class
-            var checkIfTheDepartmentHaveProgram = _context.Programs.Where(s => s.PId == department.Dep_Id).FirstOrDefault();
-            if (checkIfTheDepartmentHaveProgram.Dep_Id != null)
-            {
-                department.list_programs = dal.GetPrograms(department.Dep_Id);
-            }
-            else
-            {
-                department.list_programs = null;
-            }
+            department.list_programs = dal.GetPrograms(department.Dep_Id);
             return View(department);
         }
 
@@ -134,26 +128,31 @@ namespace ProfessorCourse_BestFit.Controllers
             var getdepartment = _context.Departments.Where(s => s.Dep_Id == id).FirstOrDefault();
             department.Dep_Id = getdepartment.Dep_Id;
             department.Dep_Name = getdepartment.Dep_Name;
-            //Problem
-            department.User_Id = getdepartment.User_Id;
+            department.list_Professors = dal.GetAllProfessors();
+            department.list_programs = dal.GetPrograms(getdepartment.Dep_Id);
             return View(department);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         [CustomAuthorization("Admin")]
-        public ActionResult EditDepartment(DepartmentViewModel department,int id)
+        public ActionResult EditDepartmentName(DepartmentViewModel department,int id)
         {
             /*
              Select all specific Department information.
             in order to edit it.
              */
-            var d = _context.Departments.Where(s => s.Dep_Id == id).FirstOrDefault();
-            d.Dep_Name = department.Dep_Name;
-            //To Display message to the user.
-            _context.SaveChanges();
-            return RedirectToAction("ViewDepartmentsInfo", new { id = id });
+            if (ModelState.IsValid)
+            {
+                var d = _context.Departments.Where(s => s.Dep_Id == id).FirstOrDefault();
+                d.Dep_Name = department.Dep_Name;
+                _context.SaveChanges();
+                return RedirectToAction("ViewDepartmentsInfo", new { id = id });
+            }
+            return View();
         }
+
+
 
         // GET: isDeleted Department
         [CustomAuthorization("Admin")]
@@ -187,9 +186,5 @@ namespace ProfessorCourse_BestFit.Controllers
             return RedirectToAction("ListDepartment");
         }
 
-        public ActionResult Container()
-        {
-         return View();
-        }
     }
 }

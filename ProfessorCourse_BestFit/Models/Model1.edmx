@@ -844,7 +844,7 @@
           <FunctionImport Name="getAllProfessors" ReturnType="Collection(ProfessorCourseBestFitModel.getAllProfessors_Result)" />
           <FunctionImport Name="getAllPrograms" ReturnType="Collection(ProfessorCourseBestFitModel.getAllPrograms_Result)" />
           <FunctionImport Name="getDepartmentPrograms" ReturnType="Collection(ProfessorCourseBestFitModel.getDepartmentPrograms_Result)">
-            <Parameter Name="DepartmentID" Mode="In" Type="Int32" />
+          <Parameter Name="DepartmentID" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="spGetUserRoles_Result">
