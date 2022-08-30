@@ -1,16 +1,17 @@
-﻿@model IEnumerable<ProfessorCourse_BestFit.Models.ViewModels.DepartmentViewModel>
+﻿@model IEnumerable<ProfessorCourse_BestFit.Models.ViewModels.ProgramViewModel>
 @Styles.Render("~/Content/MyStyle.css")
 @{
-    ViewBag.Title = "ListDepartment";
+    ViewBag.Title = "ListOfProgram";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2 style="margin:10px;">All Departments</h2>
+<h2 style="margin:10px;">All Program</h2>
 <div style="display:flex;">
-        <div class="col-xl-11" style="margin-left:10px">
-            <input id="search-weeazer" placeholder="Search">
-        </div>
+    <div class="col-xl-11" style="margin-left:10px">
+        <input id="search-weeazer" placeholder="Search">
+    </div>
     <div class="col-xl-offset-2 col-xl-1" style="float:right">
-        <button class="btn btn-primary" onclick="location.href='@Url.Action("CreateDepartment", "Department")';return false;">Create New</button>
+        <button class="btn btn-primary" onclick="location.href='@Url.Action("CreateProgram", "Program")';return false;">Create New</button>
     </div>
 </div>
 <hr />
@@ -18,10 +19,9 @@
     @foreach (var item in Model)
     {
         <div class="dipartmentlist">
-            <h4 class="Departmentname">@item.Dep_Name</h4>
+            <h4 class="Departmentname">@item.Name</h4>
             <div class="col-xl-offset-2 col-xl-10">
-                <button class="btn btn-warning btnstyleDpartmentList" onclick="location.href='@Url.Action("ViewDepartmentsInfo", "Department", new { id = item.Dep_Id })';return false;">View Ditails</button>
-                <button class="btn btn-danger btnstyleDpartmentList" onclick="location.href='@Url.Action("DeleteDepartment", "Department", new { id = item.Dep_Id })';return false;">Delete</button>
+                <button class="btn btn-warning btnstyleDpartmentList" onclick="location.href='@Url.Action("ViewProgramsInfo", "Program", new { id = item.Dep_Id })';return false;">View Ditails</button>
             </div>
         </div>
     }

@@ -19,12 +19,17 @@
         </dd>
 
         <dt>
-            @*@Html.DisplayNameFor(model => model.User.FirstName)*@
+            @Html.DisplayNameFor(model => model.Manager_User_Name)
         </dt>
 
         <dd>
-            @* @Html.DisplayFor(model => model.User.FirstName)*@
+            @Html.DisplayFor(model => model.Manager_User_Name)
         </dd>
+        <label> The Program in the department:</label>
+            @foreach (var item in Model.list_programs)
+            {
+                <label>@item.Name</label>
+            }
 
     </dl>
 </div>

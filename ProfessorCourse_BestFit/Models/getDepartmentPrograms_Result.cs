@@ -10,22 +10,12 @@
 namespace ProfessorCourse_BestFit.Models
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class Program
+    public partial class getDepartmentPrograms_Result
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Program()
-        {
-            this.Courses = new HashSet<Course>();
-        }
-    
         public int PId { get; set; }
         public int Dep_Id { get; set; }
         public string Name { get; set; }
         public bool isDeleted { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Course> Courses { get; set; }
     }
 }

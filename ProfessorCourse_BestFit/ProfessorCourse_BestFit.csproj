@@ -137,10 +137,12 @@
     <Compile Include="Controllers\DepartmentController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProfessorController.cs" />
+    <Compile Include="Controllers\ProgramController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="CustomSecurity\CustomAuthentication.cs" />
     <Compile Include="CustomSecurity\CustomAuthorization.cs" />
     <Compile Include="DAL\Department_DAL.cs" />
+    <Compile Include="DAL\Program_DAL.cs" />
     <Compile Include="DAL\User_DAL.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -154,6 +156,15 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Department.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\getAllProfessors_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\getAllPrograms_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\getDepartmentPrograms_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\JoinuserAndUserRole_Result.cs">
@@ -209,6 +220,8 @@
     </Compile>
     <Compile Include="Models\ViewModels\DepartmentViewModel.cs" />
     <Compile Include="Models\ViewModels\LoginViewModel.cs" />
+    <Compile Include="Models\ViewModels\ProfessorsViewModel.cs" />
+    <Compile Include="Models\ViewModels\ProgramViewModel.cs" />
     <Compile Include="Models\ViewModels\RolesViewModel.cs" />
     <Compile Include="Models\ViewModels\UserRolesViewModel.cs" />
     <Compile Include="Models\ViewModels\UserViewModel.cs" />
@@ -2046,7 +2059,6 @@
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
     <Content Include="Content\bootstrapMinty.min.css" />
-    <Content Include="Content\DepartmentCalender\style.css" />
     <Content Include="Content\Mystyle.css" />
     <Content Include="Content\DataTables\DataTables-1.12.1\css\dataTables.bootstrap.css" />
     <Content Include="Content\DataTables\DataTables-1.12.1\css\dataTables.bootstrap.min.css" />
@@ -2185,6 +2197,8 @@
     <Content Include="Views\Roles\Upsert.cshtml" />
     <Content Include="Views\Department\AddUserPrograme.cshtml" />
     <Content Include="Views\Department\Container.cshtml" />
+    <Content Include="Views\Program\ListOfProgram.cshtml" />
+    <Content Include="Views\Program\CreateProgram.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

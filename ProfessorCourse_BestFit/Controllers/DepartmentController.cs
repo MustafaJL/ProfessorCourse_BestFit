@@ -33,7 +33,7 @@ namespace ProfessorCourse_BestFit.Controllers
 
         private readonly ProfessorCourseBestFitEntities _context;
         private Department_DAL dal;
-
+        
         public DepartmentController()
         {
             _context = new ProfessorCourseBestFitEntities();
@@ -100,8 +100,26 @@ namespace ProfessorCourse_BestFit.Controllers
             var getdepartment = _context.Departments.Find(id);
             department.Dep_Id = getdepartment.Dep_Id;
             department.Dep_Name = getdepartment.Dep_Name;
-            //Problem
-            department.User_Id = getdepartment.User_Id;
+            if(department.User_Id != null)
+            {
+                var getdepartmentManager = _context.Users.Where(s => s.Uid == getdepartment.User_Id).FirstOrDefault();
+                department.Manager_User_Name = getdepartmentManager.FirstName;
+            }
+            else
+            {
+                department.Manager_User_Name = "No manager in this department";
+            }
+            //problem
+            //need to be in another class
+            var checkIfTheDepartmentHaveProgram = _context.Programs.Where(s => s.PId == department.Dep_Id).FirstOrDefault();
+            if (checkIfTheDepartmentHaveProgram.Dep_Id != null)
+            {
+                department.list_programs = dal.GetPrograms(department.Dep_Id);
+            }
+            else
+            {
+                department.list_programs = null;
+            }
             return View(department);
         }
 
