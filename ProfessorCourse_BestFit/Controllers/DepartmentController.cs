@@ -1,13 +1,8 @@
-﻿using ProfessorCourse_BestFit.Models;
-using System;
-using System.Collections.Generic;
-using System.Configuration;
+﻿using ProfessorCourse_BestFit.DAL;
+using ProfessorCourse_BestFit.Models;
 using System.Data;
-using System.Data.SqlClient;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using ProfessorCourse_BestFit.DAL;
 
 namespace ProfessorCourse_BestFit.Controllers
 {
@@ -29,12 +24,12 @@ namespace ProfessorCourse_BestFit.Controllers
 
          */
 
-        private readonly ProfessorCourseBestFitEntities _context;
+        private readonly ProfessorCourseBestFitEntities2 _context;
         private Department_DAL dal;
 
         public DepartmentController()
         {
-            _context = new ProfessorCourseBestFitEntities();
+            _context = new ProfessorCourseBestFitEntities2();
             dal = new Department_DAL();
         }
 
@@ -105,7 +100,7 @@ namespace ProfessorCourse_BestFit.Controllers
         }
 
         [HttpPost]
-        public ActionResult EditDepartment(Department department,int id)
+        public ActionResult EditDepartment(Department department, int id)
         {
             /*
              Select all specific Department information.

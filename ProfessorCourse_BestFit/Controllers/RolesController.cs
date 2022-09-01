@@ -7,16 +7,16 @@ namespace ProfessorCourse_BestFit.Controllers
 {
     public class RolesController : Controller
     {
-        private readonly ProfessorCourseBestFitEntities _context;
+        private readonly ProfessorCourseBestFitEntities2 _context;
 
         public RolesController()
         {
-            _context = new ProfessorCourseBestFitEntities();
+            _context = new ProfessorCourseBestFitEntities2();
         }
 
         public ActionResult Index()
         {
-            var roles = _context.Roles.ToList();
+            var roles = _context.Roles.Where(x => x.deleted == false).ToList();
             return View(roles);
         }
 
@@ -25,8 +25,10 @@ namespace ProfessorCourse_BestFit.Controllers
 
         public ActionResult Upsert(int? id)
         {
+            ViewBag.id = id;
             if (id == null || id == 0)
             {
+
                 return View();
             }
             var role = _context.Roles.SingleOrDefault(x => x.RoleId == id);

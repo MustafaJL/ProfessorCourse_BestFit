@@ -5,7 +5,6 @@ namespace ProfessorCourse_BestFit.Controllers
 {
     public class HomeController : Controller
     {
-        [CustomAuthorization("Professor")]
         public ActionResult Index()
         {
             return View();
