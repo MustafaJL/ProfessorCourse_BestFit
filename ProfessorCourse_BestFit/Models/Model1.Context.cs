@@ -148,5 +148,24 @@ namespace ProfessorCourse_BestFit.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<getDepartmentPrograms_Result>("getDepartmentPrograms", departmentIDParameter);
         }
+    
+        public virtual ObjectResult<getAllDepartments_Result> getAllDepartments()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<getAllDepartments_Result>("getAllDepartments");
+        }
+    
+        public virtual ObjectResult<getAllProfessors1_Result> getAllProfessors1()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<getAllProfessors1_Result>("getAllProfessors1");
+        }
+    
+        public virtual ObjectResult<getAllDepartmentManager_Result> getAllDepartmentManager(Nullable<int> departmentID)
+        {
+            var departmentIDParameter = departmentID.HasValue ?
+                new ObjectParameter("DepartmentID", departmentID) :
+                new ObjectParameter("DepartmentID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<getAllDepartmentManager_Result>("getAllDepartmentManager", departmentIDParameter);
+        }
     }
 }

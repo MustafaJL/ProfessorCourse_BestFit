@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace ProfessorCourse_BestFit.Models.ViewModels
 {
@@ -22,11 +23,16 @@ namespace ProfessorCourse_BestFit.Models.ViewModels
         [Required(ErrorMessage = "Select Name before submit")]
         public string Manager_User_Name { get; set; }
 
-        public List<UserRolesViewModel> list_Professors { get; set; }
+        public List<UserRolesViewModel> List_User_Details { get; set; }
 
-        public List<ProgramViewModel> list_programs { get; set; }
+        public List<MultiSelectList> multiselectListmanager { get; set; }
 
+        public List<SelectListItem> all_professors { get; set; }
 
+        public List<DepartmentViewModel> departmentViewModels { get; set; }
+
+        public string tree_id { get; set; }
+        public string tree_text { get; set; }
 
 
     }

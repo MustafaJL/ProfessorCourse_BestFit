@@ -1,0 +1,18 @@
+﻿
+@{
+    ViewBag.Title = "Edit_Department";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Edit Department</h2>
+
+<div class="container">
+    <div class="row">
+        <div class="form-check-inline">
+            <button class="btn btn-primary" onclick="location.href='@Url.Action("Edit_Department_name", "Department")';return false;">Edit Name</button>
+            <button class="btn btn-primary" onclick="location.href='@Url.Action("Edit_Department_Managers", "Department")';return false;">Edit Managers</button>
+            <button class="btn btn-primary" onclick="location.href='@Url.Action("Edit_Department_Programs", "Department")';return false;">Edit Programs</button>
+            <button class="btn btn-primary" onclick="location.href='@Url.Action("ttt", "Department")';return false;">Edit test</button>
+        </div>
+    </div>
+</div>

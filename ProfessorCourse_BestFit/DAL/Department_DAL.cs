@@ -1,5 +1,4 @@
-﻿using ProfessorCourse_BestFit.Models;
-using ProfessorCourse_BestFit.Models.ViewModels;
+﻿using ProfessorCourse_BestFit.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -14,30 +13,25 @@ namespace ProfessorCourse_BestFit.DAL
     {
         private readonly SqlConnection _connection;
         private readonly string _Conn = ConfigurationManager.ConnectionStrings["DefaultConnection"].ToString();
-        private Program_DAL program_dal;
-        private User_DAL user_DAL;
-
+        private readonly User_DAL user_DAL;
         public Department_DAL()
         {
             _connection = new SqlConnection(_Conn);
-            program_dal = new Program_DAL();
             user_DAL = new User_DAL();
         }
 
-        // Get All Containers
-        public List<DepartmentViewModel> GetDepartments(int? id, int? queryNum)
+
+        public List<DepartmentViewModel> Get_All_Departments()
         {
-            List<DepartmentViewModel> allDepartment = new List<DepartmentViewModel>();
+            List<DepartmentViewModel> All_Departments = new List<DepartmentViewModel>();
 
             // create command
             SqlCommand command = _connection.CreateCommand();
             // specify the type of cammand
             command.CommandType = CommandType.StoredProcedure;
             // specify name of SP
-            command.CommandText = "my_InsertUpdateDelete_Department";
-            // pass the value of parameter
-            command.Parameters.AddWithValue("@DepartmentID", id);
-            command.Parameters.AddWithValue("@Query", queryNum);
+            command.CommandText = "getAllDepartments";
+
             SqlDataAdapter adapter = new SqlDataAdapter(command);
             DataTable dtMails = new DataTable();
 
@@ -49,29 +43,24 @@ namespace ProfessorCourse_BestFit.DAL
 
             foreach (DataRow dr in dtMails.Rows)
             {
-                allDepartment.Add(new DepartmentViewModel
+                All_Departments.Add(new DepartmentViewModel
                 {
                     Dep_Id = Convert.ToInt32(dr["Dep_Id"]),
                     Dep_Name = Convert.ToString(dr["Dep_Name"])
                 });
             }
 
-
-            return allDepartment;
+            return All_Departments;
         }
 
-        public List<ProgramViewModel> GetPrograms(int? id)
+        public List<UserRolesViewModel> Get_All_Professors()
         {
-            /*
-             if id == null the this function will return all programs
-             if id is not null this function will return the programs in the exact department
-             */
-            return program_dal.GetAllPrograms(id);
+            return user_DAL.Get_All_Professors();
         }
 
-        public List<UserRolesViewModel> GetAllProfessors()
+        public List<UserRolesViewModel> Get_All_Department_Managers(int id)
         {
-            return user_DAL.GetAllProfessors();
+            return user_DAL.Get_All_Department_Managers(id);
         }
     }
 }
