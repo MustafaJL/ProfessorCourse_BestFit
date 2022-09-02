@@ -17,7 +17,6 @@ namespace ProfessorCourse_BestFit.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public User()
         {
-            this.Departments = new HashSet<Department>();
             this.UserCourses = new HashSet<UserCourse>();
             this.UserDepartments = new HashSet<UserDepartment>();
             this.UserKeywords = new HashSet<UserKeyword>();
@@ -35,8 +34,6 @@ namespace ProfessorCourse_BestFit.Models
         public Nullable<System.DateTime> DateOfBirth { get; set; }
         public bool deleted { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Department> Departments { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserCourse> UserCourses { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

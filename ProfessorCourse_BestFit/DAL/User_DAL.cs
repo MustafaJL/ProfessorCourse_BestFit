@@ -141,7 +141,7 @@ namespace ProfessorCourse_BestFit.DAL
         }
 
         //the id should nnot be null
-        public List<UserRolesViewModel> Get_All_Department_Managers(int id)
+        public List<UserRolesViewModel> Get_All_Department_Managers(string id)
         {
             List<UserRolesViewModel> All_Department_Managers = new List<UserRolesViewModel>();
 
@@ -151,27 +151,32 @@ namespace ProfessorCourse_BestFit.DAL
             command.CommandType = CommandType.StoredProcedure;
             // specify name of SP
             command.CommandText = "getAllDepartmentManager";
-
-            command.Parameters.AddWithValue("@DepartmentID", id);
-
-            SqlDataAdapter adapter = new SqlDataAdapter(command);
-            DataTable dtMails = new DataTable();
-
-            // open connection
-            _connection.Open();
-            adapter.Fill(dtMails);
-            // close connection
-            _connection.Close();
-
-            foreach (DataRow dr in dtMails.Rows)
+            var temp = id.Split(',');
+            for (int i = 0; i < temp.Length; i++)
             {
-                All_Department_Managers.Add(new UserRolesViewModel
+                int num = Convert.ToInt32(temp[i]);
+                command.Parameters.AddWithValue("@DepartmentID", id);
+
+                SqlDataAdapter adapter = new SqlDataAdapter(command);
+                DataTable dtMails = new DataTable();
+
+                // open connection
+                _connection.Open();
+                adapter.Fill(dtMails);
+                // close connection
+                _connection.Close();
+
+                foreach (DataRow dr in dtMails.Rows)
                 {
-                    UserId = Convert.ToInt32(dr["UserId"]),
-                    FirstName = Convert.ToString(dr["FirstName"]),
-                    LastName = Convert.ToString(dr["LastName"])
-                });
+                    All_Department_Managers.Add(new UserRolesViewModel
+                    {
+                        UserId = Convert.ToInt32(dr["UserId"]),
+                        FirstName = Convert.ToString(dr["FirstName"]),
+                        LastName = Convert.ToString(dr["LastName"])
+                    });
+                }
             }
+            
 
             return All_Department_Managers;
         }

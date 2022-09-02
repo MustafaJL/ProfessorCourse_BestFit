@@ -1,4 +1,5 @@
-﻿@Styles.Render("~/Content/style/Department/tree.css")
+﻿@model ProfessorCourse_BestFit.Models.ViewModels.DepartmentViewModel
+@Styles.Render("~/Content/style/Department/tree.css")
 @{
     ViewBag.Title = "Show_Department_Information";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -45,6 +46,52 @@
             </ul>
         </li>
     </ul>
+
+
+    <hr />
+
+    <ul id="myUL">
+        <li>
+            <span class="caret">@Html.LabelFor(m => m.Dep_Name)</span>
+            <ul class="nested">
+                <li>
+                    <span class="caret">Managers :</span>
+                    <ul class="nested">
+                        @if (ViewBag.allManagers != "null")
+                        {
+                            for (int i = 0; i < Model.List_Managers_Details.Count(); i++)
+                            {
+                                <li>
+                                    <a asp-action="index" asp-controller="home" asp-route-id=@Model.List_Managers_Details[i].UserId>
+                                        @Model.List_Managers_Details[i].FirstName @Model.List_Managers_Details[i].LastName
+                                    </a>
+                                </li>
+                            }
+                        }
+
+                    </ul>
+                </li>
+                <li>
+                    <span class="caret">Programs :</span>
+                    <ul class="nested">
+                        @if (Model.List_Department_Programs.Count() != 0)
+                        {
+                            for (int i = 0; i < Model.List_Department_Programs.Count(); i++)
+                            {
+                                <li>
+                                    <a asp-action="index" asp-controller="home" asp-route-id=@Model.List_Department_Programs[i].PId>
+                                        @Model.List_Department_Programs[i].Name
+                                    </a>
+                                </li>
+                            }
+                        }
+
+                    </ul>
+                </li>
+            </ul>
+        </li>
+    </ul>
+
 </body>
 </html>
 @Scripts.Render("~/Scripts/scripts/tree.js")

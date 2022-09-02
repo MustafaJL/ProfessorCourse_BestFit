@@ -17,22 +17,20 @@ namespace ProfessorCourse_BestFit.Models.ViewModels
 
         public bool isDeleted { get; set; }
 
-        public Nullable<int> User_Id { get; set; }
+        public string User_id { get; set; }
 
         [Display(Name = "Manager User Name")]
         [Required(ErrorMessage = "Select Name before submit")]
         public string Manager_User_Name { get; set; }
 
+        //this list for chose the managers of the department
         public List<UserRolesViewModel> List_User_Details { get; set; }
 
-        public List<MultiSelectList> multiselectListmanager { get; set; }
+        //this list to save the managers of the department
+        public List<UserRolesViewModel> List_Managers_Details { get; set; }
 
-        public List<SelectListItem> all_professors { get; set; }
-
-        public List<DepartmentViewModel> departmentViewModels { get; set; }
-
-        public string tree_id { get; set; }
-        public string tree_text { get; set; }
+        //this list to save the programs in the department
+        public List<ProgramViewModel> List_Department_Programs { get; set; }
 
 
     }

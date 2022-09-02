@@ -41,10 +41,34 @@ namespace ProfessorCourse_BestFit.Controllers
         }
 
         // GET: Show Department Information
+        //the id should not be null
         public ActionResult Show_Department_Information(int? id)
         {
-            
-            return View();
+            if(id != null)
+            {
+                DepartmentViewModel departmentViewModel = new DepartmentViewModel();
+                UserRolesViewModel userRolesViewModel = new UserRolesViewModel();
+                var department = _context.Departments.Where(x => x.Dep_Id == id).FirstOrDefault();
+                departmentViewModel.Dep_Id = department.Dep_Id;
+                departmentViewModel.Dep_Name = department.Dep_Name;
+                departmentViewModel.User_id = department.User_id;
+                if(departmentViewModel.User_id != null)
+                {
+                    department_DAL.Get_All_Department_Managers(departmentViewModel.User_id);
+                }
+                else
+                {
+                    ViewBag.allManagers = "null";
+                }
+                departmentViewModel.List_Department_Programs = department_DAL.Get_Department_Programs(departmentViewModel.Dep_Id);
+
+                return View(departmentViewModel);
+            }
+            else
+            {
+                //should add a condition if the input id is null
+                return View();
+            }
         }
 
         public ActionResult Edit_Department()

@@ -20,7 +20,6 @@
         <AssociationConnector Association="ProfessorCourseBestFitModel.FK_Course" ManuallyRouted="false" />
         <AssociationConnector Association="ProfessorCourseBestFitModel.FK_CourseUser" ManuallyRouted="false" />
         <AssociationConnector Association="ProfessorCourseBestFitModel.FK_Keyword" ManuallyRouted="false" />
-        <AssociationConnector Association="ProfessorCourseBestFitModel.FK_Department_Manager" ManuallyRouted="false" />
         <AssociationConnector Association="ProfessorCourseBestFitModel.FK_DepartmentUser" ManuallyRouted="false" />
         <AssociationConnector Association="ProfessorCourseBestFitModel.FK_KeywordKeywords" ManuallyRouted="false" />
         <AssociationConnector Association="ProfessorCourseBestFitModel.FK_RolesUser" ManuallyRouted="false" />
