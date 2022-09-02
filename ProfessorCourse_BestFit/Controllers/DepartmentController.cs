@@ -1,7 +1,6 @@
 ﻿using ProfessorCourse_BestFit.DAL;
 using ProfessorCourse_BestFit.Models;
 using ProfessorCourse_BestFit.Models.ViewModels;
-using ProfessorCourse_BestFit.StyleData;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -42,10 +41,9 @@ namespace ProfessorCourse_BestFit.Controllers
         }
 
         // GET: Show Department Information
-        public ActionResult Show_Department_Information(int id)
+        public ActionResult Show_Department_Information(int? id)
         {
-            TreeData td = new TreeData();
-            td.ProcessRequest(id);
+            
             return View();
         }
 

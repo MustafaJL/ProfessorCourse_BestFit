@@ -1,8 +1,50 @@
-﻿
+﻿@Styles.Render("~/Content/style/Department/tree.css")
 @{
     ViewBag.Title = "Show_Department_Information";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Show Department Information</h2>
-
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+</head>
+<body>
+    <h2>Show Department Information</h2>
+    <ul id="myUL">
+        <li>
+            <span class="caret">first li</span>
+            <ul class="nested">
+                <li>
+                    <span class="caret">water</span>
+                    <ul class="nested">
+                        <li>hello</li>
+                        <li>hi</li>
+                    </ul>
+                </li>
+                <li>
+                    <span class="caret">coffee</span>
+                    <ul class="nested">
+                        <li>hello</li>
+                        <li>hi</li>
+                    </ul>
+                </li>
+                <li>
+                    <span class="caret">tea</span>
+                    <ul class="nested">
+                        <li>black</li>
+                        <li>green</li>
+                        <li>
+                            <span class="caret">part 3</span>
+                            <ul class="nested">
+                                <li>hello</li>
+                                <li>hi</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</body>
+</html>
+@Scripts.Render("~/Scripts/scripts/tree.js")
