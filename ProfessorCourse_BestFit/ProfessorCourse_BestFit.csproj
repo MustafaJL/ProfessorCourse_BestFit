@@ -137,6 +137,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CourseController.cs" />
     <Compile Include="Controllers\DepartmentController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProfessorController.cs" />
@@ -235,6 +236,7 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ViewModels\Choice.cs" />
+    <Compile Include="Models\ViewModels\CourseViewModel.cs" />
     <Compile Include="Models\ViewModels\DepartmentViewModel.cs" />
     <Compile Include="Models\ViewModels\LoginViewModel.cs" />
     <Compile Include="Models\ViewModels\ProgramViewModel.cs" />
@@ -2306,10 +2308,15 @@
     <Content Include="Views\Department\Show_Department_Information.cshtml" />
     <Content Include="Views\Department\Edit_Department.cshtml" />
     <Content Include="Views\Department\Edit_Department_Programs.cshtml" />
+    <Content Include="Views\Program\All_Programs.cshtml" />
+    <Content Include="Views\Program\Create_Program.cshtml" />
+    <Content Include="Views\Program\Edit_Program.cshtml" />
+    <Content Include="Views\Program\Show_Program_information.cshtml" />
+    <Content Include="Views\Program\Delete_Program.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Program\" />
+    <Folder Include="Views\Course\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

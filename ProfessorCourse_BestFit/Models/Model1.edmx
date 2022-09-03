@@ -14,6 +14,7 @@
           <Property Name="CName" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="CreatedOn" Type="datetime" Nullable="false" />
           <Property Name="Duration" Type="int" Nullable="false" />
+          <Property Name="isDeleted" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="CourseKeyword">
           <Key>
@@ -443,6 +444,7 @@
           <NavigationProperty Name="CourseKeywords" Relationship="Self.FK_Course" FromRole="Course" ToRole="CourseKeyword" />
           <NavigationProperty Name="UserCourses" Relationship="Self.FK_CourseUser" FromRole="Course" ToRole="UserCourse" />
           <NavigationProperty Name="Programs" Relationship="Self.CourseProgram" FromRole="Course" ToRole="Program" />
+          <Property Name="isDeleted" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="CourseKeyword">
           <Key>
@@ -913,6 +915,7 @@
           <EntitySetMapping Name="Courses">
             <EntityTypeMapping TypeName="ProfessorCourseBestFitModel.Course">
               <MappingFragment StoreEntitySet="Course">
+                <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
                 <ScalarProperty Name="CId" ColumnName="CId" />
                 <ScalarProperty Name="Code" ColumnName="Code" />
                 <ScalarProperty Name="CName" ColumnName="CName" />

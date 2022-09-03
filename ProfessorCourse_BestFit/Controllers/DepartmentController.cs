@@ -40,6 +40,7 @@ namespace ProfessorCourse_BestFit.Controllers
         {
             var create_department = new DepartmentViewModel();
             create_department.List_User_Details = department_DAL.Get_All_Professors();
+            /*
             SqlCommand command = _connection.CreateCommand();
             // specify the type of cammand
             command.CommandType = CommandType.StoredProcedure;
@@ -66,13 +67,19 @@ namespace ProfessorCourse_BestFit.Controllers
             }
 
             ViewBag.CityList = new SelectList(MyList, "Id", "Text");
+            */
             return View(create_department);
             
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Create_Department(DepartmentViewModel departmentViewModel)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(departmentViewModel);
+            }
             var create_department = new Department();
             create_department.Dep_Name = departmentViewModel.Dep_Name;
             if(departmentViewModel.List_User_Details.Count() > 0)

@@ -27,9 +27,9 @@ namespace ProfessorCourse_BestFit.Models.ViewModels
         public List<UserRolesViewModel> List_User_Details { get; set; }
 
         //this list to save the managers of the department
-        public IEnumerable<SelectListItem> choice { get; set; }
+        //public IEnumerable<SelectListItem> choice { get; set; }
         
-        public IEnumerable<SelectListItem> CityList { get; set; }
+        //public IEnumerable<SelectListItem> CityList { get; set; }
 
         public List<UserRolesViewModel> List_Managers_Details { get; set; }
 
@@ -38,6 +38,6 @@ namespace ProfessorCourse_BestFit.Models.ViewModels
         //this list to save the programs in the department
         public List<ProgramViewModel> List_Department_Programs { get; set; }
 
-        public int id { get; set; }
+        //public int id { get; set; }
     }
 }
