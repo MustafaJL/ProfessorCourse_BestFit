@@ -140,6 +140,7 @@
     <Compile Include="Controllers\DepartmentController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProfessorController.cs" />
+    <Compile Include="Controllers\ProgramController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="CustomSecurity\CustomAuthentication.cs" />
     <Compile Include="CustomSecurity\CustomAuthorization.cs" />
@@ -151,6 +152,7 @@
     </Compile>
     <Compile Include="Helper\CryptoService.cs" />
     <Compile Include="Helper\Validator.cs" />
+    <Compile Include="messages\Messages.cs" />
     <Compile Include="Models\Course.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -232,6 +234,7 @@
     <Compile Include="Models\UserRole.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ViewModels\Choice.cs" />
     <Compile Include="Models\ViewModels\DepartmentViewModel.cs" />
     <Compile Include="Models\ViewModels\LoginViewModel.cs" />
     <Compile Include="Models\ViewModels\ProgramViewModel.cs" />
@@ -2302,12 +2305,11 @@
     <Content Include="Views\Department\Create_Department.cshtml" />
     <Content Include="Views\Department\Show_Department_Information.cshtml" />
     <Content Include="Views\Department\Edit_Department.cshtml" />
-    <Content Include="Views\Department\Edit_Department_name.cshtml" />
-    <Content Include="Views\Department\Edit_Department_Managers.cshtml" />
     <Content Include="Views\Department\Edit_Department_Programs.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Program\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
