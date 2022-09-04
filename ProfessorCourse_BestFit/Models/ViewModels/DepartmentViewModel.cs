@@ -26,6 +26,8 @@ namespace ProfessorCourse_BestFit.Models.ViewModels
         //this list for chose the managers of the department
         public List<UserRolesViewModel> List_User_Details { get; set; }
 
+        public IEnumerable<Department> all_departments { get; set; }
+
         //this list to save the managers of the department
         //public IEnumerable<SelectListItem> choice { get; set; }
         

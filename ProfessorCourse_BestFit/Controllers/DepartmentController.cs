@@ -32,7 +32,9 @@ namespace ProfessorCourse_BestFit.Controllers
         // GET: All Department
         public ActionResult All_Departments()
         {   
-            return View(department_DAL.Get_All_Departments());
+            DepartmentViewModel departmentViewModel = new DepartmentViewModel();
+            departmentViewModel.all_departments = _context.Departments.Where(x => x.isDeleted == false).ToList();
+            return View(departmentViewModel);
         }
 
         // GET: Create Department

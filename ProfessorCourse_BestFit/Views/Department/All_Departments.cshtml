@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ProfessorCourse_BestFit.Models.ViewModels.DepartmentViewModel>
+﻿@model ProfessorCourse_BestFit.Models.ViewModels.DepartmentViewModel
 @Styles.Render("~/Content/MyStyle.css")
 @{
     ViewBag.Title = "All_Departments";
@@ -10,7 +10,7 @@
 <button class="btn btn-warning btnstyleDpartmentList" onclick="location.href='@Url.Action("Create_Department", "Department")';return false;">Create New</button>
 <hr />
 <div class="warp">
-    @foreach (var item in Model)
+    @foreach (var item in Model.all_departments)
     {
         <div class="dipartmentlist">
             <h4 class="Departmentname">@item.Dep_Name</h4>
@@ -20,6 +20,5 @@
             </div>
         </div>
     }
-    <button class="btn btn-warning btnstyleDpartmentList" onclick="location.href='@Url.Action("Edit_Department", "Department")';return false;"> New</button>
 
 </div>
