@@ -24,20 +24,24 @@
         <br />
         <div class="form-group">
             <div class="col-md-10">
+                @*
                 <select>
                     <option>--Select Name--</option>
-                    @for (int i = 0; i < Model.List_User_Details.Count; i++)
-                    {
-                        <option value=@Model.List_User_Details[i].UserId>
-                            @Model.List_User_Details[i].FirstName @Model.List_User_Details[i].LastName
-                        </option>
-                    }
+
+        @for (int i = 0; i < Model.List_User_Details.Count(); i++)
+        {
+            <option value=@Model.List_User_Details[i].UserId>
+                @Model.List_User_Details[i].FirstName @Model.List_User_Details[i].LastName
+            </option>
+        }
+
                 </select>
-                    @*ViewBag.CityList is holding all the cities values*@
-                    @*
+                *@
+                @*ViewBag.CityList is holding all the cities values*@
+                @*
         @Html.DropDownListFor(model => model.id, ViewBag.CityList as SelectList, new { @class = "form-control", multiple = "multiple" })
         @Html.ValidationMessageFor(model => model.id, "", new { @class = "text-danger" })
-                    *@
+                *@
             </div>
         </div>
         <div class="form-group">
@@ -49,9 +53,21 @@
 }
 
 @{
+    if (ViewBag.existName != null)
+    {
+        <div class="alert alert-warning" role="alert">
+            <h3>
+                @ViewBag.existName
+            </h3>
+            <hr />
+            <p>
+                @ViewBag.data_not_saved
+            </p>
+        </div>
+    }
     if (ViewBag.savetitle == "Done...")
     {
-        <div class="row" style="border-left: 4px solid green; background-color: MediumSpringGreen;">
+        <div class="alert alert-success" role="alert">
             <h3>
                 @ViewBag.savetitle
             </h3>
@@ -63,7 +79,7 @@
     }
     else if (ViewBag.savetitle == "Failed!")
     {
-        <div class="row" style="border-left: 4px solid red; background-color: Crimson;">
+        <div class="alert alert-danger" role="alert">
             <h3>
                 @ViewBag.savetitle
             </h3>
@@ -77,7 +93,7 @@
 
 <div class="form-group">
     <div class="col-xl-offset-2 col-xl-10">
-        <button class="btn btn-primary" onclick="location.href='@Url.Action("ListDepartment", "Department")';return false;">Back</button>
+        <button class="btn btn-primary" onclick="location.href='@Url.Action("All_Departments", "Department")';return false;">Back</button>
     </div>
 </div>
 

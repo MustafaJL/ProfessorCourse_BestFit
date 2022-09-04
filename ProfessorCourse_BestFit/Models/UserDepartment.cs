@@ -18,6 +18,7 @@ namespace ProfessorCourse_BestFit.Models
         public int User_ID { get; set; }
         public System.DateTime StartDate { get; set; }
         public Nullable<System.DateTime> EndDate { get; set; }
+        public bool isDeleted { get; set; }
     
         public virtual Department Department { get; set; }
         public virtual User User { get; set; }

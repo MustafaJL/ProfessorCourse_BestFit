@@ -16,7 +16,7 @@
             <h4 class="Departmentname">@item.Dep_Name</h4>
             <div class="col-xl-offset-2 col-xl-10">
                 <button class="btn btn-warning btnstyleDpartmentList" onclick="location.href='@Url.Action("Show_Department_Information", "Department", new { id = item.Dep_Id })';return false;">View Details</button>
-                <button class="btn btn-danger btnstyleDpartmentList" onclick="location.href='@Url.Action("DeleteDepartment", "Department", new { id = item.Dep_Id })';return false;">Delete</button>
+                <button class="btn btn-danger btnstyleDpartmentList" onclick="location.href='@Url.Action("Delete_Department", "Department", new { id = item.Dep_Id })';return false;">Delete</button>
             </div>
         </div>
     }

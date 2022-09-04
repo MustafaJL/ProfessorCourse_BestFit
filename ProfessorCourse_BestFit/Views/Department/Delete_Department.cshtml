@@ -1,0 +1,39 @@
+﻿@model ProfessorCourse_BestFit.Models.ViewModels.DepartmentViewModel
+@{
+    ViewBag.Title = "Delete_Department";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Delete Department</h2>
+
+<br />
+@if (ViewBag.test == true)
+{
+
+
+    <h1>done</h1>
+}
+else
+{
+    <h4>Do you want to delete: @Model.Dep_Name</h4>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(model => model.Dep_Id)
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Delete" class="btn btn-primary" />
+            </div>
+        </div>
+    }
+}
+
+
+
+
+<br />
+<button class="btn btn-warning btnstyleDpartmentList" onclick="location.href='@Url.Action("All_Departments", "Department")';return false;"> Back</button>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

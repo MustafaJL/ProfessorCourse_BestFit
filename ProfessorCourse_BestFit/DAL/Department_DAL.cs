@@ -1,4 +1,5 @@
-﻿using ProfessorCourse_BestFit.Models.ViewModels;
+﻿using ProfessorCourse_BestFit.Models;
+using ProfessorCourse_BestFit.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -60,7 +61,7 @@ namespace ProfessorCourse_BestFit.DAL
             return user_DAL.Get_All_Professors();
         }
 
-        public List<UserRolesViewModel> Get_All_Department_Managers(string id)
+        public IEnumerable<User> Get_All_Department_Managers(string id)
         {
             return user_DAL.Get_All_Department_Managers(id);
         }
@@ -68,6 +69,24 @@ namespace ProfessorCourse_BestFit.DAL
         public List<ProgramViewModel> Get_Department_Programs(int id)
         {
             return program_DAL.Get_Department_Programs(id);
+        }
+
+        public void Delete_Department(int id)
+        {
+            // create command
+            SqlCommand command = _connection.CreateCommand();
+            // specify the type of cammand
+            command.CommandType = CommandType.StoredProcedure;
+            // specify name of SP
+            command.CommandText = "Delete_Department";
+            // pass the value of parameter
+            command.Parameters.AddWithValue("@DepartmentID", id);
+
+            _connection.Open();
+
+            command.ExecuteReader();
+
+            _connection.Close();
         }
     }
 }

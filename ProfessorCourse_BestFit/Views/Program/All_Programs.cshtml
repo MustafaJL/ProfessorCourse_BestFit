@@ -22,3 +22,26 @@
         </div>
     }
 </div>
+@*
+    
+    <script>
+        $('#btnGetMilestones').click(function () {
+            $.ajax({
+                url: '/Projects/GetMilestones/' + "?id=" + window.location.href.split('/').pop(),
+                type: "GET",
+                success: function (data) {
+                    $('#milestonesContainer').html(data);
+                },
+                error: function (xhr, status, error) {
+                    var msg = "Response failed with status: " + status + "</br>"
+                        + " Error: " + error;
+                    $('#milestonesContainer').html(msg);
+                },
+                complete: function (xhr, status) {
+                    var doneMsg = "Operation complete with status: " + status;
+                    alert(doneMsg);
+                }
+            });
+        });
+    </script>
+*@

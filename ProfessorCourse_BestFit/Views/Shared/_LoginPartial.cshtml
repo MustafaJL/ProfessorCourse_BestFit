@@ -25,6 +25,33 @@
                         </ul>
 
                     </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Departments
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("All Departments", "All_Departments", "Department", null, new { @class = "dropdown-item " })</li>
+                            <li>@Html.ActionLink("Create Department", "Create_Department", "Department", null, new { @class = "dropdown-item " })</li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Programs
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("All Programs", "All_Programs", "Program", null, new { @class = "dropdown-item " })</li>
+                            <li>@Html.ActionLink("Create Program", "Create_Program", "Program", null, new { @class = "dropdown-item " })</li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Courses
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("All Courses", "All_Course", "Course", null, new { @class = "dropdown-item " })</li>
+                            <li>@Html.ActionLink("Create Course", "Create_Course", "Course", null, new { @class = "dropdown-item " })</li>
+                        </ul>
+                    </li>
                 </ul>
                 <ul class="navbar-nav">
                     <li class="nav-item dropdown">

@@ -42,34 +42,6 @@ namespace ProfessorCourse_BestFit.Controllers
         {
             var create_department = new DepartmentViewModel();
             create_department.List_User_Details = department_DAL.Get_All_Professors();
-            /*
-            SqlCommand command = _connection.CreateCommand();
-            // specify the type of cammand
-            command.CommandType = CommandType.StoredProcedure;
-            // specify name of SP
-            command.CommandText = "getAllProfessors";
-
-            SqlDataAdapter adapter = new SqlDataAdapter(command);
-            DataTable dtMails = new DataTable();
-
-            // open connection
-            _connection.Open();
-            adapter.Fill(dtMails);
-            // close connection
-            _connection.Close();
-
-            IList<Choice> MyList = new List<Choice>();
-            foreach (DataRow mydataRow in dtMails.Rows)
-            {
-                MyList.Add(new Choice()
-                {
-                    Id = mydataRow["Uid"].ToString().Trim(),
-                    Text = mydataRow["FirstName"].ToString().Trim() + mydataRow["LastName"].ToString().Trim()
-                });
-            }
-
-            ViewBag.CityList = new SelectList(MyList, "Id", "Text");
-            */
             return View(create_department);
             
         }
@@ -82,9 +54,22 @@ namespace ProfessorCourse_BestFit.Controllers
             {
                 return View(departmentViewModel);
             }
+
+            var department = _context.Departments.Where(
+                x => x.Dep_Name.ToLower() == departmentViewModel.Dep_Name.ToLower() 
+                && 
+                x.isDeleted == false
+                ).FirstOrDefault();
+
+            if(department != null)
+            {
+                ViewBag.existName = messages.name_exist;
+                ViewBag.data_not_saved = messages.data_not_saved;
+                return View(departmentViewModel);
+            }
             var create_department = new Department();
             create_department.Dep_Name = departmentViewModel.Dep_Name;
-            if(departmentViewModel.List_User_Details.Count() > 0)
+            if(departmentViewModel.List_User_Details != null)
             {
                 for (int i = 0; i < departmentViewModel.List_User_Details.Count; i++)
                 {
@@ -115,8 +100,6 @@ namespace ProfessorCourse_BestFit.Controllers
             if(id != null)
             {
                 DepartmentViewModel departmentViewModel = new DepartmentViewModel();
-                List<UserRolesViewModel> userRolesViewModels = new List<UserRolesViewModel>();
-                UserRolesViewModel userRolesViewModel = new UserRolesViewModel();
                 var department = _context.Departments.Where(x => x.Dep_Id == id).FirstOrDefault();
                 departmentViewModel.Dep_Id = department.Dep_Id;
                 departmentViewModel.Dep_Name = department.Dep_Name;
@@ -124,22 +107,17 @@ namespace ProfessorCourse_BestFit.Controllers
                 if(departmentViewModel.User_id != null)
                 {
                     var all_managers = department_DAL.Get_All_Department_Managers(departmentViewModel.User_id);
-                    for(int i = 0; i < all_managers.Count; i++)
-                    {
-                        userRolesViewModel.UserId = all_managers[i].UserId;
-                        userRolesViewModel.FirstName = all_managers[i].FirstName;
-                        userRolesViewModel.LastName = all_managers[i].LastName;
-                        userRolesViewModels.Add(userRolesViewModel);
-                    }
-                    departmentViewModel.List_Managers_Details = userRolesViewModels;
+                    //need procedure (look at user_DAL.cs).
+                    departmentViewModel.List_Managers_Details = all_managers;
                     ViewBag.allManagers = messages.message_not_null;
                 }
                 else
                 {
                     ViewBag.allManagers = messages.message_null;
+                    ViewBag.noManagers = messages.no_managers;
                 }
                 departmentViewModel.List_Department_Programs = department_DAL.Get_Department_Programs(departmentViewModel.Dep_Id);
-
+                ViewBag.allPrograms = messages.no_programs;
                 return View(departmentViewModel);
             }
             else
@@ -161,10 +139,23 @@ namespace ProfessorCourse_BestFit.Controllers
 
         public ActionResult Delete_Department(int id)
         {
+            DepartmentViewModel departmentViewModel = new DepartmentViewModel();
+            departmentViewModel.Department = _context.Departments.Where(x => x.Dep_Id == id).FirstOrDefault();
+            return View(departmentViewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Delete_Department(DepartmentViewModel departmentViewModel, int id)
+        {
+            department_DAL.Delete_Department(id);
+            /*
             var department = _context.Departments.Where(x => x.Dep_Id == id).FirstOrDefault();
             department.isDeleted = true;
             _context.SaveChanges();
-            return View("All_Departments");
+            */
+            ViewBag.test = true;
+            return View();
         }
 
     }

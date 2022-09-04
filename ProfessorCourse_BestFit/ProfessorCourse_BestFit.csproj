@@ -2317,6 +2317,7 @@
     <Content Include="Views\Course\Show_Course_information.cshtml" />
     <Content Include="Views\Course\Edit_Course.cshtml" />
     <Content Include="Views\Course\Delete_Course.cshtml" />
+    <Content Include="Views\Department\Delete_Department.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

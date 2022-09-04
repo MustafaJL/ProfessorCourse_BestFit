@@ -18,6 +18,14 @@ namespace ProfessorCourse_BestFit.messages
         public string message_failed_submit_title = "Failed!";
         
         public string message_failed_submit_body = "A problem occurred, the data was not saved.";
+
+        public string no_managers= "No manager has been appointed yet.";
+        
+        public string no_programs= "No programs has been appointed yet.";
+
+        public string name_exist = "The name you entered is already exist please chose another name.";
+
+        public string data_not_saved = "The data is not saved.";
     }
     
 }

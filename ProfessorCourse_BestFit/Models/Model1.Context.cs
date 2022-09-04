@@ -180,5 +180,14 @@ namespace ProfessorCourse_BestFit.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<getAllPrograms1_Result>("getAllPrograms1", departmentIDParameter, queryParameter);
         }
+    
+        public virtual int Delete_Department(Nullable<int> departmentID)
+        {
+            var departmentIDParameter = departmentID.HasValue ?
+                new ObjectParameter("DepartmentID", departmentID) :
+                new ObjectParameter("DepartmentID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Delete_Department", departmentIDParameter);
+        }
     }
 }

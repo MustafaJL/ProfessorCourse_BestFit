@@ -101,6 +101,7 @@
           <Property Name="User_ID" Type="int" Nullable="false" />
           <Property Name="StartDate" Type="datetime" Nullable="false" />
           <Property Name="EndDate" Type="datetime" />
+          <Property Name="isDeleted" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="UserKeyword">
           <Key>
@@ -334,6 +335,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="Delete_Department" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="DepartmentID" Type="int" Mode="In" />
+        </Function>
         <Function Name="getAllDepartmentManager" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="DepartmentID" Type="int" Mode="In" />
         </Function>
@@ -529,6 +533,7 @@
           <Property Name="EndDate" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Department" Relationship="Self.FK_DepartmentUser" FromRole="UserDepartment" ToRole="Department" />
           <NavigationProperty Name="User" Relationship="Self.FK_UserDepartment" FromRole="UserDepartment" ToRole="Users" />
+          <Property Name="isDeleted" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="UserKeyword">
           <Key>
@@ -807,6 +812,9 @@
             <Parameter Name="DepartmentID" Mode="In" Type="Int32" />
             <Parameter Name="Query" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="Delete_Department">
+            <Parameter Name="DepartmentID" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="spGetUserRoles_Result">
           <Property Type="Int32" Name="Uid" Nullable="false" />
@@ -992,6 +1000,7 @@
           <EntitySetMapping Name="UserDepartments">
             <EntityTypeMapping TypeName="ProfessorCourseBestFitModel.UserDepartment">
               <MappingFragment StoreEntitySet="UserDepartment">
+                <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
                 <ScalarProperty Name="Dep_Id" ColumnName="Dep_Id" />
                 <ScalarProperty Name="User_ID" ColumnName="User_ID" />
                 <ScalarProperty Name="StartDate" ColumnName="StartDate" />
@@ -1139,6 +1148,7 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Delete_Department" FunctionName="ProfessorCourseBestFitModel.Store.Delete_Department" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -20,7 +20,7 @@ namespace ProfessorCourse_BestFit.Models.ViewModels
         public string User_id { get; set; }
 
         [Display(Name = "Manager User Name")]
-        [Required(ErrorMessage = "Select Name before submit")]
+        //[Required(ErrorMessage = "Select Name before submit")]
         public string Manager_User_Name { get; set; }
 
         //this list for chose the managers of the department
@@ -28,12 +28,16 @@ namespace ProfessorCourse_BestFit.Models.ViewModels
 
         public IEnumerable<Department> all_departments { get; set; }
 
+        public Department Department { get; set; }
+        
         //this list to save the managers of the department
         //public IEnumerable<SelectListItem> choice { get; set; }
         
         //public IEnumerable<SelectListItem> CityList { get; set; }
 
-        public List<UserRolesViewModel> List_Managers_Details { get; set; }
+        //public List<UserRolesViewModel> List_Managers_Details { get; set; }
+        
+        public IEnumerable<User> List_Managers_Details { get; set; }
 
         //public List<UserRolesViewModel> List_Managers_Details { get; set; }
 

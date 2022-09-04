@@ -1,4 +1,5 @@
-﻿using ProfessorCourse_BestFit.Models.ViewModels;
+﻿using ProfessorCourse_BestFit.Models;
+using ProfessorCourse_BestFit.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -141,9 +142,9 @@ namespace ProfessorCourse_BestFit.DAL
         }
 
         //the id should nnot be null
-        public List<UserRolesViewModel> Get_All_Department_Managers(string id)
+        public IEnumerable<User> Get_All_Department_Managers(string id)
         {
-            List<UserRolesViewModel> All_Department_Managers = new List<UserRolesViewModel>();
+            List<User> All_Department_Managers = new List<User>();
 
             // create command
             SqlCommand command = _connection.CreateCommand();
@@ -168,9 +169,9 @@ namespace ProfessorCourse_BestFit.DAL
 
                 foreach (DataRow dr in dtMails.Rows)
                 {
-                    All_Department_Managers.Add(new UserRolesViewModel
+                    All_Department_Managers.Add(new User
                     {
-                        UserId = Convert.ToInt32(dr["UserId"]),
+                        Uid = Convert.ToInt32(dr["UserId"]),
                         FirstName = Convert.ToString(dr["FirstName"]),
                         LastName = Convert.ToString(dr["LastName"])
                     });
