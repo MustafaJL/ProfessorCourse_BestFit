@@ -30,6 +30,6 @@ namespace ProfessorCourse_BestFit.Models
         [DataType(DataType.Password)]
         public string ConfirmPassword { get; set; }
 
-
+        public int User_id { get; set; }
     }
 }

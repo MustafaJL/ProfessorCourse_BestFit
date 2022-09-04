@@ -1,4 +1,7 @@
-﻿using ProfessorCourse_BestFit.Models;
+﻿using ProfessorCourse_BestFit.DAL;
+using ProfessorCourse_BestFit.messages;
+using ProfessorCourse_BestFit.Models;
+using ProfessorCourse_BestFit.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -7,183 +10,161 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using ProfessorCourse_BestFit.DAL;
-using ProfessorCourse_BestFit.Models.ViewModels;
-using ProfessorCourse_BestFit.CustomSecurity;
+
 
 namespace ProfessorCourse_BestFit.Controllers
 {
     public class DepartmentController : Controller
     {
-        /*
-         * My Stord Procedure
-         
-         _context.my_InsertUpdateDelete_Department(int? id,
-                                                   String name,
-                                                   int userID,
-                                                   int? QueryNumber);
-        QueryNumbres:
-        1: INSERT
-        2: UPDATE
-        3: DELETE
-        4: SELECT * (No Condition)
-        5: SELECT * (Based on the id)
-
-         */
-
+        private readonly string _Conn = ConfigurationManager.ConnectionStrings["DefaultConnection"].ToString();
+        private readonly SqlConnection _connection;
         private readonly ProfessorCourseBestFitEntities _context;
-        private Department_DAL dal;
-        
+        private readonly Department_DAL department_DAL;
+        private readonly Messages messages;
         public DepartmentController()
         {
             _context = new ProfessorCourseBestFitEntities();
-            dal = new Department_DAL();
+            department_DAL = new Department_DAL();
+            messages = new Messages();
+            _connection = new SqlConnection(_Conn);
         }
 
-        // GET: ListDepartment
-        public ActionResult ListDepartment(int? id)
+        // GET: All Department
+        public ActionResult All_Departments()
+        {   
+            DepartmentViewModel departmentViewModel = new DepartmentViewModel();
+            departmentViewModel.all_departments = _context.Departments.Where(x => x.isDeleted == false).ToList();
+            return View(departmentViewModel);
+        }
+
+        // GET: Create Department
+        public ActionResult Create_Department()
         {
+            var create_department = new DepartmentViewModel();
+            create_department.List_User_Details = department_DAL.Get_All_Professors();
             /*
-             get all Department in the database using 
-            stord procedure.
-             */
-            return View(dal.GetDepartments(id, 4));
+            SqlCommand command = _connection.CreateCommand();
+            // specify the type of cammand
+            command.CommandType = CommandType.StoredProcedure;
+            // specify name of SP
+            command.CommandText = "getAllProfessors";
+
+            SqlDataAdapter adapter = new SqlDataAdapter(command);
+            DataTable dtMails = new DataTable();
+
+            // open connection
+            _connection.Open();
+            adapter.Fill(dtMails);
+            // close connection
+            _connection.Close();
+
+            IList<Choice> MyList = new List<Choice>();
+            foreach (DataRow mydataRow in dtMails.Rows)
+            {
+                MyList.Add(new Choice()
+                {
+                    Id = mydataRow["Uid"].ToString().Trim(),
+                    Text = mydataRow["FirstName"].ToString().Trim() + mydataRow["LastName"].ToString().Trim()
+                });
+            }
+
+            ViewBag.CityList = new SelectList(MyList, "Id", "Text");
+            */
+            return View(create_department);
+            
         }
 
-        // GET: CreateDepartment
-        [CustomAuthorization("Admin")]
-        public ActionResult CreateDepartment()
-        {
-            ViewData["Message"] = null;
-            //need to fix (do not add the admin)
-            //listusers.listUsers = _context.Users.ToList<User>();
-            return View();
-        }
-
-        // post: CreateDepartment
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [CustomAuthorization("Admin")]
-        public ActionResult CreateDepartment(DepartmentViewModel department)
+        public ActionResult Create_Department(DepartmentViewModel departmentViewModel)
         {
-
-            ///modelstate.isvalid
-            /*
-             Create new Department using stored Procedure.
-             */
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                var newDepartment = new Department();
-                newDepartment.Dep_Name = department.Dep_Name;
-                //Problem
-                //newDepartment.User_Id = department.User_Id;
-                _context.Departments.Add(newDepartment);
-                //To Display message to the user.
-                try
-                {
-                    _context.SaveChanges();
-                    ViewData["Message"] = "Done";
-                }
-                catch
-                {
-                    ViewData["Message"] = "Fail";
-                }
-                return View("CreateDepartment");
+                return View(departmentViewModel);
             }
-           
+            var create_department = new Department();
+            create_department.Dep_Name = departmentViewModel.Dep_Name;
+            if(departmentViewModel.List_User_Details.Count() > 0)
+            {
+                for (int i = 0; i < departmentViewModel.List_User_Details.Count; i++)
+                {
+                    create_department.User_id += departmentViewModel.List_User_Details[i].ToString();
+                    create_department.User_id += ",";
+                }
+            }
+
+            _context.Departments.Add(create_department);
+            try
+            {
+                _context.SaveChanges();
+                ViewBag.savetitle = messages.message_success_submit_title;
+                ViewBag.savebody = messages.message_success_submit_body;
+            }
+            catch
+            {
+                ViewBag.savetitle = messages.message_failed_submit_title;
+                ViewBag.savebody = messages.message_failed_submit_body;
+            }
             return View();
         }
 
-        // GET: CreateDepartment
-        public ActionResult ViewDepartmentsInfo(int id)
+        // GET: Show Department Information
+        //the id should not be null
+        public ActionResult Show_Department_Information(int? id)
         {
-            /*
-             Select all specific Department information.
-             */
-            var department = new DepartmentViewModel();
-            var getdepartment = _context.Departments.Find(id);
-            department.Dep_Id = getdepartment.Dep_Id;
-            department.Dep_Name = getdepartment.Dep_Name;
-            if(department.User_Id != null)
+            if(id != null)
             {
-                var getdepartmentManager = _context.Users.Where(s => s.Uid == getdepartment.User_Id).FirstOrDefault();
-                department.Manager_User_Name = getdepartmentManager.FirstName;
+                DepartmentViewModel departmentViewModel = new DepartmentViewModel();
+                List<UserRolesViewModel> userRolesViewModels = new List<UserRolesViewModel>();
+                UserRolesViewModel userRolesViewModel = new UserRolesViewModel();
+                var department = _context.Departments.Where(x => x.Dep_Id == id).FirstOrDefault();
+                departmentViewModel.Dep_Id = department.Dep_Id;
+                departmentViewModel.Dep_Name = department.Dep_Name;
+                departmentViewModel.User_id = department.User_id;
+                if(departmentViewModel.User_id != null)
+                {
+                    var all_managers = department_DAL.Get_All_Department_Managers(departmentViewModel.User_id);
+                    for(int i = 0; i < all_managers.Count; i++)
+                    {
+                        userRolesViewModel.UserId = all_managers[i].UserId;
+                        userRolesViewModel.FirstName = all_managers[i].FirstName;
+                        userRolesViewModel.LastName = all_managers[i].LastName;
+                        userRolesViewModels.Add(userRolesViewModel);
+                    }
+                    departmentViewModel.List_Managers_Details = userRolesViewModels;
+                    ViewBag.allManagers = messages.message_not_null;
+                }
+                else
+                {
+                    ViewBag.allManagers = messages.message_null;
+                }
+                departmentViewModel.List_Department_Programs = department_DAL.Get_Department_Programs(departmentViewModel.Dep_Id);
+
+                return View(departmentViewModel);
             }
             else
             {
-                department.Manager_User_Name = "No manager in this department";
+                //should add a condition if the input id is null
+                return View();
             }
-            department.list_programs = dal.GetPrograms(department.Dep_Id);
-            return View(department);
         }
 
-        // GET: Edit Department
-        [CustomAuthorization("Admin")]
-        public ActionResult EditDepartment(int id)
+        public ActionResult Edit_Department(int id)
         {
-            /*
-             Select all specific Department information.
-             */
-            var department = new DepartmentViewModel();
-            var getdepartment = _context.Departments.Where(s => s.Dep_Id == id).FirstOrDefault();
-            department.Dep_Id = getdepartment.Dep_Id;
-            department.Dep_Name = getdepartment.Dep_Name;
-            department.list_Professors = dal.GetAllProfessors();
-            department.list_programs = dal.GetPrograms(getdepartment.Dep_Id);
-            return View(department);
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        [CustomAuthorization("Admin")]
-        public ActionResult EditDepartmentName(DepartmentViewModel department,int id)
-        {
-            /*
-             Select all specific Department information.
-            in order to edit it.
-             */
-            if (ModelState.IsValid)
-            {
-                var d = _context.Departments.Where(s => s.Dep_Id == id).FirstOrDefault();
-                d.Dep_Name = department.Dep_Name;
-                _context.SaveChanges();
-                return RedirectToAction("ViewDepartmentsInfo", new { id = id });
-            }
             return View();
         }
 
-
-
-        // GET: isDeleted Department
-        [CustomAuthorization("Admin")]
-        public ActionResult isDeletedDepartment(int id)
+        public ActionResult Edit_Department_Programs(int id)
         {
-            /*
-             Select all specific Department information.
-             */
-            var department = new DepartmentViewModel();
-            var getdepartment = _context.Departments.Where(s => s.Dep_Id == id).FirstOrDefault();
-            department.Dep_Id = getdepartment.Dep_Id;
-            department.Dep_Name = getdepartment.Dep_Name;
-            //Problem
-            department.User_Id = getdepartment.User_Id;
-            return View(department);
+            return View();
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        [CustomAuthorization("Admin")]
-        public ActionResult isDeletedDepartment(DepartmentViewModel department, int id)
+        public ActionResult Delete_Department(int id)
         {
-            /*
-             Select all specific Department information.
-            in order to edit it.
-             */
-            var d = _context.Departments.Where(s => s.Dep_Id == id).FirstOrDefault();
-            d.isDeleted = true;
-            //To Display message to the user.
+            var department = _context.Departments.Where(x => x.Dep_Id == id).FirstOrDefault();
+            department.isDeleted = true;
             _context.SaveChanges();
-            return RedirectToAction("ListDepartment");
+            return View("All_Departments");
         }
 
     }

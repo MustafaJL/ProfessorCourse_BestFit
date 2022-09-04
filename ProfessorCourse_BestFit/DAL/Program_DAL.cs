@@ -13,31 +13,25 @@ namespace ProfessorCourse_BestFit.DAL
     {
         private readonly SqlConnection _connection;
         private readonly string _Conn = ConfigurationManager.ConnectionStrings["DefaultConnection"].ToString();
-
         public Program_DAL()
         {
             _connection = new SqlConnection(_Conn);
         }
 
-        // Get All Containers
-        public List<ProgramViewModel> GetAllPrograms(int? id)
+        //the id should not be null
+        public List<ProgramViewModel> Get_Department_Programs(int id)
         {
-            List<ProgramViewModel> allProgram = new List<ProgramViewModel>();
+            List<ProgramViewModel> Department_Programs = new List<ProgramViewModel>();
 
             // create command
             SqlCommand command = _connection.CreateCommand();
             // specify the type of cammand
             command.CommandType = CommandType.StoredProcedure;
             // specify name of SP
-            if(id != null)
-            {
-                command.CommandText = "getDepartmentPrograms";
-                command.Parameters.AddWithValue("@DepartmentID", id);
-            }
-            else
-            {
-                command.CommandText = "getAllPrograms";
-            }
+            command.CommandText = "getAllPrograms";
+            // pass the value of parameter
+            command.Parameters.AddWithValue("@DepartmentID", id);
+            command.Parameters.AddWithValue("@Query", 2);
             SqlDataAdapter adapter = new SqlDataAdapter(command);
             DataTable dtMails = new DataTable();
 
@@ -49,17 +43,16 @@ namespace ProfessorCourse_BestFit.DAL
 
             foreach (DataRow dr in dtMails.Rows)
             {
-                allProgram.Add(new ProgramViewModel
+                Department_Programs.Add(new ProgramViewModel
                 {
                     PId = Convert.ToInt32(dr["PId"]),
                     Dep_Id = Convert.ToInt32(dr["Dep_Id"]),
                     Name = Convert.ToString(dr["Name"])
+
                 });
             }
 
-
-            return allProgram;
+            return Department_Programs;
         }
-
     }
 }

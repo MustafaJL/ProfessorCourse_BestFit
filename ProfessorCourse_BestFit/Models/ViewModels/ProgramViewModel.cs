@@ -12,11 +12,12 @@ namespace ProfessorCourse_BestFit.Models.ViewModels
 
         public int Dep_Id { get; set; }
 
+        [Required(ErrorMessage = "Name is required")]
         [Display(Name = "Program Name")]
-        [Required(ErrorMessage = "Name is Required")]
         public string Name { get; set; }
 
         public bool isDeleted { get; set; }
 
+        public IEnumerable<Program> All_Programs { get; set; }
     }
 }

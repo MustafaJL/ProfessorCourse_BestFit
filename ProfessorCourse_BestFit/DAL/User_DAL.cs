@@ -107,9 +107,9 @@ namespace ProfessorCourse_BestFit.DAL
 
         }
 
-        public List<UserRolesViewModel> GetAllProfessors()
+        public List<UserRolesViewModel> Get_All_Professors()
         {
-            List<UserRolesViewModel> allProfessors = new List<UserRolesViewModel>();
+            List<UserRolesViewModel> All_Professors = new List<UserRolesViewModel>();
 
             // create command
             SqlCommand command = _connection.CreateCommand();
@@ -117,7 +117,7 @@ namespace ProfessorCourse_BestFit.DAL
             command.CommandType = CommandType.StoredProcedure;
             // specify name of SP
             command.CommandText = "getAllProfessors";
-            // pass the value of parameter
+
             SqlDataAdapter adapter = new SqlDataAdapter(command);
             DataTable dtMails = new DataTable();
 
@@ -129,14 +129,59 @@ namespace ProfessorCourse_BestFit.DAL
 
             foreach (DataRow dr in dtMails.Rows)
             {
-                allProfessors.Add(new UserRolesViewModel
+                All_Professors.Add(new UserRolesViewModel
                 {
                     UserId = Convert.ToInt32(dr["UserId"]),
                     FirstName = Convert.ToString(dr["FirstName"]),
                     LastName = Convert.ToString(dr["LastName"])
                 });
             }
-            return allProfessors;
+
+            return All_Professors;
         }
+
+        //the id should nnot be null
+        public List<UserRolesViewModel> Get_All_Department_Managers(string id)
+        {
+            List<UserRolesViewModel> All_Department_Managers = new List<UserRolesViewModel>();
+
+            // create command
+            SqlCommand command = _connection.CreateCommand();
+            // specify the type of cammand
+            command.CommandType = CommandType.StoredProcedure;
+            // specify name of SP
+            command.CommandText = "getAllDepartmentManager";
+            var temp = id.Split(',');
+            for (int i = 0; i < temp.Length; i++)
+            {
+                int num = Convert.ToInt32(temp[i]);
+                command.Parameters.AddWithValue("@DepartmentID", id);
+
+                SqlDataAdapter adapter = new SqlDataAdapter(command);
+                DataTable dtMails = new DataTable();
+
+                // open connection
+                _connection.Open();
+                adapter.Fill(dtMails);
+                // close connection
+                _connection.Close();
+
+                foreach (DataRow dr in dtMails.Rows)
+                {
+                    All_Department_Managers.Add(new UserRolesViewModel
+                    {
+                        UserId = Convert.ToInt32(dr["UserId"]),
+                        FirstName = Convert.ToString(dr["FirstName"]),
+                        LastName = Convert.ToString(dr["LastName"])
+                    });
+                }
+            }
+            
+
+            return All_Department_Managers;
+        }
+
+        
+
     }
 }

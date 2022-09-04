@@ -1,6 +1,4 @@
-﻿using ProfessorCourse_BestFit.CustomSecurity;
-using ProfessorCourse_BestFit.DAL;
-using ProfessorCourse_BestFit.Models;
+﻿using ProfessorCourse_BestFit.Models;
 using ProfessorCourse_BestFit.Models.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -13,95 +11,99 @@ namespace ProfessorCourse_BestFit.Controllers
     public class ProgramController : Controller
     {
         private readonly ProfessorCourseBestFitEntities _context;
-        private Program_DAL dal;
+
         public ProgramController()
         {
             _context = new ProfessorCourseBestFitEntities();
-            dal = new Program_DAL();
         }
 
-        // GET: List Of Program
-        public ActionResult ListOfProgram()
+        // GET: Programs
+        public ActionResult All_Programs()
         {
-            /*
-             get all Programs in the database using Proceduer.
-             */
-            return View(dal.GetAllPrograms(null));
+            ProgramViewModel programViewModel = new ProgramViewModel();
+            var all_programs = _context.Programs.Where(x => x.isDeleted == false).ToList();
+            programViewModel.All_Programs = all_programs;
+            return View(programViewModel);
         }
 
-        // GET: Create Page
-        [CustomAuthorization("Admin")]
-        public ActionResult CreateProgram()
+        // GET: Create Program
+        public ActionResult Create_Program()
         {
-            ViewData["Message"] = null;
             return View();
         }
 
+        // POST: Save the New Program
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [CustomAuthorization("Admin")]
-        public ActionResult CreateProgram(ProgramViewModel programViewModel)
+        public ActionResult Create_Program(ProgramViewModel programViewModel)
         {
-            /*
-             get all Programs in the database.
-             */
-            var program = new Program();
-            program.Name = programViewModel.Name;
-            _context.Programs.Add(program);
-            try
+            if (!ModelState.IsValid)
             {
-                _context.SaveChanges();
-                ViewData["Message"] = "Done";
+                return View(programViewModel);
             }
-            catch
-            {
-                ViewData["Message"] = "Fail";
-            }
-            return View("CreateProgram");
+            Program  new_Program = new Program();
+            new_Program.Name = programViewModel.Name;
+            _context.Programs.Add(new_Program);
+            _context.SaveChanges();
+
+            return View();
         }
 
-        //Get
-        [CustomAuthorization("Admin")]
-        public ActionResult EditProgram(int id)
+        // GET: Show Program information
+        public ActionResult Show_Program_information(int id)
         {
-            /*
-             Select all specific Program information.
-             */
-            var program = new ProgramViewModel();
-            var getprogram = _context.Programs.Where(s => s.PId == id).FirstOrDefault();
-            program.PId = getprogram.PId;
-            program.Name = getprogram.Name;
-            program.Dep_Id = getprogram.Dep_Id;
-            return View(program);
+            var program = _context.Programs.Where(x => x.PId == id).FirstOrDefault();
+            ProgramViewModel programViewModel = new ProgramViewModel();
+            programViewModel.PId = program.PId;
+            programViewModel.Name = program.Name;
+            return View(programViewModel);
         }
 
+        // GET: Edit Program
+        public ActionResult Edit_Program(int id)
+        {
+            ProgramViewModel programViewModel = new ProgramViewModel();
+            var program = _context.Programs.Where(x => x.PId == id).FirstOrDefault();
+            programViewModel.PId = program.PId;
+            programViewModel.Name = program.Name;
+            return View(programViewModel);
+        }
+
+        // POST: Edit old Program
         [HttpPost]
-        [CustomAuthorization("Admin")]
         [ValidateAntiForgeryToken]
-        public ActionResult EditProgram(ProgramViewModel programViewModel, int id)
+        public ActionResult Edit_Program(ProgramViewModel programViewModel,int id)
         {
-            /*
-             Select all specific Department information.
-            in order to edit it.
-             */
-            var program = _context.Programs.Where(s => s.PId == id).FirstOrDefault();
+            if (!ModelState.IsValid)
+            {
+                return View(programViewModel);
+            }
+            var program = _context.Programs.Where(x => x.PId == id).FirstOrDefault();
             program.Name = programViewModel.Name;
             _context.SaveChanges();
-            return RedirectToAction("viewProgramInfo", new { id = id });
+            return RedirectToAction("Show_Program_information" , new {id = id});
         }
 
-        //Get
-        public ActionResult viewProgramInfo(int id)
+
+        // GET: Hide Program
+        public ActionResult Delete_Program(int id)
         {
-            /*
-             Select all specific Program information.
-             */
-            var program = new ProgramViewModel();
-            var getprogram = _context.Programs.Find(id);
-            program.PId = getprogram.PId;
-            program.Name = getprogram.Name;
-            program.Dep_Id = getprogram.Dep_Id;
-            return View(program);
+            ProgramViewModel programViewModel = new ProgramViewModel();
+            var program = _context.Programs.Where(x => x.PId == id).FirstOrDefault();
+            programViewModel.PId = program.PId;
+            programViewModel.Name = program.Name;
+            return View(programViewModel);
+        }
+
+        // POST: Hide the program
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Delete_Program(ProgramViewModel programViewModel, int id)
+        {
+            var program = _context.Programs.Where(x => x.PId == id).FirstOrDefault();
+            program.isDeleted = true;
+            _context.SaveChanges();
+            return RedirectToAction("All_Programs");
         }
     }
 }

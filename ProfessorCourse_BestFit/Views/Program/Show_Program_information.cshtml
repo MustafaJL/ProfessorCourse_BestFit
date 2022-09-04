@@ -1,0 +1,13 @@
+﻿@model ProfessorCourse_BestFit.Models.ViewModels.ProgramViewModel
+@{
+    ViewBag.Title = "Show_Program_information";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Show_Program_information</h2>
+<br />
+<h4>The name is: @Model.Name</h4>
+@Html.HiddenFor(m => m.PId)
+<br />
+<button class="btn btn-warning btnstyleDpartmentList" onclick="location.href='@Url.Action("Edit_Program", "Program", new { id = Model.PId })';return false;"> Edit</button>
+<button class="btn btn-warning btnstyleDpartmentList" onclick="location.href='@Url.Action("All_Programs", "Program")';return false;"> Back</button>

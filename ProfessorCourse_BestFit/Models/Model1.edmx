@@ -14,6 +14,7 @@
           <Property Name="CName" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="CreatedOn" Type="datetime" Nullable="false" />
           <Property Name="Duration" Type="int" Nullable="false" />
+          <Property Name="isDeleted" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="CourseKeyword">
           <Key>
@@ -38,8 +39,8 @@
           </Key>
           <Property Name="Dep_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Dep_Name" Type="varchar" MaxLength="150" Nullable="false" />
-          <Property Name="User_Id" Type="int" />
           <Property Name="isDeleted" Type="bit" Nullable="false" />
+          <Property Name="User_id" Type="varchar" MaxLength="450" />
         </EntityType>
         <EntityType Name="Keywords">
           <Key>
@@ -131,7 +132,7 @@
           <Key>
             <PropertyRef Name="Uid" />
           </Key>
-          <Property Name="Uid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Uid" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="FirstName" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="LastName" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Email" Type="varchar" MaxLength="150" Nullable="false" />
@@ -174,18 +175,6 @@
             </Principal>
             <Dependent Role="UserCourse">
               <PropertyRef Name="Course_Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Department_Manager">
-          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
-          <End Role="Department" Type="Self.Department" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Users">
-              <PropertyRef Name="Uid" />
-            </Principal>
-            <Dependent Role="Department">
-              <PropertyRef Name="User_Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -345,28 +334,12 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="getAllDepartmentManager" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="DepartmentID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="getAllDepartments" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="getAllProfessors" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
-        <Function Name="getAllPrograms" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
-        <Function Name="getDepartmentPrograms" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="DepartmentID" Type="int" Mode="In" />
-        </Function>
-        <Function Name="my_InsertUpdateDelete_Course" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="CourseID" Type="int" Mode="In" />
-          <Parameter Name="CourseCode" Type="nvarchar" Mode="In" />
-          <Parameter Name="CourseName" Type="nvarchar" Mode="In" />
-          <Parameter Name="CourseDateStart" Type="date" Mode="In" />
-          <Parameter Name="CourseDuration" Type="int" Mode="In" />
-          <Parameter Name="Query" Type="int" Mode="In" />
-        </Function>
-        <Function Name="my_InsertUpdateDelete_Department" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="DepartmentID" Type="int" Mode="In" />
-          <Parameter Name="DepartmentName" Type="nvarchar" Mode="In" />
-          <Parameter Name="UserID" Type="int" Mode="In" />
-          <Parameter Name="Query" Type="int" Mode="In" />
-        </Function>
-        <Function Name="my_InsertUpdateDelete_Program" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="ProgramID" Type="int" Mode="In" />
-          <Parameter Name="ProgramName" Type="nvarchar" Mode="In" />
+        <Function Name="getAllPrograms" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="DepartmentID" Type="int" Mode="In" />
           <Parameter Name="Query" Type="int" Mode="In" />
         </Function>
@@ -401,10 +374,6 @@
           <AssociationSet Name="FK_CourseUser" Association="Self.FK_CourseUser">
             <End Role="Course" EntitySet="Course" />
             <End Role="UserCourse" EntitySet="UserCourse" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Department_Manager" Association="Self.FK_Department_Manager">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="Department" EntitySet="Department" />
           </AssociationSet>
           <AssociationSet Name="FK_DepartmentUser" Association="Self.FK_DepartmentUser">
             <End Role="Department" EntitySet="Department" />
@@ -475,6 +444,7 @@
           <NavigationProperty Name="CourseKeywords" Relationship="Self.FK_Course" FromRole="Course" ToRole="CourseKeyword" />
           <NavigationProperty Name="UserCourses" Relationship="Self.FK_CourseUser" FromRole="Course" ToRole="UserCourse" />
           <NavigationProperty Name="Programs" Relationship="Self.CourseProgram" FromRole="Course" ToRole="Program" />
+          <Property Name="isDeleted" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="CourseKeyword">
           <Key>
@@ -493,10 +463,9 @@
           </Key>
           <Property Name="Dep_Id" Type="Int32" Nullable="false" />
           <Property Name="Dep_Name" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="User_Id" Type="Int32" />
-          <NavigationProperty Name="User" Relationship="Self.FK_Department_Manager" FromRole="Department" ToRole="Users" />
           <NavigationProperty Name="UserDepartments" Relationship="Self.FK_DepartmentUser" FromRole="Department" ToRole="UserDepartment" />
           <Property Name="isDeleted" Type="Boolean" Nullable="false" />
+          <Property Name="User_id" Type="String" MaxLength="450" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Keyword">
           <Key>
@@ -596,7 +565,6 @@
           <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="DateOfBirth" Type="DateTime" Precision="0" />
           <Property Name="deleted" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Departments" Relationship="Self.FK_Department_Manager" FromRole="Users" ToRole="Department" />
           <NavigationProperty Name="UserCourses" Relationship="Self.FK_UserCourse" FromRole="Users" ToRole="UserCourse" />
           <NavigationProperty Name="UserDepartments" Relationship="Self.FK_UserDepartment" FromRole="Users" ToRole="UserDepartment" />
           <NavigationProperty Name="UserKeywords" Relationship="Self.FK_UserKeyword" FromRole="Users" ToRole="UserKeyword" />
@@ -636,18 +604,6 @@
             </Principal>
             <Dependent Role="CourseKeyword">
               <PropertyRef Name="Keyword_Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Department_Manager">
-          <End Role="Users" Type="Self.User" Multiplicity="0..1" />
-          <End Role="Department" Type="Self.Department" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Users">
-              <PropertyRef Name="Uid" />
-            </Principal>
-            <Dependent Role="Department">
-              <PropertyRef Name="User_Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -772,10 +728,6 @@
             <End Role="Keywords" EntitySet="Keywords" />
             <End Role="CourseKeyword" EntitySet="CourseKeywords" />
           </AssociationSet>
-          <AssociationSet Name="FK_Department_Manager" Association="Self.FK_Department_Manager">
-            <End Role="Users" EntitySet="Users" />
-            <End Role="Department" EntitySet="Departments" />
-          </AssociationSet>
           <AssociationSet Name="FK_DepartmentUser" Association="Self.FK_DepartmentUser">
             <End Role="Department" EntitySet="Departments" />
             <End Role="UserDepartment" EntitySet="UserDepartments" />
@@ -846,6 +798,15 @@
           <FunctionImport Name="getDepartmentPrograms" ReturnType="Collection(ProfessorCourseBestFitModel.getDepartmentPrograms_Result)">
           <Parameter Name="DepartmentID" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="getAllDepartments" ReturnType="Collection(ProfessorCourseBestFitModel.getAllDepartments_Result)" />
+          <FunctionImport Name="getAllProfessors1" ReturnType="Collection(ProfessorCourseBestFitModel.getAllProfessors1_Result)" />
+          <FunctionImport Name="getAllDepartmentManager" ReturnType="Collection(ProfessorCourseBestFitModel.getAllDepartmentManager_Result)">
+          <Parameter Name="DepartmentID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="getAllPrograms1" ReturnType="Collection(ProfessorCourseBestFitModel.getAllPrograms1_Result)">
+            <Parameter Name="DepartmentID" Mode="In" Type="Int32" />
+            <Parameter Name="Query" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="spGetUserRoles_Result">
           <Property Type="Int32" Name="Uid" Nullable="false" />
@@ -904,6 +865,47 @@
           <Property Type="String" Name="Name" Nullable="false" MaxLength="150" />
           <Property Type="Boolean" Name="isDeleted" Nullable="false" />
         </ComplexType>
+        <ComplexType Name="getAllDepartments_Result">
+          <Property Type="Int32" Name="Dep_Id" Nullable="false" />
+          <Property Type="String" Name="Dep_Name" Nullable="false" MaxLength="150" />
+          <Property Type="Int32" Name="User_Id" Nullable="true" />
+          <Property Type="Boolean" Name="isDeleted" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="getAllProfessors1_Result">
+          <Property Type="Int32" Name="Uid" Nullable="false" />
+          <Property Type="String" Name="FirstName" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="LastName" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Email" Nullable="false" MaxLength="150" />
+          <Property Type="String" Name="Password" Nullable="false" MaxLength="500" />
+          <Property Type="String" Name="PasswordSalt" Nullable="false" MaxLength="500" />
+          <Property Type="DateTime" Name="CreatedOn" Nullable="false" Precision="23" />
+          <Property Type="DateTime" Name="DateOfBirth" Nullable="true" />
+          <Property Type="Boolean" Name="deleted" Nullable="false" />
+          <Property Type="Int32" Name="RoleId" Nullable="false" />
+          <Property Type="Int32" Name="UserId" Nullable="false" />
+          <Property Type="DateTime" Name="CreatedOn1" Nullable="false" Precision="23" />
+        </ComplexType>
+        <ComplexType Name="getAllDepartmentManager_Result">
+          <Property Type="Int32" Name="Uid" Nullable="false" />
+          <Property Type="String" Name="FirstName" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="LastName" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Email" Nullable="false" MaxLength="150" />
+          <Property Type="String" Name="Password" Nullable="false" MaxLength="500" />
+          <Property Type="String" Name="PasswordSalt" Nullable="false" MaxLength="500" />
+          <Property Type="DateTime" Name="CreatedOn" Nullable="false" Precision="23" />
+          <Property Type="DateTime" Name="DateOfBirth" Nullable="true" />
+          <Property Type="Boolean" Name="deleted" Nullable="false" />
+          <Property Type="Int32" Name="Dep_Id" Nullable="false" />
+          <Property Type="Int32" Name="User_ID" Nullable="false" />
+          <Property Type="DateTime" Name="StartDate" Nullable="false" Precision="23" />
+          <Property Type="DateTime" Name="EndDate" Nullable="true" Precision="23" />
+        </ComplexType>
+        <ComplexType Name="getAllPrograms1_Result">
+          <Property Type="Int32" Name="PId" Nullable="false" />
+          <Property Type="Int32" Name="Dep_Id" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="150" />
+          <Property Type="Boolean" Name="isDeleted" Nullable="false" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -913,6 +915,7 @@
           <EntitySetMapping Name="Courses">
             <EntityTypeMapping TypeName="ProfessorCourseBestFitModel.Course">
               <MappingFragment StoreEntitySet="Course">
+                <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
                 <ScalarProperty Name="CId" ColumnName="CId" />
                 <ScalarProperty Name="Code" ColumnName="Code" />
                 <ScalarProperty Name="CName" ColumnName="CName" />
@@ -933,10 +936,10 @@
           <EntitySetMapping Name="Departments">
             <EntityTypeMapping TypeName="ProfessorCourseBestFitModel.Department">
               <MappingFragment StoreEntitySet="Department">
+                <ScalarProperty Name="User_id" ColumnName="User_id" />
                 <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
                 <ScalarProperty Name="Dep_Id" ColumnName="Dep_Id" />
                 <ScalarProperty Name="Dep_Name" ColumnName="Dep_Name" />
-                <ScalarProperty Name="User_Id" ColumnName="User_Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1079,12 +1082,19 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="my_InsertUpdateDelete_Course" FunctionName="ProfessorCourseBestFitModel.Store.my_InsertUpdateDelete_Course" />
-          <FunctionImportMapping FunctionImportName="my_InsertUpdateDelete_Department" FunctionName="ProfessorCourseBestFitModel.Store.my_InsertUpdateDelete_Department" />
-          <FunctionImportMapping FunctionImportName="my_InsertUpdateDelete_Program" FunctionName="ProfessorCourseBestFitModel.Store.my_InsertUpdateDelete_Program" />
-          <FunctionImportMapping FunctionImportName="getAllProfessors" FunctionName="ProfessorCourseBestFitModel.Store.getAllProfessors">
+          <FunctionImportMapping FunctionImportName="getAllDepartments" FunctionName="ProfessorCourseBestFitModel.Store.getAllDepartments">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="ProfessorCourseBestFitModel.getAllProfessors_Result">
+              <ComplexTypeMapping TypeName="ProfessorCourseBestFitModel.getAllDepartments_Result">
+                <ScalarProperty Name="Dep_Id" ColumnName="Dep_Id" />
+                <ScalarProperty Name="Dep_Name" ColumnName="Dep_Name" />
+                <ScalarProperty Name="User_Id" ColumnName="User_Id" />
+                <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="getAllProfessors1" FunctionName="ProfessorCourseBestFitModel.Store.getAllProfessors">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ProfessorCourseBestFitModel.getAllProfessors1_Result">
                 <ScalarProperty Name="Uid" ColumnName="Uid" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="LastName" ColumnName="LastName" />
@@ -1100,18 +1110,28 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="getAllPrograms" FunctionName="ProfessorCourseBestFitModel.Store.getAllPrograms">
+          <FunctionImportMapping FunctionImportName="getAllDepartmentManager" FunctionName="ProfessorCourseBestFitModel.Store.getAllDepartmentManager">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="ProfessorCourseBestFitModel.getAllPrograms_Result">
-                <ScalarProperty Name="PId" ColumnName="PId" />
+              <ComplexTypeMapping TypeName="ProfessorCourseBestFitModel.getAllDepartmentManager_Result">
+                <ScalarProperty Name="Uid" ColumnName="Uid" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="PasswordSalt" ColumnName="PasswordSalt" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+                <ScalarProperty Name="deleted" ColumnName="deleted" />
                 <ScalarProperty Name="Dep_Id" ColumnName="Dep_Id" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="User_ID" ColumnName="User_ID" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="getDepartmentPrograms" FunctionName="ProfessorCourseBestFitModel.Store.getDepartmentPrograms">
+          <FunctionImportMapping FunctionImportName="getAllPrograms1" FunctionName="ProfessorCourseBestFitModel.Store.getAllPrograms">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="ProfessorCourseBestFitModel.getDepartmentPrograms_Result">
+              <ComplexTypeMapping TypeName="ProfessorCourseBestFitModel.getAllPrograms1_Result">
                 <ScalarProperty Name="PId" ColumnName="PId" />
                 <ScalarProperty Name="Dep_Id" ColumnName="Dep_Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -1119,7 +1139,7 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-        </EntityContainerMapping>
+          </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>
