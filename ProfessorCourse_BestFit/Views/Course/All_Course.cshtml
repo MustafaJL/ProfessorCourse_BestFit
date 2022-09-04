@@ -1,0 +1,24 @@
+﻿@model ProfessorCourse_BestFit.Models.ViewModels.CourseViewModel
+@Styles.Render("~/Content/MyStyle.css")
+@{
+    ViewBag.Title = "All_Course";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>All Course</h2>
+
+<br />
+<button class="btn btn-warning btnstyleDpartmentList" onclick="location.href='@Url.Action("Create_Course", "Course")';return false;">Create New</button>
+<br />
+<div class="warp">
+    @foreach (var item in Model.all_courses)
+    {
+        <div class="dipartmentlist">
+            <h4 class="Departmentname">@item.CName</h4>
+            <div class="col-xl-offset-2 col-xl-10">
+                <button class="btn btn-warning btnstyleDpartmentList" onclick="location.href='@Url.Action("Show_Course_information", "Course", new { id = item.CId })';return false;">View Details</button>
+                <button class="btn btn-danger btnstyleDpartmentList" onclick="location.href='@Url.Action("Delete_Course", "Course", new { id = item.CId })';return false;">Delete</button>
+            </div>
+        </div>
+    }
+</div>

@@ -9,7 +9,7 @@
           <Key>
             <PropertyRef Name="CId" />
           </Key>
-          <Property Name="CId" Type="int" Nullable="false" />
+          <Property Name="CId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Code" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="CName" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="CreatedOn" Type="datetime" Nullable="false" />

@@ -235,7 +235,6 @@
     <Compile Include="Models\UserRole.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\ViewModels\Choice.cs" />
     <Compile Include="Models\ViewModels\CourseViewModel.cs" />
     <Compile Include="Models\ViewModels\DepartmentViewModel.cs" />
     <Compile Include="Models\ViewModels\LoginViewModel.cs" />
@@ -2313,10 +2312,14 @@
     <Content Include="Views\Program\Edit_Program.cshtml" />
     <Content Include="Views\Program\Show_Program_information.cshtml" />
     <Content Include="Views\Program\Delete_Program.cshtml" />
+    <Content Include="Views\Course\All_Course.cshtml" />
+    <Content Include="Views\Course\Create_Course.cshtml" />
+    <Content Include="Views\Course\Show_Course_information.cshtml" />
+    <Content Include="Views\Course\Edit_Course.cshtml" />
+    <Content Include="Views\Course\Delete_Course.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Course\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

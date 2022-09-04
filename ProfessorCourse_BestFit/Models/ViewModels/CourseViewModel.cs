@@ -21,5 +21,9 @@ namespace ProfessorCourse_BestFit.Models.ViewModels
         public int Duration { get; set; }
 
         public bool isDeleted { get; set; }
+
+        public System.DateTime CreatedOn { get; set; }
+
+        public IEnumerable<Course> all_courses { get; set; }
     }
 }
