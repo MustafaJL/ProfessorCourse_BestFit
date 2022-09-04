@@ -12,14 +12,15 @@
 
 
     <h1>done</h1>
+
 }
 else
 {
-    <h4>Do you want to delete: @Model.Dep_Name</h4>
-    @using (Html.BeginForm())
+    <h4>Do you want to delete: @Model.Department.Dep_Name</h4>
+    using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
-        @Html.HiddenFor(model => model.Dep_Id)
+        @Html.HiddenFor(model => model.Department.Dep_Id)
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Delete" class="btn btn-primary" />
