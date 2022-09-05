@@ -24,19 +24,19 @@
         <br />
         <div class="form-group">
             <div class="col-md-10">
-                @*
+
                 <select>
                     <option>--Select Name--</option>
 
         @for (int i = 0; i < Model.List_User_Details.Count(); i++)
         {
-            <option value=@Model.List_User_Details[i].UserId>
+            <option value="@Model.List_User_Details[i].UserId">
                 @Model.List_User_Details[i].FirstName @Model.List_User_Details[i].LastName
             </option>
         }
 
                 </select>
-                *@
+
                 @*ViewBag.CityList is holding all the cities values*@
                 @*
         @Html.DropDownListFor(model => model.id, ViewBag.CityList as SelectList, new { @class = "form-control", multiple = "multiple" })

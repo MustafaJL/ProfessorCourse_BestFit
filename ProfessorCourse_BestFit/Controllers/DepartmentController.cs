@@ -155,7 +155,7 @@ namespace ProfessorCourse_BestFit.Controllers
             _context.SaveChanges();
             */
             ViewBag.test = true;
-            return View();
+            return RedirectToAction("All_Departments");
         }
 
     }
