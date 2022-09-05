@@ -1,5 +1,4 @@
-﻿using ProfessorCourse_BestFit.CustomSecurity;
-using ProfessorCourse_BestFit.DAL;
+﻿using ProfessorCourse_BestFit.DAL;
 using ProfessorCourse_BestFit.Helper;
 using ProfessorCourse_BestFit.Models;
 using ProfessorCourse_BestFit.Models.ViewModels;
@@ -14,12 +13,12 @@ namespace ProfessorCourse_BestFit.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly ProfessorCourseBestFitEntities _context;
+        private readonly ProfessorCourseBestFitEntities2 _context;
         User_DAL userDAL = new User_DAL();
 
         public AccountController()
         {
-            _context = new ProfessorCourseBestFitEntities();
+            _context = new ProfessorCourseBestFitEntities2();
         }
 
         public ActionResult Login()
@@ -27,7 +26,6 @@ namespace ProfessorCourse_BestFit.Controllers
             return View();
         }
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult Login(LoginViewModel model)
         {
             // check if email exist in data base
@@ -83,60 +81,55 @@ namespace ProfessorCourse_BestFit.Controllers
             return RedirectToAction("Index", "Home");
 
         }
-        [CustomAuthorization("Admin")]
-        public ActionResult Register()
-        {
-            return View();
-        }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Register(UserViewModel model)
-        {
-            if (ModelState.IsValid)
-            {
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Register(UserViewModel model)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
 
-                #region // Is Email already exist
-                var isExist = IsEmailExist(model.Email);
-                if (isExist)
-                {
-                    ModelState.AddModelError("EmailExist", "Email already Exist");
-                    return View(model);
-                }
-                #endregion
+        //        #region // Is Email already exist
+        //        var isExist = IsEmailExist(model.Email);
+        //        if (isExist)
+        //        {
+        //            ViewBag.Error = "Email already Exist";
+        //            return View(model);
+        //        }
+        //        #endregion
 
-                User user = new User();
+        //        User user = new User();
 
-                user.FirstName = model.FirstName;
-                user.LastName = model.LastName;
-                user.Email = model.Email;
-                user.DateOfBirth = model.DateOfBirth;
-                user.CreatedOn = DateTime.Now;
+        //        user.FirstName = model.FirstName;
+        //        user.LastName = model.LastName;
+        //        user.Email = model.Email;
+        //        user.DateOfBirth = model.DateOfBirth;
+        //        user.CreatedOn = DateTime.Now;
 
-                #region // Generate a salt
-                var userSalt = CryptoService.GenerateSalt();
-                user.PasswordSalt = Convert.ToBase64String(userSalt);
-                #endregion
+        //        #region // Generate a salt
+        //        var userSalt = CryptoService.GenerateSalt();
+        //        user.PasswordSalt = Convert.ToBase64String(userSalt);
+        //        #endregion
 
-                #region // Hash the password using PasswordSalt
-                var userPasswor = Encoding.UTF8.GetBytes(model.Password);
-                var hmac = CryptoService.ComputeHMAC256(userPasswor, userSalt);
-                user.Password = Convert.ToBase64String(hmac);
-                #endregion
+        //        #region // Hash the password using PasswordSalt
+        //        var userPasswor = Encoding.UTF8.GetBytes(model.Password);
+        //        var hmac = CryptoService.ComputeHMAC256(userPasswor, userSalt);
+        //        user.Password = Convert.ToBase64String(hmac);
+        //        #endregion
 
-                // Save object to the Database
-                _context.Users.Add(user);
-                _context.SaveChanges();
+        //        // Save object to the Database
+        //        _context.Users.Add(user);
+        //        _context.SaveChanges();
 
 
 
-                return View();
-            }
-            else
-            {
-                return View();
-            }
-        }
+        //        return View();
+        //    }
+        //    else
+        //    {
+        //        return View();
+        //    }
+        //}
 
 
         [NonAction]

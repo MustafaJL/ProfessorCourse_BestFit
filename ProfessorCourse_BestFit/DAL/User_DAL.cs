@@ -44,10 +44,13 @@ namespace ProfessorCourse_BestFit.DAL
                 {
                     UserId = Convert.ToInt32(dr["Uid"]),
                     FirstName = Convert.ToString(dr["FirstName"]),
+                    MiddleName = Convert.ToString(dr["MiddleName"]),
                     LastName = Convert.ToString(dr["LastName"]),
+                    Gender = Convert.ToString(dr["Gender"]),
+                    Phone = Convert.ToString(dr["Phone"]),
                     Email = Convert.ToString(dr["Email"]),
-                    DateOfBirth = Convert.ToString(dr["DateOfBirth"]),
-                    CreatedOn = Convert.ToString(dr["CreatedOn"]),
+                    DateOfBirth = Convert.ToDateTime(dr["DateOfBirth"]),
+                    CreatedOn = Convert.ToDateTime(dr["CreatedOn"]),
                     RoleName = Convert.ToString(dr["RoleName"])
 
                 });
@@ -84,8 +87,8 @@ namespace ProfessorCourse_BestFit.DAL
                     FirstName = Convert.ToString(dr["FirstName"]),
                     LastName = Convert.ToString(dr["LastName"]),
                     Email = Convert.ToString(dr["Email"]),
-                    DateOfBirth = Convert.ToString(dr["DateOfBirth"]),
-                    CreatedOn = Convert.ToString(dr["CreatedOn"]),
+                    DateOfBirth = Convert.ToDateTime(dr["DateOfBirth"]),
+                    CreatedOn = Convert.ToDateTime(dr["CreatedOn"]),
                     RoleName = Convert.ToString(dr["RoleName"])
 
                 });

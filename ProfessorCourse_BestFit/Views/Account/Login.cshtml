@@ -4,68 +4,86 @@
     ViewBag.Title = "Login";
 }
 
-<div class="">
-    <span class="display-5">Professor Course Best Fit</span>
-</div>
-
-<hr />  
-
-<div class="container">
 
 
-    <div class="d-flex justify-content-center align-items-center">
-        @using (Html.BeginForm())
-        {
-            @Html.AntiForgeryToken()
+<div class="login-box">
+    @*<div class="login-logo">
+        <a href="../../index2.html"><b>Admin</b>LTE</a>
+    </div>*@
+    <!-- /.login-logo -->
+    <div class="card">
+        <div class="card-body login-card-body">
+            <p class="login-box-msg" style="font-weight:bold">Welcome back</p>
 
-            <div class="form-horizontal login-form border">
-                <div class="login-tag d-flex align-items-center justify-content-center">
-                    <h4 class="text-primary">Professor Course Best Fit</h4>
-                </div>
+            @using (Html.BeginForm())
+            {
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-                <div class="p-2 ms-xl-5 mt-4">
-                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-10">
-                            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                @Html.AntiForgeryToken()
+                <div class="input-group mb-3">
+
+                    @*<input type="email" class="form-control" placeholder="Email">*@
+                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-envelope"></span>
                         </div>
-                    </div>
-
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-10">
-                            @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-
-                    <div class="form-group d-flex">
-                        @Html.LabelFor(model => model.RememberMe, htmlAttributes: new { @class = "control-label" })
-                        <div class="colmd-4 ms-2">
-                            <div class="checkbox">
-                                @Html.EditorFor(model => model.RememberMe,new { htmlAttributes =  new { @class = "btn" } })
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="form-group mt-3">
-                        <div class="col-md-offset-2 col-md-10">
-                            <input type="submit" value="Login" class="btn btn-primary form-control" />
-                        </div>
-                    </div>
-
-                    <div class="">
-                        <a href="#">Forget Password?</a>
                     </div>
                 </div>
+                <div class="input-group mb-3">
+                    @*<input type="password" class="form-control" placeholder="Password">*@
+                    @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-lock"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-8">
+                        <div class="icheck-primary">
+                            @*<input type="checkbox" id="remember">*@
+                            @Html.EditorFor(model => model.RememberMe, new { htmlAttributes = new { @class = "btn" , id = "remember" } })
+                            <label for="remember">
+                                Remember Me
+                            </label>
+                        </div>
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-4">
+                        <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+                    </div>
+                    <!-- /.col -->
+                </div>
+            }
+
+            <div class="social-auth-links text-center mb-3">
+                <p>- OR -</p>
+                <a href="#" class="btn btn-block btn-primary">
+                    <i class="fab fa-facebook mr-2"></i> Sign in using Facebook
+                </a>
+                <a href="#" class="btn btn-block btn-danger">
+                    <i class="fab fa-google-plus mr-2"></i> Sign in using Google+
+                </a>
             </div>
-        }
+            <!-- /.social-auth-links -->
+
+            <p class="mb-1">
+                <a href="forgot-password.html">I forgot my password</a>
+            </p>
+            <p class="mb-0">
+                <a href="register.html" class="text-center">Register a new membership</a>
+            </p>
+        </div>
+        <!-- /.login-card-body -->
     </div>
-
-
 </div>
+<!-- /.login-box -->
+
+
+
 
 
 @section Scripts {
