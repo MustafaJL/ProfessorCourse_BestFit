@@ -41,6 +41,7 @@
           <Property Name="Dep_Name" Type="varchar" MaxLength="150" Nullable="false" />
           <Property Name="isDeleted" Type="bit" Nullable="false" />
           <Property Name="User_id" Type="varchar" MaxLength="450" />
+          <Property Name="employee_count" Type="int" />
         </EntityType>
         <EntityType Name="Keywords">
           <Key>
@@ -475,6 +476,7 @@
           <NavigationProperty Name="UserDepartments" Relationship="Self.FK_DepartmentUser" FromRole="Department" ToRole="UserDepartment" />
           <Property Name="isDeleted" Type="Boolean" Nullable="false" />
           <Property Name="User_id" Type="String" MaxLength="450" FixedLength="false" Unicode="false" />
+          <Property Name="employee_count" Type="Int32" />
         </EntityType>
         <EntityType Name="Keyword">
           <Key>
@@ -954,6 +956,7 @@
           <EntitySetMapping Name="Departments">
             <EntityTypeMapping TypeName="ProfessorCourseBestFitModel.Department">
               <MappingFragment StoreEntitySet="Department">
+                <ScalarProperty Name="employee_count" ColumnName="employee_count" />
                 <ScalarProperty Name="User_id" ColumnName="User_id" />
                 <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
                 <ScalarProperty Name="Dep_Id" ColumnName="Dep_Id" />

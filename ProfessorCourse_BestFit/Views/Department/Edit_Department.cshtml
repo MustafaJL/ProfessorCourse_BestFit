@@ -1,18 +1,241 @@
-﻿
-@{
-    ViewBag.Title = "Edit_Department";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
+﻿@model ProfessorCourse_BestFit.Models.ViewModels.DepartmentViewModel
 
-<h2>Edit Department</h2>
-
-<div class="container">
-    <div class="row">
-        <div class="form-check-inline">
-            <button class="btn btn-primary" onclick="location.href='@Url.Action("Edit_Department_name", "Department")';return false;">Edit Name</button>
-            <button class="btn btn-primary" onclick="location.href='@Url.Action("Edit_Department_Managers", "Department")';return false;">Edit Managers</button>
-            <button class="btn btn-primary" onclick="location.href='@Url.Action("Edit_Department_Programs", "Department")';return false;">Edit Programs</button>
-            <button class="btn btn-primary" onclick="location.href='@Url.Action("ttt", "Department")';return false;">Edit test</button>
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Departments</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">General Form</li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+    <div class="card">
+        <div class="card-body">
+            <button class="btn btn-outline-primary" onclick="editname()">Edit Name</button>
+            <button class="btn btn-outline-primary" onclick="editmanagers()">Edit Managers</button>
+            <button class="btn btn-outline-primary" onclick="editprograms()">Edit Programs</button>
         </div>
     </div>
-</div>
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <!-- left column -->
+                <div class="col-md-12"
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h3 class="card-title">Edit Department</h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <!-- form start -->
+                        <div id="editname" style="display:none">
+                            @using (Html.BeginForm())
+                            {
+                                @Html.AntiForgeryToken()
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.Dep_Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        @Html.EditorFor(model => model.Dep_Name, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.Dep_Name, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <!-- /.card-body -->
+
+                                <div class="card-footer">
+                                    <a href="/Department/Show_Department_Information/@Model.Dep_Id" class="btn btn-warning"><i class="bi bi-arrow-left"></i> Back</a>
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                </div>
+                            }
+                        </div>
+                        <div id="editmanagers" style="display:none">
+                            @using (Html.BeginForm())
+                            {
+                                @Html.AntiForgeryToken()
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h3 class="card-title">Responsive Hover Table</h3>
+
+                                        <div class="card-tools">
+                                            <div class="input-group input-group-sm" style="width: 150px;">
+                                                <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+
+                                                <div class="input-group-append">
+                                                    <button type="submit" class="btn btn-default">
+                                                        <i class="fas fa-search"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- /.card-header -->
+                                    <div class="card-body table-responsive p-0">
+                                        <table class="table table-hover text-nowrap">
+                                            <thead>
+                                                <tr>
+                                                    <th>ID</th>
+                                                    <th>User</th>
+                                                    <th>Date</th>
+                                                    <th>Status</th>
+                                                    <th>Reason</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>183</td>
+                                                    <td>John Doe</td>
+                                                    <td>11-7-2014</td>
+                                                    <td><span class="tag tag-success">Approved</span></td>
+                                                    <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>219</td>
+                                                    <td>Alexander Pierce</td>
+                                                    <td>11-7-2014</td>
+                                                    <td><span class="tag tag-warning">Pending</span></td>
+                                                    <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>657</td>
+                                                    <td>Bob Doe</td>
+                                                    <td>11-7-2014</td>
+                                                    <td><span class="tag tag-primary">Approved</span></td>
+                                                    <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>175</td>
+                                                    <td>Mike Doe</td>
+                                                    <td>11-7-2014</td>
+                                                    <td><span class="tag tag-danger">Denied</span></td>
+                                                    <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <!-- /.card-body -->
+                                </div>
+                                <!-- /.card -->
+                                <!-- /.card-body -->
+
+                                <div class="card-footer">
+                                    <a href="/Department/Show_Department_Information/@Model.Dep_Id" class="btn btn-warning"><i class="bi bi-arrow-left"></i> Back</a>
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                </div>
+                            }
+                        </div>
+
+                        <div id="editprograms" style="display:none">
+                            @using (Html.BeginForm())
+                            {
+                                @Html.AntiForgeryToken()
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h3 class="card-title">Simple Full Width Table</h3>
+
+                                        <div class="card-tools">
+                                            <ul class="pagination pagination-sm float-right">
+                                                <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
+                                                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                                <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <!-- /.card-header -->
+                                    <div class="card-body p-0">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th style="width: 10px">#</th>
+                                                    <th>Task</th>
+                                                    <th>Progress</th>
+                                                    <th style="width: 40px">Label</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>1.</td>
+                                                    <td>Update software</td>
+                                                    <td>
+                                                        <div class="progress progress-xs">
+                                                            <div class="progress-bar progress-bar-danger" style="width: 55%"></div>
+                                                        </div>
+                                                    </td>
+                                                    <td><span class="badge bg-danger">55%</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>2.</td>
+                                                    <td>Clean database</td>
+                                                    <td>
+                                                        <div class="progress progress-xs">
+                                                            <div class="progress-bar bg-warning" style="width: 70%"></div>
+                                                        </div>
+                                                    </td>
+                                                    <td><span class="badge bg-warning">70%</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>3.</td>
+                                                    <td>Cron job running</td>
+                                                    <td>
+                                                        <div class="progress progress-xs progress-striped active">
+                                                            <div class="progress-bar bg-primary" style="width: 30%"></div>
+                                                        </div>
+                                                    </td>
+                                                    <td><span class="badge bg-primary">30%</span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>4.</td>
+                                                    <td>Fix and squish bugs</td>
+                                                    <td>
+                                                        <div class="progress progress-xs progress-striped active">
+                                                            <div class="progress-bar bg-success" style="width: 90%"></div>
+                                                        </div>
+                                                    </td>
+                                                    <td><span class="badge bg-success">90%</span></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <!-- /.card-body -->
+                                </div>
+                                <!-- /.card-body -->
+
+                                <div class="card-footer">
+                                    <a href="/Department/Show_Department_Information/@Model.Dep_Id" class="btn btn-warning"><i class="bi bi-arrow-left"></i> Back</a>
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+@section Scripts {
+    <script>
+        function editname() {
+            document.getElementById("editprograms").style.display = "none";
+            document.getElementById("editmanagers").style.display = "none";
+            document.getElementById("editname").style.display = "block";
+        }
+        function editmanagers() {
+            document.getElementById("editprograms").style.display = "none";
+            document.getElementById("editname").style.display = "none";
+            document.getElementById("editmanagers").style.display = "block";
+        }
+        function editprograms() {
+            document.getElementById("editmanagers").style.display = "none";
+            document.getElementById("editname").style.display = "none";
+            document.getElementById("editprograms").style.display = "block";
+        }
+    </script>
+}

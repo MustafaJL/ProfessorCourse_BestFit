@@ -1,100 +1,83 @@
 ﻿@model ProfessorCourse_BestFit.Models.ViewModels.DepartmentViewModel
-@{
-    ViewBag.Title = "Create_Department";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
 
-<h2>Create Department</h2>
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Departments</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">General Form</li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <!-- left column -->
+                <div class="col-md-12"
+                <div class="card card-primary">
+                <div class="card-header">
+                <h3 class="card-title">Create Department</h3>
+                </div>
+                <!-- /.card-header -->
+                <!-- form start -->
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="card-body">
+                    <div class="form-group">
+                    @Html.LabelFor(model => model.Dep_Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                    @Html.EditorFor(model => model.Dep_Name, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Dep_Name, "", new { @class = "text-danger" })
+                    </div>
+                    </div>
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-
-    <div class="form-horizontal">
-        <h4>Department</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.Dep_Name, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Dep_Name, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Dep_Name, "", new { @class = "text-danger" })
+                    <div class="card-footer">
+                    <a href="/Department/All_Departments" class="btn btn-warning"><i class="bi bi-arrow-left"></i> Back/Cancel</a>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                }
+                <div class="card-footer">
+                    @if (ViewBag.existName != null)
+                    {
+                        <div class="alert alert-warning" role="alert">
+                            <h4 class="alert-heading">Name Exist!</h4>
+                            <p>@ViewBag.existName</p>
+                            <hr>
+                            <p class="mb-0">@ViewBag.data_not_saved</p>
+                        </div>
+                    }
+                    @if (ViewBag.savetitle == "Done...")
+                    {
+                        <div class="alert alert-success" role="alert">
+                            <h4 class="alert-heading">Done!</h4>
+                            <p>@ViewBag.savetitle</p>
+                            <hr>
+                            <p class="mb-0">@ViewBag.savebody</p>
+                        </div>
+                    }
+                    else if(ViewBag.savetitle != "Done..." && ViewBag.savetitle != null)
+                    {
+                        <div class="alert alert-danger" role="alert">
+                            <h4 class="alert-heading">Name Exist!</h4>
+                            <p>@ViewBag.savetitle</p>
+                            <hr>
+                            <p class="mb-0">@ViewBag.savebody</p>
+                        </div>
+                    }
+                </div>
+                </div>
+                </div>
             </div>
         </div>
-        <br />
-        <div class="form-group">
-            <div class="col-md-10">
-
-                <select>
-                    <option>--Select Name--</option>
-
-        @for (int i = 0; i < Model.List_User_Details.Count(); i++)
-        {
-            <option value="@Model.List_User_Details[i].UserId">
-                @Model.List_User_Details[i].FirstName @Model.List_User_Details[i].LastName
-            </option>
-        }
-
-                </select>
-
-                @*ViewBag.CityList is holding all the cities values*@
-                @*
-        @Html.DropDownListFor(model => model.id, ViewBag.CityList as SelectList, new { @class = "form-control", multiple = "multiple" })
-        @Html.ValidationMessageFor(model => model.id, "", new { @class = "text-danger" })
-                *@
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </div>
-    </div>
-}
-
-@{
-    if (ViewBag.existName != null)
-    {
-        <div class="alert alert-warning" role="alert">
-            <h3>
-                @ViewBag.existName
-            </h3>
-            <hr />
-            <p>
-                @ViewBag.data_not_saved
-            </p>
-        </div>
-    }
-    if (ViewBag.savetitle == "Done...")
-    {
-        <div class="alert alert-success" role="alert">
-            <h3>
-                @ViewBag.savetitle
-            </h3>
-            <hr />
-            <p>
-                @ViewBag.savebody
-            </p>
-        </div>
-    }
-    else if (ViewBag.savetitle == "Failed!")
-    {
-        <div class="alert alert-danger" role="alert">
-            <h3>
-                @ViewBag.savetitle
-            </h3>
-            <hr />
-            <p>
-                @ViewBag.savebody
-            </p>
-        </div>
-    }
-}
-
-<div class="form-group">
-    <div class="col-xl-offset-2 col-xl-10">
-        <button class="btn btn-primary" onclick="location.href='@Url.Action("All_Departments", "Department")';return false;">Back</button>
-    </div>
+    </section>
 </div>
 
 @section Scripts {

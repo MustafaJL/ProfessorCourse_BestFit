@@ -1,113 +1,206 @@
 ﻿@model ProfessorCourse_BestFit.Models.ViewModels.DepartmentViewModel
-@Styles.Render("~/Content/style/Department/tree.css")
 @{
-    ViewBag.Title = "Show_Department_Information";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.bodyClass = "sidebar-collapse layout-fixed sidebar-mini layout-navbar-fixed sidebar-closed";
 }
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <title></title>
-</head>
-<body>
-    <h2>Show Department Information</h2>
-    <ul id="myUL">
-        <li>
-            <span class="caret">first li</span>
-            <ul class="nested">
-                <li>
-                    <span class="caret">water</span>
-                    <ul class="nested">
-                        <li>hello</li>
-                        <li>hi</li>
-                    </ul>
-                </li>
-                <li>
-                    <span class="caret">coffee</span>
-                    <ul class="nested">
-                        <li>hello</li>
-                        <li>hi</li>
-                    </ul>
-                </li>
-                <li>
-                    <span class="caret">tea</span>
-                    <ul class="nested">
-                        <li>black</li>
-                        <li>green</li>
-                        <li>
-                            <span class="caret">part 3</span>
-                            <ul class="nested">
-                                <li>hello</li>
-                                <li>hi</li>
-                            </ul>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-        </li>
-    </ul>
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Departments</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">General Form</li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+    
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <!-- left column -->
+                <div class="col-md-12">
+                    <!-- general form elements -->
+                    <section class="content">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-12">
+                                    <!-- Default box -->
+                                    <div class="card">
+                                        <div class="card-header" style="background-color: #5FB3CE">
+                                            <h1 class="card-title">
+                                                Department Information
+                                            </h1>
+
+                                            <div class="card-tools" style="background-color: #536878">
+                                                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                                                    <i class="fas fa-minus"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="card-body">
+                                            <h5>
+                                                <section class="content">
+                                                    <div class="container-fluid">
+                                                        <div class="row">
+                                                            <!-- left column -->
+                                                            <div class="col-md-12">
+                                                                <!-- general form elements -->
+                                                                <section class="content">
+                                                                    <div class="container-fluid">
+                                                                        <div class="row">
+                                                                            <div class="col-12">
+                                                                                <!-- Default box -->
+                                                                                <div class="card">
+                                                                                    <div class="card-header" style="background-color: #5FB3CE">
+                                                                                        <h1 class="card-title">
+                                                                                            Department name : @Model.Dep_Name
+                                                                                        </h1>
+
+                                                                                        <div class="card-tools" style="background-color: #536878">
+                                                                                            <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                                                                                                <i class="fas fa-minus"></i>
+                                                                                            </button>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="card-body">
+                                                                                        <h5>
+                                                                                            @Model.Dep_Name
+                                                                                        </h5>
+                                                                                    </div>
+                                                                                    <!-- /.card-body -->
+                                                                                </div>
+                                                                                <!-- /.card -->
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </section>
+                                                                <!-- /.card -->
+                                                                <section class="content">
+                                                                    <div class="container-fluid">
+                                                                        <div class="row">
+                                                                            <!-- left column -->
+                                                                            <div class="col-md-12">
+                                                                                <!-- general form elements -->
+                                                                                <section class="content">
+                                                                                    <div class="container-fluid">
+                                                                                        <div class="row">
+                                                                                            <div class="col-12">
+                                                                                                <!-- Default box -->
+                                                                                                <div class="card">
+                                                                                                    <div class="card-header" style="background-color: #5FB3CE">
+                                                                                                        <h1 class="card-title">
+                                                                                                            Department Information
+                                                                                                        </h1>
+
+                                                                                                        <div class="card-tools" style="background-color: #536878">
+                                                                                                            <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                                                                                                                <i class="fas fa-minus"></i>
+                                                                                                            </button>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                    <div class="card-body">
+                                                                                                        <h5>
+                                                                                                            @Model.Dep_Name
+                                                                                                        </h5>
+                                                                                                    </div>
+                                                                                                    <!-- /.card-body -->
+                                                                                                </div>
+                                                                                                <!-- /.card -->
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </section>
+                                                                                <!-- /.card -->
 
 
-    <hr />
+                                                                            </div>
 
-    <ul id="myUL">
-        <li>
-            <span class="caret">@Html.LabelFor(m => m.Dep_Name)</span>
-            <ul class="nested">
-                <li>
-                    <span class="caret">Managers :</span>
-                    <ul class="nested">
-                        @if (ViewBag.allManagers != "null")
-                        {
-                            foreach (var manager in Model.List_Managers_Details)
-                            {
-                                <li>
-                                    <a asp-action="#" asp-controller="#" asp-route-id=@manager.Uid>
-                                        @manager.FirstName @manager.LastName
-                                    </a>
-                                </li>
-                            }
-                        }
-                        else
-                        {
-                            <li>
-                                <a asp-action="#" asp-controller="#" asp-route-id="#">
-                                    @ViewBag.noManagers
-                                </a>
-                            </li>
-                        }
+                                                                        </div>
+                                                                        <!-- /.row -->
+                                                                    </div><!-- /.container-fluid -->
+                                                                </section>
 
-                    </ul>
-                </li>
-                <li>
-                    <span class="caret">Programs :</span>
-                    <ul class="nested">
-                        @if (Model.List_Department_Programs.Count() != 0)
-                        {
-                            for (int i = 0; i < Model.List_Department_Programs.Count(); i++)
-                            {
-                                <li>
-                                    <a asp-action="#" asp-controller="#" asp-route-id=@Model.List_Department_Programs[i].PId>
-                                        @Model.List_Department_Programs[i].Name
-                                    </a>
-                                </li>
-                            }
-                        }
-                        else
-                        {
-                            <li>
-                                <a asp-action="#" asp-controller="#" asp-route-id="#">
-                                    @ViewBag.allPrograms
-                                </a>
-                            </li>
-                        }
+                                                                <section class="content">
+                                                                    <div class="container-fluid">
+                                                                        <div class="row">
+                                                                            <!-- left column -->
+                                                                            <div class="col-md-12">
+                                                                                <!-- general form elements -->
+                                                                                <section class="content">
+                                                                                    <div class="container-fluid">
+                                                                                        <div class="row">
+                                                                                            <div class="col-12">
+                                                                                                <!-- Default box -->
+                                                                                                <div class="card">
+                                                                                                    <div class="card-header" style="background-color: #5FB3CE">
+                                                                                                        <h1 class="card-title">
+                                                                                                            Department Information
+                                                                                                        </h1>
 
-                    </ul>
-                </li>
-            </ul>
-        </li>
-    </ul>
+                                                                                                        <div class="card-tools" style="background-color: #536878">
+                                                                                                            <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                                                                                                                <i class="fas fa-minus"></i>
+                                                                                                            </button>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                    <div class="card-body">
+                                                                                                        <h5>
+                                                                                                            @Model.Dep_Name
+                                                                                                        </h5>
+                                                                                                    </div>
+                                                                                                    <!-- /.card-body -->
+                                                                                                </div>
+                                                                                                <!-- /.card -->
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </section>
+                                                                                <!-- /.card -->
 
-</body>
-</html>
-@Scripts.Render("~/Scripts/scripts/tree.js")
+
+                                                                            </div>
+
+                                                                        </div>
+                                                                        <!-- /.row -->
+                                                                    </div><!-- /.container-fluid -->
+                                                                </section>
+                                                            </div>
+
+                                                        </div>
+                                                        <!-- /.row -->
+                                                    </div><!-- /.container-fluid -->
+                                                </section>
+                                            </h5>
+                                        </div>
+                                        <!-- /.card-body -->
+                                    </div>
+                                    <!-- /.card -->
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <!-- /.card -->
+
+
+                </div>
+
+            </div>
+            <!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </section>
+
+    <div class="card-footer">
+        <a href="/Department/All_Departments" class="btn btn-warning"><i class="bi bi-arrow-left"></i> Back</a>
+        <a href="/Department/Edit_Department/@Model.Dep_Id" class="btn btn-primary">Edit<i class="bi bi-arrow-right"></i></a>
+    </div>
+</div>
+

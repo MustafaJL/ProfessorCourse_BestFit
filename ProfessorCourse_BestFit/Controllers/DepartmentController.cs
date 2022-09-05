@@ -28,6 +28,7 @@ namespace ProfessorCourse_BestFit.Controllers
             _connection = new SqlConnection(_Conn);
         }
 
+
         // GET: All Department
         public ActionResult All_Departments()
         {   
@@ -39,10 +40,7 @@ namespace ProfessorCourse_BestFit.Controllers
         // GET: Create Department
         public ActionResult Create_Department()
         {
-            var create_department = new DepartmentViewModel();
-            create_department.List_User_Details = department_DAL.Get_All_Professors();
-            return View(create_department);
-            
+            return View(); 
         }
 
         [HttpPost]
@@ -103,6 +101,7 @@ namespace ProfessorCourse_BestFit.Controllers
                 departmentViewModel.Dep_Id = department.Dep_Id;
                 departmentViewModel.Dep_Name = department.Dep_Name;
                 departmentViewModel.User_id = department.User_id;
+                
                 if(departmentViewModel.User_id != null)
                 {
                     var all_managers = department_DAL.Get_All_Department_Managers(departmentViewModel.User_id);
@@ -117,6 +116,7 @@ namespace ProfessorCourse_BestFit.Controllers
                 }
                 departmentViewModel.List_Department_Programs = department_DAL.Get_Department_Programs(departmentViewModel.Dep_Id);
                 ViewBag.allPrograms = messages.no_programs;
+                
                 return View(departmentViewModel);
             }
             else
@@ -128,10 +128,14 @@ namespace ProfessorCourse_BestFit.Controllers
 
         public ActionResult Edit_Department(int id)
         {
-            return View();
+            DepartmentViewModel departmentViewModel = new DepartmentViewModel();
+            var department = _context.Departments.Where(x => x.Dep_Id == id).FirstOrDefault();
+            departmentViewModel.Dep_Id = department.Dep_Id;
+            departmentViewModel.Dep_Name = department.Dep_Name;
+            return View(departmentViewModel);
         }
 
-        public ActionResult Edit_Department_Programs(int id)
+        public ActionResult Add_Department_Programs(int id)
         {
             return View();
         }
@@ -148,11 +152,6 @@ namespace ProfessorCourse_BestFit.Controllers
         public ActionResult Delete_Department(DepartmentViewModel departmentViewModel, int id)
         {
             department_DAL.Delete_Department(id);
-            /*
-            var department = _context.Departments.Where(x => x.Dep_Id == id).FirstOrDefault();
-            department.isDeleted = true;
-            _context.SaveChanges();
-            */
             ViewBag.test = true;
             return RedirectToAction("All_Departments");
         }

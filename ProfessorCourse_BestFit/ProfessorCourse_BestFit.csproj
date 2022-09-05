@@ -45,6 +45,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DevExpress.Data.v22.1, Version=22.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <HintPath>..\packages\DevExpress.Data.22.1.4\lib\net452\DevExpress.Data.v22.1.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -4347,14 +4350,12 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Account\UnAuthorized.cshtml" />
     <Content Include="Views\Shared\_FooterPartial.cshtml" />
-    <Content Include="Views\Professor\Index.cshtml" />
     <Content Include="Views\Roles\Index.cshtml" />
     <Content Include="Views\Roles\Upsert.cshtml" />
-    <Content Include="Views\Department\All_Departments.cshtml" />
     <Content Include="Views\Department\Create_Department.cshtml" />
     <Content Include="Views\Department\Show_Department_Information.cshtml" />
     <Content Include="Views\Department\Edit_Department.cshtml" />
-    <Content Include="Views\Department\Edit_Department_Programs.cshtml" />
+    <Content Include="Views\Department\Add_Department_Programs.cshtml" />
     <Content Include="Views\Program\All_Programs.cshtml" />
     <Content Include="Views\Program\Create_Program.cshtml" />
     <Content Include="Views\Program\Edit_Program.cshtml" />
@@ -4366,19 +4367,17 @@
     <Content Include="Views\Course\Edit_Course.cshtml" />
     <Content Include="Views\Course\Delete_Course.cshtml" />
     <Content Include="Views\Department\Delete_Department.cshtml" />
-    <Content Include="Views\Department\CreateDepartment.cshtml" />
-    <Content Include="Views\Department\EditDepartment.cshtml" />
-    <Content Include="Views\Department\ListDepartment.cshtml" />
-    <Content Include="Views\Department\ViewDepartmentsInfo.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\Roles\Index.cshtml" />
     <Content Include="Views\Roles\Upsert.cshtml" />
     <Content Include="Views\User\Upsert_User.cshtml" />
     <Content Include="Views\Permissions\Index.cshtml" />
     <Content Include="Views\Permissions\Upsert.cshtml" />
+    <Content Include="Views\Department\All_Departments.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Professor\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
