@@ -11,12 +11,12 @@ namespace ProfessorCourse_BestFit.Controllers
     public class UserController : Controller
     {
 
-        private readonly ProfessorCourseBestFitEntities2 _context;
+        private readonly ProfessorCourseBestFitEntities _context;
         User_DAL userDAL = new User_DAL();
 
         public UserController()
         {
-            _context = new ProfessorCourseBestFitEntities2();
+            _context = new ProfessorCourseBestFitEntities();
         }
 
         // GET: Professor
@@ -41,7 +41,7 @@ namespace ProfessorCourse_BestFit.Controllers
                 MiddleName = user.MiddleName,
                 LastName = user.LastName,
                 Email = user.Email,
-                DateOfBirth = user.DateOfBirth,
+                DateOfBirth = (DateTime)user.DateOfBirth,
                 Gender = user.Gender,
                 PhoneNumber = user.Phone,
 

@@ -56,6 +56,8 @@
           </Key>
           <Property Name="PId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="PName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="deleted" Type="bit" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="Program">
           <Key>
@@ -142,6 +144,9 @@
           <Property Name="CreatedOn" Type="datetime" Nullable="false" />
           <Property Name="DateOfBirth" Type="date" />
           <Property Name="deleted" Type="bit" Nullable="false" />
+          <Property Name="MiddleName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Gender" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Phone" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <Association Name="FK_Course">
           <End Role="Course" Type="Self.Course" Multiplicity="1" />
@@ -489,6 +494,8 @@
           <Property Name="PName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Roles" Relationship="Self.RolePermission" FromRole="Permission" ToRole="Roles" />
           <NavigationProperty Name="Users" Relationship="Self.UserPermission" FromRole="Permission" ToRole="Users" />
+          <Property Name="deleted" Type="Boolean" Nullable="false" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
         <EntityType Name="Program">
           <Key>
@@ -575,6 +582,9 @@
           <NavigationProperty Name="UserKeywords" Relationship="Self.FK_UserKeyword" FromRole="Users" ToRole="UserKeyword" />
           <NavigationProperty Name="UserRoles" Relationship="Self.FK_UserRoles" FromRole="Users" ToRole="UserRoles" />
           <NavigationProperty Name="Permissions" Relationship="Self.UserPermission" FromRole="Users" ToRole="Permission" />
+          <Property Name="MiddleName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Gender" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Phone" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="FK_Course">
           <End Role="Course" Type="Self.Course" Multiplicity="1" />
@@ -813,7 +823,7 @@
             <Parameter Name="Query" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="Delete_Department">
-            <Parameter Name="DepartmentID" Mode="In" Type="Int32" />
+          <Parameter Name="DepartmentID" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="spGetUserRoles_Result">
@@ -963,6 +973,8 @@
           <EntitySetMapping Name="Permissions">
             <EntityTypeMapping TypeName="ProfessorCourseBestFitModel.Permission">
               <MappingFragment StoreEntitySet="Permission">
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="deleted" ColumnName="deleted" />
                 <ScalarProperty Name="PId" ColumnName="PId" />
                 <ScalarProperty Name="PName" ColumnName="PName" />
               </MappingFragment>
@@ -1029,6 +1041,9 @@
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="ProfessorCourseBestFitModel.User">
               <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
                 <ScalarProperty Name="Uid" ColumnName="Uid" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="LastName" ColumnName="LastName" />

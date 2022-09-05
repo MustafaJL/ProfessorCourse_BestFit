@@ -23,6 +23,8 @@ namespace ProfessorCourse_BestFit.Models
     
         public int PId { get; set; }
         public string PName { get; set; }
+        public bool deleted { get; set; }
+        public System.DateTime CreatedOn { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Role> Roles { get; set; }

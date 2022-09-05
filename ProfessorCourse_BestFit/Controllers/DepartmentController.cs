@@ -6,11 +6,10 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using ProfessorCourse_BestFit.Models;
->>>>>>> RolesAndPermission
 using System.Data;
 using System.Linq;
 using System.Web.Mvc;
-
+using System.Data.SqlClient;
 
 namespace ProfessorCourse_BestFit.Controllers
 {
@@ -27,29 +26,6 @@ namespace ProfessorCourse_BestFit.Controllers
             department_DAL = new Department_DAL();
             messages = new Messages();
             _connection = new SqlConnection(_Conn);
-        /*
-         * My Stord Procedure
-         
-         _context.my_InsertUpdateDelete_Department(int? id,
-                                                   String name,
-                                                   int userID,
-                                                   int? QueryNumber);
-        QueryNumbres:
-        1: INSERT
-        2: UPDATE
-        3: DELETE
-        4: SELECT * (No Condition)
-        5: SELECT * (Based on the id)
-
-         */
-
-        private readonly ProfessorCourseBestFitEntities2 _context;
-        private Department_DAL dal;
-
-        public DepartmentController()
-        {
-            _context = new ProfessorCourseBestFitEntities2();
-            dal = new Department_DAL();
         }
 
         // GET: All Department
