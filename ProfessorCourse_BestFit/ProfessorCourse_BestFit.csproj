@@ -150,7 +150,6 @@
     <Compile Include="CustomSecurity\CustomAuthentication.cs" />
     <Compile Include="CustomSecurity\CustomAuthorization.cs" />
     <Compile Include="DAL\Department_DAL.cs" />
-    <Compile Include="DAL\Program_DAL.cs" />
     <Compile Include="DAL\User_DAL.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -165,6 +164,15 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Department.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\getAllAvailableEmployees_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\getAllDepartmentAvailableProfessors_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\getAllDepartmentManagers_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\getAllDepartmentManager_Result.cs">
@@ -4355,7 +4363,6 @@
     <Content Include="Views\Department\Create_Department.cshtml" />
     <Content Include="Views\Department\Show_Department_Information.cshtml" />
     <Content Include="Views\Department\Edit_Department.cshtml" />
-    <Content Include="Views\Department\Add_Department_Programs.cshtml" />
     <Content Include="Views\Program\All_Programs.cshtml" />
     <Content Include="Views\Program\Create_Program.cshtml" />
     <Content Include="Views\Program\Edit_Program.cshtml" />
@@ -4366,7 +4373,6 @@
     <Content Include="Views\Course\Show_Course_information.cshtml" />
     <Content Include="Views\Course\Edit_Course.cshtml" />
     <Content Include="Views\Course\Delete_Course.cshtml" />
-    <Content Include="Views\Department\Delete_Department.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\Roles\Index.cshtml" />
     <Content Include="Views\Roles\Upsert.cshtml" />
@@ -4374,6 +4380,8 @@
     <Content Include="Views\Permissions\Index.cshtml" />
     <Content Include="Views\Permissions\Upsert.cshtml" />
     <Content Include="Views\Department\All_Departments.cshtml" />
+    <Content Include="Views\Department\Add_Employees.cshtml" />
+    <Content Include="Views\Program\Add_Courses.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

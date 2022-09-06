@@ -144,8 +144,9 @@ namespace ProfessorCourse_BestFit.DAL
             return All_Professors;
         }
 
-        //the id should nnot be null
-        public IEnumerable<User> Get_All_Department_Managers(string id)
+
+        //need test
+        public IEnumerable<User> Get_All_Department_Managers(string ids)
         {
             List<User> All_Department_Managers = new List<User>();
 
@@ -154,12 +155,9 @@ namespace ProfessorCourse_BestFit.DAL
             // specify the type of cammand
             command.CommandType = CommandType.StoredProcedure;
             // specify name of SP
-            command.CommandText = "getAllDepartmentManager";
-            var temp = id.Split(',');
-            for (int i = 0; i < temp.Length; i++)
-            {
-                int num = Convert.ToInt32(temp[i]);
-                command.Parameters.AddWithValue("@DepartmentID", id);
+            command.CommandText = "getAllDepartmentManagers";
+
+            command.Parameters.AddWithValue("@ids", ids);
 
                 SqlDataAdapter adapter = new SqlDataAdapter(command);
                 DataTable dtMails = new DataTable();
@@ -172,20 +170,59 @@ namespace ProfessorCourse_BestFit.DAL
 
                 foreach (DataRow dr in dtMails.Rows)
                 {
-                    All_Department_Managers.Add(new User
-                    {
-                        Uid = Convert.ToInt32(dr["UserId"]),
+                All_Department_Managers.Add(new User
+                {
+                        Uid = Convert.ToInt32(dr["Uid"]),
                         FirstName = Convert.ToString(dr["FirstName"]),
-                        LastName = Convert.ToString(dr["LastName"])
+                        MiddleName = Convert.ToString(dr["MiddleName"]),
+                        LastName = Convert.ToString(dr["LastName"]),
+                        Email = Convert.ToString(dr["Email"])
                     });
                 }
-            }
-            
 
             return All_Department_Managers;
         }
 
-        
+        public List<User> Get_All_Potential_Employees(string ids, int departmentID)
+        {
+            List<User> All_Potential_Employees = new List<User>();
+
+            // create command
+            SqlCommand command = _connection.CreateCommand();
+            // specify the type of cammand
+            command.CommandType = CommandType.StoredProcedure;
+            // specify name of SP
+            command.CommandText = "getAllAvailableEmployees";
+
+            command.Parameters.AddWithValue("@ids", ids);
+            
+            command.Parameters.AddWithValue("@DepartmentID", departmentID);
+
+            SqlDataAdapter adapter = new SqlDataAdapter(command);
+            DataTable dtMails = new DataTable();
+
+            // open connection
+            _connection.Open();
+            adapter.Fill(dtMails);
+            // close connection
+            _connection.Close();
+
+            foreach (DataRow dr in dtMails.Rows)
+            {
+                All_Potential_Employees.Add(new User
+                {
+                    Uid = Convert.ToInt32(dr["Uid"]),
+                    FirstName = Convert.ToString(dr["FirstName"]),
+                    MiddleName = Convert.ToString(dr["MiddleName"]),
+                    LastName = Convert.ToString(dr["LastName"]),
+                    Email = Convert.ToString(dr["Email"])
+                });
+            }
+
+            return All_Potential_Employees;
+        }
+
+
 
     }
 }

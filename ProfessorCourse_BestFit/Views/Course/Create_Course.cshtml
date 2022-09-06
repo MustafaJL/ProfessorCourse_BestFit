@@ -1,85 +1,97 @@
 ﻿@model ProfessorCourse_BestFit.Models.ViewModels.CourseViewModel
-@{
-    ViewBag.Title = "Create_Course";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
 
-<h2>Create Course</h2>
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Courses</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">General Form</li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <!-- left column -->
+                <div class="col-md-12"
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h3 class="card-title">Create Course</h3>
+                        </div>
+                        <br />
+                        <!-- /.card-header -->
+                        <!-- form start -->
+                        @using (Html.BeginForm())
+                        {
+                            @Html.AntiForgeryToken()
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.CName, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.CName, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.CName, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Code, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Duration, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.Duration, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Duration, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-10">
+                                    <a href="/Course/All_Course" class="btn btn-warning"><i class="bi bi-arrow-left"></i> Back/Cancel</a>
+                                    <input type="submit" value="Create" class="btn btn-primary" />
+                                </div>
+                            </div>
 
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    <div class="form-group">
-        @Html.LabelFor(model => model.CName, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.CName, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.CName, "", new { @class = "text-danger" })
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(model => model.Code, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(model => model.Duration, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Duration, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Duration, "", new { @class = "text-danger" })
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Create" class="btn btn-primary" />
-        </div>
-    </div>
+                        }
+                        <div class="card-footer">
+                            @if (ViewBag.existName != null)
+                            {
+                                <div class="alert alert-warning" role="alert">
+                                    <h4 class="alert-heading"><i class="icon fas fa-exclamation-triangle"></i>Name Exist!</h4>
+                                    <p>@ViewBag.existName</p>
+                                    <hr>
+                                    <p class="mb-0">@ViewBag.data_not_saved</p>
+                                </div>
+                            }
 
-}
+                            @if (ViewBag.savetitle != "Done..." && ViewBag.savetitle != null)
+                            {
+                                <div class="alert alert-danger" role="alert">
+                                    <h4 class="alert-heading"><i class="icon fas fa-ban"></i>OOPS Problem!</h4>
+                                    <p>@ViewBag.savetitle</p>
+                                    <hr>
+                                    <p class="mb-0">@ViewBag.savebody</p>
+                                </div>
+                            }
 
-@{
-    if (ViewBag.existName != null)
-    {
-        <div class="alert alert-warning" role="alert">
-            <h3>
-                @ViewBag.existName
-            </h3>
-            <hr />
-            <p>
-                @ViewBag.data_not_saved
-            </p>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    }
-    if (ViewBag.savetitle == "Done...")
-    {
-        <div class="alert alert-success" role="alert">
-            <h3>
-                @ViewBag.savetitle
-            </h3>
-            <hr />
-            <p>
-                @ViewBag.savebody
-            </p>
-        </div>
-    }
-    else if (ViewBag.savetitle == "Failed!")
-    {
-        <div class="alert alert-danger" role="alert">
-            <h3>
-                @ViewBag.savetitle
-            </h3>
-            <hr />
-            <p>
-                @ViewBag.savebody
-            </p>
-        </div>
-    }
-}
-<br />
-<button class="btn btn-warning btnstyleDpartmentList" onclick="location.href='@Url.Action("All_Course", "Course")';return false;"> Back</button>
+    </section>
+</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

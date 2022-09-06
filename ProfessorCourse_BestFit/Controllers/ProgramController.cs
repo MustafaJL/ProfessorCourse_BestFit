@@ -62,8 +62,6 @@ namespace ProfessorCourse_BestFit.Controllers
             try
             {
                 _context.SaveChanges();
-                ViewBag.savetitle = messages.message_success_submit_title;
-                ViewBag.savebody = messages.message_success_submit_body;
             }
             catch
             {
@@ -103,10 +101,26 @@ namespace ProfessorCourse_BestFit.Controllers
             {
                 return View(programViewModel);
             }
-            var program = _context.Programs.Where(x => x.PId == id).FirstOrDefault();
-            program.Name = programViewModel.Name;
+            var program = _context.Programs.Where(
+                x => x.Name.ToLower() == programViewModel.Name.ToLower()
+                &&
+                x.isDeleted == false
+                ).FirstOrDefault();
+            if (program != null)
+            {
+                ViewBag.existName = messages.name_exist;
+                ViewBag.data_not_saved = messages.data_not_saved;
+                return View(programViewModel);
+            }
+            var new_program = _context.Programs.Where(x => x.PId == id).FirstOrDefault();
+            new_program.Name = programViewModel.Name;
             _context.SaveChanges();
-            return RedirectToAction("Show_Program_information" , new {id = id});
+            return View(programViewModel);
+        }
+
+        public ActionResult Add_Courses()
+        {
+            return View();
         }
 
 

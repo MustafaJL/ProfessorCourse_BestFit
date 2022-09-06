@@ -21,22 +21,22 @@ namespace ProfessorCourse_BestFit.Models.ViewModels
 
         public string User_id { get; set; }
 
-        public int number_of_employee { get; set; }
+        public int employee_count { get; set; }
 
         [Display(Name = "Manager User Name")]
         public string Manager_User_Name { get; set; }
 
         //this list for chose the managers of the department
-        public List<UserRolesViewModel> List_User_Details { get; set; }
+        public IEnumerable<UserRolesViewModel> List_User_Details { get; set; }
 
         public IEnumerable<Department> all_departments { get; set; }
 
         public Department Department { get; set; }
         
         public IEnumerable<User> List_Managers_Details { get; set; }
+        
+        public IEnumerable<User> all_users { get; set; }
 
-        public List<ProgramViewModel> List_Department_Programs { get; set; }
-
-
+        public IEnumerable<Program> List_All_Programs { get; set; }
     }
 }

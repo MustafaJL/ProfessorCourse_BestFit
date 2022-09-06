@@ -1,5 +1,7 @@
 ﻿@model ProfessorCourse_BestFit.Models.ViewModels.DepartmentViewModel
 
+
+
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -17,13 +19,6 @@
             </div>
         </div><!-- /.container-fluid -->
     </section>
-    <div class="card">
-        <div class="card-body">
-            <button class="btn btn-outline-primary" onclick="editname()">Edit Name</button>
-            <button class="btn btn-outline-primary" onclick="editmanagers()">Edit Managers</button>
-            <button class="btn btn-outline-primary" onclick="editprograms()">Edit Programs</button>
-        </div>
-    </div>
     <section class="content">
         <div class="container-fluid">
             <div class="row">
@@ -31,211 +26,416 @@
                 <div class="col-md-12"
                     <div class="card card-primary">
                         <div class="card-header">
-                            <h3 class="card-title">Edit Department</h3>
+                            <h3 class="card-title">Create Department</h3>
                         </div>
-                        <!-- /.card-header -->
-                        <!-- form start -->
-                        <div id="editname" style="display:none">
-                            @using (Html.BeginForm())
-                            {
-                                @Html.AntiForgeryToken()
-                                <div class="card-body">
-                                    <div class="form-group">
-                                        @Html.LabelFor(model => model.Dep_Name, htmlAttributes: new { @class = "control-label col-md-2" })
-                                        @Html.EditorFor(model => model.Dep_Name, new { htmlAttributes = new { @class = "form-control" } })
-                                        @Html.ValidationMessageFor(model => model.Dep_Name, "", new { @class = "text-danger" })
-                                    </div>
+                        @using (Html.BeginForm())
+                        {
+                            @Html.AntiForgeryToken()
+                            <div class="card-body">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Department.Dep_Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    @Html.EditorFor(model => model.Department.Dep_Name, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Department.Dep_Name, "", new { @class = "text-danger" })
                                 </div>
-                                <!-- /.card-body -->
+                            </div>
 
-                                <div class="card-footer">
-                                    <a href="/Department/Show_Department_Information/@Model.Dep_Id" class="btn btn-warning"><i class="bi bi-arrow-left"></i> Back</a>
-                                    <button type="submit" class="btn btn-primary">Submit</button>
-                                </div>
-                            }
-                        </div>
-                        <div id="editmanagers" style="display:none">
-                            @using (Html.BeginForm())
-                            {
-                                @Html.AntiForgeryToken()
-                                <div class="card">
-                                    <div class="card-header">
-                                        <h3 class="card-title">Responsive Hover Table</h3>
+                            <div class="card-footer">
+                                <a href="/Department/All_Departments" class="btn btn-warning"><i class="bi bi-arrow-left"></i> Back/Cancel</a>
+                                <button type="submit" class="btn btn-primary">Save Changes</button>
+                            </div>
+                        }
+                    <div class="card-footer">
+                        @if (ViewBag.existName != null)
+                        {
+                            <div class="alert alert-warning" role="alert">
+                                <h4 class="alert-heading"><i class="icon fas fa-exclamation-triangle"></i>Name Exist!</h4>
+                                <p>@ViewBag.existName</p>
+                                <hr>
+                                <p class="mb-0">@ViewBag.data_not_saved</p>
+                            </div>
+                        }
 
-                                        <div class="card-tools">
-                                            <div class="input-group input-group-sm" style="width: 150px;">
-                                                <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+                        @if (ViewBag.savetitle != "Done..." && ViewBag.savetitle != null)
+                        {
+                            <div class="alert alert-danger" role="alert">
+                                <h4 class="alert-heading"><i class="icon fas fa-ban"></i>OOPS Problem!</h4>
+                                <p>@ViewBag.savetitle</p>
+                                <hr>
+                                <p class="mb-0">@ViewBag.savebody</p>
+                            </div>
+                        }
 
-                                                <div class="input-group-append">
-                                                    <button type="submit" class="btn btn-default">
-                                                        <i class="fas fa-search"></i>
+
+
+
+                        <section class="content">
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <!-- Default box -->
+                                        <div class="card">
+                                            <div class="card-header" style="background-color: #5FB3CE">
+                                                <h1 class="card-title">
+                                                    Remove Managers
+                                                </h1>
+
+                                                <div class="card-tools" style="background-color: #536878">
+                                                    <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                                                        <i class="fas fa-minus"></i>
                                                     </button>
                                                 </div>
                                             </div>
+                                            <div class="card-body">
+                                                <section class="content">
+                                                    <div class="container-fluid">
+                                                        <div class="row">
+                                                            <!-- left column -->
+                                                            <div class="col-md-12">
+                                                                <!-- general form elements -->
+                                                                <div class="card">
+                                                                    <div class="card-header">
+                                                                        <h3>Remove Manager</h3>
+                                                                    </div>
+                                                                    <!-- /.card-header -->
+                                                                    <div class="card-body">
+                                                                        <table id="example1" class="table table-bordered table-striped">
+                                                                            <thead>
+                                                                                <tr>
+                                                                                    <th>#</th>
+                                                                                    <th>Professor Name</th>
+                                                                                    <th>Options</th>
+                                                                                </tr>
+                                                                            </thead>
+                                                                            <tbody>
+                                                                                @{int i = 0; }
+                                                                                @if (Model.List_Managers_Details != null)
+                                                                                {
+
+                                                                                    foreach (var item in Model.List_Managers_Details)
+                                                                                    {
+                                                                                        <tr class="js-row">
+                                                                                            <td>@i</td>
+                                                                                            <td>@item.FirstName @item.MiddleName @item.LastName</td>
+                                                                                            <td>
+                                                                                                <button type="button" class="btn btn-info removemanager" data-toggle="modal" data-target="#modal-danger" uid-data="@item.Uid" name="@Model.Department.Dep_Id">
+                                                                                                    Remove
+                                                                                                </button>
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                        i++;
+                                                                                    }
+                                                                                }
+
+
+                                                                            </tbody>
+                                                                            <tfoot>
+                                                                                <tr>
+                                                                                    <th>#</th>
+                                                                                    <th>Professor Name</th>
+                                                                                    <th>Options</th>
+                                                                                </tr>
+                                                                            </tfoot>
+                                                                        </table>
+                                                                    </div>
+                                                                    <!-- /.card-body -->
+                                                                </div>
+                                                                <!-- /.card -->
+
+
+                                                            </div>
+
+                                                        </div>
+                                                        <!-- /.row -->
+                                                    </div><!-- /.container-fluid -->
+                                                </section>
+                                                <!-- /.content -->
+
+                                            </div>
+                                            <!-- /.card-body -->
                                         </div>
+                                        <!-- /.card -->
                                     </div>
-                                    <!-- /.card-header -->
-                                    <div class="card-body table-responsive p-0">
-                                        <table class="table table-hover text-nowrap">
-                                            <thead>
-                                                <tr>
-                                                    <th>ID</th>
-                                                    <th>User</th>
-                                                    <th>Date</th>
-                                                    <th>Status</th>
-                                                    <th>Reason</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>183</td>
-                                                    <td>John Doe</td>
-                                                    <td>11-7-2014</td>
-                                                    <td><span class="tag tag-success">Approved</span></td>
-                                                    <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>219</td>
-                                                    <td>Alexander Pierce</td>
-                                                    <td>11-7-2014</td>
-                                                    <td><span class="tag tag-warning">Pending</span></td>
-                                                    <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>657</td>
-                                                    <td>Bob Doe</td>
-                                                    <td>11-7-2014</td>
-                                                    <td><span class="tag tag-primary">Approved</span></td>
-                                                    <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>175</td>
-                                                    <td>Mike Doe</td>
-                                                    <td>11-7-2014</td>
-                                                    <td><span class="tag tag-danger">Denied</span></td>
-                                                    <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <!-- /.card-body -->
                                 </div>
-                                <!-- /.card -->
-                                <!-- /.card-body -->
+                            </div>
+                        </section>
 
-                                <div class="card-footer">
-                                    <a href="/Department/Show_Department_Information/@Model.Dep_Id" class="btn btn-warning"><i class="bi bi-arrow-left"></i> Back</a>
-                                    <button type="submit" class="btn btn-primary">Submit</button>
-                                </div>
-                            }
-                        </div>
 
-                        <div id="editprograms" style="display:none">
-                            @using (Html.BeginForm())
-                            {
-                                @Html.AntiForgeryToken()
-                                <div class="card">
-                                    <div class="card-header">
-                                        <h3 class="card-title">Simple Full Width Table</h3>
 
-                                        <div class="card-tools">
-                                            <ul class="pagination pagination-sm float-right">
-                                                <li class="page-item"><a class="page-link" href="#">&laquo;</a></li>
-                                                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                                <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
-                                            </ul>
+
+
+
+                        <section class="content">
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <!-- Default box -->
+                                        <div class="card">
+                                            <div class="card-header" style="background-color: #5FB3CE">
+                                                <h1 class="card-title">
+                                                    Remove Programs
+                                                </h1>
+
+                                                <div class="card-tools" style="background-color: #536878">
+                                                    <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                                                        <i class="fas fa-minus"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div class="card-body">
+                                                <section class="content">
+                                                    <div class="container-fluid">
+                                                        <div class="row">
+                                                            <!-- left column -->
+                                                            <div class="col-md-12">
+                                                                <!-- general form elements -->
+                                                                <div class="card">
+                                                                    <div class="card-header">
+                                                                        <h3>Remove Program</h3>
+                                                                    </div>
+                                                                    <!-- /.card-header -->
+                                                                    <div class="card-body">
+                                                                        <table id="example11" class="table table-bordered table-striped">
+                                                                            <thead>
+                                                                                <tr>
+                                                                                    <th>#</th>
+                                                                                    <th>Program Name</th>
+                                                                                    <th>Options</th>
+                                                                                </tr>
+                                                                            </thead>
+                                                                            <tbody>
+                                                                                @{int j = 0; }
+                                                                                @if (Model.List_All_Programs != null)
+                                                                                {
+
+                                                                                    foreach (var item in Model.List_All_Programs)
+                                                                                    {
+                                                                                        <tr class="js-row">
+                                                                                            <td>@j</td>
+                                                                                            <td>@item.Name</td>
+                                                                                            <td>
+                                                                                                <button type="button" class="btn btn-info removeprogram" data-toggle="modal" data-target="#modal-danger" uid-data="@item.PId">
+                                                                                                    Remove
+                                                                                                </button>
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                        j++;
+                                                                                    }
+                                                                                }
+                                                                                
+                                                                            </tbody>
+                                                                            <tfoot>
+                                                                                <tr>
+                                                                                    <th>#</th>
+                                                                                    <th>Program Name</th>
+                                                                                    <th>Options</th>
+                                                                                </tr>
+                                                                            </tfoot>
+                                                                        </table>
+                                                                    </div>
+                                                                    <!-- /.card-body -->
+                                                                </div>
+                                                                <!-- /.card -->
+
+
+                                                            </div>
+
+                                                        </div>
+                                                        <!-- /.row -->
+                                                    </div><!-- /.container-fluid -->
+                                                </section>
+                                                <!-- /.content -->
+
+                                            </div>
+                                            <!-- /.card-body -->
                                         </div>
+                                        <!-- /.card -->
                                     </div>
-                                    <!-- /.card-header -->
-                                    <div class="card-body p-0">
-                                        <table class="table">
-                                            <thead>
-                                                <tr>
-                                                    <th style="width: 10px">#</th>
-                                                    <th>Task</th>
-                                                    <th>Progress</th>
-                                                    <th style="width: 40px">Label</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>1.</td>
-                                                    <td>Update software</td>
-                                                    <td>
-                                                        <div class="progress progress-xs">
-                                                            <div class="progress-bar progress-bar-danger" style="width: 55%"></div>
-                                                        </div>
-                                                    </td>
-                                                    <td><span class="badge bg-danger">55%</span></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>2.</td>
-                                                    <td>Clean database</td>
-                                                    <td>
-                                                        <div class="progress progress-xs">
-                                                            <div class="progress-bar bg-warning" style="width: 70%"></div>
-                                                        </div>
-                                                    </td>
-                                                    <td><span class="badge bg-warning">70%</span></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>3.</td>
-                                                    <td>Cron job running</td>
-                                                    <td>
-                                                        <div class="progress progress-xs progress-striped active">
-                                                            <div class="progress-bar bg-primary" style="width: 30%"></div>
-                                                        </div>
-                                                    </td>
-                                                    <td><span class="badge bg-primary">30%</span></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>4.</td>
-                                                    <td>Fix and squish bugs</td>
-                                                    <td>
-                                                        <div class="progress progress-xs progress-striped active">
-                                                            <div class="progress-bar bg-success" style="width: 90%"></div>
-                                                        </div>
-                                                    </td>
-                                                    <td><span class="badge bg-success">90%</span></td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <!-- /.card-body -->
                                 </div>
-                                <!-- /.card-body -->
+                            </div>
+                        </section>
 
-                                <div class="card-footer">
-                                    <a href="/Department/Show_Department_Information/@Model.Dep_Id" class="btn btn-warning"><i class="bi bi-arrow-left"></i> Back</a>
-                                    <button type="submit" class="btn btn-primary">Submit</button>
+
+
+
+
+                        <section class="content">
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <!-- Default box -->
+                                        <div class="card">
+                                            <div class="card-header" style="background-color: #5FB3CE">
+                                                <h1 class="card-title">
+                                                    Remove Employees
+                                                </h1>
+
+                                                <div class="card-tools" style="background-color: #536878">
+                                                    <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                                                        <i class="fas fa-minus"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div class="card-body">
+                                                <section class="content">
+                                                    <div class="container-fluid">
+                                                        <div class="row">
+                                                            <!-- left column -->
+                                                            <div class="col-md-12">
+                                                                <!-- general form elements -->
+                                                                <div class="card">
+                                                                    <div class="card-header">
+                                                                        <h3>Remove Employees</h3>
+                                                                    </div>
+                                                                    <!-- /.card-header -->
+                                                                    <div class="card-body">
+                                                                        <table id="example11" class="table table-bordered table-striped">
+                                                                            <thead>
+                                                                                <tr>
+                                                                                    <th>#</th>
+                                                                                    <th>User Name</th>
+                                                                                    <th>User Email</th>
+                                                                                    <th>Options</th>
+                                                                                </tr>
+                                                                            </thead>
+                                                                            <tbody>
+                                                                                @{int k = 0; }
+                                                                                @if (Model.all_users != null)
+                                                                                {
+
+                                                                                    foreach (var item in Model.all_users)
+                                                                                    {
+                                                                                        <tr class="js-row">
+                                                                                            <td>@k</td>
+                                                                                            <td>@item.FirstName @item.MiddleName @item.LastName</td>
+                                                                                            <td>
+                                                                                                <button type="button" class="btn btn-info removeuser" data-toggle="modal" data-target="#modal-danger" uid-data="@item.Uid">
+                                                                                                    Remove
+                                                                                                </button>
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                        k++;
+                                                                                    }
+                                                                                }
+                                                                                
+                                                                            </tbody>
+                                                                            <tfoot>
+                                                                                <tr>
+                                                                                    <th>#</th>
+                                                                                    <th>User Name</th>
+                                                                                    <th>User Email</th>
+                                                                                    <th>Options</th>
+                                                                                </tr>
+                                                                            </tfoot>
+                                                                        </table>
+                                                                    </div>
+                                                                    <!-- /.card-body -->
+                                                                </div>
+                                                                <!-- /.card -->
+
+
+                                                            </div>
+
+                                                        </div>
+                                                        <!-- /.row -->
+                                                    </div><!-- /.container-fluid -->
+                                                </section>
+                                                <!-- /.content -->
+
+                                            </div>
+                                            <!-- /.card-body -->
+                                        </div>
+                                        <!-- /.card -->
+                                    </div>
                                 </div>
-                            }
-                        </div>
+                            </div>
+                        </section>
+
+
+
+
+
+                    </div>
                     </div>
                 </div>
             </div>
         </div>
-
     </section>
+</div>
 
-@section Scripts {
-    <script>
-        function editname() {
-            document.getElementById("editprograms").style.display = "none";
-            document.getElementById("editmanagers").style.display = "none";
-            document.getElementById("editname").style.display = "block";
-        }
-        function editmanagers() {
-            document.getElementById("editprograms").style.display = "none";
-            document.getElementById("editname").style.display = "none";
-            document.getElementById("editmanagers").style.display = "block";
-        }
-        function editprograms() {
-            document.getElementById("editmanagers").style.display = "none";
-            document.getElementById("editname").style.display = "none";
-            document.getElementById("editprograms").style.display = "block";
-        }
-    </script>
-}
+
+
+
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+<script>
+
+    $(".js-row .removemanager").on("click", function (evt) {
+        let button = $(this);
+
+        $.ajax({
+            url: "/Department/Remove_Department_Manager/",
+            method: "post",
+            data: {
+                dep_id: button.attr("name"),
+                id: button.attr("uid-data")
+            },
+            success: function () {
+                button.parents(".js-row").fadeOut();
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Added  successfully',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+            }
+        })
+    })
+
+    $(".js-row .removeprogram").on("click", function (evt) {
+        let button = $(this);
+
+        $.ajax({
+            url: "/Department/Remove_Department_Program/",
+            method: "post",
+            data: {
+                id: button.attr("uid-data")
+            },
+            success: function () {
+                button.parents(".js-row").fadeOut();
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Added  successfully',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+            }
+        })
+    })
+
+
+    $(".js-row .removeuser").on("click", function (evt) {
+        let button = $(this);
+
+        $.ajax({
+            url: "/Department/Remove_Department_Program/",
+            method: "post",
+            data: {
+                id: button.attr("uid-data")
+            },
+            success: function () {
+                button.parents(".js-row").fadeOut();
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Added  successfully',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+            }
+        })
+    })
+
+</script>
+    }

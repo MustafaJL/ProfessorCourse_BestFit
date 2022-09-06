@@ -1,0 +1,132 @@
+﻿@model ProfessorCourse_BestFit.Models.ViewModels.DepartmentViewModel
+
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Departments</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">General Form</li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <!-- left column -->
+                <div class="col-md-12">
+                    <!-- general form elements -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h4>@Model.Department.Dep_Name</h4>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <table id="example1" class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>User Name</th>
+                                        <th>User Email</th>
+                                        <th>Options</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @{int i = 0; }
+                                    @if (Model.all_users != null)
+                                    {
+                                        foreach (var item in Model.all_users)
+                                        {
+                                            <tr>
+                                                <td>@i</td>
+                                                <td>@item.FirstName @item.MiddleName @item.LastName</td>
+                                                <td>@item.Email</td>
+                                                <td>
+                                                    <button type="button" class="btn btn-info addemployee" data-toggle="modal" data-target="#modal-danger" uid-data="@item.Uid" name="@Model.Department.Dep_Id">
+                                                        Add
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                            i++;
+                                        }
+                                    }
+
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>User Name</th>
+                                        <th>User Email</th>
+                                        <th>Options</th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+
+
+                </div>
+
+            </div>
+
+
+
+            <!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+</div>
+
+@section Scripts {
+    <script>
+        $(function () {
+            $("#example1").DataTable({
+                "responsive": true, "lengthChange": false, "autoWidth": false,
+                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+        });
+
+
+        $(".js-row .addemployee").on("click", function () {
+            let button = $(this);
+
+            $.ajax({
+                url: "/Department/Add_Employee/",
+                method: "post",
+                data: {
+                    dep_id: button.attr("name"),
+                    id: button.attr("uid-data")
+                },
+                success: function () {
+
+                    button.parents(".js-row").fadeOut();
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Added  successfully',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+
+                }
+            })
+        })
+
+
+
+
+
+    </script>
+}

@@ -48,30 +48,210 @@
                     @if (ViewBag.existName != null)
                     {
                         <div class="alert alert-warning" role="alert">
-                            <h4 class="alert-heading">Name Exist!</h4>
+                            <h4 class="alert-heading"><i class="icon fas fa-exclamation-triangle"></i>Name Exist!</h4>
                             <p>@ViewBag.existName</p>
                             <hr>
                             <p class="mb-0">@ViewBag.data_not_saved</p>
                         </div>
                     }
-                    @if (ViewBag.savetitle == "Done...")
-                    {
-                        <div class="alert alert-success" role="alert">
-                            <h4 class="alert-heading">Done!</h4>
-                            <p>@ViewBag.savetitle</p>
-                            <hr>
-                            <p class="mb-0">@ViewBag.savebody</p>
-                        </div>
-                    }
-                    else if(ViewBag.savetitle != "Done..." && ViewBag.savetitle != null)
+
+                    @if (ViewBag.savetitle != "Done..." && ViewBag.savetitle != null)
                     {
                         <div class="alert alert-danger" role="alert">
-                            <h4 class="alert-heading">Name Exist!</h4>
+                            <h4 class="alert-heading"><i class="icon fas fa-ban"></i>OOPS Problem!</h4>
                             <p>@ViewBag.savetitle</p>
                             <hr>
                             <p class="mb-0">@ViewBag.savebody</p>
                         </div>
                     }
+
+
+
+
+                    <section class="content">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-12">
+                                    <!-- Default box -->
+                                    <div class="card">
+                                        <div class="card-header" style="background-color: #5FB3CE">
+                                            <h1 class="card-title">
+                                                Add Managers
+                                            </h1>
+
+                                            <div class="card-tools" style="background-color: #536878">
+                                                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                                                    <i class="fas fa-minus"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="card-body">
+                                            @if (ViewBag.Dep_Id != null)
+                                            {
+                                                <section class="content">
+                                                    <div class="container-fluid">
+                                                        <div class="row">
+                                                            <!-- left column -->
+                                                            <div class="col-md-12">
+                                                                <!-- general form elements -->
+                                                                <div class="card">
+                                                                    <div class="card-header">
+                                                                        <h3>Select Manager</h3>
+                                                                    </div>
+                                                                    <!-- /.card-header -->
+                                                                    <div class="card-body">
+                                                                        <table id="example1" class="table table-bordered table-striped">
+                                                                            <thead>
+                                                                                <tr>
+                                                                                    <th>#</th>
+                                                                                    <th>Professor Name</th>
+                                                                                    <th>Options</th>
+                                                                                </tr>
+                                                                            </thead>
+                                                                            <tbody>
+                                                                                @{int i = 0; }
+                                                                                @foreach (var item in Model.List_User_Details)
+                                                                                {
+                                                                                    <tr class="js-row">
+                                                                                        <td>@i</td>
+                                                                                        <td>@item.FirstName @item.LastName</td>
+                                                                                        <td>
+                                                                                            <button type="button" class="btn btn-info addmanager" data-toggle="modal" data-target="#modal-danger" uid-data="@item.UserId" name="@Model.Dep_Id">
+                                                                                                Add
+                                                                                            </button>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    i++;
+                                                                                }
+                                                                            </tbody>
+                                                                            <tfoot>
+                                                                                <tr>
+                                                                                    <th>#</th>
+                                                                                    <th>Professor Name</th>
+                                                                                    <th>Options</th>
+                                                                                </tr>
+                                                                            </tfoot>
+                                                                        </table>
+                                                                    </div>
+                                                                    <!-- /.card-body -->
+                                                                </div>
+                                                                <!-- /.card -->
+
+
+                                                            </div>
+
+                                                        </div>
+                                                        <!-- /.row -->
+                                                    </div><!-- /.container-fluid -->
+                                                </section>
+                                                <!-- /.content -->
+                                            }
+                                        </div>
+                                        <!-- /.card-body -->
+                                    </div>
+                                    <!-- /.card -->
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+
+
+
+
+
+                    <section class="content">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-12">
+                                    <!-- Default box -->
+                                    <div class="card">
+                                        <div class="card-header" style="background-color: #5FB3CE">
+                                            <h1 class="card-title">
+                                                Add Programs
+                                            </h1>
+
+                                            <div class="card-tools" style="background-color: #536878">
+                                                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                                                    <i class="fas fa-minus"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="card-body">
+                                            @if (ViewBag.Dep_Id != null)
+                                            {
+                                                <section class="content">
+                                                    <div class="container-fluid">
+                                                        <div class="row">
+                                                            <!-- left column -->
+                                                            <div class="col-md-12">
+                                                                <!-- general form elements -->
+                                                                <div class="card">
+                                                                    <div class="card-header">
+                                                                        <h3>Select Program</h3>
+                                                                    </div>
+                                                                    <!-- /.card-header -->
+                                                                    <div class="card-body">
+                                                                        <table id="example11" class="table table-bordered table-striped">
+                                                                            <thead>
+                                                                                <tr>
+                                                                                    <th>#</th>
+                                                                                    <th>Program Name</th>
+                                                                                    <th>Options</th>
+                                                                                </tr>
+                                                                            </thead>
+                                                                            <tbody>
+                                                                                @{int i = 0; }
+                                                                                @foreach (var item in Model.List_All_Programs)
+                                                                                {
+                                                                                    <tr class="js-row">
+                                                                                        <td>@i</td>
+                                                                                        <td>@item.Name</td>
+                                                                                        <td>
+                                                                                            <button type="button" class="btn btn-info addprogram" data-toggle="modal" data-target="#modal-danger" uid-data="@item.PId" name="@Model.Dep_Id">
+                                                                                                Add
+                                                                                            </button>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    i++;
+                                                                                }
+                                                                            </tbody>
+                                                                            <tfoot>
+                                                                                <tr>
+                                                                                    <th>#</th>
+                                                                                    <th>Program Name</th>
+                                                                                    <th>Options</th>
+                                                                                </tr>
+                                                                            </tfoot>
+                                                                        </table>
+                                                                    </div>
+                                                                    <!-- /.card-body -->
+                                                                </div>
+                                                                <!-- /.card -->
+
+
+                                                            </div>
+
+                                                        </div>
+                                                        <!-- /.row -->
+                                                    </div><!-- /.container-fluid -->
+                                                </section>
+                                                <!-- /.content -->
+                                            }
+                                        </div>
+                                        <!-- /.card-body -->
+                                    </div>
+                                    <!-- /.card -->
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+
+
+
+
+
                 </div>
                 </div>
                 </div>
@@ -82,4 +262,72 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
-}
+
+<script>
+
+    $(".js-row .addmanager").on("click", function (evt) {
+        evt.preventDefault();
+        let button = $(this);
+
+        $.ajax({
+            url: "/Department/Add_Manager/",
+            method: "post",
+            data: {
+                dep_id: button.attr("name"),
+                id: button.attr("uid-data")
+            },
+            success: function () {
+
+                button.parents(".js-row").fadeOut();
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Added  successfully',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+
+            }
+        })
+    })
+
+    $(".js-row .addprogram").on("click", function (evt) {
+        evt.preventDefault();
+        let button = $(this);
+
+        $.ajax({
+            url: "/Department/Add_Program/",
+            method: "post",
+            data: {
+                dep_id: button.attr("name"),
+                id: button.attr("uid-data")
+            },
+            success: function () {
+
+                button.parents(".js-row").fadeOut();
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Added  successfully',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+
+            }
+        })
+    })
+
+    $(function () {
+        $("#example1").DataTable({
+            "responsive": true, "lengthChange": false, "autoWidth": false,
+            "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+        }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+
+        $("#example11").DataTable({
+            "responsive": true, "lengthChange": false, "autoWidth": false,
+            "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+        }).buttons().container().appendTo('#example11_wrapper .col-md-6:eq(0)');
+    });
+
+</script>
+    }

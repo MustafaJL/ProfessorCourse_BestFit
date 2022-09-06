@@ -1,7 +1,5 @@
 ﻿@model ProfessorCourse_BestFit.Models.ViewModels.DepartmentViewModel
-@{
-    ViewBag.bodyClass = "sidebar-collapse layout-fixed sidebar-mini layout-navbar-fixed sidebar-closed";
-}
+
 
 
 <!-- Content Wrapper. Contains page content -->
@@ -22,7 +20,7 @@
             </div>
         </div><!-- /.container-fluid -->
     </section>
-    
+
     <section class="content">
         <div class="container-fluid">
             <div class="row">
@@ -37,7 +35,7 @@
                                     <div class="card">
                                         <div class="card-header" style="background-color: #5FB3CE">
                                             <h1 class="card-title">
-                                                Department Information
+                                                Department
                                             </h1>
 
                                             <div class="card-tools" style="background-color: #536878">
@@ -62,7 +60,7 @@
                                                                                 <div class="card">
                                                                                     <div class="card-header" style="background-color: #5FB3CE">
                                                                                         <h1 class="card-title">
-                                                                                            Department name : @Model.Dep_Name
+                                                                                            Department Information
                                                                                         </h1>
 
                                                                                         <div class="card-tools" style="background-color: #536878">
@@ -73,7 +71,10 @@
                                                                                     </div>
                                                                                     <div class="card-body">
                                                                                         <h5>
-                                                                                            @Model.Dep_Name
+                                                                                            The department name is : @Model.Dep_Name
+                                                                                        </h5>
+                                                                                        <h5>
+                                                                                            Number of employee : @Model.employee_count
                                                                                         </h5>
                                                                                     </div>
                                                                                     <!-- /.card-body -->
@@ -98,7 +99,7 @@
                                                                                                 <div class="card">
                                                                                                     <div class="card-header" style="background-color: #5FB3CE">
                                                                                                         <h1 class="card-title">
-                                                                                                            Department Information
+                                                                                                            Department Managers
                                                                                                         </h1>
 
                                                                                                         <div class="card-tools" style="background-color: #536878">
@@ -108,9 +109,61 @@
                                                                                                         </div>
                                                                                                     </div>
                                                                                                     <div class="card-body">
-                                                                                                        <h5>
-                                                                                                            @Model.Dep_Name
-                                                                                                        </h5>
+
+                                                                                                        
+                                                                                                            <section class="content">
+                                                                                                                <div class="container-fluid">
+                                                                                                                    <div class="row">
+                                                                                                                        <!-- left column -->
+                                                                                                                        <div class="col-md-12">
+                                                                                                                            <!-- general form elements -->
+                                                                                                                            <div class="card">                                                                                                                                
+                                                                                                                                <!-- /.card-header -->
+                                                                                                                                <div class="card-body">
+                                                                                                                                    <table id="example1" class="table table-bordered table-striped">
+                                                                                                                                        <thead>
+                                                                                                                                            <tr>
+                                                                                                                                                <th>#</th>
+                                                                                                                                                <th>Manager Name</th>
+                                                                                                                                        </thead>
+                                                                                                                                        <tbody>
+                                                                                                                                            @{int i = 0; }
+                                                                                                                                            @if (Model.List_Managers_Details != null)
+                                                                                                                                            {
+                                                                                                                                                foreach (var item in Model.List_Managers_Details)
+                                                                                                                                                {
+                                                                                                                                                    <tr class="js-row">
+                                                                                                                                                        <td>@i</td>
+                                                                                                                                                        <td>@item.FirstName @item.MiddleName @item.LastName</td>
+                                                                                                                                                    </tr>
+                                                                                                                                                    i++;
+                                                                                                                                                }
+                                                                                                                                            }
+
+                                                                                                                                        </tbody>
+                                                                                                                                        <tfoot>
+                                                                                                                                            <tr>
+                                                                                                                                                <th>#</th>
+                                                                                                                                                <th>Manager Name</th>
+                                                                                                                                            </tr>
+                                                                                                                                        </tfoot>
+                                                                                                                                    </table>
+                                                                                                                                </div>
+                                                                                                                                <!-- /.card-body -->
+                                                                                                                            </div>
+                                                                                                                            <!-- /.card -->
+
+
+                                                                                                                        </div>
+
+                                                                                                                    </div>
+                                                                                                                    <!-- /.row -->
+                                                                                                                </div><!-- /.container-fluid -->
+                                                                                                            </section>
+                                                                                                            <!-- /.content -->
+                                                                                                        
+
+
                                                                                                     </div>
                                                                                                     <!-- /.card-body -->
                                                                                                 </div>
@@ -143,7 +196,7 @@
                                                                                                 <div class="card">
                                                                                                     <div class="card-header" style="background-color: #5FB3CE">
                                                                                                         <h1 class="card-title">
-                                                                                                            Department Information
+                                                                                                            Department Programs
                                                                                                         </h1>
 
                                                                                                         <div class="card-tools" style="background-color: #536878">
@@ -153,9 +206,63 @@
                                                                                                         </div>
                                                                                                     </div>
                                                                                                     <div class="card-body">
-                                                                                                        <h5>
-                                                                                                            @Model.Dep_Name
-                                                                                                        </h5>
+
+
+
+                                                                                                            <section class="content">
+                                                                                                                <div class="container-fluid">
+                                                                                                                    <div class="row">
+                                                                                                                        <!-- left column -->
+                                                                                                                        <div class="col-md-12">
+                                                                                                                            <!-- general form elements -->
+                                                                                                                            <div class="card">                                                                                                                                
+                                                                                                                                <!-- /.card-header -->
+                                                                                                                                <div class="card-body">
+                                                                                                                                    <table id="example11" class="table table-bordered table-striped">
+                                                                                                                                        <thead>
+                                                                                                                                            <tr>
+                                                                                                                                                <th>#</th>
+                                                                                                                                                <th>Program Name</th>
+                                                                                                                                            </tr>
+                                                                                                                                        </thead>
+                                                                                                                                        <tbody>
+                                                                                                                                            @{int j = 0; }
+                                                                                                                                            @if (Model.List_All_Programs != null)
+                                                                                                                                            {
+                                                                                                                                                foreach (var item in Model.List_All_Programs)
+                                                                                                                                                {
+                                                                                                                                                    <tr class="js-row">
+                                                                                                                                                        <td>@j</td>
+                                                                                                                                                        <td>@item.Name</td>
+                                                                                                                                                    </tr>
+                                                                                                                                                    j++;
+                                                                                                                                                }
+                                                                                                                                            }
+
+                                                                                                                                        </tbody>
+                                                                                                                                        <tfoot>
+                                                                                                                                            <tr>
+                                                                                                                                                <th>#</th>
+                                                                                                                                                <th>Program Name</th>
+                                                                                                                                            </tr>
+                                                                                                                                        </tfoot>
+                                                                                                                                    </table>
+                                                                                                                                </div>
+                                                                                                                                <!-- /.card-body -->
+                                                                                                                            </div>
+                                                                                                                            <!-- /.card -->
+
+
+                                                                                                                        </div>
+
+                                                                                                                    </div>
+                                                                                                                    <!-- /.row -->
+                                                                                                                </div><!-- /.container-fluid -->
+                                                                                                            </section>
+                                                                                                            <!-- /.content -->
+                                                                                                        
+
+
                                                                                                     </div>
                                                                                                     <!-- /.card-body -->
                                                                                                 </div>
@@ -204,3 +311,22 @@
     </div>
 </div>
 
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+
+    $(function () {
+        $("#example1").DataTable({
+            "responsive": true, "lengthChange": false, "autoWidth": false,
+            "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+        }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+
+        $("#example11").DataTable({
+            "responsive": true, "lengthChange": false, "autoWidth": false,
+            "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+        }).buttons().container().appendTo('#example11_wrapper .col-md-6:eq(0)');
+    });
+
+    </script>
+}

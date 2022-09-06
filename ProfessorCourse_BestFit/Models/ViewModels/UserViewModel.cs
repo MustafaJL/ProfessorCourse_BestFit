@@ -21,9 +21,7 @@ namespace ProfessorCourse_BestFit.Models
         public string Email { get; set; }
 
         [Display(Name = "Date Of Birth")]
-        [DataType(DataType.Date)]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
-        public DateTime DateOfBirth { get; set; }
+        public string DateOfBirth { get; set; }
 
         //[Required(ErrorMessage = "Password is Required")]B
         //[DataType(DataType.Password)]

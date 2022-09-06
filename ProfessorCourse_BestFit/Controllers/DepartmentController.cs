@@ -16,7 +16,6 @@ namespace ProfessorCourse_BestFit.Controllers
     public class DepartmentController : Controller
     {
         private readonly string _Conn = ConfigurationManager.ConnectionStrings["DefaultConnection"].ToString();
-        private readonly SqlConnection _connection;
         private readonly ProfessorCourseBestFitEntities _context;
         private readonly Department_DAL department_DAL;
         private readonly Messages messages;
@@ -25,7 +24,6 @@ namespace ProfessorCourse_BestFit.Controllers
             _context = new ProfessorCourseBestFitEntities();
             department_DAL = new Department_DAL();
             messages = new Messages();
-            _connection = new SqlConnection(_Conn);
         }
 
 
@@ -66,36 +64,52 @@ namespace ProfessorCourse_BestFit.Controllers
             }
             var create_department = new Department();
             create_department.Dep_Name = departmentViewModel.Dep_Name;
-            if(departmentViewModel.List_User_Details != null)
-            {
-                for (int i = 0; i < departmentViewModel.List_User_Details.Count; i++)
-                {
-                    create_department.User_id += departmentViewModel.List_User_Details[i].ToString();
-                    create_department.User_id += ",";
-                }
-            }
 
             _context.Departments.Add(create_department);
             try
             {
                 _context.SaveChanges();
-                ViewBag.savetitle = messages.message_success_submit_title;
-                ViewBag.savebody = messages.message_success_submit_body;
+                List<Department> departments = _context.Departments.ToList();
+                for(int i = departments.Count()-1; i > departments.Count()-2; i--){
+                    ViewBag.Dep_Id = departments[i].Dep_Id;
+                    departmentViewModel.Dep_Id = departments[i].Dep_Id;
+                }
+                departmentViewModel.List_User_Details = department_DAL.Get_All_Professors();
+                departmentViewModel.List_All_Programs = _context.Programs.Where(
+                    x => x.isDeleted == false 
+                    &&
+                    x.Dep_Id == 0).ToList();
             }
             catch
             {
                 ViewBag.savetitle = messages.message_failed_submit_title;
                 ViewBag.savebody = messages.message_failed_submit_body;
             }
-            return View();
+            return View(departmentViewModel);
         }
 
+        [HttpPost]
+        public JsonResult Add_Manager(int dep_id, int id)
+        {
+            var department = _context.Departments.Where(x => x.Dep_Id == dep_id).FirstOrDefault();
+            department.User_id += id+",";
+            _context.SaveChanges();
+            return Json("success");
+        }
+
+        [HttpPost]
+        public JsonResult Add_Program(int dep_id, int id)
+        {
+            var program = _context.Programs.Where(x => x.PId == id).FirstOrDefault();
+            program.Dep_Id = dep_id;
+            _context.SaveChanges();
+            return Json("success");
+        }
+
+
         // GET: Show Department Information
-        //the id should not be null
         public ActionResult Show_Department_Information(int? id)
         {
-            if(id != null)
-            {
                 DepartmentViewModel departmentViewModel = new DepartmentViewModel();
                 var department = _context.Departments.Where(x => x.Dep_Id == id).FirstOrDefault();
                 departmentViewModel.Dep_Id = department.Dep_Id;
@@ -104,57 +118,157 @@ namespace ProfessorCourse_BestFit.Controllers
                 
                 if(departmentViewModel.User_id != null)
                 {
-                    var all_managers = department_DAL.Get_All_Department_Managers(departmentViewModel.User_id);
-                    //need procedure (look at user_DAL.cs).
-                    departmentViewModel.List_Managers_Details = all_managers;
+                //need procedure (because of split).
+                departmentViewModel.List_Managers_Details = department_DAL.Get_All_Department_Managers(departmentViewModel.User_id);
                     ViewBag.allManagers = messages.message_not_null;
                 }
-                else
-                {
-                    ViewBag.allManagers = messages.message_null;
-                    ViewBag.noManagers = messages.no_managers;
-                }
-                departmentViewModel.List_Department_Programs = department_DAL.Get_Department_Programs(departmentViewModel.Dep_Id);
-                ViewBag.allPrograms = messages.no_programs;
-                
+
+                departmentViewModel.List_All_Programs = _context.Programs.Where(x => x.Dep_Id == departmentViewModel.Dep_Id && x.isDeleted == false).ToList();
                 return View(departmentViewModel);
-            }
-            else
-            {
-                //should add a condition if the input id is null
-                return View();
-            }
         }
 
         public ActionResult Edit_Department(int id)
         {
             DepartmentViewModel departmentViewModel = new DepartmentViewModel();
-            var department = _context.Departments.Where(x => x.Dep_Id == id).FirstOrDefault();
-            departmentViewModel.Dep_Id = department.Dep_Id;
-            departmentViewModel.Dep_Name = department.Dep_Name;
-            return View(departmentViewModel);
-        }
-
-        public ActionResult Add_Department_Programs(int id)
-        {
-            return View();
-        }
-
-        public ActionResult Delete_Department(int id)
-        {
-            DepartmentViewModel departmentViewModel = new DepartmentViewModel();
             departmentViewModel.Department = _context.Departments.Where(x => x.Dep_Id == id).FirstOrDefault();
+            departmentViewModel.List_Managers_Details = department_DAL.Get_All_Department_Managers(departmentViewModel.User_id);
+            departmentViewModel.List_All_Programs = _context.Programs.Where(x => x.Dep_Id == id && x.isDeleted == false).ToList();
+            //var u = _context.UserDepartments.Where(x => x.Dep_Id == id && x.isDeleted == false).ToString();
             return View(departmentViewModel);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete_Department(DepartmentViewModel departmentViewModel, int id)
+        public ActionResult Edit_Department(DepartmentViewModel departmentViewModel, int id)
         {
-            department_DAL.Delete_Department(id);
-            ViewBag.test = true;
-            return RedirectToAction("All_Departments");
+            var department = _context.Departments.Where(
+                x => x.Dep_Name.ToLower() == departmentViewModel.Department.Dep_Name.ToLower()
+                &&
+                x.isDeleted == false
+                ).FirstOrDefault();
+
+            if (department != null)
+            {
+                ViewBag.existName = messages.name_exist;
+                ViewBag.data_not_saved = messages.data_not_saved;
+                return View(departmentViewModel);
+            }
+            var edit_department = _context.Departments.Where(x => x.Dep_Id == id).FirstOrDefault();
+            edit_department.Dep_Name= departmentViewModel.Department.Dep_Name;
+            _context.SaveChanges();
+            departmentViewModel.List_Managers_Details = department_DAL.Get_All_Department_Managers(departmentViewModel.User_id);
+            departmentViewModel.List_All_Programs = _context.Programs.Where(x => x.Dep_Id == id && x.isDeleted == false).ToList();
+            return View(departmentViewModel);
         }
+
+
+        [HttpPost]
+        public JsonResult Edit_Department_name(int dep_id, string name)
+        {
+            var department = _context.Departments.Where(x => x.Dep_Id == dep_id).FirstOrDefault();
+            department.Dep_Name = name;
+            try
+            {
+                _context.SaveChanges();
+                return Json("success");
+            }
+            catch
+            {
+                return Json("Failed");
+            }
+        }
+
+        [HttpPost]
+        public JsonResult Remove_Department_Manager(int dep_id, int id)
+        {
+            var department = _context.Departments.Where(x => x.Dep_Id == dep_id).FirstOrDefault();
+            var list_managers = department.User_id.Split(',');
+            department.User_id = "";
+            foreach (var manager in list_managers)
+            {
+                if(id != Convert.ToInt32(manager))
+                {
+                    department.User_id += manager+",";
+                }
+            }
+            try
+            {
+                _context.SaveChanges();
+                return Json("success");
+            }
+            catch
+            {
+                return Json("Failed");
+            }
+        }
+
+        [HttpPost]
+        public JsonResult Remove_Department_Program(int id)
+        {
+            var program = _context.Programs.Where(x => x.PId == id).FirstOrDefault();
+            program.Dep_Id = 0;
+            try
+            {
+                _context.SaveChanges();
+                return Json("success");
+            }
+            catch
+            {
+                return Json("Failed");
+            }
+        }
+
+
+        [HttpPost]
+        public JsonResult Remove_Department_User(int id)
+        {
+            var user = _context.UserDepartments.Where(x => x.User_ID == id).FirstOrDefault();
+            user.EndDate = DateTime.Now;
+            user.isDeleted = true;
+
+            try
+            {
+                _context.SaveChanges();
+                return Json("success");
+            }
+            catch
+            {
+                return Json("Failed");
+            }
+        }
+
+        [HttpPost]
+        public JsonResult Delete_Department_Information(int dep_id)
+        {
+            department_DAL.Delete_Department(dep_id);
+            _context.SaveChanges();
+            return Json("success");
+        }
+
+
+        public ActionResult Add_Employees(int id)
+        {
+            DepartmentViewModel departmentViewModel = new DepartmentViewModel();
+            var department = _context.Departments.Where(x => x.Dep_Id == id).FirstOrDefault();
+            departmentViewModel.Department = department;
+            departmentViewModel.all_users = department_DAL.Get_All_Potential_Employees(department.User_id ,id);
+            return View(departmentViewModel);
+        }
+
+        [HttpPost]
+        public JsonResult Add_Employee(int dep_id, int id)
+        {
+            var userDepartment = new UserDepartment();
+            userDepartment.Dep_Id = dep_id;
+            userDepartment.User_ID = id;
+            userDepartment.StartDate = DateTime.Now;
+            _context.UserDepartments.Add(userDepartment);
+            _context.SaveChanges();
+            return Json("success");
+        }
+
+
+
 
     }
 }

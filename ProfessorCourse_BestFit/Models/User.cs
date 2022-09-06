@@ -31,11 +31,11 @@ namespace ProfessorCourse_BestFit.Models
         public string Password { get; set; }
         public string PasswordSalt { get; set; }
         public System.DateTime CreatedOn { get; set; }
-        public Nullable<System.DateTime> DateOfBirth { get; set; }
         public bool deleted { get; set; }
         public string MiddleName { get; set; }
         public string Gender { get; set; }
         public string Phone { get; set; }
+        public string DateOfBirth { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserCourse> UserCourses { get; set; }

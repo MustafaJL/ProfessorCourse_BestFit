@@ -41,7 +41,7 @@ namespace ProfessorCourse_BestFit.Controllers
                 MiddleName = user.MiddleName,
                 LastName = user.LastName,
                 Email = user.Email,
-                DateOfBirth = (DateTime)user.DateOfBirth,
+                DateOfBirth = user.DateOfBirth,
                 Gender = user.Gender,
                 PhoneNumber = user.Phone,
 
@@ -71,7 +71,7 @@ namespace ProfessorCourse_BestFit.Controllers
                 user.FirstName = model.FirstName;
                 user.LastName = model.LastName;
                 user.Email = model.Email;
-                user.DateOfBirth = model.DateOfBirth;
+                user.DateOfBirth =model.DateOfBirth;
                 user.CreatedOn = DateTime.Now;
                 user.Gender = model.Gender;
                 user.Phone = model.PhoneNumber;

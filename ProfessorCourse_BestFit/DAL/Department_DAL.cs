@@ -13,12 +13,10 @@ namespace ProfessorCourse_BestFit.DAL
         private readonly SqlConnection _connection;
         private readonly string _Conn = ConfigurationManager.ConnectionStrings["DefaultConnection"].ToString();
         private readonly User_DAL user_DAL;
-        private readonly Program_DAL program_DAL;
         public Department_DAL()
         {
             _connection = new SqlConnection(_Conn);
             user_DAL = new User_DAL();
-            program_DAL = new Program_DAL();
         }
 
 
@@ -54,19 +52,9 @@ namespace ProfessorCourse_BestFit.DAL
             return All_Departments;
         }
 
-        public List<UserRolesViewModel> Get_All_Professors()
+        public IEnumerable<User> Get_All_Department_Managers(string ids)
         {
-            return user_DAL.Get_All_Professors();
-        }
-
-        public IEnumerable<User> Get_All_Department_Managers(string id)
-        {
-            return user_DAL.Get_All_Department_Managers(id);
-        }
-
-        public List<ProgramViewModel> Get_Department_Programs(int id)
-        {
-            return program_DAL.Get_Department_Programs(id);
+            return user_DAL.Get_All_Department_Managers(ids);
         }
 
         public void Delete_Department(int id)
@@ -82,9 +70,19 @@ namespace ProfessorCourse_BestFit.DAL
 
             _connection.Open();
 
-            command.ExecuteReader();
+            object o = command.ExecuteScalar();
 
             _connection.Close();
+        }
+
+        public List<UserRolesViewModel> Get_All_Professors()
+        {
+            return user_DAL.Get_All_Professors();
+        }
+
+        public List<User> Get_All_Potential_Employees(string ids, int departmentID)
+        {
+            return user_DAL.Get_All_Potential_Employees(ids, departmentID);
         }
     }
 }

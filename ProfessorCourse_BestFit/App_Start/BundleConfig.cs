@@ -21,8 +21,8 @@ namespace ProfessorCourse_BestFit
 
             bundles.Add(new Bundle("~/bundles/bootstrap").Include(
                         "~/Content/plugins/jquery/jquery.min.js",
-                        "~/Content/plugins/bootstrap/js/bootstrap.bundle.min.js",
                         "~/Content/plugins/datatables/jquery.dataTables.min.js",
+                        "~/Content/plugins/bootstrap/js/bootstrap.bundle.min.js",
                         "~/Content/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js",
                         "~/Content/plugins/datatables-responsive/js/dataTables.responsive.min.js",
                         "~/Content/plugins/datatables-responsive/js/responsive.bootstrap4.min.js",

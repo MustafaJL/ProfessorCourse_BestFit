@@ -108,12 +108,23 @@ namespace ProfessorCourse_BestFit.Controllers
             {
                 return View(courseViewModel);
             }
-            var course = _context.Courses.Where(x => x.CId == id).FirstOrDefault();
-            course.CName = courseViewModel.CName;
-            course.Code = courseViewModel.Code;
-            course.Duration = courseViewModel.Duration;
+            var course = _context.Courses.Where(
+                x => x.CName.ToLower() == courseViewModel.CName.ToLower()
+                &&
+                x.isDeleted == false
+                ).FirstOrDefault();
+            if (course != null)
+            {
+                ViewBag.existName = messages.name_exist;
+                ViewBag.data_not_saved = messages.data_not_saved;
+                return View(courseViewModel);
+            }
+            var new_course = _context.Courses.Where(x => x.CId == id).FirstOrDefault();
+            new_course.CName = courseViewModel.CName;
+            new_course.Code = courseViewModel.Code;
+            new_course.Duration = courseViewModel.Duration;
             _context.SaveChanges();
-            return RedirectToAction("Show_Course_information", new { id = id });
+            return View(courseViewModel);
         }
 
         // GET: Hide Course

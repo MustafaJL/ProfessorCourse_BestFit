@@ -189,5 +189,36 @@ namespace ProfessorCourse_BestFit.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Delete_Department", departmentIDParameter);
         }
+    
+        public virtual ObjectResult<getAllDepartmentAvailableProfessors_Result> getAllDepartmentAvailableProfessors(string ids)
+        {
+            var idsParameter = ids != null ?
+                new ObjectParameter("ids", ids) :
+                new ObjectParameter("ids", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<getAllDepartmentAvailableProfessors_Result>("getAllDepartmentAvailableProfessors", idsParameter);
+        }
+    
+        public virtual ObjectResult<getAllDepartmentManagers_Result> getAllDepartmentManagers(string ids)
+        {
+            var idsParameter = ids != null ?
+                new ObjectParameter("ids", ids) :
+                new ObjectParameter("ids", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<getAllDepartmentManagers_Result>("getAllDepartmentManagers", idsParameter);
+        }
+    
+        public virtual ObjectResult<getAllAvailableEmployees_Result> getAllAvailableEmployees(string ids, Nullable<int> departmentID)
+        {
+            var idsParameter = ids != null ?
+                new ObjectParameter("ids", ids) :
+                new ObjectParameter("ids", typeof(string));
+    
+            var departmentIDParameter = departmentID.HasValue ?
+                new ObjectParameter("DepartmentID", departmentID) :
+                new ObjectParameter("DepartmentID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<getAllAvailableEmployees_Result>("getAllAvailableEmployees", idsParameter, departmentIDParameter);
+        }
     }
 }
