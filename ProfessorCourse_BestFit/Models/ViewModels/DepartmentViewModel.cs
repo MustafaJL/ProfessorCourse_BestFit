@@ -11,32 +11,22 @@ namespace ProfessorCourse_BestFit.Models.ViewModels
 {
     public class DepartmentViewModel
     {
-        public int Dep_Id { get; set; }
-
-        [Required(ErrorMessage = "Name is required")]
-        [Display(Name = "Department Name")]
-        public string Dep_Name { get; set; }
-
-        public bool isDeleted { get; set; }
-
-        public string User_id { get; set; }
-
-        public int employee_count { get; set; }
-
-        [Display(Name = "Manager User Name")]
-        public string Manager_User_Name { get; set; }
-
-        //this list for chose the managers of the department
-        public IEnumerable<UserRolesViewModel> List_User_Details { get; set; }
-
-        public IEnumerable<Department> all_departments { get; set; }
-
         public Department Department { get; set; }
-        
-        public IEnumerable<User> List_Managers_Details { get; set; }
-        
-        public IEnumerable<User> all_users { get; set; }
 
-        public IEnumerable<Program> List_All_Programs { get; set; }
+        public IEnumerable<Department> active_Departments { get; set; }
+        
+        public IEnumerable<Department> disActive_Departments { get; set; }
+
+        //To choose managers and employees as an example
+        public IEnumerable<User> normal_Users { get; set; }
+
+        public IEnumerable<User> managers { get; set; }
+
+        public IEnumerable<User> employee { get; set; }
+
+        //To choose Programs as an example
+        public IEnumerable<Program> all_Programs { get; set; }
+        
+        public IEnumerable<Program> department_Programs { get; set; }
     }
 }

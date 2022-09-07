@@ -8,22 +8,17 @@ namespace ProfessorCourse_BestFit.Models.ViewModels
 {
     public class CourseViewModel
     {
-        public int CId { get; set; }
+        public Course Course { get; set; }
 
-        [Required(ErrorMessage = "Code is required")]
-        [Display(Name = "Course Code")]
-        public string Code { get; set; }
+        public IEnumerable<Course> active_Courses { get; set; }
 
-        [Required(ErrorMessage = "Name is required")]
-        [Display(Name = "Course Name")]
-        public string CName { get; set; }
+        public IEnumerable<Course> disActive_Courses { get; set; }
 
-        public int Duration { get; set; }
+        public IEnumerable<Program> course_Programs { get; set; }
 
-        public bool isDeleted { get; set; }
+        //To choose Professors as an example
+        public IEnumerable<User> normal_Users { get; set; }
 
-        public System.DateTime CreatedOn { get; set; }
-
-        public IEnumerable<Course> all_courses { get; set; }
+        public IEnumerable<User> course_Professors { get; set; }
     }
 }

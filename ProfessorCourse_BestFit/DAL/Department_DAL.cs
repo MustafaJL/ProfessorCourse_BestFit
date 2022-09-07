@@ -19,7 +19,7 @@ namespace ProfessorCourse_BestFit.DAL
             user_DAL = new User_DAL();
         }
 
-
+        /*
         public List<DepartmentViewModel> Get_All_Departments()
         {
             List<DepartmentViewModel> All_Departments = new List<DepartmentViewModel>();
@@ -84,5 +84,6 @@ namespace ProfessorCourse_BestFit.DAL
         {
             return user_DAL.Get_All_Potential_Employees(ids, departmentID);
         }
+        */
     }
 }
