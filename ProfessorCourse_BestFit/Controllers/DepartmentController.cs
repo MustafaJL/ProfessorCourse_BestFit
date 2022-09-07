@@ -131,7 +131,7 @@ namespace ProfessorCourse_BestFit.Controllers
         {
             DepartmentViewModel departmentViewModel = new DepartmentViewModel();
             departmentViewModel.Department = _context.Departments.Where(x => x.Dep_Id == id).FirstOrDefault();
-            departmentViewModel.List_Managers_Details = department_DAL.Get_All_Department_Managers(departmentViewModel.User_id);
+            departmentViewModel.List_Managers_Details = department_DAL.Get_All_Department_Managers(departmentViewModel.Department.User_id);
             departmentViewModel.List_All_Programs = _context.Programs.Where(x => x.Dep_Id == id && x.isDeleted == false).ToList();
             //var u = _context.UserDepartments.Where(x => x.Dep_Id == id && x.isDeleted == false).ToString();
             return View(departmentViewModel);
@@ -156,8 +156,6 @@ namespace ProfessorCourse_BestFit.Controllers
             var edit_department = _context.Departments.Where(x => x.Dep_Id == id).FirstOrDefault();
             edit_department.Dep_Name= departmentViewModel.Department.Dep_Name;
             _context.SaveChanges();
-            departmentViewModel.List_Managers_Details = department_DAL.Get_All_Department_Managers(departmentViewModel.User_id);
-            departmentViewModel.List_All_Programs = _context.Programs.Where(x => x.Dep_Id == id && x.isDeleted == false).ToList();
             return View(departmentViewModel);
         }
 
@@ -258,7 +256,7 @@ namespace ProfessorCourse_BestFit.Controllers
         [HttpPost]
         public JsonResult Add_Employee(int dep_id, int id)
         {
-            var userDepartment = new UserDepartment();
+            UserDepartment userDepartment = new UserDepartment();
             userDepartment.Dep_Id = dep_id;
             userDepartment.User_ID = id;
             userDepartment.StartDate = DateTime.Now;
