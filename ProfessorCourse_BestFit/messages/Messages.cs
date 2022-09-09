@@ -26,6 +26,8 @@ namespace ProfessorCourse_BestFit.messages
         public string name_exist = "The name you entered is already exist please chose another name.";
 
         public string data_not_saved = "The data is not saved.";
+
+        public string name_Required = "Please you should write name first.";
     }
     
 }

@@ -10,9 +10,7 @@ namespace ProfessorCourse_BestFit.Models.ViewModels
     {
         public Program Program { get; set; }
 
-        public IEnumerable<Program> active_Programs { get; set; }
-
-        public IEnumerable<Program> disActive_Programs { get; set; }
+        public IEnumerable<Program> all_Programs { get; set; }
 
         //To choose courses as an example
         public IEnumerable<Course> all_courses { get; set; }

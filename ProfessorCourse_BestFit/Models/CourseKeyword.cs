@@ -14,9 +14,10 @@ namespace ProfessorCourse_BestFit.Models
     
     public partial class CourseKeyword
     {
+        public int course_keyword_Id { get; set; }
         public int Keyword_Id { get; set; }
         public int Course_Id { get; set; }
-        public System.DateTime CreatedOn { get; set; }
+        public bool isDeleted { get; set; }
     
         public virtual Course Course { get; set; }
         public virtual Keyword Keyword { get; set; }

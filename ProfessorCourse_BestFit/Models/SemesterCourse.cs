@@ -10,15 +10,16 @@
 namespace ProfessorCourse_BestFit.Models
 {
     using System;
+    using System.Collections.Generic;
     
-    public partial class spGetUserRoles_Result
+    public partial class SemesterCourse
     {
-        public int Uid { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string Email { get; set; }
-        public System.DateTime CreatedOn { get; set; }
-        public Nullable<System.DateTime> DateOfBirth { get; set; }
-        public string RoleName { get; set; }
+        public int semester_course_Id { get; set; }
+        public int courseId { get; set; }
+        public int semesterId { get; set; }
+        public bool isDeleted { get; set; }
+    
+        public virtual Course Course { get; set; }
+        public virtual Semester Semester { get; set; }
     }
 }

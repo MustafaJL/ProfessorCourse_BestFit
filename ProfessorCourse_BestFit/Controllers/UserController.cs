@@ -11,19 +11,19 @@ namespace ProfessorCourse_BestFit.Controllers
     public class UserController : Controller
     {
 
-        private readonly ProfessorCourseBestFitEntities _context;
+        private readonly ProfessorCourseBestFit1 _context;
         User_DAL userDAL = new User_DAL();
 
         public UserController()
         {
-            _context = new ProfessorCourseBestFitEntities();
+            _context = new ProfessorCourseBestFit1();
         }
 
         // GET: Professor
 
         public ActionResult Index()
         {
-            var userList = _context.Users.Where(x => x.deleted == false).ToList();
+            var userList = _context.Users.Where(x => x.isDeleted == false).ToList();
             return View(userList);
         }
         public ActionResult Upsert_User(int? id)
@@ -102,7 +102,7 @@ namespace ProfessorCourse_BestFit.Controllers
             }
         }
 
-
+        /*
 
         [HttpPost]
         public JsonResult Delete(int id)
@@ -118,7 +118,7 @@ namespace ProfessorCourse_BestFit.Controllers
             return Json(new { success = false });
 
         }
-
+        */
 
         [HttpPost]
         public JsonResult ResetPassword(int id)

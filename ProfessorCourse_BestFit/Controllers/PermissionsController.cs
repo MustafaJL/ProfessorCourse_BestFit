@@ -8,15 +8,15 @@ namespace ProfessorCourse_BestFit.Controllers
 {
     public class PermissionsController : Controller
     {
-        private readonly ProfessorCourseBestFitEntities _context;
+        private readonly ProfessorCourseBestFit1 _context;
 
         public PermissionsController()
         {
-            _context = new ProfessorCourseBestFitEntities();
+            _context = new ProfessorCourseBestFit1();
         }
         public ActionResult Index()
         {
-            var permissions = _context.Permissions.Where(x => x.deleted == false).ToList();
+            var permissions = _context.Permissions.Where(x => x.isDeleted == false).ToList();
             return View(permissions);
         }
 
@@ -73,7 +73,7 @@ namespace ProfessorCourse_BestFit.Controllers
         public JsonResult Delete(int id)
         {
             var permission = _context.Permissions.SingleOrDefault(x => x.PId == id);
-            permission.deleted = true;
+            permission.isDeleted = true;
             _context.SaveChanges();
             return Json("success");
         }

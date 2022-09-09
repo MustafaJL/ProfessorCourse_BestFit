@@ -15,10 +15,10 @@ namespace ProfessorCourse_BestFit.Models
     using System.Data.Entity.Core.Objects;
     using System.Linq;
     
-    public partial class ProfessorCourseBestFitEntities : DbContext
+    public partial class ProfessorCourseBestFit1 : DbContext
     {
-        public ProfessorCourseBestFitEntities()
-            : base("name=ProfessorCourseBestFitEntities")
+        public ProfessorCourseBestFit1()
+            : base("name=ProfessorCourseBestFit1")
         {
         }
     
@@ -29,30 +29,20 @@ namespace ProfessorCourse_BestFit.Models
     
         public virtual DbSet<Course> Courses { get; set; }
         public virtual DbSet<CourseKeyword> CourseKeywords { get; set; }
+        public virtual DbSet<CourseProgram> CoursePrograms { get; set; }
         public virtual DbSet<Department> Departments { get; set; }
         public virtual DbSet<Keyword> Keywords { get; set; }
         public virtual DbSet<Permission> Permissions { get; set; }
         public virtual DbSet<Program> Programs { get; set; }
+        public virtual DbSet<RolePermission> RolePermissions { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
+        public virtual DbSet<Semester> Semesters { get; set; }
+        public virtual DbSet<SemesterCourse> SemesterCourses { get; set; }
         public virtual DbSet<UserCourse> UserCourses { get; set; }
         public virtual DbSet<UserDepartment> UserDepartments { get; set; }
         public virtual DbSet<UserKeyword> UserKeywords { get; set; }
-        public virtual DbSet<UserRole> UserRoles { get; set; }
+        public virtual DbSet<UserProgram> UserPrograms { get; set; }
         public virtual DbSet<User> Users { get; set; }
-    
-        public virtual ObjectResult<spGetUserRoles_Result> spGetUserRoles()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<spGetUserRoles_Result>("spGetUserRoles");
-        }
-    
-        public virtual ObjectResult<spGetUserRolesById_Result> spGetUserRolesById(Nullable<int> userId)
-        {
-            var userIdParameter = userId.HasValue ?
-                new ObjectParameter("UserId", userId) :
-                new ObjectParameter("UserId", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<spGetUserRolesById_Result>("spGetUserRolesById", userIdParameter);
-        }
     
         public virtual ObjectResult<string> my_InsertUpdateDelete_Course(Nullable<int> courseID, string courseCode, string courseName, Nullable<System.DateTime> courseDateStart, Nullable<int> courseDuration, Nullable<int> query)
         {
@@ -83,7 +73,7 @@ namespace ProfessorCourse_BestFit.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("my_InsertUpdateDelete_Course", courseIDParameter, courseCodeParameter, courseNameParameter, courseDateStartParameter, courseDurationParameter, queryParameter);
         }
     
-        public virtual ObjectResult<string> my_InsertUpdateDelete_Department(Nullable<int> departmentID, string departmentName, Nullable<int> userID, Nullable<int> query)
+        public virtual int my_InsertUpdateDelete_Department(Nullable<int> departmentID, string departmentName, Nullable<int> userID, Nullable<int> query)
         {
             var departmentIDParameter = departmentID.HasValue ?
                 new ObjectParameter("DepartmentID", departmentID) :
@@ -101,10 +91,10 @@ namespace ProfessorCourse_BestFit.Models
                 new ObjectParameter("Query", query) :
                 new ObjectParameter("Query", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("my_InsertUpdateDelete_Department", departmentIDParameter, departmentNameParameter, userIDParameter, queryParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("my_InsertUpdateDelete_Department", departmentIDParameter, departmentNameParameter, userIDParameter, queryParameter);
         }
     
-        public virtual ObjectResult<string> my_InsertUpdateDelete_Program(Nullable<int> programID, string programName, Nullable<int> departmentID, Nullable<int> query)
+        public virtual int my_InsertUpdateDelete_Program(Nullable<int> programID, string programName, Nullable<int> departmentID, Nullable<int> query)
         {
             var programIDParameter = programID.HasValue ?
                 new ObjectParameter("ProgramID", programID) :
@@ -122,103 +112,49 @@ namespace ProfessorCourse_BestFit.Models
                 new ObjectParameter("Query", query) :
                 new ObjectParameter("Query", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("my_InsertUpdateDelete_Program", programIDParameter, programNameParameter, departmentIDParameter, queryParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("my_InsertUpdateDelete_Program", programIDParameter, programNameParameter, departmentIDParameter, queryParameter);
         }
     
-        public virtual ObjectResult<JoinuserAndUserRole_Result> JoinuserAndUserRole()
+        public virtual int spGetUserRoles()
         {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<JoinuserAndUserRole_Result>("JoinuserAndUserRole");
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spGetUserRoles");
         }
     
-        public virtual ObjectResult<getAllProfessors_Result> getAllProfessors()
+        public virtual int spGetUserRolesById(Nullable<int> userId)
         {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<getAllProfessors_Result>("getAllProfessors");
+            var userIdParameter = userId.HasValue ?
+                new ObjectParameter("UserId", userId) :
+                new ObjectParameter("UserId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spGetUserRolesById", userIdParameter);
         }
     
-        public virtual ObjectResult<getAllPrograms_Result> getAllPrograms()
+        public virtual int spUserPermissionsName()
         {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<getAllPrograms_Result>("getAllPrograms");
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spUserPermissionsName");
         }
     
-        public virtual ObjectResult<getDepartmentPrograms_Result> getDepartmentPrograms(Nullable<int> departmentID)
+        public virtual int spUserRolesName()
         {
-            var departmentIDParameter = departmentID.HasValue ?
-                new ObjectParameter("DepartmentID", departmentID) :
-                new ObjectParameter("DepartmentID", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<getDepartmentPrograms_Result>("getDepartmentPrograms", departmentIDParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spUserRolesName");
         }
     
-        public virtual ObjectResult<getAllDepartments_Result> getAllDepartments()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<getAllDepartments_Result>("getAllDepartments");
-        }
-    
-        public virtual ObjectResult<getAllProfessors1_Result> getAllProfessors1()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<getAllProfessors1_Result>("getAllProfessors1");
-        }
-    
-        public virtual ObjectResult<getAllDepartmentManager_Result> getAllDepartmentManager(Nullable<int> departmentID)
+        public virtual ObjectResult<Departmentemployees_Result> Departmentemployees(Nullable<int> departmentID)
         {
             var departmentIDParameter = departmentID.HasValue ?
                 new ObjectParameter("DepartmentID", departmentID) :
                 new ObjectParameter("DepartmentID", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<getAllDepartmentManager_Result>("getAllDepartmentManager", departmentIDParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Departmentemployees_Result>("Departmentemployees", departmentIDParameter);
         }
     
-        public virtual ObjectResult<getAllPrograms1_Result> getAllPrograms1(Nullable<int> departmentID, Nullable<int> query)
+        public virtual ObjectResult<DepartmentManagers_Result> DepartmentManagers(Nullable<int> departmentID)
         {
             var departmentIDParameter = departmentID.HasValue ?
                 new ObjectParameter("DepartmentID", departmentID) :
                 new ObjectParameter("DepartmentID", typeof(int));
     
-            var queryParameter = query.HasValue ?
-                new ObjectParameter("Query", query) :
-                new ObjectParameter("Query", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<getAllPrograms1_Result>("getAllPrograms1", departmentIDParameter, queryParameter);
-        }
-    
-        public virtual int Delete_Department(Nullable<int> departmentID)
-        {
-            var departmentIDParameter = departmentID.HasValue ?
-                new ObjectParameter("DepartmentID", departmentID) :
-                new ObjectParameter("DepartmentID", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Delete_Department", departmentIDParameter);
-        }
-    
-        public virtual ObjectResult<getAllDepartmentAvailableProfessors_Result> getAllDepartmentAvailableProfessors(string ids)
-        {
-            var idsParameter = ids != null ?
-                new ObjectParameter("ids", ids) :
-                new ObjectParameter("ids", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<getAllDepartmentAvailableProfessors_Result>("getAllDepartmentAvailableProfessors", idsParameter);
-        }
-    
-        public virtual ObjectResult<getAllDepartmentManagers_Result> getAllDepartmentManagers(string ids)
-        {
-            var idsParameter = ids != null ?
-                new ObjectParameter("ids", ids) :
-                new ObjectParameter("ids", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<getAllDepartmentManagers_Result>("getAllDepartmentManagers", idsParameter);
-        }
-    
-        public virtual ObjectResult<getAllAvailableEmployees_Result> getAllAvailableEmployees(string ids, Nullable<int> departmentID)
-        {
-            var idsParameter = ids != null ?
-                new ObjectParameter("ids", ids) :
-                new ObjectParameter("ids", typeof(string));
-    
-            var departmentIDParameter = departmentID.HasValue ?
-                new ObjectParameter("DepartmentID", departmentID) :
-                new ObjectParameter("DepartmentID", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<getAllAvailableEmployees_Result>("getAllAvailableEmployees", idsParameter, departmentIDParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<DepartmentManagers_Result>("DepartmentManagers", departmentIDParameter);
         }
     }
 }

@@ -10,12 +10,17 @@
 namespace ProfessorCourse_BestFit.Models
 {
     using System;
+    using System.Collections.Generic;
     
-    public partial class getAllDepartments_Result
+    public partial class UserProgram
     {
-        public int Dep_Id { get; set; }
-        public string Dep_Name { get; set; }
-        public Nullable<int> User_Id { get; set; }
+        public int user_program_Id { get; set; }
+        public int UserId { get; set; }
+        public int ProgramId { get; set; }
         public bool isDeleted { get; set; }
+        public bool isManager { get; set; }
+    
+        public virtual Program Program { get; set; }
+        public virtual User User { get; set; }
     }
 }

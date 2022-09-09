@@ -111,91 +111,28 @@ namespace ProfessorCourse_BestFit.DAL
 
         }
 
-        public List<UserRolesViewModel> Get_All_Professors()
+        public IEnumerable<User> Get_Users_Department(int departmentID, int option)
         {
-            List<UserRolesViewModel> All_Professors = new List<UserRolesViewModel>();
+            //the options come from department_DAL base on the method action
+
+            List<User> resut = new List<User>();
 
             // create command
             SqlCommand command = _connection.CreateCommand();
+
             // specify the type of cammand
             command.CommandType = CommandType.StoredProcedure;
+
             // specify name of SP
-            command.CommandText = "getAllProfessors";
-
-            SqlDataAdapter adapter = new SqlDataAdapter(command);
-            DataTable dtMails = new DataTable();
-
-            // open connection
-            _connection.Open();
-            adapter.Fill(dtMails);
-            // close connection
-            _connection.Close();
-
-            foreach (DataRow dr in dtMails.Rows)
+            if(option == 1)
             {
-                All_Professors.Add(new UserRolesViewModel
-                {
-                    UserId = Convert.ToInt32(dr["UserId"]),
-                    FirstName = Convert.ToString(dr["FirstName"]),
-                    LastName = Convert.ToString(dr["LastName"])
-                });
+                command.CommandText = "DepartmentManagers";
+            }
+            if(option == 2)
+            {
+                command.CommandText = "Departmentemployees";
             }
 
-            return All_Professors;
-        }
-
-
-        //need test
-        public IEnumerable<User> Get_All_Department_Managers(string ids)
-        {
-            List<User> All_Department_Managers = new List<User>();
-
-            // create command
-            SqlCommand command = _connection.CreateCommand();
-            // specify the type of cammand
-            command.CommandType = CommandType.StoredProcedure;
-            // specify name of SP
-            command.CommandText = "getAllDepartmentManagers";
-
-            command.Parameters.AddWithValue("@ids", ids);
-
-                SqlDataAdapter adapter = new SqlDataAdapter(command);
-                DataTable dtMails = new DataTable();
-
-                // open connection
-                _connection.Open();
-                adapter.Fill(dtMails);
-                // close connection
-                _connection.Close();
-
-                foreach (DataRow dr in dtMails.Rows)
-                {
-                All_Department_Managers.Add(new User
-                {
-                        Uid = Convert.ToInt32(dr["Uid"]),
-                        FirstName = Convert.ToString(dr["FirstName"]),
-                        MiddleName = Convert.ToString(dr["MiddleName"]),
-                        LastName = Convert.ToString(dr["LastName"]),
-                        Email = Convert.ToString(dr["Email"])
-                    });
-                }
-
-            return All_Department_Managers;
-        }
-
-        public List<User> Get_All_Potential_Employees(string ids, int departmentID)
-        {
-            List<User> All_Potential_Employees = new List<User>();
-
-            // create command
-            SqlCommand command = _connection.CreateCommand();
-            // specify the type of cammand
-            command.CommandType = CommandType.StoredProcedure;
-            // specify name of SP
-            command.CommandText = "getAllAvailableEmployees";
-
-            command.Parameters.AddWithValue("@ids", ids);
-            
             command.Parameters.AddWithValue("@DepartmentID", departmentID);
 
             SqlDataAdapter adapter = new SqlDataAdapter(command);
@@ -209,17 +146,18 @@ namespace ProfessorCourse_BestFit.DAL
 
             foreach (DataRow dr in dtMails.Rows)
             {
-                All_Potential_Employees.Add(new User
+                resut.Add(new User
                 {
                     Uid = Convert.ToInt32(dr["Uid"]),
                     FirstName = Convert.ToString(dr["FirstName"]),
                     MiddleName = Convert.ToString(dr["MiddleName"]),
                     LastName = Convert.ToString(dr["LastName"]),
-                    Email = Convert.ToString(dr["Email"])
+                    Email = Convert.ToString(dr["Email"]),
+                    Phone = Convert.ToString(dr["Phone"])
                 });
             }
 
-            return All_Potential_Employees;
+            return resut;
         }
 
 

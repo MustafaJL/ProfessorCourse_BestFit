@@ -11,12 +11,12 @@ namespace ProfessorCourse_BestFit.Controllers
 {
     public class ProgramController : Controller
     {
-        private readonly ProfessorCourseBestFitEntities _context;
+        private readonly ProfessorCourseBestFit1 _context;
         private readonly Messages messages;
 
         public ProgramController()
         {
-            _context = new ProfessorCourseBestFitEntities();
+            _context = new ProfessorCourseBestFit1();
             messages = new Messages();
         }
 
@@ -32,8 +32,8 @@ namespace ProfessorCourse_BestFit.Controllers
         private bool Name_Exist(string name)
         {
             var check_Name = _context.Programs.Where(
-                x => x.Name == name
-                ).ToList();
+                x => x.ProgramName == name
+                ).FirstOrDefault();
 
             if (check_Name != null)
             {
@@ -48,13 +48,7 @@ namespace ProfessorCourse_BestFit.Controllers
         {
             var programViewModel = new ProgramViewModel();
 
-            programViewModel.active_Programs = _context.Programs.Where(
-                x => x.isDeleted == false
-                ).ToList();
-
-            programViewModel.disActive_Programs = _context.Programs.Where(
-                x => x.isDeleted == true
-                ).ToList();
+            programViewModel.all_Programs = _context.Programs.ToList();
 
             return View(programViewModel);
         }
@@ -67,96 +61,135 @@ namespace ProfessorCourse_BestFit.Controllers
 
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Create_Program(ProgramViewModel programViewModel)
         {
-            if(Name_Required(programViewModel.Program.Name))
+            if(Name_Required(programViewModel.Program.ProgramName))
             {
-                //message needed
-                ViewBag.nameRequired = true;
+                ViewBag.nameRequired = messages.name_Required;
+                ViewBag.data_not_saved = messages.data_not_saved;
                 return View(programViewModel);
             }
 
-            if (Name_Exist(programViewModel.Program.Name))
+            if (Name_Exist(programViewModel.Program.ProgramName))
             {
-                //message needed
-                ViewBag.nameExist = true;
+                ViewBag.nameExist = messages.name_exist;
+                ViewBag.data_not_saved = messages.data_not_saved;
                 return View(programViewModel);
             }
 
+            programViewModel.Program.CreatedOn = DateTime.Now;
             _context.Programs.Add(programViewModel.Program);
             _context.SaveChanges();
 
-            //message needed
-            ViewBag.Done = true;
+            ViewBag.Done = messages.message_success_submit_title;
+            ViewBag.Saved = messages.message_success_submit_body;
 
             return View();
         }
 
         //GET :
-        public ActionResult view_Program_Information(int Pid)
+        public ActionResult view_Program_Information(int id)
         {
             var programViewModel = new ProgramViewModel();
 
             programViewModel.Program = _context.Programs.Where(
-                x => x.PId == Pid
+                x => x.ProgramId == id
                 ).FirstOrDefault();
 
             return View(programViewModel);
         }
 
         //GET :
-        public ActionResult Edit_Program(int Pid)
+        public ActionResult Edit_Program_Name(int id)
         {
             var programViewModel = new ProgramViewModel();
 
             programViewModel.Program = _context.Programs.Where(
-                x => x.PId == Pid
+                x => x.ProgramId == id
                 ).FirstOrDefault();
 
             return View(programViewModel);
         }
 
         [HttpPost]
-        public ActionResult Edit_Program(ProgramViewModel programViewModel, int Pid)
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit_Program_Name(ProgramViewModel programViewModel, int id)
         {
-            if (Name_Required(programViewModel.Program.Name))
+            if (Name_Required(programViewModel.Program.ProgramName))
             {
-                //message needed
-                ViewBag.nameRequired = true;
+                ViewBag.nameRequired = messages.name_Required;
+                ViewBag.data_not_saved = messages.data_not_saved;
                 return View(programViewModel);
             }
 
-            if (Name_Exist(programViewModel.Program.Name))
+            if (Name_Exist(programViewModel.Program.ProgramName))
             {
-                //message needed
-                ViewBag.nameExist = true;
+                ViewBag.nameExist = messages.name_exist;
+                ViewBag.data_not_saved = messages.data_not_saved;
                 return View(programViewModel);
             }
 
             var program = _context.Programs.Where(
-                x => x.PId == Pid
+                x => x.ProgramId == id
                 ).FirstOrDefault();
 
-            program = programViewModel.Program;
+            program.ProgramName = programViewModel.Program.ProgramName;
             _context.SaveChanges();
 
-            //message needed
-            ViewBag.Done = true;
+            ViewBag.Done = messages.message_success_submit_title;
+            ViewBag.Saved = messages.message_success_submit_body;
 
             return View(programViewModel);
         }
 
 
-        public ActionResult Delete_Program(int Pid)
+        [HttpPost]
+        public JsonResult Deactivate_Program(int id)
+        {
+            var delete_Program = _context.Programs.Where(
+                x => x.ProgramId == id
+                ).FirstOrDefault();
+
+            delete_Program.isDeleted = true;
+            _context.SaveChanges();
+
+            return Json(new
+            {
+                redirectUrl = Url.Action("All_Programs", "Program"),
+                isRedirect = true
+            });
+        }
+
+        [HttpPost]
+        public JsonResult Activate_Program(int id)
+        {
+            var deleted_Program = _context.Programs.Where(
+                x => x.ProgramId == id
+                ).FirstOrDefault();
+
+            deleted_Program.isDeleted = false;
+            _context.SaveChanges();
+
+            return Json(new
+            {
+                redirectUrl = Url.Action("All_Programs", "Program"),
+                isRedirect = true
+            });
+        }
+
+
+        public ActionResult Add_Remove_Program_Managers(int id)
         {
             //Need some code
             return View();
         }
 
-
-        /////////////////////////
-        //the rest or code here//
-        /////////////////////////
+        public ActionResult Add_Remove_Program_Courses(int id)
+        {
+            //Need some code
+            return View();
+        }
 
     }
 }

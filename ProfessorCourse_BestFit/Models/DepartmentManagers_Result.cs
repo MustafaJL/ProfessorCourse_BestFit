@@ -11,22 +11,23 @@ namespace ProfessorCourse_BestFit.Models
 {
     using System;
     
-    public partial class getAllDepartmentAvailableProfessors_Result
+    public partial class DepartmentManagers_Result
     {
         public int Uid { get; set; }
         public string FirstName { get; set; }
+        public string MiddleName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }
-        public string Password { get; set; }
         public string PasswordSalt { get; set; }
+        public string Password { get; set; }
         public System.DateTime CreatedOn { get; set; }
-        public bool deleted { get; set; }
-        public string MiddleName { get; set; }
+        public string DateOfBirth { get; set; }
+        public bool isDeleted { get; set; }
         public string Gender { get; set; }
         public string Phone { get; set; }
-        public string DateOfBirth { get; set; }
+        public string ImageUrl { get; set; }
+        public string Address { get; set; }
+        public string Education { get; set; }
         public int RoleId { get; set; }
-        public int UserId { get; set; }
-        public System.DateTime CreatedOn1 { get; set; }
     }
 }

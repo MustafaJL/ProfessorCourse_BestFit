@@ -10,20 +10,17 @@
 namespace ProfessorCourse_BestFit.Models
 {
     using System;
+    using System.Collections.Generic;
     
-    public partial class getAllDepartmentManagers_Result
+    public partial class RolePermission
     {
-        public int Uid { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string Email { get; set; }
-        public string Password { get; set; }
-        public string PasswordSalt { get; set; }
+        public int Id { get; set; }
+        public int RId { get; set; }
+        public int PId { get; set; }
         public System.DateTime CreatedOn { get; set; }
-        public bool deleted { get; set; }
-        public string MiddleName { get; set; }
-        public string Gender { get; set; }
-        public string Phone { get; set; }
-        public string DateOfBirth { get; set; }
+        public bool isDeleted { get; set; }
+    
+        public virtual Permission Permission { get; set; }
+        public virtual Role Role { get; set; }
     }
 }

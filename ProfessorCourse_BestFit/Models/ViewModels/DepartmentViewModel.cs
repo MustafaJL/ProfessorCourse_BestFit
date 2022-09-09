@@ -13,9 +13,7 @@ namespace ProfessorCourse_BestFit.Models.ViewModels
     {
         public Department Department { get; set; }
 
-        public IEnumerable<Department> active_Departments { get; set; }
-        
-        public IEnumerable<Department> disActive_Departments { get; set; }
+        public IEnumerable<Department> all_Departments { get; set; }
 
         //To choose managers and employees as an example
         public IEnumerable<User> normal_Users { get; set; }

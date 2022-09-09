@@ -18,8 +18,9 @@ namespace ProfessorCourse_BestFit.Models
         public Course()
         {
             this.CourseKeywords = new HashSet<CourseKeyword>();
+            this.CoursePrograms = new HashSet<CourseProgram>();
+            this.SemesterCourses = new HashSet<SemesterCourse>();
             this.UserCourses = new HashSet<UserCourse>();
-            this.Programs = new HashSet<Program>();
         }
     
         public int CId { get; set; }
@@ -32,8 +33,10 @@ namespace ProfessorCourse_BestFit.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CourseKeyword> CourseKeywords { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<UserCourse> UserCourses { get; set; }
+        public virtual ICollection<CourseProgram> CoursePrograms { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Program> Programs { get; set; }
+        public virtual ICollection<SemesterCourse> SemesterCourses { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<UserCourse> UserCourses { get; set; }
     }
 }

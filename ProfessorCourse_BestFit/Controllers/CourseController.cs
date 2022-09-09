@@ -12,12 +12,12 @@ namespace ProfessorCourse_BestFit.Controllers
     public class CourseController : Controller
     {
 
-        private readonly ProfessorCourseBestFitEntities _context;
+        private readonly ProfessorCourseBestFit1 _context;
         private readonly Messages messages;
 
         public CourseController()
         {
-            _context = new ProfessorCourseBestFitEntities();
+            _context = new ProfessorCourseBestFit1();
             messages = new Messages();
         }
 
@@ -34,7 +34,7 @@ namespace ProfessorCourse_BestFit.Controllers
         {
             var check_Name = _context.Courses.Where(
                 x => x.CName == name
-                ).ToList();
+                ).FirstOrDefault();
 
             if (check_Name != null)
             {
