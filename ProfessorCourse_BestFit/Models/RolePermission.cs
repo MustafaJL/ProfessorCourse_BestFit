@@ -12,14 +12,15 @@ namespace ProfessorCourse_BestFit.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class UserKeyword
+    public partial class RolePermission
     {
-        public int user_keyword_Id { get; set; }
-        public int User_Id { get; set; }
-        public int Keyword_Id { get; set; }
+        public int Id { get; set; }
+        public int RId { get; set; }
+        public int PId { get; set; }
+        public System.DateTime CreatedOn { get; set; }
         public bool isDeleted { get; set; }
     
-        public virtual Keyword Keyword { get; set; }
-        public virtual User User { get; set; }
+        public virtual Permission Permission { get; set; }
+        public virtual Role Role { get; set; }
     }
 }

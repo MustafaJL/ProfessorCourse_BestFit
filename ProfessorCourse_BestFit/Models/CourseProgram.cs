@@ -12,13 +12,14 @@ namespace ProfessorCourse_BestFit.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class UserRole
+    public partial class CourseProgram
     {
-        public int RoleId { get; set; }
-        public int UserId { get; set; }
-        public System.DateTime CreatedOn { get; set; }
+        public int course_program_Id { get; set; }
+        public int Prog_Id { get; set; }
+        public int Course_Id { get; set; }
+        public bool isDeleted { get; set; }
     
-        public virtual Role Role { get; set; }
-        public virtual User User { get; set; }
+        public virtual Course Course { get; set; }
+        public virtual Program Program { get; set; }
     }
 }

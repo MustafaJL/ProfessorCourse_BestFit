@@ -1,23 +1,24 @@
 ﻿using ProfessorCourse_BestFit.Models;
 using ProfessorCourse_BestFit.Models.ViewModels;
-using System;
 using System.Linq;
 using System.Web.Mvc;
 
 namespace ProfessorCourse_BestFit.Controllers
 {
-    public class PermissionsController : Controller
+    public class KeywordsController : Controller
     {
         private readonly ProfessorCourseBestFitEntities _context;
 
-        public PermissionsController()
+        public KeywordsController()
         {
             _context = new ProfessorCourseBestFitEntities();
         }
+
+        // GET: Keywords
         public ActionResult Index()
         {
-            var permissions = _context.Permissions.Where(x => x.isDeleted == false).ToList();
-            return View(permissions);
+            var keywords = _context.Keywords.Where(u => u.isDeleted == false).ToList();
+            return View(keywords);
         }
 
         public ActionResult Upsert(int? id)
@@ -28,52 +29,48 @@ namespace ProfessorCourse_BestFit.Controllers
 
                 return View();
             }
-            var permission = _context.Permissions.SingleOrDefault(x => x.PId == id);
-            PermissionsViewModel roleView = new PermissionsViewModel
+            var keywords = _context.Keywords.SingleOrDefault(x => x.KId == id);
+            KeywordsViewModel keywordView = new KeywordsViewModel
             {
-                PId = permission.PId,
-                PName = permission.PName
+                KId = keywords.KId,
+                kName = keywords.KName
             };
-            return View(roleView);
+            return View(keywordView);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Upsert(PermissionsViewModel model)
+        public ActionResult Upsert(KeywordsViewModel model)
         {
 
             if (ModelState.IsValid)
             {
-                var isExist = _context.Permissions.SingleOrDefault(x => x.PId == model.PId);
+                var isExist = _context.Keywords.SingleOrDefault(x => x.KId == model.KId);
                 if (isExist == null)
                 {
-                    Permission permission = new Permission
+                    Keyword keyword = new Keyword
                     {
-                        PName = model.PName,
-                        CreatedOn = DateTime.Now,
+                        KName = model.kName,
 
 
                     };
-                    _context.Permissions.Add(permission);
-                    _context.SaveChanges();
+                    _context.Keywords.Add(keyword);
                 }
                 else
                 {
-                    isExist.PName = model.PName;
-                    _context.SaveChanges();
+                    isExist.KName = model.kName;
                 }
+                _context.SaveChanges();
                 return RedirectToAction("Index");
             }
             return View(model);
         }
 
-
-
         [HttpPost]
         public JsonResult Delete(int id)
         {
-            var permission = _context.Permissions.SingleOrDefault(x => x.PId == id);
-            permission.isDeleted = true;
+            var keywords = _context.Keywords.SingleOrDefault(x => x.KId == id);
+            keywords.isDeleted = true;
             _context.SaveChanges();
             return Json("success");
         }

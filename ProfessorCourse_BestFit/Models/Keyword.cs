@@ -23,7 +23,7 @@ namespace ProfessorCourse_BestFit.Models
     
         public int KId { get; set; }
         public string KName { get; set; }
-        public System.DateTime CreatedOn { get; set; }
+        public bool isDeleted { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CourseKeyword> CourseKeywords { get; set; }

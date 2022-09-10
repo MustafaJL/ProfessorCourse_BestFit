@@ -14,10 +14,12 @@ namespace ProfessorCourse_BestFit.Models
     
     public partial class UserCourse
     {
+        public int user_course_Id { get; set; }
         public int User_Id { get; set; }
         public int Course_Id { get; set; }
-        public System.DateTime StartDate { get; set; }
-        public System.DateTime EndDate { get; set; }
+        public string StartTime { get; set; }
+        public string EndTime { get; set; }
+        public bool isDeleted { get; set; }
     
         public virtual Course Course { get; set; }
         public virtual User User { get; set; }

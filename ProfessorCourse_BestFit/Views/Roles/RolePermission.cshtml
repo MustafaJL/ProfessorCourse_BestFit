@@ -1,0 +1,137 @@
+﻿@model ProfessorCourse_BestFit.Models.ViewModels.RolesPermissionsViewModel
+
+@{
+    ViewBag.Title = "Upsert";
+    ViewBag.bodyClass = "sidebar-collapse layout-fixed sidebar-mini layout-navbar-fixed sidebar-closed";
+}
+
+
+
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>General Form</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">General Form</li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <!-- left column -->
+                <div class="col-md-12">
+                    <!-- general form elements -->
+                    <div class="card-primary">
+                        <div class="card-header">
+
+                            <h3 class="card-title">Permissions</h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <!-- form start -->
+                       
+                            @Html.AntiForgeryToken()
+                    <div class="card-body">
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Role.RoleName)
+                            @Html.EditorFor(model => model.Role.RoleName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                            @Html.ValidationMessageFor(model => model.Role.RoleName, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="form-group">
+                            <label>Permissions</label>
+                            <div class="d-flex justify-content-evenly">
+                                @foreach (var permission in Model.Permissions)
+                                {
+                                    <div class="col-2">
+                                       
+                                        <div class="icheck-primary">
+
+                                            @*@Html.CheckBoxFor(model => model.Permissions)*@
+                                            <input class="btn check-box chmu"  id="@permission.PId" name="@permission.PName" type="checkbox"  @(permission.IsActive == true ? "":"checked")>
+                                            <label for="@permission.PId">
+                                            @permission.PName
+                                            </label>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+
+
+
+                    </div>
+                            <!-- /.card-body -->
+                            @Html.HiddenFor(model => model.Role.RoleId)
+                            <div class="card-footer">
+                                <a href="/Roles/Index" class="btn btn-warning"><i class="bi bi-arrow-left"></i> Back</a>
+                                <button type="button" id="click" class="btn btn-primary" data-roleId="@ViewBag.roleid">Update</button>
+                            </div>
+                        
+                    </div>
+                    <!-- /.card -->
+
+
+                </div>
+
+            </div>
+            <!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+
+
+    <script>
+        var checkboxes = document.getElementsByClassName("chmu")
+
+        var btn = document.getElementById("click");
+
+        var permissions = []
+        btn.addEventListener("click", () => {
+
+            for (let i = 0; i < 4; i++) {
+                if (checkboxes[i].checked) {
+
+                    permissions.push(checkboxes[i].getAttribute("id"))
+                }
+            }
+
+
+            $.ajax({
+                url: '/Roles/RolePermission/',
+                type: 'POST',
+                data: {
+                    roleId: btn.getAttribute("data-roleId"),
+                    permissions: permissions != null && permissions.length > 0 ? permissions : null
+                },
+
+                success: function () {
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Deleted  successfully',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                }
+            });
+        })
+
+        
+    </script>
+    

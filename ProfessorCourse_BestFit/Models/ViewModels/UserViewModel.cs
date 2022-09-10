@@ -1,10 +1,13 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Web;
 
 namespace ProfessorCourse_BestFit.Models
 {
     public class UserViewModel
     {
+
+        public int? Id { get; set; }
+
         [Required(ErrorMessage = "FirtName is Required")]
         public string FirstName { get; set; }
 
@@ -21,27 +24,24 @@ namespace ProfessorCourse_BestFit.Models
         public string Email { get; set; }
 
         [Display(Name = "Date Of Birth")]
-        [DataType(DataType.Date)]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:MM/dd/yyyy}")]
-        public DateTime DateOfBirth { get; set; }
 
-        //[Required(ErrorMessage = "Password is Required")]B
-        //[DataType(DataType.Password)]
-        //public string Password { get; set; }
+        public string DateOfBirth { get; set; }
 
-        //[Display(Name = "Confirm Password")]
-        //[Required(ErrorMessage = "Confirm Password is required")]
-        //[Compare("Password", ErrorMessage = "Password Doesn't Match")]
-        //[DataType(DataType.Password)]
-        //public string ConfirmPassword { get; set; }
-
+        [Required]
+        public int RoleId { get; set; }
         [Required]
         public string Gender { get; set; }
         [Required]
         public string PhoneNumber { get; set; }
 
+        [Required]
+        public string Address { get; set; }
 
+        [Required]
+        public string Education { get; set; }
 
+        public string ImageUrl { get; set; }
 
+        public HttpPostedFileBase ImageFile { get; set; }
     }
 }

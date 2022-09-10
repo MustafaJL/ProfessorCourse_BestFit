@@ -2,17 +2,16 @@
 
 namespace ProfessorCourse_BestFit.Models.ViewModels
 {
-    public class PermissionsViewModel
+    public class KeywordsViewModel
     {
 
-        public int? PId { get; set; }
+        public int? KId { get; set; }
 
 
         [Display(Name = "Permission")]
-        public string PName { get; set; }
+        public string kName { get; set; }
 
         public bool IsActive { get; set; }
-
 
     }
 }

@@ -12,20 +12,21 @@ namespace ProfessorCourse_BestFit.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Permission
+    public partial class Semester
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Permission()
+        public Semester()
         {
-            this.RolePermissions = new HashSet<RolePermission>();
+            this.SemesterCourses = new HashSet<SemesterCourse>();
         }
     
-        public int PId { get; set; }
-        public string PName { get; set; }
-        public System.DateTime CreatedOn { get; set; }
+        public int SemesterId { get; set; }
+        public byte[] SemesterName { get; set; }
+        public System.DateTime StartDate { get; set; }
+        public System.DateTime EndDate { get; set; }
         public bool isDeleted { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<RolePermission> RolePermissions { get; set; }
+        public virtual ICollection<SemesterCourse> SemesterCourses { get; set; }
     }
 }

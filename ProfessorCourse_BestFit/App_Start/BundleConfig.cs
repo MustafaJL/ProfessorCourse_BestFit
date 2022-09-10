@@ -19,8 +19,26 @@ namespace ProfessorCourse_BestFit
                         "~/Scripts/modernizr-*"));
 
             bundles.Add(new Bundle("~/bundles/bootstrap").Include(
+
                         "~/Content/plugins/jquery/jquery.min.js",
+
+
+
                         "~/Content/plugins/bootstrap/js/bootstrap.bundle.min.js",
+                        "~/Content/plugins/chart.js/Chart.min.js",
+                        "~/Content/plugins/sparklines/sparkline.js",
+                        "~/Content/plugins/jqvmap/jquery.vmap.min.js",
+                        "~/Content/plugins/jqvmap/maps/jquery.vmap.usa.js",
+                        "~/Content/plugins/jquery-knob/jquery.knob.min.js",
+                        "~/Content/plugins/moment/moment.min.js",
+                        "~/Content/plugins/daterangepicker/daterangepicker.js",
+                        "~/Content/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js",
+                        "~/Content/plugins/summernote/summernote-bs4.min.js",
+                        "~/Content/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js",
+                        "~/Content/dist/js/adminlte.min.js",
+                        "~/Content/dist/js/demo.js",
+                        "~/Content/dist/js/pages/dashboard.js",
+
                         "~/Content/plugins/datatables/jquery.dataTables.min.js",
                         "~/Content/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js",
                         "~/Content/plugins/datatables-responsive/js/dataTables.responsive.min.js",
@@ -33,20 +51,25 @@ namespace ProfessorCourse_BestFit
                         "~/Content/plugins/datatables-buttons/js/buttons.html5.min.js",
                         "~/Content/plugins/datatables-buttons/js/buttons.print.min.js",
                         "~/Content/plugins/datatables-buttons/js/buttons.colVis.min.js",
-                        "~/Content/dist/js/adminlte.min.js",
-                        "~/Content/plugins/sweetalert2/sweetalert2.min.js",
-                        "~/Content/dist/js/demo.js"
+
+                        "~/Content/plugins/sweetalert2/sweetalert2.min.js"
+
+
+
+
+
+
                       ));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/plugins/fontawesome-free/css/all.min.css",
-                      //"~/Content/plugins/icheck-bootstrap/icheck-bootstrap.min.css",
+                      "~/Content/plugins/icheck-bootstrap/icheck-bootstrap.min.css",
                       "~/Content/dist/css/adminlte.min.css",
-                      //"~/Content/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css",
-                      //"~/Content/plugins/jqvmap/jqvmap.min.css",
-                      //"~/Content/plugins/overlayScrollbars/css/OverlayScrollbars.min.css",
-                      //"~/Content/plugins/daterangepicker/daterangepicker.css",
-                      //"~/Content/plugins/summernote/summernote-bs4.min.css",
+                      "~/Content/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css",
+                      "~/Content/plugins/jqvmap/jqvmap.min.css",
+                      "~/Content/plugins/overlayScrollbars/css/OverlayScrollbars.min.css",
+                      "~/Content/plugins/daterangepicker/daterangepicker.css",
+                      "~/Content/plugins/summernote/summernote-bs4.min.css",
                       "~/Content/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css",
                       "~/Content/plugins/datatables-responsive/css/responsive.bootstrap4.min.css",
                       "~/Content/plugins/datatables-buttons/css/buttons.bootstrap4.min.css",

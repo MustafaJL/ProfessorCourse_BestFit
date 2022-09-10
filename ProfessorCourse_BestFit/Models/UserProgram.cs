@@ -10,15 +10,17 @@
 namespace ProfessorCourse_BestFit.Models
 {
     using System;
+    using System.Collections.Generic;
     
-    public partial class spGetUserRolesById_Result
+    public partial class UserProgram
     {
-        public int Uid { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string Email { get; set; }
-        public System.DateTime CreatedOn { get; set; }
-        public Nullable<System.DateTime> DateOfBirth { get; set; }
-        public string RoleName { get; set; }
+        public int user_program_Id { get; set; }
+        public int UserId { get; set; }
+        public int ProgramId { get; set; }
+        public bool isDeleted { get; set; }
+        public bool isManager { get; set; }
+    
+        public virtual Program Program { get; set; }
+        public virtual User User { get; set; }
     }
 }

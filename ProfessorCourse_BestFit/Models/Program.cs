@@ -17,14 +17,19 @@ namespace ProfessorCourse_BestFit.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Program()
         {
-            this.Courses = new HashSet<Course>();
+            this.CoursePrograms = new HashSet<CourseProgram>();
+            this.UserPrograms = new HashSet<UserProgram>();
         }
     
-        public int PId { get; set; }
+        public int ProgramId { get; set; }
         public int Dep_Id { get; set; }
-        public string Name { get; set; }
+        public string ProgramName { get; set; }
+        public System.DateTime CreatedOn { get; set; }
+        public bool isDeleted { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Course> Courses { get; set; }
+        public virtual ICollection<CourseProgram> CoursePrograms { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<UserProgram> UserPrograms { get; set; }
     }
 }
