@@ -24,6 +24,8 @@ namespace ProfessorCourse_BestFit.messages
         public string no_programs= "No programs has been appointed yet.";
 
         public string name_exist = "The name you entered is already exist please chose another name.";
+        
+        public string code_exist = "The code you entered is already exist please chose another one.";
 
         public string data_not_saved = "The data is not saved.";
 

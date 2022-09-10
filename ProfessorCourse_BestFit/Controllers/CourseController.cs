@@ -1,4 +1,5 @@
-﻿using ProfessorCourse_BestFit.messages;
+﻿using ProfessorCourse_BestFit.DAL;
+using ProfessorCourse_BestFit.messages;
 using ProfessorCourse_BestFit.Models;
 using ProfessorCourse_BestFit.Models.ViewModels;
 using System;
@@ -13,11 +14,13 @@ namespace ProfessorCourse_BestFit.Controllers
     {
 
         private readonly ProfessorCourseBestFit1 _context;
+        private readonly Course_DAL course_DAL;
         private readonly Messages messages;
 
         public CourseController()
         {
             _context = new ProfessorCourseBestFit1();
+            course_DAL = new Course_DAL();
             messages = new Messages();
         }
 
@@ -33,7 +36,20 @@ namespace ProfessorCourse_BestFit.Controllers
         private bool Name_Exist(string name)
         {
             var check_Name = _context.Courses.Where(
-                x => x.CName == name
+                x => x.CName == name && x.isDeleted == false
+                ).FirstOrDefault();
+
+            if (check_Name != null)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        private bool Code_Exist(string name)
+        {
+            var check_Name = _context.Courses.Where(
+                x => x.Code == name && x.isDeleted == false
                 ).FirstOrDefault();
 
             if (check_Name != null)
@@ -49,12 +65,8 @@ namespace ProfessorCourse_BestFit.Controllers
         {
             var courseViewModel = new CourseViewModel();
 
-            courseViewModel.active_Courses = _context.Courses.Where(
+            courseViewModel.all_Courses = _context.Courses.Where(
                 x => x.isDeleted == false
-                ).ToList();
-
-            courseViewModel.disActive_Courses = _context.Courses.Where(
-                x => x.isDeleted == true
                 ).ToList();
 
             return View(courseViewModel);
@@ -68,95 +80,136 @@ namespace ProfessorCourse_BestFit.Controllers
 
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Create_Course(CourseViewModel courseViewModel)
         {
             if (Name_Required(courseViewModel.Course.CName))
             {
-                //message needed
-                ViewBag.nameRequired = true;
+                ViewBag.nameRequired = messages.name_Required;
+                ViewBag.data_not_saved = messages.data_not_saved;
                 return View(courseViewModel);
             }
 
             if (Name_Exist(courseViewModel.Course.CName))
             {
-                //message needed
-                ViewBag.nameExist = true;
+                ViewBag.nameExist = messages.name_exist;
+                ViewBag.data_not_saved = messages.data_not_saved;
                 return View(courseViewModel);
             }
 
+            if (Code_Exist(courseViewModel.Course.Code))
+            {
+                ViewBag.code_exist = messages.code_exist;
+                ViewBag.data_not_saved = messages.data_not_saved;
+                return View(courseViewModel);
+            }
+
+            courseViewModel.Course.CreatedOn = DateTime.Now;
             _context.Courses.Add(courseViewModel.Course);
             _context.SaveChanges();
 
-            //message needed
-            ViewBag.Done = true;
+            ViewBag.Done = messages.message_success_submit_title;
+            ViewBag.Saved = messages.message_success_submit_body;
 
             return View();
         }
 
         //GET :
-        public ActionResult view_Course_Information(int CId)
+        public ActionResult view_Course_Information(int id)
         {
             var courseViewModel = new CourseViewModel();
 
             courseViewModel.Course = _context.Courses.Where(
-                x => x.CId == CId
+                x => x.CId == id
                 ).FirstOrDefault();
+
+            courseViewModel.course_Professors = course_DAL.Get_Course_Professors(id);
+
+            courseViewModel.course_Programs = course_DAL.Get_Course_Programs(id);
 
             return View(courseViewModel);
         }
 
         //GET :
-        public ActionResult Edit_Course(int CId)
+        public ActionResult Edit_Course_Name(int id)
         {
             var courseViewModel = new CourseViewModel();
 
             courseViewModel.Course = _context.Courses.Where(
-                x => x.CId == CId
+                x => x.CId == id
                 ).FirstOrDefault();
 
             return View(courseViewModel);
         }
 
         [HttpPost]
-        public ActionResult Edit_Course(CourseViewModel courseViewModel, int CId)
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit_Course_Name(CourseViewModel courseViewModel, int id)
         {
             if (Name_Required(courseViewModel.Course.CName))
             {
-                //message needed
-                ViewBag.nameRequired = true;
+                ViewBag.nameRequired = messages.name_Required;
+                ViewBag.data_not_saved = messages.data_not_saved;
                 return View(courseViewModel);
             }
 
             if (Name_Exist(courseViewModel.Course.CName))
             {
-                //message needed
-                ViewBag.nameExist = true;
+                ViewBag.nameExist = messages.name_exist;
+                ViewBag.data_not_saved = messages.data_not_saved;
+                return View(courseViewModel);
+            }
+
+            if (Code_Exist(courseViewModel.Course.Code))
+            {
+                ViewBag.code_exist = messages.code_exist;
+                ViewBag.data_not_saved = messages.data_not_saved;
                 return View(courseViewModel);
             }
 
             var course = _context.Courses.Where(
-                x => x.CId == CId
+                x => x.CId == id
                 ).FirstOrDefault();
 
-            course = courseViewModel.Course;
+            course.CName = courseViewModel.Course.CName;
+            course.Code = courseViewModel.Course.Code;
+            course.Duration = courseViewModel.Course.Duration;
             _context.SaveChanges();
 
-            //message needed
-            ViewBag.Done = true;
+            ViewBag.Done = messages.message_success_submit_title;
+            ViewBag.Saved = messages.message_success_submit_body;
 
             return View(courseViewModel);
         }
 
+        [HttpPost]
+        public JsonResult Delete_Course(int id)
+        {
+            var course = _context.Courses.Where(
+                x => x.CId == id
+                ).FirstOrDefault();
 
-        public ActionResult Delete_Course(int CId)
+            course.isDeleted = true;
+            _context.SaveChanges();
+
+            return Json(new
+            {
+                redirectUrl = Url.Action("All_Courses", "Course"),
+                isRedirect = true
+            });
+        }
+
+
+        public ActionResult Add_Remove_Course_Professors(int id)
         {
             //Need some code
             return View();
         }
 
-
-        /////////////////////////
-        //the rest or code here//
-        /////////////////////////
+        public ActionResult Add_Remove_Course_Programs(int id)
+        {
+            //Need some code
+            return View();
+        }
     }
 }

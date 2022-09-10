@@ -156,5 +156,41 @@ namespace ProfessorCourse_BestFit.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<DepartmentManagers_Result>("DepartmentManagers", departmentIDParameter);
         }
+    
+        public virtual ObjectResult<CourseProfessors_Result> CourseProfessors(Nullable<int> courseID)
+        {
+            var courseIDParameter = courseID.HasValue ?
+                new ObjectParameter("CourseID", courseID) :
+                new ObjectParameter("CourseID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<CourseProfessors_Result>("CourseProfessors", courseIDParameter);
+        }
+    
+        public virtual ObjectResult<CoursePrograms1_Result> CoursePrograms1(Nullable<int> courseID)
+        {
+            var courseIDParameter = courseID.HasValue ?
+                new ObjectParameter("CourseID", courseID) :
+                new ObjectParameter("CourseID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<CoursePrograms1_Result>("CoursePrograms1", courseIDParameter);
+        }
+    
+        public virtual ObjectResult<ProgramCourses_Result> ProgramCourses(Nullable<int> programID)
+        {
+            var programIDParameter = programID.HasValue ?
+                new ObjectParameter("ProgramID", programID) :
+                new ObjectParameter("ProgramID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ProgramCourses_Result>("ProgramCourses", programIDParameter);
+        }
+    
+        public virtual ObjectResult<ProgramManagers_Result> ProgramManagers(Nullable<int> programID)
+        {
+            var programIDParameter = programID.HasValue ?
+                new ObjectParameter("ProgramID", programID) :
+                new ObjectParameter("ProgramID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ProgramManagers_Result>("ProgramManagers", programIDParameter);
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using ProfessorCourse_BestFit.messages;
+﻿using ProfessorCourse_BestFit.DAL;
+using ProfessorCourse_BestFit.messages;
 using ProfessorCourse_BestFit.Models;
 using ProfessorCourse_BestFit.Models.ViewModels;
 using System;
@@ -12,11 +13,13 @@ namespace ProfessorCourse_BestFit.Controllers
     public class ProgramController : Controller
     {
         private readonly ProfessorCourseBestFit1 _context;
+        private readonly Program_DAL program_DAL;
         private readonly Messages messages;
 
         public ProgramController()
         {
             _context = new ProfessorCourseBestFit1();
+            program_DAL = new Program_DAL();
             messages = new Messages();
         }
 
@@ -96,6 +99,10 @@ namespace ProfessorCourse_BestFit.Controllers
             programViewModel.Program = _context.Programs.Where(
                 x => x.ProgramId == id
                 ).FirstOrDefault();
+
+            programViewModel.managers = program_DAL.Get_Program_Managers(id);
+
+            programViewModel.program_Courses = program_DAL.Get_Program_Courses(id);
 
             return View(programViewModel);
         }

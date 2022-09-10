@@ -149,7 +149,9 @@
     <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="CustomSecurity\CustomAuthentication.cs" />
     <Compile Include="CustomSecurity\CustomAuthorization.cs" />
+    <Compile Include="DAL\Course_DAL.cs" />
     <Compile Include="DAL\Department_DAL.cs" />
+    <Compile Include="DAL\Program_DAL.cs" />
     <Compile Include="DAL\User_DAL.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -163,7 +165,13 @@
     <Compile Include="Models\CourseKeyword.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\CourseProfessors_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\CourseProgram.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CoursePrograms1_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Department.cs">
@@ -197,6 +205,12 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Program.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ProgramCourses_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ProgramManagers_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Role.cs">
@@ -4353,10 +4367,13 @@
     <Content Include="Views\Program\Create_Program.cshtml" />
     <Content Include="Views\Program\Edit_Program_Name.cshtml" />
     <Content Include="Views\Program\view_Program_Information.cshtml" />
+    <Content Include="Views\Course\All_Courses.cshtml" />
+    <Content Include="Views\Course\Create_Course.cshtml" />
+    <Content Include="Views\Course\Edit_Course_Name.cshtml" />
+    <Content Include="Views\Course\view_Course_Information.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Course\" />
     <Folder Include="Views\Professor\" />
   </ItemGroup>
   <ItemGroup>

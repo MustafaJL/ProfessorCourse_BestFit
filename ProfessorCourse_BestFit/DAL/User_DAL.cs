@@ -160,7 +160,91 @@ namespace ProfessorCourse_BestFit.DAL
             return resut;
         }
 
+        public IEnumerable<User> Get_Users_Course(int courseID)
+        {
+            //the options come from department_DAL base on the method action
 
+            List<User> resut = new List<User>();
+
+            // create command
+            SqlCommand command = _connection.CreateCommand();
+
+            // specify the type of cammand
+            command.CommandType = CommandType.StoredProcedure;
+
+            // specify name of SP
+                command.CommandText = "CourseProfessors";
+           
+
+            command.Parameters.AddWithValue("@CourseID", courseID);
+
+            SqlDataAdapter adapter = new SqlDataAdapter(command);
+            DataTable dtMails = new DataTable();
+
+            // open connection
+            _connection.Open();
+            adapter.Fill(dtMails);
+            // close connection
+            _connection.Close();
+
+            foreach (DataRow dr in dtMails.Rows)
+            {
+                resut.Add(new User
+                {
+                    Uid = Convert.ToInt32(dr["Uid"]),
+                    FirstName = Convert.ToString(dr["FirstName"]),
+                    MiddleName = Convert.ToString(dr["MiddleName"]),
+                    LastName = Convert.ToString(dr["LastName"]),
+                    Email = Convert.ToString(dr["Email"]),
+                    Phone = Convert.ToString(dr["Phone"])
+                });
+            }
+
+            return resut;
+        }
+
+        public IEnumerable<User> Get_Users_Program(int programID)
+        {
+            //the options come from department_DAL base on the method action
+
+            List<User> resut = new List<User>();
+
+            // create command
+            SqlCommand command = _connection.CreateCommand();
+
+            // specify the type of cammand
+            command.CommandType = CommandType.StoredProcedure;
+
+            // specify name of SP
+            command.CommandText = "ProgramManagers";
+
+
+            command.Parameters.AddWithValue("@ProgramID", programID);
+
+            SqlDataAdapter adapter = new SqlDataAdapter(command);
+            DataTable dtMails = new DataTable();
+
+            // open connection
+            _connection.Open();
+            adapter.Fill(dtMails);
+            // close connection
+            _connection.Close();
+
+            foreach (DataRow dr in dtMails.Rows)
+            {
+                resut.Add(new User
+                {
+                    Uid = Convert.ToInt32(dr["Uid"]),
+                    FirstName = Convert.ToString(dr["FirstName"]),
+                    MiddleName = Convert.ToString(dr["MiddleName"]),
+                    LastName = Convert.ToString(dr["LastName"]),
+                    Email = Convert.ToString(dr["Email"]),
+                    Phone = Convert.ToString(dr["Phone"])
+                });
+            }
+
+            return resut;
+        }
 
     }
 }
