@@ -19,6 +19,7 @@ namespace ProfessorCourse_BestFit.DAL
             user_DAL = new User_DAL();
         }
 
+        /*
         public IEnumerable<User> Get_Department_Managers(int departmentID)
         {
             return user_DAL.Get_Users_Department(departmentID, 1);
@@ -28,5 +29,6 @@ namespace ProfessorCourse_BestFit.DAL
         {
             return user_DAL.Get_Users_Department(departmentID, 2);
         }
+        */
     }
 }

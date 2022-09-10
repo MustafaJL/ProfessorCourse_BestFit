@@ -17,11 +17,13 @@ namespace ProfessorCourse_BestFit.Controllers
     {
         private readonly ProfessorCourseBestFit1 _context;
         private readonly Department_DAL department_DAL;
+        private readonly User_DAL user_DAL;
         private readonly Messages messages;
         public DepartmentController()
         {
             _context = new ProfessorCourseBestFit1();
             department_DAL = new Department_DAL();
+            user_DAL = new User_DAL();
             messages = new Messages();
         }
 
@@ -99,9 +101,9 @@ namespace ProfessorCourse_BestFit.Controllers
                 x => x.DepId == id
                 ).FirstOrDefault();
 
-            departmentViewModel.managers = department_DAL.Get_Department_Managers(id);
+            departmentViewModel.managers = user_DAL.Get_Users_Department(id, 1);
 
-            departmentViewModel.employee = department_DAL.Get_Department_Employees(id);
+            departmentViewModel.employee = user_DAL.Get_Users_Department(id, 2);
 
             return View(departmentViewModel);
         }
@@ -187,8 +189,28 @@ namespace ProfessorCourse_BestFit.Controllers
         //GET :
         public ActionResult Add_Remove_Department_Managers(int id)
         {
-            //Need some code
-            return View();
+            var departmentViewModel = new DepartmentViewModel();
+            departmentViewModel.normal_Users = user_DAL.Get_Users_Department(id, 3);
+            departmentViewModel.managers = user_DAL.Get_Users_Department(id, 1);
+            return View(departmentViewModel);
+        }
+
+        [HttpPost]
+        public JsonResult Activate_Department(int [] data)
+        {
+            if(data == null || data.Length == 0)
+            {
+                return Json(new
+                {
+                    redirectUrl = Url.Action("All_Departments", "Department"),
+                    isRedirect = true
+                });
+            }
+            return Json(new
+            {
+                redirectUrl = Url.Action("Add_Remove_Department_Managers", "Department"),
+                isRedirect = true
+            });
         }
 
         //GET :

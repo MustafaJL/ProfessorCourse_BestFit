@@ -1,10 +1,12 @@
-﻿@model ProfessorCourse_BestFit.Models.ViewModels.RolesViewModel
+﻿@model ProfessorCourse_BestFit.Models.ViewModels.KeywordsViewModel
+
+
+
 
 @{
     ViewBag.Title = "Upsert";
-    ViewBag.bodyClass = "sidebar-collapse layout-fixed sidebar-mini layout-navbar-fixed sidebar-closed";
+    ViewBag.bodyClass = "sidebar-mini layout-navbar-fixed sidebar-collapse layout-fixed layout-footer-fixed sidebar-closed";
 }
-
 
 
 
@@ -34,34 +36,37 @@
                 <!-- left column -->
                 <div class="col-md-12">
                     <!-- general form elements -->
-                    <div class="card @(ViewBag.Error != null ? "card-danger" : "card-primary")">
+                    <div class="card @(ViewBag.Error != null ? "card-danger" : ViewBag.id > 0 ? "card-success" :"card-primary")">
                         <div class="card-header">
 
-                            <h3 class="card-title">@(ViewBag.Error != null ? @ViewBag.Error : "Add Roles" )</h3>
+                            <h3 class="card-title">@(ViewBag.Error != null ? @ViewBag.Error : ViewBag.id > 0 ? "Update User" : "Add User" ) </h3>
                         </div>
                         <!-- /.card-header -->
                         <!-- form start -->
                         @using (Html.BeginForm())
                         {
                             @Html.AntiForgeryToken()
+                            @Html.HiddenFor(model => model.KId)
                             <div class="card-body">
 
                                 <div class="form-group">
-                                    @Html.LabelFor(model => model.RoleName)
-                                    @Html.EditorFor(model => model.RoleName, new { htmlAttributes = new { @class = "form-control" } })
-                                    @Html.ValidationMessageFor(model => model.RoleName, "", new { @class = "text-danger" })
+                                    <label>FirstName</label>
+                                    @Html.EditorFor(model => model.kName, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter FirstName" } })
+                                    @Html.ValidationMessageFor(model => model.kName, "", new { @class = "text-danger" })
                                 </div>
 
 
 
-
-
                             </div>
+
                             <!-- /.card-body -->
-                            @Html.HiddenFor(model => model.RoleId)
+
                             <div class="card-footer">
-                                <a href="/Roles/Index" class="btn btn-warning"><i class="bi bi-arrow-left"></i> Back</a>
-                                <button type="submit" class="btn btn-primary">@(ViewBag.id > 0 ? "Update" : "Submit")</button>
+                                <a href="/Keywords/Index" class="btn btn-warning">
+                                    <i class="bi bi-arrow-left"></i>
+                                    Back
+                                </a>
+                                <button type="submit" class="btn @(ViewBag.id > 0 ? "btn-success" : "btn-primary")">@(ViewBag.id > 0 ? "Update" : "Submit")</button>
                             </div>
                         }
                     </div>

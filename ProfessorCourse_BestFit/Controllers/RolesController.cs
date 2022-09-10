@@ -1,4 +1,5 @@
-﻿using ProfessorCourse_BestFit.Models;
+﻿using ProfessorCourse_BestFit.DAL;
+using ProfessorCourse_BestFit.Models;
 using ProfessorCourse_BestFit.Models.ViewModels;
 using System.Linq;
 using System.Web.Mvc;
@@ -7,11 +8,12 @@ namespace ProfessorCourse_BestFit.Controllers
 {
     public class RolesController : Controller
     {
-        private readonly ProfessorCourseBestFit1 _context;
-
+        private readonly ProfessorCourseBestFitEntities _context;
+        private readonly RolePermissions_DAL _sp;
         public RolesController()
         {
-            _context = new ProfessorCourseBestFit1();
+            _context = new ProfessorCourseBestFitEntities();
+            _sp = new RolePermissions_DAL();
         }
 
         public ActionResult Index()
@@ -55,7 +57,10 @@ namespace ProfessorCourse_BestFit.Controllers
                         RoleName = model.RoleName
                     };
                     _context.Roles.Add(role);
+
                     _context.SaveChanges();
+                    // add spCreateRolePermisssions
+                    _sp.CreateRolePermissions(role.RoleId);
                 }
                 else
                 {
@@ -68,6 +73,34 @@ namespace ProfessorCourse_BestFit.Controllers
         }
 
 
+        public ActionResult RolePermission(int? id)
+        {
+            var role = _context.Roles.SingleOrDefault(x => x.RoleId == id);
+
+            var permission = _sp.GetPermissionsByRoleId((int)id);
+
+            ViewBag.roleid = role.RoleId;
+            RolesPermissionsViewModel roleView = new RolesPermissionsViewModel
+            {
+
+                Role = role,
+                Permissions = permission
+            };
+            return View(roleView);
+        }
+
+        [HttpPost]
+        public JsonResult RolePermission(int roleId, string[] permissions)
+        {
+            string perms = "";
+            if (permissions.Length > 0 && permissions != null)
+            {
+                perms = string.Join(",", permissions);
+
+            }
+            _sp.UpdateRolePermissions(roleId, perms);
+            return Json(new { success = true });
+        }
 
         [HttpPost]
         public JsonResult Delete(int id)

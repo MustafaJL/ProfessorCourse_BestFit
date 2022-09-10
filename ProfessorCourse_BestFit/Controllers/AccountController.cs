@@ -3,6 +3,7 @@ using ProfessorCourse_BestFit.Helper;
 using ProfessorCourse_BestFit.Models;
 using ProfessorCourse_BestFit.Models.ViewModels;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Web;
@@ -13,12 +14,13 @@ namespace ProfessorCourse_BestFit.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly ProfessorCourseBestFit1 _context;
-        User_DAL userDAL = new User_DAL();
+        private readonly ProfessorCourseBestFitEntities _context;
+        private readonly RolePermissions_DAL _sp;
 
         public AccountController()
         {
-            _context = new ProfessorCourseBestFit1();
+            _context = new ProfessorCourseBestFitEntities();
+            _sp = new RolePermissions_DAL();
         }
 
         public ActionResult Login()
@@ -26,16 +28,22 @@ namespace ProfessorCourse_BestFit.Controllers
             return View();
         }
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Login(LoginViewModel model)
         {
             // check if email exist in data base
-            if (!_context.Users.Any(x => x.Email == model.Email))
+            //if (!_context.Users.Any(x => x.Email == model.Email))
+            //{
+            //    ModelState.AddModelError("", "Email or Password is not valid");
+            //}
+            // get all data of this email
+            User dbObj = _context.Users.FirstOrDefault(x => x.Email == model.Email);
+            if (dbObj == null)
             {
                 ModelState.AddModelError("", "Email or Password is not valid");
                 return View(model);
+
             }
-            // get all data of this email
-            User dbObj = _context.Users.FirstOrDefault(x => x.Email == model.Email);
 
             // get PasswordSalt from Databse as array of bytes
             byte[] PasswordSalt = Convert.FromBase64String(dbObj.PasswordSalt);
@@ -58,16 +66,19 @@ namespace ProfessorCourse_BestFit.Controllers
                 ModelState.AddModelError("", "Email or Password is not valid");
                 return View(model);
             }
+
+            Session["fullname"] = dbObj.FirstName.ToUpper() + " " + dbObj.LastName.ToUpper();
+            Session["image"] = dbObj.ImageUrl.Substring(dbObj.ImageUrl.IndexOf("/"));
             // get Id of user
-            int UserId = dbObj.Uid;
+            int roleId = dbObj.RoleId;
             // get roles for this user
-            string Roles = userDAL.UserRoleNames(UserId);
+            string permissions = dbObj.Uid.ToString() + ",";
+            permissions += rolePermissionsName(roleId);
 
             // check if user select remember me option
             double timeOut = model.RememberMe ? 43200 : 30; // 525600 min = 1  year
             // create Forms Authentication Tickets
-            FormsAuthenticationTicket ticket = new FormsAuthenticationTicket(1, Roles, DateTime.Now, DateTime.Now.AddMinutes(timeOut), false, "");
-
+            FormsAuthenticationTicket ticket = new FormsAuthenticationTicket(1, permissions, DateTime.Now, DateTime.Now.AddMinutes(timeOut), false, "");
             // encrypt Ticket
             string encryptedTicket = FormsAuthentication.Encrypt(ticket);
 
@@ -77,59 +88,10 @@ namespace ProfessorCourse_BestFit.Controllers
             // Add Cookie
             Response.Cookies.Add(cookie);
 
-
+            ViewBag.Uid = dbObj.Uid;
             return RedirectToAction("Index", "Home");
 
         }
-
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Register(UserViewModel model)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-
-        //        #region // Is Email already exist
-        //        var isExist = IsEmailExist(model.Email);
-        //        if (isExist)
-        //        {
-        //            ViewBag.Error = "Email already Exist";
-        //            return View(model);
-        //        }
-        //        #endregion
-
-        //        User user = new User();
-
-        //        user.FirstName = model.FirstName;
-        //        user.LastName = model.LastName;
-        //        user.Email = model.Email;
-        //        user.DateOfBirth = model.DateOfBirth;
-        //        user.CreatedOn = DateTime.Now;
-
-        //        #region // Generate a salt
-        //        var userSalt = CryptoService.GenerateSalt();
-        //        user.PasswordSalt = Convert.ToBase64String(userSalt);
-        //        #endregion
-
-        //        #region // Hash the password using PasswordSalt
-        //        var userPasswor = Encoding.UTF8.GetBytes(model.Password);
-        //        var hmac = CryptoService.ComputeHMAC256(userPasswor, userSalt);
-        //        user.Password = Convert.ToBase64String(hmac);
-        //        #endregion
-
-        //        // Save object to the Database
-        //        _context.Users.Add(user);
-        //        _context.SaveChanges();
-
-
-
-        //        return View();
-        //    }
-        //    else
-        //    {
-        //        return View();
-        //    }
-        //}
 
 
         [NonAction]
@@ -147,7 +109,6 @@ namespace ProfessorCourse_BestFit.Controllers
         public ActionResult Logout()
         {
             FormsAuthentication.SignOut();
-            Session.Abandon();
             HttpCookie cookie = new HttpCookie(FormsAuthentication.FormsCookieName, "");
             cookie.Expires = DateTime.Now.AddYears(-1);
             Response.Cookies.Add(cookie);
@@ -157,6 +118,23 @@ namespace ProfessorCourse_BestFit.Controllers
         public ActionResult UnAuthorized()
         {
             return View();
+        }
+
+        public string rolePermissionsName(int? id)
+        {
+            List<PermissionsViewModel> permissionViewModels = _sp.GetPermissionsByRoleId((int)id);
+            string permissions = "";
+            foreach (PermissionsViewModel item in permissionViewModels)
+            {
+                if (item.IsActive == false)
+                {
+                    permissions += item.PName + ",";
+                }
+
+            }
+
+            return permissions;
+
         }
     }
 
