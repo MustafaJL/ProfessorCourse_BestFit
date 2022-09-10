@@ -1,0 +1,157 @@
+﻿@model ProfessorCourse_BestFit.Models.ViewModels.DepartmentViewModel
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Departments</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="/Home">Home</a></li>
+                        <li class="breadcrumb-item active">Contact</li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+
+
+                    <div class="card">
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <table id="example1" class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Professor Name</th>
+                                        <th>Professor Email</th>
+                                        <th>Options</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbhold">
+                                    @{ int num = 0;}
+                                    @if (Model.managers != null)
+                                    {
+                                        foreach (var item in Model.managers)
+                                        {
+
+                                            <tr class="js-row">
+                                                <td>@(num++)</td>
+                                                <td>@item.FirstName @item.MiddleName @item.LastName</td>
+                                                <td>@item.Email</td>
+
+                                                <td>
+
+                                                    <input type="checkbox" name="ch" id="@item.Uid" checked>
+
+                                                </td>
+                                            </tr>
+
+                                        }
+                                    }
+                                    @if (Model.normal_Users != null)
+                                    {
+                                        foreach (var item in Model.normal_Users)
+                                        {
+
+                                            <tr class="js-row">
+                                                <td>@(num++)</td>
+                                                <td>@item.FirstName @item.MiddleName @item.LastName</td>
+                                                <td>@item.Email</td>
+
+                                                <td>
+
+                                                    <input type="checkbox" name="ch" id="@item.Uid">
+
+                                                </td>
+                                            </tr>
+
+                                        }
+                                    }
+
+
+
+
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Professor Name</th>
+                                        <th>Professor Email</th>
+                                        <th>Options</th>
+                                    </tr>
+                                </tfoot>
+
+                            </table>
+
+
+
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+
+    <button class="btn btn-navbar" type="submit" id="btn">
+        Save Changes
+    </button>
+
+</div>
+<!-- /.content-wrapper -->
+
+
+
+
+@section Scripts{
+
+    <script>
+
+        $(function () {
+            $("#example1").DataTable({
+                "responsive": true, "lengthChange": false, "autoWidth": false,
+                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+        });
+
+
+        document.getElementById('btn').onclick = function () {
+            var all = [];
+            var markedCheckbox = document.getElementsByName('ch');
+            for (var checkbox of markedCheckbox) {
+                if (checkbox.checked)
+                    document.all.append(checkbox.id);
+            }
+            $.ajax({
+                url: "/Department/Add_Remove_Department_Managers/",
+                method: "post",
+                data: all,
+                success: function (json) {
+                    if (json.isRedirect) {
+                        window.location.href = json.redirectUrl;
+                    }
+                }
+            })
+        }  
+
+
+    </script>
+
+
+}

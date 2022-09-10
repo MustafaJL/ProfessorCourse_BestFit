@@ -69,13 +69,13 @@ namespace ProfessorCourse_BestFit.Controllers
                 User user = new User();
 
                 user.FirstName = model.FirstName;
+                user.MiddleName = model.MiddleName;
                 user.LastName = model.LastName;
                 user.Email = model.Email;
                 user.DateOfBirth =model.DateOfBirth;
                 user.CreatedOn = DateTime.Now;
                 user.Gender = model.Gender;
                 user.Phone = model.PhoneNumber;
-                user.MiddleName = model.MiddleName;
 
                 #region // Generate a salt
                 var userSalt = CryptoService.GenerateSalt();

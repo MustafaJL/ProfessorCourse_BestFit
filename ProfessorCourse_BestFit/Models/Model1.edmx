@@ -92,7 +92,7 @@
             <PropertyRef Name="SemesterId" />
           </Key>
           <Property Name="SemesterId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="SemesterName" Type="varbinary" MaxLength="50" Nullable="false" />
+          <Property Name="SemesterName" Type="varchar(max)" Nullable="false" />
           <Property Name="StartDate" Type="datetime" Nullable="false" />
           <Property Name="EndDate" Type="datetime" Nullable="false" />
           <Property Name="isDeleted" Type="bit" Nullable="false" />
@@ -388,6 +388,9 @@
         <Function Name="CourseUsersToBeProfessors" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="CourseID" Type="int" Mode="In" />
         </Function>
+        <Function Name="DepartmentAddRemoveManagers" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="DepartmentID" Type="int" Mode="In" />
+        </Function>
         <Function Name="Departmentemployees" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="DepartmentID" Type="int" Mode="In" />
         </Function>
@@ -601,7 +604,7 @@
             <PropertyRef Name="SemesterId" />
           </Key>
           <Property Name="SemesterId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="SemesterName" Type="Binary" MaxLength="50" FixedLength="false" Nullable="false" />
+          <Property Name="SemesterName" Type="String" Nullable="false" />
           <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="EndDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="isDeleted" Type="Boolean" Nullable="false" />
@@ -1042,6 +1045,9 @@
           <FunctionImport Name="ProgramManagersToAdd" ReturnType="Collection(ProfessorCourseBestFit1Model.ProgramManagersToAdd_Result)">
           <Parameter Name="ProgramID" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="DepartmentAddRemoveManagers" ReturnType="Collection(ProfessorCourseBestFit1Model.DepartmentAddRemoveManagers_Result)">
+          <Parameter Name="DepartmentID" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="Departmentemployees_Result">
           <Property Type="Int32" Name="Uid" Nullable="false" />
@@ -1164,6 +1170,24 @@
           <Property Type="Boolean" Name="isDeleted" Nullable="false" />
         </ComplexType>
         <ComplexType Name="ProgramManagersToAdd_Result">
+          <Property Type="Int32" Name="Uid" Nullable="false" />
+          <Property Type="String" Name="FirstName" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="MiddleName" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="LastName" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Email" Nullable="false" MaxLength="150" />
+          <Property Type="String" Name="PasswordSalt" Nullable="false" MaxLength="500" />
+          <Property Type="String" Name="Password" Nullable="false" MaxLength="500" />
+          <Property Type="DateTime" Name="CreatedOn" Nullable="false" Precision="23" />
+          <Property Type="String" Name="DateOfBirth" Nullable="false" MaxLength="50" />
+          <Property Type="Boolean" Name="isDeleted" Nullable="false" />
+          <Property Type="String" Name="Gender" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Phone" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="ImageUrl" Nullable="false" MaxLength="300" />
+          <Property Type="String" Name="Address" Nullable="false" MaxLength="250" />
+          <Property Type="String" Name="Education" Nullable="false" />
+          <Property Type="Int32" Name="RoleId" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="DepartmentAddRemoveManagers_Result">
           <Property Type="Int32" Name="Uid" Nullable="false" />
           <Property Type="String" Name="FirstName" Nullable="false" MaxLength="50" />
           <Property Type="String" Name="MiddleName" Nullable="false" MaxLength="50" />
@@ -1527,6 +1551,28 @@
           <FunctionImportMapping FunctionImportName="ProgramManagersToAdd" FunctionName="ProfessorCourseBestFit1Model.Store.ProgramManagersToAdd">
             <ResultMapping>
               <ComplexTypeMapping TypeName="ProfessorCourseBestFit1Model.ProgramManagersToAdd_Result">
+                <ScalarProperty Name="Uid" ColumnName="Uid" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="PasswordSalt" ColumnName="PasswordSalt" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+                <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Education" ColumnName="Education" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="DepartmentAddRemoveManagers" FunctionName="ProfessorCourseBestFit1Model.Store.DepartmentAddRemoveManagers">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ProfessorCourseBestFit1Model.DepartmentAddRemoveManagers_Result">
                 <ScalarProperty Name="Uid" ColumnName="Uid" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />

@@ -133,6 +133,10 @@ namespace ProfessorCourse_BestFit.DAL
             {
                 command.CommandText = "Departmentemployees";
             }
+            if(option == 3)
+            {
+                command.CommandText = "DepartmentAddRemoveManagers";
+            }
 
             command.Parameters.AddWithValue("@DepartmentID", departmentID);
 

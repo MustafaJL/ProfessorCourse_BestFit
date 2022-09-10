@@ -237,5 +237,14 @@ namespace ProfessorCourse_BestFit.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ProgramManagersToAdd_Result>("ProgramManagersToAdd", programIDParameter);
         }
+    
+        public virtual ObjectResult<DepartmentAddRemoveManagers_Result> DepartmentAddRemoveManagers(Nullable<int> departmentID)
+        {
+            var departmentIDParameter = departmentID.HasValue ?
+                new ObjectParameter("DepartmentID", departmentID) :
+                new ObjectParameter("DepartmentID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<DepartmentAddRemoveManagers_Result>("DepartmentAddRemoveManagers", departmentIDParameter);
+        }
     }
 }
