@@ -12,6 +12,7 @@ namespace ProfessorCourse_BestFit.DAL
     {
         private readonly SqlConnection _connection;
         private readonly string _Conn = ConfigurationManager.ConnectionStrings["DefaultConnection"].ToString();
+
         public User_DAL()
         {
             _connection = new SqlConnection(_Conn);
@@ -160,7 +161,7 @@ namespace ProfessorCourse_BestFit.DAL
             return resut;
         }
 
-        public IEnumerable<User> Get_Users_Course(int courseID)
+        public IEnumerable<User> Get_Users_Course(int courseID, int option)
         {
             //the options come from department_DAL base on the method action
 
@@ -173,9 +174,15 @@ namespace ProfessorCourse_BestFit.DAL
             command.CommandType = CommandType.StoredProcedure;
 
             // specify name of SP
+            if(option == 1)
+            {
                 command.CommandText = "CourseProfessors";
+            }
+            else if(option == 2)
+            {
+                command.CommandText = "CourseUsersToBeProfessors";
+            }
            
-
             command.Parameters.AddWithValue("@CourseID", courseID);
 
             SqlDataAdapter adapter = new SqlDataAdapter(command);

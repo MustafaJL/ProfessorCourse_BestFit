@@ -189,6 +189,8 @@ namespace ProfessorCourse_BestFit.Controllers
                 x => x.CId == id
                 ).FirstOrDefault();
 
+            _context.CourseDeleteRelations(id);
+
             course.isDeleted = true;
             _context.SaveChanges();
 
@@ -199,11 +201,33 @@ namespace ProfessorCourse_BestFit.Controllers
             });
         }
 
-
+        //GET :
         public ActionResult Add_Remove_Course_Professors(int id)
         {
-            //Need some code
-            return View();
+            var courseViewModel = new CourseViewModel();
+
+            courseViewModel.Course = _context.Courses.Where(
+                x => x.CId == id
+                ).FirstOrDefault();
+
+            courseViewModel.optionList = course_DAL.Get_Users_To_Be_Professors(id)
+               .Select(c => new SelectListItem
+               {
+                   Value = c.Uid.ToString(),
+                   Text = c.FirstName+" "+c.MiddleName+" "+c.LastName
+               }).ToList();
+
+            return View(courseViewModel);
+        }
+
+        [HttpPost]
+        public JsonResult Add_Remove_Course_Professors_(int id)
+        {
+            return Json(new
+            {
+                redirectUrl = Url.Action("All_Courses", "Course"),
+                isRedirect = true
+            });
         }
 
         public ActionResult Add_Remove_Course_Programs(int id)

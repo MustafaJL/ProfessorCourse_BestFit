@@ -192,5 +192,50 @@ namespace ProfessorCourse_BestFit.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ProgramManagers_Result>("ProgramManagers", programIDParameter);
         }
+    
+        public virtual int CourseDeleteRelations(Nullable<int> courseID)
+        {
+            var courseIDParameter = courseID.HasValue ?
+                new ObjectParameter("CourseID", courseID) :
+                new ObjectParameter("CourseID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("CourseDeleteRelations", courseIDParameter);
+        }
+    
+        public virtual ObjectResult<CourseProgramToAdd_Result> CourseProgramToAdd(Nullable<int> courseID)
+        {
+            var courseIDParameter = courseID.HasValue ?
+                new ObjectParameter("CourseID", courseID) :
+                new ObjectParameter("CourseID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<CourseProgramToAdd_Result>("CourseProgramToAdd", courseIDParameter);
+        }
+    
+        public virtual ObjectResult<CourseUsersToBeProfessors_Result> CourseUsersToBeProfessors(Nullable<int> courseID)
+        {
+            var courseIDParameter = courseID.HasValue ?
+                new ObjectParameter("CourseID", courseID) :
+                new ObjectParameter("CourseID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<CourseUsersToBeProfessors_Result>("CourseUsersToBeProfessors", courseIDParameter);
+        }
+    
+        public virtual ObjectResult<ProgramCoursesToAdd_Result> ProgramCoursesToAdd(Nullable<int> programID)
+        {
+            var programIDParameter = programID.HasValue ?
+                new ObjectParameter("ProgramID", programID) :
+                new ObjectParameter("ProgramID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ProgramCoursesToAdd_Result>("ProgramCoursesToAdd", programIDParameter);
+        }
+    
+        public virtual ObjectResult<ProgramManagersToAdd_Result> ProgramManagersToAdd(Nullable<int> programID)
+        {
+            var programIDParameter = programID.HasValue ?
+                new ObjectParameter("ProgramID", programID) :
+                new ObjectParameter("ProgramID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ProgramManagersToAdd_Result>("ProgramManagersToAdd", programIDParameter);
+        }
     }
 }

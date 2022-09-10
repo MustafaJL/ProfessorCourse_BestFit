@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace ProfessorCourse_BestFit.Models.ViewModels
 {
@@ -18,5 +19,7 @@ namespace ProfessorCourse_BestFit.Models.ViewModels
         public IEnumerable<User> normal_Users { get; set; }
 
         public IEnumerable<User> course_Professors { get; set; }
+
+        public List<SelectListItem> optionList { get; set; }
     }
 }

@@ -23,7 +23,7 @@ namespace ProfessorCourse_BestFit.DAL
             course_DAL = new Course_DAL();
         }
 
-        public IEnumerable<Program> Get_Course_Programs(int courseID)
+        public IEnumerable<Program> Get_Course_Programs(int courseID, int option)
         {
             //the options come from department_DAL base on the method action
 
@@ -36,8 +36,14 @@ namespace ProfessorCourse_BestFit.DAL
             command.CommandType = CommandType.StoredProcedure;
 
             // specify name of SP
-            command.CommandText = "CoursePrograms";
-
+            if(option == 1)
+            {
+                command.CommandText = "CoursePrograms";
+            }
+            if(option == 2)
+            {
+                command.CommandText = "CourseProgramToAdd";
+            }
 
             command.Parameters.AddWithValue("@CourseID", courseID);
 
