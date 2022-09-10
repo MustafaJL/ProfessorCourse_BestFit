@@ -14,12 +14,18 @@ namespace ProfessorCourse_BestFit.Controllers
     {
         private readonly ProfessorCourseBestFit1 _context;
         private readonly Program_DAL program_DAL;
+        private readonly User_DAL user_DAL;
+        private readonly Department_DAL department_DAL;
+        private readonly Course_DAL course_DAL;
         private readonly Messages messages;
 
         public ProgramController()
         {
             _context = new ProfessorCourseBestFit1();
             program_DAL = new Program_DAL();
+            user_DAL = new User_DAL();
+            department_DAL = new Department_DAL();
+            course_DAL = new Course_DAL();
             messages = new Messages();
         }
 
@@ -100,9 +106,9 @@ namespace ProfessorCourse_BestFit.Controllers
                 x => x.ProgramId == id
                 ).FirstOrDefault();
 
-            programViewModel.managers = program_DAL.Get_Program_Managers(id);
+            programViewModel.managers = user_DAL.Get_Users_Program(id);
 
-            programViewModel.program_Courses = program_DAL.Get_Program_Courses(id);
+            programViewModel.program_Courses = course_DAL.Get_Program_Courses(id);
 
             return View(programViewModel);
         }

@@ -13,35 +13,39 @@ namespace ProfessorCourse_BestFit.DAL
     {
         private readonly SqlConnection _connection;
         private readonly string _Conn = ConfigurationManager.ConnectionStrings["DefaultConnection"].ToString();
-        private readonly User_DAL user_DAL;
-        private readonly Program_DAL program_DAL;
+        //private readonly User_DAL user_DAL;
+        //private readonly Program_DAL program_DAL;
         public Course_DAL()
         {
             _connection = new SqlConnection(_Conn);
-            user_DAL = new User_DAL();
-            program_DAL = new Program_DAL();
+            //user_DAL = new User_DAL();
+            //program_DAL = new Program_DAL();
         }
 
         public IEnumerable<User> Get_Course_Professors(int CourseID)
         {
-            return user_DAL.Get_Users_Course(CourseID, 1);
+            //return user_DAL.Get_Users_Course(CourseID, 1);
+            return null;
         }
 
         public IEnumerable<User> Get_Users_To_Be_Professors(int CourseID)
         {
-            return user_DAL.Get_Users_Course(CourseID,2);
+            //return user_DAL.Get_Users_Course(CourseID,2);
+            return null;
         }
 
         public IEnumerable<Program> Get_Course_Programs(int CourseID)
         {
             //this one for get all programs that this course is in them.
-            return program_DAL.Get_Course_Programs(CourseID, 1);
+            //return program_DAL.Get_Course_Programs(CourseID, 1);
+            return null;
         }
 
         public IEnumerable<Program> Get_Programs_To_Add(int CourseID)
         {
             //this one for get all programs that this course is in them.
-            return program_DAL.Get_Course_Programs(CourseID, 2);
+            //return program_DAL.Get_Course_Programs(CourseID, 2);
+            return null;
         }
 
         public IEnumerable<Course> Get_Program_Courses(int ProgramID)

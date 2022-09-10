@@ -13,14 +13,14 @@ namespace ProfessorCourse_BestFit.DAL
     {
         private readonly SqlConnection _connection;
         private readonly string _Conn = ConfigurationManager.ConnectionStrings["DefaultConnection"].ToString();
-        private readonly User_DAL user_DAL;
-        private readonly Course_DAL course_DAL;
+        //private readonly User_DAL user_DAL;
+        //private readonly Course_DAL course_DAL;
 
         public Program_DAL()
         {
             _connection = new SqlConnection(_Conn);
-            user_DAL = new User_DAL();
-            course_DAL = new Course_DAL();
+            //user_DAL = new User_DAL();
+            //course_DAL = new Course_DAL();
         }
 
         public IEnumerable<Program> Get_Course_Programs(int courseID, int option)
@@ -69,14 +69,5 @@ namespace ProfessorCourse_BestFit.DAL
             return resut;
         }
 
-        public IEnumerable<User> Get_Program_Managers(int ProgramID)
-        {
-            return user_DAL.Get_Users_Program(ProgramID);
-        }
-
-        public IEnumerable<Course> Get_Program_Courses(int ProgramID)
-        {
-            return course_DAL.Get_Program_Courses(ProgramID);
-        }
     }
 }
