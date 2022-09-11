@@ -133,10 +133,12 @@
 
         document.getElementById('btn').onclick = function () {
             var all = [];
+            var i = 0;
             var markedCheckbox = document.getElementsByName('ch');
             for (var checkbox of markedCheckbox) {
                 if (checkbox.checked)
-                    document.all.append(checkbox.id);
+                    all[i] = checkbox.id;
+                i = i + 1;
             }
             $.ajax({
                 url: "/Department/Add_Remove_Department_Managers/",

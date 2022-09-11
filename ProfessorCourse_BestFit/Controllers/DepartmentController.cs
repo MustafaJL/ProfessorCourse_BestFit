@@ -166,7 +166,7 @@ namespace ProfessorCourse_BestFit.Controllers
             });
         }
 
-        [HttpGet]
+        [HttpPost]
         public JsonResult Activate_Department(int id)
         {
             var delete_Department = _context.Departments.Where(
@@ -187,13 +187,14 @@ namespace ProfessorCourse_BestFit.Controllers
         public ActionResult Add_Remove_Department_Managers(int id)
         {
             var departmentViewModel = new DepartmentViewModel();
-            departmentViewModel.normal_Users = user_DAL.Get_Users_Department(id, 3);
+            departmentViewModel.normal_Users = _context.Users.ToList();
+            //departmentViewModel.normal_Users = user_DAL.Get_Users_Department(id, 3);
             departmentViewModel.managers = user_DAL.Get_Users_Department(id, 1);
             return View(departmentViewModel);
         }
 
         [HttpPost]
-        public JsonResult Activate_Department(int[] data)
+        public JsonResult Add_Remove_Department_Managers(int[] data)
         {
             if (data == null || data.Length == 0)
             {

@@ -227,7 +227,7 @@
 
                 $.ajax({                    
                     url: "/Department/Activate_Department/" + btn.attr("uid-data"),
-                    method: "get",
+                    method: "post",
                     success: function (json) {
                         if (json.isRedirect) {
                             window.location.href = json.redirectUrl;
