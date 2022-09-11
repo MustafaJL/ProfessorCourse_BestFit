@@ -24,7 +24,9 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-12">
-
+                    <div>
+                        @if(ViewBag.done!= null) { @ViewBag.done}
+                    </div>
 
                     <div class="card">
                         <div class="card-header">
@@ -215,17 +217,17 @@
                 })
 
             })
-        })
+
+        });
 
 
         $(".js-row .js-activate").on("click", function () {
-            let button = $(this);
-
+            let btn = $(this);
             $(".activatedepartment").on("click", function () {
 
-                $.ajax({
-                    url: "/Department/Activate_Department/" + button.attr("uid-data"),
-                    method: "post",
+                $.ajax({                    
+                    url: "/Department/Activate_Department/" + btn.attr("uid-data"),
+                    method: "get",
                     success: function (json) {
                         if (json.isRedirect) {
                             window.location.href = json.redirectUrl;
@@ -234,7 +236,7 @@
                 })
 
             })
-        })
+        });
 
 
     </script>

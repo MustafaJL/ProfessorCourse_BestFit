@@ -166,7 +166,7 @@ namespace ProfessorCourse_BestFit.Controllers
             });
         }
 
-        [HttpPost]
+        [HttpGet]
         public JsonResult Activate_Department(int id)
         {
             var delete_Department = _context.Departments.Where(
