@@ -17,26 +17,30 @@ namespace ProfessorCourse_BestFit.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public User()
         {
-            this.Departments = new HashSet<Department>();
             this.UserCourses = new HashSet<UserCourse>();
             this.UserDepartments = new HashSet<UserDepartment>();
             this.UserKeywords = new HashSet<UserKeyword>();
-            this.UserRoles = new HashSet<UserRole>();
-            this.Permissions = new HashSet<Permission>();
+            this.UserPrograms = new HashSet<UserProgram>();
         }
     
         public int Uid { get; set; }
         public string FirstName { get; set; }
+        public string MiddleName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }
-        public string Password { get; set; }
         public string PasswordSalt { get; set; }
+        public string Password { get; set; }
         public System.DateTime CreatedOn { get; set; }
-        public Nullable<System.DateTime> DateOfBirth { get; set; }
-        public bool deleted { get; set; }
+        public string DateOfBirth { get; set; }
+        public bool isDeleted { get; set; }
+        public string Gender { get; set; }
+        public string Phone { get; set; }
+        public string ImageUrl { get; set; }
+        public string Address { get; set; }
+        public string Education { get; set; }
+        public int RoleId { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Department> Departments { get; set; }
+        public virtual Role Role { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserCourse> UserCourses { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -44,8 +48,6 @@ namespace ProfessorCourse_BestFit.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserKeyword> UserKeywords { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<UserRole> UserRoles { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Permission> Permissions { get; set; }
+        public virtual ICollection<UserProgram> UserPrograms { get; set; }
     }
 }

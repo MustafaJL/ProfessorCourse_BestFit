@@ -5,19 +5,19 @@ namespace ProfessorCourse_BestFit.CustomSecurity
 {
     public class CustomAuthorization : FilterAttribute, IAuthorizationFilter
     {
-        public CustomAuthorization(string Role)
+        public CustomAuthorization(string Permissions)
         {
-            this.Role = Role;
+            this.Permissions = Permissions;
         }
 
-        public string Role { get; set; }
+        public string Permissions { get; set; }
         public void OnAuthorization(AuthorizationContext filterContext)
         {
             if (filterContext.HttpContext.User.Identity.IsAuthenticated)
             {
-                var Roles = filterContext.HttpContext.User.Identity.Name;
+                var permissions = filterContext.HttpContext.User.Identity.Name;
 
-                var dependent = Validator.IsDependent(Roles, Role);
+                var dependent = Validator.IsDependent(permissions, Permissions);
 
 
                 if (!(dependent))

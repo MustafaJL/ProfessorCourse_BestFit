@@ -21,10 +21,13 @@ namespace ProfessorCourse_BestFit.Helper
 
         public static byte[] ComputeHMAC256(byte[] data, byte[] salt)
         {
+
             using (var hmac = new HMACSHA256(salt))
             {
                 return hmac.ComputeHash(data);
             }
         }
+
+
     }
 }

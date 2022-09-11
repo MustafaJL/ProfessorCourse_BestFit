@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Register";
+    
 }
 
 <h2>Register</h2>
@@ -14,6 +15,7 @@
     <div class="form-horizontal">
         <h4>UserViewModel</h4>
         <hr />
+        <p>@(ViewBag.Error != null ? @ViewBag.Error : "" )</p>
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
             @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-2" })

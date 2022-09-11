@@ -14,6 +14,7 @@ namespace ProfessorCourse_BestFit.Helper
             array2 = UserRoles.Split(',');
 
 
+
             var intersect = array1.Intersect(array2).Any();
 
             return intersect;

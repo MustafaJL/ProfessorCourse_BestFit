@@ -1,19 +1,16 @@
-﻿namespace ProfessorCourse_BestFit.Models.ViewModels
+﻿using System.Collections.Generic;
+
+namespace ProfessorCourse_BestFit.Models.ViewModels
 {
     public class UserRolesViewModel
     {
-        public int? UserId { get; set; }
-        public string FirstName { get; set; }
 
-        public string LastName { get; set; }
 
-        public string Email { get; set; }
+        public UserViewModel User { get; set; }
 
-        public string DateOfBirth { get; set; }
+        public IEnumerable<Role> Roles { get; set; }
 
-        public string CreatedOn { get; set; }
 
-        public string RoleName { get; set; }
 
     }
 }

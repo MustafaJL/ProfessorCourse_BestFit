@@ -17,16 +17,15 @@ namespace ProfessorCourse_BestFit.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Permission()
         {
-            this.Roles = new HashSet<Role>();
-            this.Users = new HashSet<User>();
+            this.RolePermissions = new HashSet<RolePermission>();
         }
     
         public int PId { get; set; }
         public string PName { get; set; }
+        public System.DateTime CreatedOn { get; set; }
+        public bool isDeleted { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Role> Roles { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<User> Users { get; set; }
+        public virtual ICollection<RolePermission> RolePermissions { get; set; }
     }
 }

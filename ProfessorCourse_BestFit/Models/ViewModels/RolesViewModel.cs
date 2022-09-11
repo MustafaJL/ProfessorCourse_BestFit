@@ -11,5 +11,6 @@ namespace ProfessorCourse_BestFit.Models.ViewModels
         [Required]
         [Display(Name = "Role")]
         public string RoleName { get; set; }
+
     }
 }

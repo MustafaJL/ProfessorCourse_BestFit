@@ -1,0 +1,176 @@
+﻿@model ProfessorCourse_BestFit.Models.ViewModels.UserRolesViewModel
+
+
+@{
+    ViewBag.Title = "Add_User";
+    ViewBag.bodyClass = "sidebar-mini layout-navbar-fixed sidebar-collapse layout-fixed layout-footer-fixed sidebar-closed";
+    var validate = "this.value = this.value.replace(/[^0-9]/g, '');";
+}
+
+
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>General Form</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">General Form</li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <!-- left column -->
+                <div class="col-md-12">
+                    <!-- general form elements -->
+                    <div class="card @(ViewBag.Error != null ? "card-danger" : ViewBag.id > 0 ? "card-success" :"card-primary")">
+                        <div class="card-header">
+
+                            <h3 class="card-title">@(ViewBag.Error != null ? @ViewBag.Error : ViewBag.id > 0 ? "Update User" : "Add User" ) </h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <!-- form start -->
+                        @using (Html.BeginForm("Upsert_User", "User", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            @Html.HiddenFor(model => model.User.Id)
+                    <div class="card-body">
+
+                        <div class="form-group">
+                            <label>FirstName</label>
+                            @Html.EditorFor(model => model.User.FirstName, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter FirstName" } })
+                            @Html.ValidationMessageFor(model => model.User.FirstName, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="form-group">
+                            <label>MiddleName</label>
+                            @Html.EditorFor(model => model.User.MiddleName, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter LastName" } })
+                            @Html.ValidationMessageFor(model => model.User.MiddleName, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="form-group">
+                            <label>LastName</label>
+                            @Html.EditorFor(model => model.User.LastName, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter LastName" } })
+                            @Html.ValidationMessageFor(model => model.User.LastName, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="form-group">
+                            <label>Email</label>
+                            @Html.EditorFor(model => model.User.Email, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Email" } })
+                            @Html.ValidationMessageFor(model => model.User.Email, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="form-group">
+                            <label>DOB</label>
+
+                            @Html.EditorFor(model => model.User.DateOfBirth, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Date of Birth", type = "date", min = "1930-01-01", max = DateTime.Now.ToString("yyyy-MM-dd") } })
+                            @Html.ValidationMessageFor(model => model.User.DateOfBirth, "", new { @class = "text-danger" })
+
+                        </div>
+
+                        <div class="form-group">
+                            <label>Gender</label>
+                            @Html.EditorFor(model => model.User.Gender, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter LastName" } })
+                            @Html.ValidationMessageFor(model => model.User.Gender, "", new { @class = "text-danger" })
+                        </div>
+
+
+                        <div class="form-group">
+                            <label>Address</label>
+                            @Html.EditorFor(model => model.User.Address, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter LastName" } })
+                            @Html.ValidationMessageFor(model => model.User.Address, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="form-group">
+                            <label>Education</label>
+                            @Html.EditorFor(model => model.User.Education, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter LastName" } })
+                            @Html.ValidationMessageFor(model => model.User.Education, "", new { @class = "text-danger" })
+                        </div>
+
+
+                        <div class="form-group">
+                            <label>Phone</label>
+                            @Html.EditorFor(model => model.User.PhoneNumber, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter LastName", minlength = "8", maxlength = "8", oninput = validate } })
+                            @Html.ValidationMessageFor(model => model.User.PhoneNumber, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="form-group">
+                            <label>Role</label>
+                            @*<select class="form-control">
+                <option>--select</option>
+                @foreach (var role in ViewBag.roles)
+                {
+                    <option name="Role" value="@role.RoleId">@role.RoleName</option>
+                }
+            </select>*@
+                            @Html.DropDownListFor(model => model.User.RoleId, new SelectList(Model.Roles, "RoleId", "RoleName"), "---Select---", new { @class = "form-control col-6" })
+                            @*@Html.DropDownListFor(m => m.Customer.MemberShipId, new SelectList(Model.MemberShips, "Id", "Name"), "---Select---", new { @class = "form-control col-6" })*@
+
+                        </div>
+
+                        <div class="form-group">
+                            <label for="exampleInputFile">Image input</label>
+
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" id="exampleInputFile" name="ImageFile">
+                                <label class="custom-file-label pointer-event" for="exampleInputFile">Choose Image</label>
+                            </div>
+
+
+                        </div>
+
+
+
+                        @*<div class="form-group">
+            @Html.LabelFor(model => model.Password)
+            @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+
+            @Html.LabelFor(model => model.ConfirmPassword)
+
+            @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
+        </div>*@
+
+
+
+                    </div>
+
+                            <!-- /.card-body -->
+
+                            <div class="card-footer">
+                                <a href="/User/Index" class="btn btn-warning">
+                                    <i class="bi bi-arrow-left"></i>
+                                    Back
+                                </a>
+                                <button type="submit" class="btn @(ViewBag.id > 0 ? "btn-success" : "btn-primary")">@(ViewBag.id > 0 ? "Update" : "Submit")</button>
+                            </div>
+                        }
+                    </div>
+                    <!-- /.card -->
+
+
+                </div>
+
+            </div>
+            <!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
