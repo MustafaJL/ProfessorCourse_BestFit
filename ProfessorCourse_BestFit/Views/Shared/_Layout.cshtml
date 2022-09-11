@@ -189,16 +189,17 @@
             <!-- Sidebar -->
             <div class="sidebar">
                 <!-- Sidebar user (optional) -->
-                <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                @*
+        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
 
-                    <div class="image">
-                        <img src="@(Session["image"])" class="img-circle elevation-2" alt="User Image" style="width:50px;height:50px;">
-                    </div>
-                    <div class="info">
-                        <a href="/User/Profile/@(User.Identity.Name.ToString().Substring(0,User.Identity.Name.ToString().IndexOf(",")))" class="d-block">@(Session["fullname"])</a>
-                    </div>
-                </div>
-
+            <div class="image">
+                <img src="@(Session["image"])" class="img-circle elevation-2" alt="User Image" style="width:50px;height:50px;">
+            </div>
+            <div class="info">
+                <a href="/User/Profile/@(User.Identity.Name.ToString().Substring(0,User.Identity.Name.ToString().IndexOf(",")))" class="d-block">@(Session["fullname"])</a>
+            </div>
+        </div>
+                *@
                 <!-- SidebarSearch Form -->
                 <div class="form-inline">
                     <div class="input-group" data-widget="sidebar-search">
@@ -215,7 +216,7 @@
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                         <!-- Add icons to the links using the .nav-icon class
-                         with font-awesome or any other icon font library -->
+             with font-awesome or any other icon font library -->
                         <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -295,6 +296,30 @@
                                     <a href="/Keywords/Index" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Keywords</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="/Department/All_Departments" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Department</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="/Program/All_Programs" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Program</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="/Semester/Index" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Semester</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="/Course/Index" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Course</p>
                                     </a>
                                 </li>
 

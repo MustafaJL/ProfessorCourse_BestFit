@@ -135,20 +135,27 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CourseController.cs" />
+    <Compile Include="Controllers\DepartmentController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\KeywordsController.cs" />
     <Compile Include="Controllers\PermissionsController.cs" />
+    <Compile Include="Controllers\ProgramController.cs" />
+    <Compile Include="Controllers\SemesterController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="CustomSecurity\CustomAuthentication.cs" />
     <Compile Include="CustomSecurity\CustomAuthorization.cs" />
+    <Compile Include="DAL\Department_DAL.cs" />
+    <Compile Include="DAL\Program_DAL.cs" />
     <Compile Include="DAL\UserKeywords_DAL.cs" />
     <Compile Include="DAL\RolePermissions_DAL.cs" />
+    <Compile Include="DAL\User_DAL.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helper\CryptoService.cs" />
     <Compile Include="Helper\Validator.cs" />
+    <Compile Include="Messages\Messages.cs" />
     <Compile Include="Models\Course.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -213,9 +220,12 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ViewModels\CoursesViewModel.cs" />
+    <Compile Include="Models\ViewModels\DepartmentViewModel.cs" />
     <Compile Include="Models\ViewModels\KeywordsViewModel.cs" />
     <Compile Include="Models\ViewModels\LoginViewModel.cs" />
     <Compile Include="Models\ViewModels\PermissionsViewModel.cs" />
+    <Compile Include="Models\ViewModels\ProgramViewModel.cs" />
+    <Compile Include="Models\ViewModels\SemesterViewModel.cs" />
     <Compile Include="Models\ViewModels\UserKeywordsViewModel.cs" />
     <Compile Include="Models\ViewModels\RolesPermissionsViewModel.cs" />
     <Compile Include="Models\ViewModels\RolesViewModel.cs" />
@@ -4243,6 +4253,17 @@
     <Content Include="Views\User\userKeywords.cshtml" />
     <Content Include="Views\Course\Index.cshtml" />
     <Content Include="Views\Course\Upsert.cshtml" />
+    <Content Include="Views\Department\Add_Remove_Department_Managers.cshtml" />
+    <Content Include="Views\Department\all_Departments.cshtml" />
+    <Content Include="Views\Department\Create_Department.cshtml" />
+    <Content Include="Views\Department\Edit_Department_Name.cshtml" />
+    <Content Include="Views\Department\view_Department_Information.cshtml" />
+    <Content Include="Views\Program\All_Programs.cshtml" />
+    <Content Include="Views\Program\Create_Program.cshtml" />
+    <Content Include="Views\Program\Edit_Program_Name.cshtml" />
+    <Content Include="Views\Program\view_Program_Information.cshtml" />
+    <Content Include="Views\Semester\Index.cshtml" />
+    <Content Include="Views\Semester\Upsert.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

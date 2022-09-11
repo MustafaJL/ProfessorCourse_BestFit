@@ -14,12 +14,12 @@ namespace ProfessorCourse_BestFit.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly ProfessorCourseBestFitEntities _context;
+        private readonly ProfessorCourseBestFit1Entities _context;
         private readonly RolePermissions_DAL _sp;
 
         public AccountController()
         {
-            _context = new ProfessorCourseBestFitEntities();
+            _context = new ProfessorCourseBestFit1Entities();
             _sp = new RolePermissions_DAL();
         }
 

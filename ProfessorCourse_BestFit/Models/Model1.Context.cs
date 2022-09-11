@@ -13,10 +13,10 @@ namespace ProfessorCourse_BestFit.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class ProfessorCourseBestFitEntities : DbContext
+    public partial class ProfessorCourseBestFit1Entities : DbContext
     {
-        public ProfessorCourseBestFitEntities()
-            : base("name=ProfessorCourseBestFitEntities")
+        public ProfessorCourseBestFit1Entities()
+            : base("name=ProfessorCourseBestFit1Entities")
         {
         }
     

@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="ProfessorCourseBestFitModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="ProfessorCourseBestFit1Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Course">
           <Key>
             <PropertyRef Name="CId" />
@@ -73,7 +73,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id" Type="int" Nullable="false" />
           <Property Name="RId" Type="int" Nullable="false" />
           <Property Name="PId" Type="int" Nullable="false" />
           <Property Name="CreatedOn" Type="datetime" Nullable="false" />
@@ -92,7 +92,7 @@
             <PropertyRef Name="SemesterId" />
           </Key>
           <Property Name="SemesterId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="SemesterName" Type="varbinary" MaxLength="50" Nullable="false" />
+          <Property Name="SemesterName" Type="varchar(max)" Nullable="false" />
           <Property Name="StartDate" Type="datetime" Nullable="false" />
           <Property Name="EndDate" Type="datetime" Nullable="false" />
           <Property Name="isDeleted" Type="bit" Nullable="false" />
@@ -373,7 +373,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="ProfessorCourseBestFitModelStoreContainer">
+        <EntityContainer Name="ProfessorCourseBestFit1ModelStoreContainer">
           <EntitySet Name="Course" EntityType="Self.Course" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CourseKeyword" EntityType="Self.CourseKeyword" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CourseProgram" EntityType="Self.CourseProgram" Schema="dbo" store:Type="Tables" />
@@ -463,7 +463,7 @@
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="ProfessorCourseBestFitModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="ProfessorCourseBestFit1Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="Course">
           <Key>
             <PropertyRef Name="CId" />
@@ -546,7 +546,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id" Type="Int32" Nullable="false" />
           <Property Name="RId" Type="Int32" Nullable="false" />
           <Property Name="PId" Type="Int32" Nullable="false" />
           <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
@@ -569,7 +569,7 @@
             <PropertyRef Name="SemesterId" />
           </Key>
           <Property Name="SemesterId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="SemesterName" Type="Binary" MaxLength="50" FixedLength="false" Nullable="false" />
+          <Property Name="SemesterName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="EndDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="isDeleted" Type="Boolean" Nullable="false" />
@@ -866,7 +866,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="ProfessorCourseBestFitEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="ProfessorCourseBestFit1Entities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Courses" EntityType="Self.Course" />
           <EntitySet Name="CourseKeywords" EntityType="Self.CourseKeyword" />
           <EntitySet Name="CoursePrograms" EntityType="Self.CourseProgram" />
@@ -957,9 +957,9 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="ProfessorCourseBestFitModelStoreContainer" CdmEntityContainer="ProfessorCourseBestFitEntities">
+        <EntityContainerMapping StorageEntityContainer="ProfessorCourseBestFit1ModelStoreContainer" CdmEntityContainer="ProfessorCourseBestFit1Entities">
           <EntitySetMapping Name="Courses">
-            <EntityTypeMapping TypeName="ProfessorCourseBestFitModel.Course">
+            <EntityTypeMapping TypeName="ProfessorCourseBestFit1Model.Course">
               <MappingFragment StoreEntitySet="Course">
                 <ScalarProperty Name="CId" ColumnName="CId" />
                 <ScalarProperty Name="Code" ColumnName="Code" />
@@ -971,7 +971,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="CourseKeywords">
-            <EntityTypeMapping TypeName="ProfessorCourseBestFitModel.CourseKeyword">
+            <EntityTypeMapping TypeName="ProfessorCourseBestFit1Model.CourseKeyword">
               <MappingFragment StoreEntitySet="CourseKeyword">
                 <ScalarProperty Name="course_keyword_Id" ColumnName="course_keyword_Id" />
                 <ScalarProperty Name="Keyword_Id" ColumnName="Keyword_Id" />
@@ -981,7 +981,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="CoursePrograms">
-            <EntityTypeMapping TypeName="ProfessorCourseBestFitModel.CourseProgram">
+            <EntityTypeMapping TypeName="ProfessorCourseBestFit1Model.CourseProgram">
               <MappingFragment StoreEntitySet="CourseProgram">
                 <ScalarProperty Name="course_program_Id" ColumnName="course_program_Id" />
                 <ScalarProperty Name="Prog_Id" ColumnName="Prog_Id" />
@@ -991,7 +991,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Departments">
-            <EntityTypeMapping TypeName="ProfessorCourseBestFitModel.Department">
+            <EntityTypeMapping TypeName="ProfessorCourseBestFit1Model.Department">
               <MappingFragment StoreEntitySet="Department">
                 <ScalarProperty Name="DepId" ColumnName="DepId" />
                 <ScalarProperty Name="Dep_Name" ColumnName="Dep_Name" />
@@ -1000,7 +1000,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Keywords">
-            <EntityTypeMapping TypeName="ProfessorCourseBestFitModel.Keyword">
+            <EntityTypeMapping TypeName="ProfessorCourseBestFit1Model.Keyword">
               <MappingFragment StoreEntitySet="Keywords">
                 <ScalarProperty Name="KId" ColumnName="KId" />
                 <ScalarProperty Name="KName" ColumnName="KName" />
@@ -1009,7 +1009,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Permissions">
-            <EntityTypeMapping TypeName="ProfessorCourseBestFitModel.Permission">
+            <EntityTypeMapping TypeName="ProfessorCourseBestFit1Model.Permission">
               <MappingFragment StoreEntitySet="Permission">
                 <ScalarProperty Name="PId" ColumnName="PId" />
                 <ScalarProperty Name="PName" ColumnName="PName" />
@@ -1019,7 +1019,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Programs">
-            <EntityTypeMapping TypeName="ProfessorCourseBestFitModel.Program">
+            <EntityTypeMapping TypeName="ProfessorCourseBestFit1Model.Program">
               <MappingFragment StoreEntitySet="Program">
                 <ScalarProperty Name="ProgramId" ColumnName="ProgramId" />
                 <ScalarProperty Name="Dep_Id" ColumnName="Dep_Id" />
@@ -1030,7 +1030,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="RolePermissions">
-            <EntityTypeMapping TypeName="ProfessorCourseBestFitModel.RolePermission">
+            <EntityTypeMapping TypeName="ProfessorCourseBestFit1Model.RolePermission">
               <MappingFragment StoreEntitySet="RolePermission">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="RId" ColumnName="RId" />
@@ -1041,7 +1041,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Roles">
-            <EntityTypeMapping TypeName="ProfessorCourseBestFitModel.Role">
+            <EntityTypeMapping TypeName="ProfessorCourseBestFit1Model.Role">
               <MappingFragment StoreEntitySet="Roles">
                 <ScalarProperty Name="RoleId" ColumnName="RoleId" />
                 <ScalarProperty Name="RoleName" ColumnName="RoleName" />
@@ -1050,7 +1050,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Semesters">
-            <EntityTypeMapping TypeName="ProfessorCourseBestFitModel.Semester">
+            <EntityTypeMapping TypeName="ProfessorCourseBestFit1Model.Semester">
               <MappingFragment StoreEntitySet="Semester">
                 <ScalarProperty Name="SemesterId" ColumnName="SemesterId" />
                 <ScalarProperty Name="SemesterName" ColumnName="SemesterName" />
@@ -1061,7 +1061,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="SemesterCourses">
-            <EntityTypeMapping TypeName="ProfessorCourseBestFitModel.SemesterCourse">
+            <EntityTypeMapping TypeName="ProfessorCourseBestFit1Model.SemesterCourse">
               <MappingFragment StoreEntitySet="SemesterCourse">
                 <ScalarProperty Name="semester_course_Id" ColumnName="semester_course_Id" />
                 <ScalarProperty Name="courseId" ColumnName="courseId" />
@@ -1071,7 +1071,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="UserCourses">
-            <EntityTypeMapping TypeName="ProfessorCourseBestFitModel.UserCourse">
+            <EntityTypeMapping TypeName="ProfessorCourseBestFit1Model.UserCourse">
               <MappingFragment StoreEntitySet="UserCourse">
                 <ScalarProperty Name="user_course_Id" ColumnName="user_course_Id" />
                 <ScalarProperty Name="User_Id" ColumnName="User_Id" />
@@ -1083,7 +1083,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="UserDepartments">
-            <EntityTypeMapping TypeName="ProfessorCourseBestFitModel.UserDepartment">
+            <EntityTypeMapping TypeName="ProfessorCourseBestFit1Model.UserDepartment">
               <MappingFragment StoreEntitySet="UserDepartment">
                 <ScalarProperty Name="user_department_Id" ColumnName="user_department_Id" />
                 <ScalarProperty Name="Dep_Id" ColumnName="Dep_Id" />
@@ -1096,7 +1096,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="UserKeywords">
-            <EntityTypeMapping TypeName="ProfessorCourseBestFitModel.UserKeyword">
+            <EntityTypeMapping TypeName="ProfessorCourseBestFit1Model.UserKeyword">
               <MappingFragment StoreEntitySet="UserKeyword">
                 <ScalarProperty Name="user_keyword_Id" ColumnName="user_keyword_Id" />
                 <ScalarProperty Name="User_Id" ColumnName="User_Id" />
@@ -1106,7 +1106,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="UserPrograms">
-            <EntityTypeMapping TypeName="ProfessorCourseBestFitModel.UserProgram">
+            <EntityTypeMapping TypeName="ProfessorCourseBestFit1Model.UserProgram">
               <MappingFragment StoreEntitySet="UserProgram">
                 <ScalarProperty Name="user_program_Id" ColumnName="user_program_Id" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
@@ -1117,7 +1117,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Users">
-            <EntityTypeMapping TypeName="ProfessorCourseBestFitModel.User">
+            <EntityTypeMapping TypeName="ProfessorCourseBestFit1Model.User">
               <MappingFragment StoreEntitySet="Users">
                 <ScalarProperty Name="Uid" ColumnName="Uid" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />

@@ -7,11 +7,11 @@ namespace ProfessorCourse_BestFit.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ProfessorCourseBestFitEntities _context;
+        private readonly ProfessorCourseBestFit1Entities _context;
 
         public HomeController()
         {
-            _context = new ProfessorCourseBestFitEntities();
+            _context = new ProfessorCourseBestFit1Entities();
         }
         public ActionResult Index()
         {

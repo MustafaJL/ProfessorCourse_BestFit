@@ -1,0 +1,244 @@
+﻿@model ProfessorCourse_BestFit.Models.ViewModels.DepartmentViewModel
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Departments</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="/Home">Home</a></li>
+                        <li class="breadcrumb-item active">Contact</li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+
+
+                    <div class="card">
+                        <div class="card-header">
+                            <a href="/Department/Create_Department" class="btn btn-primary">
+                                <i class="bi bi-plus-circle"></i>
+                                Create
+                            </a>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <table id="example1" class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Department Name</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @{ int num = 0;}
+                                    @if (Model.all_Departments != null)
+                                    {
+                                        foreach (var item in Model.all_Departments)
+                                        {
+                                            if (item.isDeleted == false)
+                                            {
+                                                <tr class="js-row">
+                                                    <td>@(num++)</td>
+                                                    <td>@item.Dep_Name</td>
+
+                                                    <td>
+
+                                                        <a class="btn bg-gradient-info" href="/Department/view_Department_Information/@item.DepId">
+                                                            View Information
+                                                        </a>
+
+                                                        <a class="btn bg-gradient-success" href="/Department/Edit_Department_Name/@item.DepId">
+                                                            <i class="bi bi-pencil-square"></i>
+                                                            Edit
+                                                        </a>
+
+                                                        <a class="btn bg-gradient-success" href="/Department/Add_Remove_Department_Managers/@item.DepId">
+                                                            <i class="bi bi-pencil"></i>
+                                                            Add/Remove Managers
+                                                        </a>
+
+                                                        <a class="btn bg-gradient-success" href="/Department/Add_Remove_Department_Employees/@item.DepId">
+                                                            <i class="bi bi-pencil"></i>
+                                                            Add/Remove Employees
+                                                        </a>
+
+                                                        <a class="btn bg-gradient-success" href="/Department/Add_Remove_Department_Programs/@item.DepId">
+                                                            <i class="bi bi-pencil"></i>
+                                                            Add/Remove Programs
+                                                        </a>
+
+                                                        <button type="button" class="btn btn-danger js-delete" data-toggle="modal" data-target="#modal-danger" uid-data="@item.DepId">
+                                                            <i class="bi bi-exclamation-triangle"></i>
+                                                            Deactivate
+                                                        </button>
+
+                                                    </td>
+                                                </tr>
+                                            }
+                                            else
+                                            {
+                                                <tr class="js-row">
+                                                    <td>@(num++)</td>
+                                                    <td>@item.Dep_Name</td>
+
+                                                    <td>
+
+                                                        <a class="btn bg-gradient-info" href="/Department/view_Department_Information/@item.DepId">
+                                                            View Information
+                                                        </a>
+
+                                                        <button type="button" class="btn btn-warning js-activate" data-toggle="modal" data-target="#modal-warning" uid-data="@item.DepId">
+                                                            <i class="bi bi-shield-exclamation"></i>
+                                                            Activate
+                                                        </button>
+
+                                                    </td>
+                                                </tr>
+                                            }
+                                        }
+                                    }
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Department Name</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </tfoot>
+
+                            </table>
+
+
+                            <div class="modal fade" id="modal-danger">
+                                <div class="modal-dialog">
+                                    <div class="modal-content bg-danger">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title">Deactivate</h4>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>Are you sure you want to deactivate this Department?</p>
+                                        </div>
+                                        <div class="modal-footer justify-content-between">
+                                            <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
+                                            <button type="button" class="btn btn-outline-light delete-department" data-dismiss="modal">Save changes</button>
+                                        </div>
+                                    </div>
+                                    <!-- /.modal-content -->
+                                </div>
+                                <!-- /.modal-dialog -->
+                            </div>
+
+                            <div class="modal fade" id="modal-warning">
+                                <div class="modal-dialog">
+                                    <div class="modal-content bg-warning">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title">Activate</h4>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>Are you sure you want to activate this department?</p>
+                                        </div>
+                                        <div class="modal-footer justify-content-between">
+                                            <button type="button" class="btn btn-outline-dark" data-dismiss="modal">Close</button>
+                                            <button type="button" class="btn btn-outline-dark reset-pass-model activatedepartment" data-dismiss="modal">Save changes</button>
+                                        </div>
+                                    </div>
+                                    <!-- /.modal-content -->
+                                </div>
+                                <!-- /.modal-dialog -->
+                            </div>
+                            <!-- /.modal -->
+
+
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+
+
+
+
+@section Scripts{
+
+    <script>
+
+        $(function () {
+            $("#example1").DataTable({
+                "responsive": true, "lengthChange": false, "autoWidth": false,
+                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+        });
+
+
+        $(".js-row .js-delete").on("click", function () {
+            let button = $(this);
+
+            $(".delete-department").on("click", function () {
+
+                $.ajax({
+                    url: "/Department/Deactivate_Department/" + button.attr("uid-data"),
+                    method: "post",
+                    success: function (json) {
+                        if (json.isRedirect) {
+                            window.location.href = json.redirectUrl;
+                        }
+                    }
+                })
+
+            })
+        })
+
+
+        $(".js-row .js-activate").on("click", function () {
+            let button = $(this);
+
+            $(".activatedepartment").on("click", function () {
+
+                $.ajax({
+                    url: "/Department/Activate_Department/" + button.attr("uid-data"),
+                    method: "post",
+                    success: function (json) {
+                        if (json.isRedirect) {
+                            window.location.href = json.redirectUrl;
+                        }
+                    }
+                })
+
+            })
+        })
+
+
+    </script>
+
+
+}
+

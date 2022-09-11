@@ -1,0 +1,98 @@
+﻿@model ProfessorCourse_BestFit.Models.ViewModels.DepartmentViewModel
+
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Departments</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">General Form</li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <!-- left column -->
+                <div class="col-md-12"
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h3 class="card-title">Edit Department</h3>
+                        </div>
+                        <br />
+                        <!-- /.card-header -->
+                        <!-- form start -->
+                        @using (Html.BeginForm())
+                        {
+                            @Html.AntiForgeryToken()
+
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            <div class="form-group">
+                                <label>Department Name</label>
+                                <div class="col-md-10">
+                                    @if (ViewBag.nameExist != null)
+                                    {
+                                        <div class="alert alert-warning" role="alert">
+                                            <h4 class="alert-heading"><i class="icon fas fa-exclamation-triangle"></i>Name Exist!</h4>
+                                            <p>@ViewBag.nameExist</p>
+                                            <hr>
+                                            <p class="mb-0">@ViewBag.data_not_saved</p>
+                                        </div>
+                                    }
+
+                                    @if (ViewBag.Done != null)
+                                    {
+                                        <div class="alert alert-success" role="alert">
+                                            <h4 class="alert-heading"><i class="icon fas fa-check-circle"></i>Done!</h4>
+                                            <p>@ViewBag.Done</p>
+                                            <hr>
+                                            <p class="mb-0">@ViewBag.Saved</p>
+                                        </div>
+                                    }
+
+                                    @if (ViewBag.nameRequired != null)
+                                    {
+                                        <div class="alert alert-danger" role="alert">
+                                            <h4 class="alert-heading"><i class="icon fas fa-ban"></i>Be Careful!</h4>
+                                            <p>@ViewBag.nameRequired</p>
+                                            <hr>
+                                            <p class="mb-0">@ViewBag.data_not_saved</p>
+                                        </div>
+                                    }
+                                </div>
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.Department.Dep_Name, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Department.Dep_Name, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-10">
+                                    <a href="/Department/All_Departments" class="btn btn-warning"><i class="bi bi-arrow-left"></i> Back/Cancel</a>
+                                    <input type="submit" value="Save Changes" class="btn btn-primary" />
+                                </div>
+                            </div>
+
+                        }
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+
+
+

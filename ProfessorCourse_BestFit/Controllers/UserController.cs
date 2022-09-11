@@ -14,12 +14,12 @@ namespace ProfessorCourse_BestFit.Controllers
     public class UserController : Controller
     {
 
-        private readonly ProfessorCourseBestFitEntities _context;
+        private readonly ProfessorCourseBestFit1Entities _context;
         private readonly UserKeywords_DAL _sp;
 
         public UserController()
         {
-            _context = new ProfessorCourseBestFitEntities();
+            _context = new ProfessorCourseBestFit1Entities();
             _sp = new UserKeywords_DAL();
         }
         // GET: Professor
