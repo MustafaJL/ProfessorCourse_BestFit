@@ -26,7 +26,7 @@
                     <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
-                    <a href="/Home" class="nav-link">Home</a>
+                    <a href="/Home/Index" class="nav-link">Home</a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
                     <a href="#" class="nav-link">Contact</a>
@@ -151,14 +151,14 @@
                     </a>
                     <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                         <div class="dropdown-divider"></div>
-                        <a href="#" class="dropdown-item">
-                            <i class="fas fa-envelope mr-2"></i> Profile
+                        <a href="/User/Profile/@(User.Identity.Name.ToString().Substring(0,User.Identity.Name.ToString().IndexOf(",")))" class="dropdown-item">
+                            <i class="bi bi-person"></i> Profile
                             <span class="float-right text-muted text-sm"></span>
                         </a>
                         <div class="dropdown-divider"></div>
                         <form action="/Account/Logout" method="post">
                             <button type="submit" class="dropdown-item" id="logout">
-                                <i class="fas fa-users mr-2"></i> Logout
+                                <i class="bi bi-box-arrow-left"></i> Logout
                                 <span class="float-right text-muted text-sm"></span>
                             </button>
                         </form> 
@@ -189,7 +189,7 @@
             <!-- Sidebar -->
             <div class="sidebar">
                 <!-- Sidebar user (optional) -->
-                @*
+                
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
 
             <div class="image">
@@ -199,7 +199,7 @@
                 <a href="/User/Profile/@(User.Identity.Name.ToString().Substring(0,User.Identity.Name.ToString().IndexOf(",")))" class="d-block">@(Session["fullname"])</a>
             </div>
         </div>
-                *@
+                
                 <!-- SidebarSearch Form -->
                 <div class="form-inline">
                     <div class="input-group" data-widget="sidebar-search">
