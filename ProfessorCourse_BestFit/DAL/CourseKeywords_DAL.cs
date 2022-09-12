@@ -7,22 +7,22 @@ using System.Data.SqlClient;
 
 namespace ProfessorCourse_BestFit.DAL
 {
-    public class UserKeywords_DAL
+    public class CourseKeywords_DAL
     {
         private readonly SqlConnection _connection;
         private readonly string _Conn = ConfigurationManager.ConnectionStrings["DefaultConnection"].ToString();
-        public UserKeywords_DAL()
+        public CourseKeywords_DAL()
         {
             _connection = new SqlConnection(_Conn);
         }
 
-        public bool CreateUserKeywords(int UserId)
+        public bool CreateCourseKeywords(int UserId)
         {
             int success = 0;
             // create command
-            SqlCommand command = new SqlCommand("spCreateUserKeywords", _connection);
+            SqlCommand command = new SqlCommand("spCreateCourseKeywords", _connection);
             command.CommandType = CommandType.StoredProcedure;
-            command.Parameters.AddWithValue("@UserId", UserId);
+            command.Parameters.AddWithValue("@CourseId", UserId);
 
 
             _connection.Open();
@@ -34,50 +34,13 @@ namespace ProfessorCourse_BestFit.DAL
 
         }
 
-        public bool CreateKeywordUser(int keywordId)
+        public bool UpdateCourseKeyword(int UserId, string keywords)
         {
             int success = 0;
             // create command
-            SqlCommand command = new SqlCommand("spCreateKeywordUser", _connection);
+            SqlCommand command = new SqlCommand("spUpdateCourseKeywords", _connection);
             command.CommandType = CommandType.StoredProcedure;
-            command.Parameters.AddWithValue("@KeywordId", keywordId);
-
-
-            _connection.Open();
-            success = command.ExecuteNonQuery();
-            _connection.Close();
-
-            return success > 0 ? true : false;
-
-
-        }
-
-        public bool CreateKeywordCourse(int keywordId)
-        {
-            int success = 0;
-            // create command
-            SqlCommand command = new SqlCommand("spCreateKeywordCourse", _connection);
-            command.CommandType = CommandType.StoredProcedure;
-            command.Parameters.AddWithValue("@KeywordId", keywordId);
-
-
-            _connection.Open();
-            success = command.ExecuteNonQuery();
-            _connection.Close();
-
-            return success > 0 ? true : false;
-
-
-        }
-
-
-        public bool UpdateUserKeyword(int UserId, string keywords)
-        {
-            int success = 0;
-            // create command
-            SqlCommand command = new SqlCommand("spUpdateUserKeywords", _connection);
-            command.CommandType = CommandType.StoredProcedure;
-            command.Parameters.AddWithValue("@UserId", UserId);
+            command.Parameters.AddWithValue("@CourseId", UserId);
             command.Parameters.AddWithValue("@Keywords", keywords);
 
 
@@ -92,7 +55,7 @@ namespace ProfessorCourse_BestFit.DAL
 
 
 
-        public List<KeywordsViewModel> GetKeywordsByUserId(int UserId)
+        public List<KeywordsViewModel> GetKeywordsByCourseId(int UserId)
         {
             List<KeywordsViewModel> keywordsList = new List<KeywordsViewModel>();
 
@@ -101,9 +64,9 @@ namespace ProfessorCourse_BestFit.DAL
             // specify the type of cammand
             command.CommandType = CommandType.StoredProcedure;
             // specify name of SP
-            command.CommandText = "spKeywordsByUserId";
+            command.CommandText = "spKeywordsByCourseId";
             // pass the value of parameter
-            command.Parameters.AddWithValue("@UserId", UserId);
+            command.Parameters.AddWithValue("@CourseId", UserId);
 
             SqlDataAdapter adapter = new SqlDataAdapter(command);
             DataTable dtKeywords = new DataTable();

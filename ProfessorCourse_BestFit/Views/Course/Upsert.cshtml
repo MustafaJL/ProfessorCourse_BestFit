@@ -4,8 +4,7 @@
 
 
 @{
-    ViewBag.Title = "Upsert";
-    ViewBag.bodyClass = "sidebar-mini layout-navbar-fixed sidebar-collapse layout-fixed layout-footer-fixed sidebar-closed";
+    ViewBag.Title = ViewBag.id > 0 ? "Update Course" : "Add Course";
 }
 
 
@@ -17,7 +16,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>General Form</h1>
+                    <h1 class="text-muted">@(ViewBag.id > 0 ? "Update Course" : "Add Course")</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -39,7 +38,7 @@
                     <div class="card @(ViewBag.Error != null ? "card-danger" : ViewBag.id > 0 ? "card-success" :"card-primary")">
                         <div class="card-header">
 
-                            <h3 class="card-title">@(ViewBag.Error != null ? @ViewBag.Error : ViewBag.id > 0 ? "Update User" : "Add User" ) </h3>
+                            <h3 class="card-title">@(ViewBag.Error != null ? @ViewBag.Error : ViewBag.id > 0 ? "Update Course" : "Add Course" ) </h3>
                         </div>
                         <!-- /.card-header -->
                         <!-- form start -->
@@ -50,14 +49,14 @@
                     <div class="card-body">
 
                         <div class="form-group">
-                            <label>FirstName</label>
-                            @Html.EditorFor(model => model.CName, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter FirstName" } })
+                            <label>Course Name</label>
+                            @Html.EditorFor(model => model.CName, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Course Name" } })
                             @Html.ValidationMessageFor(model => model.CName, "", new { @class = "text-danger" })
                         </div>
 
                         <div class="form-group">
-                            <label>CourseCode</label>
-                            @Html.EditorFor(model => model.CourseCode, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter FirstName" } })
+                            <label>Course Code</label>
+                            @Html.EditorFor(model => model.CourseCode, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Course Code" } })
                             @Html.ValidationMessageFor(model => model.CourseCode, "", new { @class = "text-danger" })
                         </div>
 
@@ -65,7 +64,7 @@
 
                         <div class="form-group">
                             <label>Duration</label>
-                            @Html.EditorFor(model => model.Duration, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter FirstName" } })
+                            @Html.EditorFor(model => model.Duration, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Duration" } })
                             @Html.ValidationMessageFor(model => model.Duration, "", new { @class = "text-danger" })
                         </div>
 
@@ -77,7 +76,7 @@
                             <!-- /.card-body -->
 
                             <div class="card-footer">
-                                <a href="/Keywords/Index" class="btn btn-warning">
+                                <a href="/Course/Index" class="btn btn-warning">
                                     <i class="bi bi-arrow-left"></i>
                                     Back
                                 </a>

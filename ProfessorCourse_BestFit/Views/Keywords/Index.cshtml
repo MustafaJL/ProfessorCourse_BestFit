@@ -14,11 +14,11 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Users</h1>
+                    <h1 class="text-muted">Keywords</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="/Home">Home</a></li>
+                        <li class="breadcrumb-item"><a href="/Home/Index">Home</a></li>
                         <li class="breadcrumb-item active">Contact</li>
                     </ol>
                 </div>
@@ -45,11 +45,11 @@
                             <table id="example1" class="table table-bordered table-striped">
                                 <thead>
                                     <tr>
-                                        <th width="33%">#</th>
-                                        <th width="33%">
+                                        <th width="10%">#</th>
+                                        <th width="60%">
                                             KName
                                         </th>
-                                        <th width="33%">Action</th>
+                                        <th >Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -63,16 +63,16 @@
 
                                             <td>
 
-                                                <a class="btn bg-gradient-success" href="/Keywords/Upsert/@item.KId">
+                                                <a class="btn btn-outline-success w-25" href="/Keywords/Upsert/@item.KId">
                                                     <i class="bi bi-pencil"></i>
                                                     Edit
                                                 </a>
 
 
-                                                <button type="button" class="btn btn-danger js-delete" data-toggle="modal" data-target="#modal-danger" uid-data="@item.KId">
+                                                @*<button type="button" class="btn btn-danger js-delete" data-toggle="modal" data-target="#modal-danger" uid-data="@item.KId">
                                                     <i class="bi bi-trash"></i>
                                                     Delete
-                                                </button>
+                                                </button>*@
 
                                                 @*<button type="button" class="btn btn-warning js-reset-pass" data-toggle="modal" data-target="#modal-warning" uid-data="@item.KId">
                                                     <i class="bi bi-arrow-clockwise"></i>                                                    Reset

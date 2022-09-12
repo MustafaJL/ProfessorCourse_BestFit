@@ -1,0 +1,138 @@
+﻿@model ProfessorCourse_BestFit.Models.ViewModels.CourseKeywordsViewModel
+
+
+@{
+    ViewBag.Title = "UserKeyword";
+    ViewBag.bodyClass = "sidebar-collapse layout-fixed sidebar-mini layout-navbar-fixed sidebar-closed";
+}
+
+
+
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>General Form</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">General Form</li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <!-- left column -->
+                <div class="col-md-12">
+                    <!-- general form elements -->
+                    <div class="card-primary">
+                        <div class="card-header">
+
+                            <h3 class="card-title">Skills</h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <!-- form start -->
+
+                        @Html.AntiForgeryToken()
+                        <div class="card-body">
+
+                            <div class="form-group">
+                                <label>Username</label>
+                                @Html.EditorFor(model => model.Course.CName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                @Html.ValidationMessageFor(model => model.Course.CName, "", new { @class = "text-danger" })
+                            </div>
+
+                            <div class="form-group">
+                                <label>Skills</label>
+                                <div class="d-flex justify-content-evenly">
+                                    @foreach (var keyword in Model.Keywords)
+                                    {
+                                        <div class="col-2">
+
+                                            <div class="icheck-primary">
+
+                                                <input class="btn check-box chmu" id="@keyword.KId" name="@keyword.kName" type="checkbox" @(keyword.IsActive == true ? "" : "checked")>
+                                                <label for="@keyword.KId">
+                                                    @keyword.kName
+                                                </label>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+
+
+
+                        </div>
+                        <!-- /.card-body -->
+                        @*@Html.HiddenFor(model => model.Course.Cid)*@
+                        <div class="card-footer">
+                            <a href="/Course/Index" class="btn btn-warning"><i class="bi bi-arrow-left"></i> Back</a>
+                            <button type="button" id="click" class="btn btn-primary" data-courseId="@Model.Course.CId">Update</button>
+                        </div>
+
+                    </div>
+                    <!-- /.card -->
+
+
+                </div>
+
+            </div>
+            <!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+
+
+<script>
+        var checkboxes = document.getElementsByClassName("chmu")
+
+        var btn = document.getElementById("click");
+
+        var Keywords = []
+        btn.addEventListener("click", () => {
+
+            for (let i = 0; i < checkboxes.length; i++) {
+                if (checkboxes[i].checked) {
+
+                    Keywords.push(checkboxes[i].getAttribute("id"))
+                }
+            }
+            console.log(Keywords)
+
+
+            $.ajax({
+                url: '/Course/courseKeywords/',
+                type: 'POST',
+                data: {
+                    courseId: btn.getAttribute("data-courseId"),
+                    keywords: Keywords != null && Keywords.length > 0 ? Keywords : null
+                },
+
+                success: function () {
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Deleted  successfully',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                }
+            });
+        })
+
+
+</script>
+

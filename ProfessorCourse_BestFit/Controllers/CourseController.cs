@@ -1,4 +1,5 @@
-﻿using ProfessorCourse_BestFit.Models;
+﻿using ProfessorCourse_BestFit.DAL;
+using ProfessorCourse_BestFit.Models;
 using ProfessorCourse_BestFit.Models.ViewModels;
 using System.Linq;
 using System.Web.Mvc;
@@ -8,10 +9,11 @@ namespace ProfessorCourse_BestFit.Controllers
     public class CourseController : Controller
     {
         private readonly ProfessorCourseBestFit1Entities _context;
-
+        private readonly CourseKeywords_DAL _sp;
         public CourseController()
         {
             _context = new ProfessorCourseBestFit1Entities();
+            _sp = new CourseKeywords_DAL();
         }
         public ActionResult Index()
         {
@@ -61,6 +63,7 @@ namespace ProfessorCourse_BestFit.Controllers
                     _context.SaveChanges();
                     // add spCreateRolePermisssions
                     //_sp.CreateRolePermissions(role.RoleId);
+                    _sp.CreateCourseKeywords(course.CId);
                 }
                 else
                 {
@@ -74,6 +77,8 @@ namespace ProfessorCourse_BestFit.Controllers
             return View(model);
         }
 
+
+
         [HttpPost]
         public JsonResult Delete(int id)
         {
@@ -81,6 +86,34 @@ namespace ProfessorCourse_BestFit.Controllers
             course.isDeleted = true;
             _context.SaveChanges();
             return Json("success");
+        }
+
+
+        public ActionResult courseKeywords(int? id)
+        {
+            var course = _context.Courses.SingleOrDefault(x => x.CId == id);
+            var keywords = _sp.GetKeywordsByCourseId((int)id);
+
+            CourseKeywordsViewModel userKeywordsView = new CourseKeywordsViewModel
+            {
+
+                Course = course,
+                Keywords = keywords
+            };
+            return View(userKeywordsView);
+        }
+
+        [HttpPost]
+        public JsonResult courseKeywords(int courseId, string[] keywords)
+        {
+            string keywordsString = "";
+            if (keywords != null && keywords.Length > 0)
+            {
+                keywordsString = string.Join(",", keywords);
+            }
+
+            var a = _sp.UpdateCourseKeyword(courseId, keywordsString);
+            return Json(new { success = true });
         }
     }
 }

@@ -2,8 +2,7 @@
 
 
 @{
-    ViewBag.Title = "Add_User";
-    ViewBag.bodyClass = "sidebar-mini layout-navbar-fixed sidebar-collapse layout-fixed layout-footer-fixed sidebar-closed";
+    ViewBag.Title = ViewBag.id > 0 ? "Update User" : "Add User";
     var validate = "this.value = this.value.replace(/[^0-9]/g, '');";
 }
 
@@ -16,12 +15,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>General Form</h1>
+                    <h1 class="text-muted">@(ViewBag.id > 0 ? "Update User" : "Add User" )</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active">General Form</li>
+                        <li class="breadcrumb-item"><a href="/Home/Index">Home</a></li>
+                        <li class="breadcrumb-item active">User</li>
                     </ol>
                 </div>
             </div>
@@ -50,25 +49,25 @@
 
                         <div class="form-group">
                             <label>FirstName</label>
-                            @Html.EditorFor(model => model.User.FirstName, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter FirstName" } })
+                            @Html.EditorFor(model => model.User.FirstName, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter User First Name" } })
                             @Html.ValidationMessageFor(model => model.User.FirstName, "", new { @class = "text-danger" })
                         </div>
 
                         <div class="form-group">
                             <label>MiddleName</label>
-                            @Html.EditorFor(model => model.User.MiddleName, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter LastName" } })
+                            @Html.EditorFor(model => model.User.MiddleName, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter User Middle Name" } })
                             @Html.ValidationMessageFor(model => model.User.MiddleName, "", new { @class = "text-danger" })
                         </div>
 
                         <div class="form-group">
                             <label>LastName</label>
-                            @Html.EditorFor(model => model.User.LastName, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter LastName" } })
+                            @Html.EditorFor(model => model.User.LastName, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter User Last Name" } })
                             @Html.ValidationMessageFor(model => model.User.LastName, "", new { @class = "text-danger" })
                         </div>
 
                         <div class="form-group">
                             <label>Email</label>
-                            @Html.EditorFor(model => model.User.Email, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Email" } })
+                            @Html.EditorFor(model => model.User.Email, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter User Email" } })
                             @Html.ValidationMessageFor(model => model.User.Email, "", new { @class = "text-danger" })
                         </div>
 
@@ -82,27 +81,27 @@
 
                         <div class="form-group">
                             <label>Gender</label>
-                            @Html.EditorFor(model => model.User.Gender, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter LastName" } })
+                            @Html.EditorFor(model => model.User.Gender, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter User LastName" } })
                             @Html.ValidationMessageFor(model => model.User.Gender, "", new { @class = "text-danger" })
                         </div>
 
 
                         <div class="form-group">
                             <label>Address</label>
-                            @Html.EditorFor(model => model.User.Address, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter LastName" } })
+                            @Html.EditorFor(model => model.User.Address, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter User Addres" } })
                             @Html.ValidationMessageFor(model => model.User.Address, "", new { @class = "text-danger" })
                         </div>
 
                         <div class="form-group">
                             <label>Education</label>
-                            @Html.EditorFor(model => model.User.Education, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter LastName" } })
+                            @Html.EditorFor(model => model.User.Education, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter User Education" } })
                             @Html.ValidationMessageFor(model => model.User.Education, "", new { @class = "text-danger" })
                         </div>
 
 
                         <div class="form-group">
                             <label>Phone</label>
-                            @Html.EditorFor(model => model.User.PhoneNumber, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter LastName", minlength = "8", maxlength = "8", oninput = validate } })
+                            @Html.EditorFor(model => model.User.PhoneNumber, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter User Phone Number", minlength = "8", maxlength = "8", oninput = validate } })
                             @Html.ValidationMessageFor(model => model.User.PhoneNumber, "", new { @class = "text-danger" })
                         </div>
 
@@ -115,13 +114,13 @@
                     <option name="Role" value="@role.RoleId">@role.RoleName</option>
                 }
             </select>*@
-                            @Html.DropDownListFor(model => model.User.RoleId, new SelectList(Model.Roles, "RoleId", "RoleName"), "---Select---", new { @class = "form-control col-6" })
+                            @Html.DropDownListFor(model => model.User.RoleId, new SelectList(Model.Roles, "RoleId", "RoleName"), "---Select---", new { @class = "form-control col-6", id="select-js" })
                             @*@Html.DropDownListFor(m => m.Customer.MemberShipId, new SelectList(Model.MemberShips, "Id", "Name"), "---Select---", new { @class = "form-control col-6" })*@
 
                         </div>
 
                         <div class="form-group">
-                            <label for="exampleInputFile">Image input</label>
+                            <label for="exampleInputFile">Image</label>
 
                             <div class="custom-file">
                                 <input type="file" class="custom-file-input" id="exampleInputFile" name="ImageFile">
@@ -174,3 +173,17 @@
     <!-- /.content -->
 </div>
 <!-- /.content-wrapper -->
+
+@section Scripts{
+    
+    <script>
+
+        
+
+        $("select option:first").attr("disabled", "true");
+
+
+    </script>
+    
+    
+    }

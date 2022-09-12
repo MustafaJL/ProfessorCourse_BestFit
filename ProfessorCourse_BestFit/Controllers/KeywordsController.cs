@@ -1,4 +1,5 @@
-﻿using ProfessorCourse_BestFit.Models;
+﻿using ProfessorCourse_BestFit.DAL;
+using ProfessorCourse_BestFit.Models;
 using ProfessorCourse_BestFit.Models.ViewModels;
 using System.Linq;
 using System.Web.Mvc;
@@ -8,10 +9,11 @@ namespace ProfessorCourse_BestFit.Controllers
     public class KeywordsController : Controller
     {
         private readonly ProfessorCourseBestFit1Entities _context;
-
+        private readonly UserKeywords_DAL _sp;
         public KeywordsController()
         {
             _context = new ProfessorCourseBestFit1Entities();
+            _sp = new UserKeywords_DAL();
         }
 
         // GET: Keywords
@@ -55,12 +57,18 @@ namespace ProfessorCourse_BestFit.Controllers
 
                     };
                     _context.Keywords.Add(keyword);
+                    _context.SaveChanges();
+
+                    _sp.CreateKeywordUser(keyword.KId);
+                    _sp.CreateKeywordCourse(keyword.KId);
+
                 }
                 else
                 {
                     isExist.KName = model.kName;
+                    _context.SaveChanges();
+
                 }
-                _context.SaveChanges();
                 return RedirectToAction("Index");
             }
             return View(model);

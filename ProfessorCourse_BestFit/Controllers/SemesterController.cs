@@ -1,9 +1,7 @@
 ﻿using ProfessorCourse_BestFit.Models;
 using ProfessorCourse_BestFit.Models.ViewModels;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace ProfessorCourse_BestFit.Controllers
@@ -12,7 +10,7 @@ namespace ProfessorCourse_BestFit.Controllers
     {
         private readonly ProfessorCourseBestFit1Entities _context;
 
-        public SemesterController() 
+        public SemesterController()
         {
             _context = new ProfessorCourseBestFit1Entities();
         }
@@ -79,8 +77,8 @@ namespace ProfessorCourse_BestFit.Controllers
             {
                 Semester semester = new Semester();
                 semester.SemesterName = semesterViewModel.semester.SemesterName;
-                semester.StartDate = DateTime.Now;
-                semester.EndDate = DateTime.Now;
+                semester.StartDate = DateTime.Now.ToShortDateString();
+                semester.EndDate = DateTime.Now.ToShortDateString();
                 _context.Semesters.Add(semester);
 
                 _context.SaveChanges();

@@ -16,7 +16,7 @@ namespace ProfessorCourse_BestFit.Models
     public partial class ProfessorCourseBestFit1Entities : DbContext
     {
         public ProfessorCourseBestFit1Entities()
-            : base("name=ProfessorCourseBestFit1Entities")
+            : base("name=ProfessorCourseBestFitEntities")
         {
         }
     

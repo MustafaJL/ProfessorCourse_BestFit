@@ -147,6 +147,7 @@
     <Compile Include="CustomSecurity\CustomAuthorization.cs" />
     <Compile Include="DAL\Department_DAL.cs" />
     <Compile Include="DAL\Program_DAL.cs" />
+    <Compile Include="DAL\CourseKeywords_DAL.cs" />
     <Compile Include="DAL\UserKeywords_DAL.cs" />
     <Compile Include="DAL\RolePermissions_DAL.cs" />
     <Compile Include="DAL\User_DAL.cs" />
@@ -226,6 +227,7 @@
     <Compile Include="Models\ViewModels\PermissionsViewModel.cs" />
     <Compile Include="Models\ViewModels\ProgramViewModel.cs" />
     <Compile Include="Models\ViewModels\SemesterViewModel.cs" />
+    <Compile Include="Models\ViewModels\CourseKeywordsViewModel.cs" />
     <Compile Include="Models\ViewModels\UserKeywordsViewModel.cs" />
     <Compile Include="Models\ViewModels\RolesPermissionsViewModel.cs" />
     <Compile Include="Models\ViewModels\RolesViewModel.cs" />
@@ -4264,6 +4266,7 @@
     <Content Include="Views\Program\view_Program_Information.cshtml" />
     <Content Include="Views\Semester\Index.cshtml" />
     <Content Include="Views\Semester\Upsert.cshtml" />
+    <Content Include="Views\Course\courseKeywords.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

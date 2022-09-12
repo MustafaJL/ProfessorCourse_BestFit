@@ -15,7 +15,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Users</h1>
+                    <h1 class="text-muted">Users</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -97,7 +97,7 @@
                                                         Delete
                                                     </button>
 
-                                                    <button type="button" class="btn mx-2 btn-outline-secondary js-reset-pass" data-toggle="modal" data-target="#modal-warning" uid-data="@item.Uid">
+                                                    <button type="button" class="btn mx-2 btn-outline-secondary js-reset-pass" data-toggle="modal" data-target="#modal-default1" uid-data="@item.Uid">
                                                         <i class="bi bi-arrow-clockwise"></i>                                                    Reset
                                                     </button>
 
@@ -142,28 +142,34 @@
                                 <!-- /.modal-dialog -->
                             </div>
 
-                            <div class="modal fade" id="modal-warning">
+                            <div class="modal fade" id="modal-default1">
                                 <div class="modal-dialog">
-                                    <div class="modal-content bg-warning">
+                                    <div class="modal-content bg-light">
                                         <div class="modal-header">
-                                            <h4 class="modal-title">Reset Password</h4>
+                                            <h4 class="modal-title">Delete</h4>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
                                         <div class="modal-body">
-                                            <p>Are you sure you want to reset password for this user?</p>
+                                            <p>Are you sure you want to reset password for this User?</p>
                                         </div>
                                         <div class="modal-footer justify-content-between">
-                                            <button type="button" class="btn btn-outline-dark" data-dismiss="modal">Close</button>
-                                            <button type="button" class="btn btn-outline-dark reset-pass-model swalDefaultSuccess" data-dismiss="modal">Save changes</button>
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">
+
+                                                <i class="bi bi-x-circle"></i>
+                                                Close
+                                            </button>
+                                            <button type="button" class="btn btn-danger delete-user" data-dismiss="modal">
+                                                <i class="bi bi-trash"></i>
+                                                Delete
+                                            </button>
                                         </div>
                                     </div>
                                     <!-- /.modal-content -->
                                 </div>
                                 <!-- /.modal-dialog -->
                             </div>
-                            <!-- /.modal -->
 
                             
 

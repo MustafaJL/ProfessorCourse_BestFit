@@ -17,7 +17,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>General Form</h1>
+                    <h1 class="text-muted">@(ViewBag.id > 0 ? "Update Keyword" : "Add Keyword" )</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -39,7 +39,7 @@
                     <div class="card @(ViewBag.Error != null ? "card-danger" : ViewBag.id > 0 ? "card-success" :"card-primary")">
                         <div class="card-header">
 
-                            <h3 class="card-title">@(ViewBag.Error != null ? @ViewBag.Error : ViewBag.id > 0 ? "Update User" : "Add User" ) </h3>
+                            <h3 class="card-title">@(ViewBag.Error != null ? @ViewBag.Error : ViewBag.id > 0 ? "Update Keyword" : "Add Keyword" ) </h3>
                         </div>
                         <!-- /.card-header -->
                         <!-- form start -->
@@ -50,8 +50,8 @@
                             <div class="card-body">
 
                                 <div class="form-group">
-                                    <label>FirstName</label>
-                                    @Html.EditorFor(model => model.kName, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter FirstName" } })
+                                    <label>Keyword Name</label>
+                                    @Html.EditorFor(model => model.kName, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Keyword Name" } })
                                     @Html.ValidationMessageFor(model => model.kName, "", new { @class = "text-danger" })
                                 </div>
 
