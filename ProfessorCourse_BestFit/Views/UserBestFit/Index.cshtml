@@ -1,0 +1,194 @@
+﻿@model IEnumerable<ProfessorCourse_BestFit.Models.ViewModels.UserBestFitViewModel>
+
+
+
+
+
+@{
+    ViewBag.Title = "Index";
+    int id = 1;
+
+
+}
+
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="text-muted">Professors Best Fit Courses</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="/Home/Index">Home</a></li>
+                        <li class="breadcrumb-item active">Professor BestFit</li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+
+
+                    <div class="card">
+                        <div class="card-header">
+                            <form method="get">
+                                <select name="userId" class="form-control col-2 d-inline" >
+            <option disabled>--select--</option>
+
+            @foreach (var item in ViewBag.Users)
+            {
+                <option value="@item.Uid" @(item.Uid == ViewBag.selectedCourse ? "selected" : "" ) style="height:30px;">@item.Email</option>
+
+            }
+        </select>
+        <button type="submit" class="btn btn-primary" style="margin-bottom : 4px;">
+            <i class="bi bi-search"></i>
+
+        </button>
+
+                                @*<div class="dropdown">
+                                    <button onclick="myFunction()" class="btn btn-primary form-control" type="button" style="min-width: 200px;">Dropdown</button>
+                                    <div id="myDropdown" class="dropdown-content">
+                                        <input type="text" placeholder="Search.." id="myInput" onkeyup="filterFunction()">
+                                        @foreach (var item in ViewBag.Users)
+                                        {
+                                            <input value="@item.Uid" name="userId" id="myInput" class="Users" style="cursor:pointer;" readonly />
+
+                                        }
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="bi bi-search"></i>
+
+                                </button>*@
+                            </form>
+                            
+
+                        </div>
+
+
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <table id="example1" class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>
+                                            Course Name
+                                        </th>
+                                        <th>
+                                            Course Code
+                                        </th>
+                                        <th>
+                                            Count
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (Model == null)
+                                    {
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+
+                                            <td></td>
+
+                                            <td></td>
+
+                                        </tr>
+                                    }
+                                    else
+                                    {
+                                        foreach (var item in Model)
+                                        {
+
+                                            <tr class="js-row">
+                                                <td>@(id++)</td>
+                                                <td>@item.CourseName</td>
+                                                <td>@item.CourseCode</td>
+                                                <td>@item.Count</td>
+                                            </tr>
+                                        }
+
+
+                                    }
+                                </tbody>
+
+                            </table>
+
+
+
+
+
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+
+
+@section Scripts{
+
+    <script>
+
+
+
+        $(function () {
+            $("#example1").DataTable({
+                "responsive": true, "lengthChange": false, "autoWidth": false,
+                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+            $('#example2').DataTable({
+                "paging": true,
+                "lengthChange": false,
+                "searching": false,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false,
+                "responsive": true,
+            });
+        });
+
+
+        
+        function myFunction() {
+            document.getElementById("myDropdown").classList.toggle("show");
+        }
+
+        function filterFunction() {
+            var input, filter, ul, li, a, i;
+            input = document.getElementById("myInput");
+            filter = input.value.toUpperCase();
+            div = document.getElementById("myDropdown");
+            a = div.getElementsByTagName("input");
+            for (i = 0; i < a.length; i++) {
+                txtValue = a[i].textContent || a[i].innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    a[i].style.display = "";
+                } else {
+                    a[i].style.display = "none";
+                }
+            }
+        }
+
+    </script>
+
+}

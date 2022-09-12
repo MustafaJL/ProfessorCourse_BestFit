@@ -1,0 +1,157 @@
+﻿@model  IEnumerable<ProfessorCourse_BestFit.Models.ViewModels.CourseBestFitViewModel>
+
+
+@{
+    ViewBag.Title = "Index";
+    int id = 1;
+
+}
+
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="text-muted">Course Best Fit Professors</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="/Home/Index">Home</a></li>
+                        <li class="breadcrumb-item active">Course BestFit</li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+
+
+                    <div class="card">
+                        <div class="card-header">
+                            <form method="get">
+                                <select name="courseId" class="form-control col-2 d-inline" >
+                                    <option disabled>--select--</option>
+
+                                    @foreach (var item in ViewBag.courses)
+                                    {
+                                        <option value="@item.CId" @(item.CId == ViewBag.selectedCourse ? "selected" : "" ) >@item.CName</option>
+                                        
+                                    }
+                                </select>
+                                <button type="submit" class="btn btn-primary" style="margin-bottom : 4px;">
+                                    <i class="bi bi-search"></i>
+                                    
+                                </button>
+
+                            </form>
+
+                        </div>
+
+                        
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <table id="example1" class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>
+                                            First Name
+                                        </th>
+                                        <th>
+                                            Middle Name
+                                        </th>
+                                        <th>
+                                            Last Name
+                                        </th>
+                                        <th>
+                                            Email
+                                        </th>
+                                        <th>
+                                            Count
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (Model == null)
+                                    {
+                                        <tr>
+                                           
+                                        </tr>
+                                    }
+                                    else
+                                    {
+                                        foreach (var item in Model)
+                                        {
+
+                                            <tr class="js-row">
+                                                <td>@(id++)</td>
+                                                <td>@item.FirstName</td>
+                                                <td>@item.MiddleName</td>
+                                                <td>@item.LastName</td>
+                                                <td>@item.Email</td>
+                                                <td>@item.Count</td>
+                                            </tr>
+                                        }
+
+
+                                    }
+                                </tbody>
+
+                                </table>
+                           
+
+
+
+
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+
+
+@section Scripts{
+
+    <script>
+
+
+
+        $(function () {
+            $("#example1").DataTable({
+                "responsive": true, "lengthChange": false, "autoWidth": false,
+                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+            $('#example2').DataTable({
+                "paging": true,
+                "lengthChange": false,
+                "searching": false,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false,
+                "responsive": true,
+            });
+        });
+
+
+            
+
+    </script>
+
+}
