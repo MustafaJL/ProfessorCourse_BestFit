@@ -1,5 +1,10 @@
 ﻿@model ProfessorCourse_BestFit.Models.ViewModels.DepartmentViewModel
 
+@{ 
+    int num = 0;
+    int counterr = 0;
+}
+
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -27,6 +32,11 @@
 
 
                     <div class="card">
+                        <div class="card-header">
+                            <button class="btn btn-primary" id="addRow">
+                                Add new manager
+                            </button>
+                        </div>
                         <!-- /.card-header -->
                         <div class="card-body">
                             <table id="example1" class="table table-bordered table-striped">
@@ -34,12 +44,11 @@
                                     <tr>
                                         <th>#</th>
                                         <th>Professor Name</th>
-                                        <th>Professor Email</th>
-                                        <th>Options</th>
+                                        <th>Select</th>
                                     </tr>
                                 </thead>
                                 <tbody id="tbhold">
-                                    @{ int num = 0;}
+
                                     @if (Model.managers != null)
                                     {
                                         foreach (var item in Model.managers)
@@ -48,7 +57,6 @@
                                             <tr class="js-row">
                                                 <td>@(num++)</td>
                                                 <td>@item.FirstName @item.MiddleName @item.LastName</td>
-                                                <td>@item.Email</td>
 
                                                 <td>
 
@@ -64,17 +72,11 @@
                                         foreach (var item in Model.normal_Users)
                                         {
 
-                                            <tr class="js-row">
-                                                <td>@(num++)</td>
-                                                <td>@item.FirstName @item.MiddleName @item.LastName</td>
-                                                <td>@item.Email</td>
+                                            @*
 
-                                                <td>
+                                add some code
 
-                                                    <input type="checkbox" name="ch" id="@item.Uid">
-
-                                                </td>
-                                            </tr>
+                                            *@
 
                                         }
                                     }
@@ -87,8 +89,7 @@
                                     <tr>
                                         <th>#</th>
                                         <th>Professor Name</th>
-                                        <th>Professor Email</th>
-                                        <th>Options</th>
+                                        <th>Select</th>
                                     </tr>
                                 </tfoot>
 
@@ -100,18 +101,22 @@
                         <!-- /.card-body -->
                     </div>
                     <!-- /.card -->
+                    <button class="btn btn-primary" type="submit" id="submit" data-id="@Model.Department.DepId">
+                        Save Changes
+                    </button>
                 </div>
                 <!-- /.col -->
+                
             </div>
             <!-- /.row -->
         </div>
         <!-- /.container-fluid -->
+       
     </section>
     <!-- /.content -->
 
-    <button class="btn btn-navbar" type="submit" id="btn">
-        Save Changes
-    </button>
+
+
 
 </div>
 <!-- /.content-wrapper -->
@@ -123,6 +128,30 @@
 
     <script>
 
+
+        @*
+            @if (Model.normal_Users != null)
+            {
+                var s = "";
+
+                s += "< select ><option id='-100'>--select--</option>";
+
+                foreach (var item in Model.normal_Users)
+                {
+                    s += "<option value=" + @item.Uid + ">" + @item.FirstName + " " + @item.MiddleName + " " + @item.LastName + "</option>";
+                }
+                s += "</select>";
+
+            }
+        *@
+
+        var counter;
+
+        if (counter == null) {
+            counter = 0;
+        }
+
+
         $(function () {
             $("#example1").DataTable({
                 "responsive": true, "lengthChange": false, "autoWidth": false,
@@ -130,27 +159,108 @@
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
         });
 
+        $(document).ready(function () {
+            var jsArray = @Html.Raw(Json.Encode(Model.normal_Users));
+            
 
-        document.getElementById('btn').onclick = function () {
-            var all = [];
-            var i = 0;
-            var markedCheckbox = document.getElementsByName('ch');
-            for (var checkbox of markedCheckbox) {
-                if (checkbox.checked)
-                    all[i] = checkbox.id;
-                i = i + 1;
+            var selecttt = document.createElement("select");
+            selecttt.name = "selectlist";
+            var option = document.createElement("option");
+            option.value = -100;
+            option.text = "--select--";
+            selecttt.appendChild(option);
+            for (var ii = 0; ii < jsArray.length; ii++) {
+                var option = document.createElement("option");
+                option.value = jsArray[ii].Uid;
+                option.text = jsArray[ii].FirstName + " " + jsArray[ii].MiddleName + " " + jsArray[ii].LastName +" ( "+ jsArray[ii].Email+" )";
+                selecttt.appendChild(option);
             }
+            //document.querySelector("select")
+            //var tablebody = document.getElementById('tbhold');
+            //var test = tablebody.innerHTML + selecttt;
+
+            //var s = "";
+            //s += "< select ><option id='-100'>--select--</option>";
+            //for (var ii = 0; ii < jsArray.length; ii++) {
+            //    s += "<option value=" + jsArray[ii].Uid + ">" + jsArray[ii].FirstName + " " + jsArray[ii].MiddleName + " " + jsArray[ii].LastName + "-" + jsArray[ii].Email +"</option>";
+            //}
+            //s += "</select>";
+            //console.log(s);
+            //document.body.appendChild(selecttt);
+            
+            var t = $('#example1').DataTable();
+            $('#addRow').on('click', function () {
+                //var newrow = ["--", selecttt, '<input id=' + counter + ' class="btn btn-danger btndeleterow" type="button" value="Remove" onclick="removerow(' + counter + ')"/>'];
+                t.row.add(["--",
+                    "<td name=" + counter +"></td>",
+                    '<input id=' + counter + ' class="btn btn-danger btndeleterow" type="button" value="Remove" onclick="removerow(' + counter + ')"/>']).draw();
+                counter = counter + 1;
+                //document.getElementsByClassName(counter).add(selecttt);
+                console.log(jsArray);
+                console.log(selecttt);
+            });
+
+        })
+        function removerow(number) {
+            var tableremove = $('#example1').DataTable();
+            var id = number;
+            var b = document.getElementById(id);
+            tableremove.row(b.closest('tr')).remove().draw();
+
+        }
+
+        /*
+           $('#tbhold input[type="button"]').click(function () {
+                cell = $(this).parent().prev();
+                cell.remove();
+            });
+
+        $('.btndeleterow').on('click', function () {
+            var t = $('#example1').DataTable();
+            var deleterows = $(this).closest('tr');
+            t.row.deleterows.remove();
+
+        });
+        */
+
+        //FOR SUBMITION
+        var checkboxes = document.getElementsByName("ch");
+        var btn = document.getElementById("submit");
+        var listOfID = []
+        var lists = document.getElementsByName("select");
+        var allvalue = []
+        btn.addEventListener("click", () => {
+            for (let i = 0; i < lists.length; i++) {
+                if (lists[i].value != null) {
+
+                    allvalue.push(lists[i].value)
+                }
+            }
+
+            /*
+             for (let i = 0; i < lists.length; i++) {
+                if (checkboxes[i].chacked) {
+
+                    listOfID.push(checkboxes[i].getAttribute("id"))
+                }
+            }
+            */
+
             $.ajax({
-                url: "/Department/Add_Remove_Department_Managers/",
-                method: "post",
-                data: all,
+                url: '/Department/Add_Remove_Department_Managers/',
+                type: 'post',
+                data: {
+                    id: btn.getAttribute("data-id"),
+                    ids: allvalue
+                },
                 success: function (json) {
                     if (json.isRedirect) {
                         window.location.href = json.redirectUrl;
                     }
                 }
-            })
-        }
+            });
+
+        })
 
 
     </script>

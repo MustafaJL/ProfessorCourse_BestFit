@@ -10,19 +10,13 @@
 namespace ProfessorCourse_BestFit.Models
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class UserDepartment
+    public partial class CourseProgramToAdd_Result
     {
-        public int user_department_Id { get; set; }
+        public int ProgramId { get; set; }
         public int Dep_Id { get; set; }
-        public int User_ID { get; set; }
-        public System.DateTime StartDate { get; set; }
-        public Nullable<System.DateTime> EndDate { get; set; }
+        public string ProgramName { get; set; }
+        public System.DateTime CreatedOn { get; set; }
         public bool isDeleted { get; set; }
-        public bool isManager { get; set; }
-    
-        public virtual Department Department { get; set; }
-        public virtual User User { get; set; }
     }
 }

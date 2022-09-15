@@ -12,6 +12,8 @@ namespace ProfessorCourse_BestFit.Models
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class ProfessorCourseBestFit1Entities : DbContext
     {
@@ -41,5 +43,180 @@ namespace ProfessorCourse_BestFit.Models
         public virtual DbSet<UserKeyword> UserKeywords { get; set; }
         public virtual DbSet<UserProgram> UserPrograms { get; set; }
         public virtual DbSet<User> Users { get; set; }
+    
+        public virtual int AddEditDepartmentManagers(string sTR, string dELIM, Nullable<int> departmentID, Nullable<System.DateTime> startdate, Nullable<System.DateTime> enddate)
+        {
+            var sTRParameter = sTR != null ?
+                new ObjectParameter("STR", sTR) :
+                new ObjectParameter("STR", typeof(string));
+    
+            var dELIMParameter = dELIM != null ?
+                new ObjectParameter("DELIM", dELIM) :
+                new ObjectParameter("DELIM", typeof(string));
+    
+            var departmentIDParameter = departmentID.HasValue ?
+                new ObjectParameter("DepartmentID", departmentID) :
+                new ObjectParameter("DepartmentID", typeof(int));
+    
+            var startdateParameter = startdate.HasValue ?
+                new ObjectParameter("startdate", startdate) :
+                new ObjectParameter("startdate", typeof(System.DateTime));
+    
+            var enddateParameter = enddate.HasValue ?
+                new ObjectParameter("enddate", enddate) :
+                new ObjectParameter("enddate", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("AddEditDepartmentManagers", sTRParameter, dELIMParameter, departmentIDParameter, startdateParameter, enddateParameter);
+        }
+    
+        public virtual int CourseDeleteRelations(Nullable<int> courseID)
+        {
+            var courseIDParameter = courseID.HasValue ?
+                new ObjectParameter("CourseID", courseID) :
+                new ObjectParameter("CourseID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("CourseDeleteRelations", courseIDParameter);
+        }
+    
+        public virtual ObjectResult<CourseProfessors_Result> CourseProfessors(Nullable<int> courseID)
+        {
+            var courseIDParameter = courseID.HasValue ?
+                new ObjectParameter("CourseID", courseID) :
+                new ObjectParameter("CourseID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<CourseProfessors_Result>("CourseProfessors", courseIDParameter);
+        }
+    
+        public virtual ObjectResult<CoursePrograms1_Result> CoursePrograms1(Nullable<int> courseID)
+        {
+            var courseIDParameter = courseID.HasValue ?
+                new ObjectParameter("CourseID", courseID) :
+                new ObjectParameter("CourseID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<CoursePrograms1_Result>("CoursePrograms1", courseIDParameter);
+        }
+    
+        public virtual ObjectResult<CourseProgramToAdd_Result> CourseProgramToAdd(Nullable<int> courseID)
+        {
+            var courseIDParameter = courseID.HasValue ?
+                new ObjectParameter("CourseID", courseID) :
+                new ObjectParameter("CourseID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<CourseProgramToAdd_Result>("CourseProgramToAdd", courseIDParameter);
+        }
+    
+        public virtual ObjectResult<CourseUsersToBeProfessors_Result> CourseUsersToBeProfessors(Nullable<int> courseID)
+        {
+            var courseIDParameter = courseID.HasValue ?
+                new ObjectParameter("CourseID", courseID) :
+                new ObjectParameter("CourseID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<CourseUsersToBeProfessors_Result>("CourseUsersToBeProfessors", courseIDParameter);
+        }
+    
+        public virtual ObjectResult<DepartmentAddRemoveManagers_Result> DepartmentAddRemoveManagers(Nullable<int> departmentID)
+        {
+            var departmentIDParameter = departmentID.HasValue ?
+                new ObjectParameter("DepartmentID", departmentID) :
+                new ObjectParameter("DepartmentID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<DepartmentAddRemoveManagers_Result>("DepartmentAddRemoveManagers", departmentIDParameter);
+        }
+    
+        public virtual ObjectResult<Departmentemployees_Result> Departmentemployees(Nullable<int> departmentID)
+        {
+            var departmentIDParameter = departmentID.HasValue ?
+                new ObjectParameter("DepartmentID", departmentID) :
+                new ObjectParameter("DepartmentID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Departmentemployees_Result>("Departmentemployees", departmentIDParameter);
+        }
+    
+        public virtual ObjectResult<DepartmentManagers_Result> DepartmentManagers(Nullable<int> departmentID)
+        {
+            var departmentIDParameter = departmentID.HasValue ?
+                new ObjectParameter("DepartmentID", departmentID) :
+                new ObjectParameter("DepartmentID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<DepartmentManagers_Result>("DepartmentManagers", departmentIDParameter);
+        }
+    
+        public virtual ObjectResult<ProgramCourses_Result> ProgramCourses(Nullable<int> programID)
+        {
+            var programIDParameter = programID.HasValue ?
+                new ObjectParameter("ProgramID", programID) :
+                new ObjectParameter("ProgramID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ProgramCourses_Result>("ProgramCourses", programIDParameter);
+        }
+    
+        public virtual ObjectResult<ProgramCoursesToAdd_Result> ProgramCoursesToAdd(Nullable<int> programID)
+        {
+            var programIDParameter = programID.HasValue ?
+                new ObjectParameter("ProgramID", programID) :
+                new ObjectParameter("ProgramID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ProgramCoursesToAdd_Result>("ProgramCoursesToAdd", programIDParameter);
+        }
+    
+        public virtual ObjectResult<ProgramManagers_Result> ProgramManagers(Nullable<int> programID)
+        {
+            var programIDParameter = programID.HasValue ?
+                new ObjectParameter("ProgramID", programID) :
+                new ObjectParameter("ProgramID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ProgramManagers_Result>("ProgramManagers", programIDParameter);
+        }
+    
+        public virtual ObjectResult<ProgramManagersToAdd_Result> ProgramManagersToAdd(Nullable<int> programID)
+        {
+            var programIDParameter = programID.HasValue ?
+                new ObjectParameter("ProgramID", programID) :
+                new ObjectParameter("ProgramID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ProgramManagersToAdd_Result>("ProgramManagersToAdd", programIDParameter);
+        }
+    
+        public virtual int AddEditDepartmentManagers2(string sTR, Nullable<int> cOUNT, Nullable<int> counter, Nullable<int> departmentID, Nullable<System.DateTime> startdate, Nullable<System.DateTime> enddate)
+        {
+            var sTRParameter = sTR != null ?
+                new ObjectParameter("STR", sTR) :
+                new ObjectParameter("STR", typeof(string));
+    
+            var cOUNTParameter = cOUNT.HasValue ?
+                new ObjectParameter("COUNT", cOUNT) :
+                new ObjectParameter("COUNT", typeof(int));
+    
+            var counterParameter = counter.HasValue ?
+                new ObjectParameter("counter", counter) :
+                new ObjectParameter("counter", typeof(int));
+    
+            var departmentIDParameter = departmentID.HasValue ?
+                new ObjectParameter("DepartmentID", departmentID) :
+                new ObjectParameter("DepartmentID", typeof(int));
+    
+            var startdateParameter = startdate.HasValue ?
+                new ObjectParameter("startdate", startdate) :
+                new ObjectParameter("startdate", typeof(System.DateTime));
+    
+            var enddateParameter = enddate.HasValue ?
+                new ObjectParameter("enddate", enddate) :
+                new ObjectParameter("enddate", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("AddEditDepartmentManagers2", sTRParameter, cOUNTParameter, counterParameter, departmentIDParameter, startdateParameter, enddateParameter);
+        }
+    
+        public virtual ObjectResult<AddEditDepartmentManagers3_Result> AddEditDepartmentManagers3(string sTR, Nullable<int> departmentID)
+        {
+            var sTRParameter = sTR != null ?
+                new ObjectParameter("STR", sTR) :
+                new ObjectParameter("STR", typeof(string));
+    
+            var departmentIDParameter = departmentID.HasValue ?
+                new ObjectParameter("departmentID", departmentID) :
+                new ObjectParameter("departmentID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<AddEditDepartmentManagers3_Result>("AddEditDepartmentManagers3", sTRParameter, departmentIDParameter);
+        }
     }
 }

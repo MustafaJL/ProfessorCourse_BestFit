@@ -125,7 +125,7 @@ namespace ProfessorCourse_BestFit.Controllers
             if (Name_Required(departmentViewModel.Department.Dep_Name))
             {
                // ViewBag.nameRequired = messages.name_Required;
-//ViewBag.data_not_saved = messages.data_not_saved;
+               //ViewBag.data_not_saved = messages.data_not_saved;
                 return View(departmentViewModel);
             }
 
@@ -187,17 +187,31 @@ namespace ProfessorCourse_BestFit.Controllers
         public ActionResult Add_Remove_Department_Managers(int id)
         {
             var departmentViewModel = new DepartmentViewModel();
-            departmentViewModel.normal_Users = _context.Users.ToList();
-            //departmentViewModel.normal_Users = user_DAL.Get_Users_Department(id, 3);
+            var Department = _context.Departments.Where(
+                x => x.DepId == id
+                ).FirstOrDefault();
+            departmentViewModel.Department = Department;
+            departmentViewModel.normal_Users = user_DAL.Get_Users_Department(id, 3);
             departmentViewModel.managers = user_DAL.Get_Users_Department(id, 1);
             return View(departmentViewModel);
         }
 
         [HttpPost]
-        public JsonResult Add_Remove_Department_Managers(int[] data)
+        public JsonResult Add_Remove_Department_Managers(int? id, int? [] ids)
         {
-            if (data == null || data.Length == 0)
+            string allUsersIDS = "";
+            if (ids != null)
             {
+                foreach (var i in ids)
+                {
+                    if(i != -100)
+                    {
+                        allUsersIDS += id + "]" + i + "]" + DateTime.Now + "]" + 1 + ",";
+                    }
+                }
+                ViewBag.allUsersIDS = allUsersIDS;
+                _context.AddEditDepartmentManagers3(allUsersIDS, id);
+                _context.SaveChanges();
                 return Json(new
                 {
                     redirectUrl = Url.Action("All_Departments", "Department"),
