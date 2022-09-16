@@ -33,9 +33,30 @@
 
                     <div class="card">
                         <div class="card-header">
-                            <button class="btn btn-primary" id="addRow">
-                                Add new manager
-                            </button>
+                            <div class="row">
+                                <div class="col-2">
+
+                                    @if (Model.normal_Users != null)
+                                    {
+                                        <select id="listofallusers" class="form-control">
+                                            <option value="-100">
+                                                -- select --
+                                            </option>
+                                            @foreach (var option in Model.normal_Users)
+                                            {
+                                                <option value=@option.Uid>
+                                                    @option.FirstName  @option.MiddleName  @option.LastName ( @option.Email )
+                                                </option>
+                                            }
+                                        </select>
+                                    }
+                                </div>
+                                <div class="col-4">
+                                    <button class="btn btn-primary" id="addRow">
+                                        Add new manager
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
@@ -49,39 +70,9 @@
                                 </thead>
                                 <tbody id="tbhold">
 
-                                    @if (Model.managers != null)
-                                    {
-                                        foreach (var item in Model.managers)
-                                        {
+                                    
 
-                                            <tr class="js-row">
-                                                <td>@(num++)</td>
-                                                <td>@item.FirstName @item.MiddleName @item.LastName</td>
-
-                                                <td>
-
-                                                    <input type="checkbox" name="ch" id="@item.Uid" checked>
-
-                                                </td>
-                                            </tr>
-
-                                        }
-                                    }
-                                    @if (Model.normal_Users != null)
-                                    {
-                                        foreach (var item in Model.normal_Users)
-                                        {
-
-                                            @*
-
-                                add some code
-
-                                            *@
-
-                                        }
-                                    }
-
-
+                                    
 
 
                                 </tbody>
@@ -160,9 +151,9 @@
         });
 
         $(document).ready(function () {
-            var jsArray = @Html.Raw(Json.Encode(Model.normal_Users));
-            
+            @*var jsArray = @Html.Raw(Json.Encode(Model.normal_Users));*@
 
+            /*
             var selecttt = document.createElement("select");
             selecttt.name = "selectlist";
             var option = document.createElement("option");
@@ -175,6 +166,9 @@
                 option.text = jsArray[ii].FirstName + " " + jsArray[ii].MiddleName + " " + jsArray[ii].LastName +" ( "+ jsArray[ii].Email+" )";
                 selecttt.appendChild(option);
             }
+            */
+
+
             //document.querySelector("select")
             //var tablebody = document.getElementById('tbhold');
             //var test = tablebody.innerHTML + selecttt;
@@ -187,20 +181,68 @@
             //s += "</select>";
             //console.log(s);
             //document.body.appendChild(selecttt);
-            
+
             var t = $('#example1').DataTable();
             $('#addRow').on('click', function () {
-                //var newrow = ["--", selecttt, '<input id=' + counter + ' class="btn btn-danger btndeleterow" type="button" value="Remove" onclick="removerow(' + counter + ')"/>'];
+
+                var select = document.getElementById('listofallusers');
+                var option = select.options[select.selectedIndex];
+                var text = option.text;
+                var value = option.value;
+                console.log(option.value);
+                console.log(option.text);
+                var optionn = document.createElement("option");
+                optionn.value = "50";
+                optionn.text = "hello";
+                select.appendChild(optionn);
+                select.remove(value);
+                
                 t.row.add(["--",
-                    "<td name=" + counter +"></td>",
+                    '<h6>' + text + '</h6>',
                     '<input id=' + counter + ' class="btn btn-danger btndeleterow" type="button" value="Remove" onclick="removerow(' + counter + ')"/>']).draw();
+                    
+
+
+
+
+
+
+                /*
+                
+                var listoptions = [];
+                for (var ii = 0; ii < jsArray.length; ii++) {
+                    var option = document.createElement("option");
+                    option.value = jsArray[ii].Uid;
+                    option.text = jsArray[ii].FirstName + " " + jsArray[ii].MiddleName + " " + jsArray[ii].LastName + " ( " + jsArray[ii].Email + " )";
+                    listoptions.push(option);
+                }
+                */
+                //console.log(jsArray);
+                //var newrow = ["--", selecttt, '<input id=' + counter + ' class="btn btn-danger btndeleterow" type="button" value="Remove" onclick="removerow(' + counter + ')"/>'];
+                /*
+                t.row.add(["--",
+                    '<select id='+"selectlist" + counter +'><option id="-100">--select--</option></select>',
+                    '<input id=' + counter + ' class="btn btn-danger btndeleterow" type="button" value="Remove" onclick="removerow(' + counter + ')"/>']).draw();
+                    */
+                //var newrow = '<tr><td>--</td>' + selecttt +'<td></td><td><input id=' + counter + ' class="btn btn-danger btndeleterow" type="button" value="Remove" onclick="removerow(' + counter + ')"/></td></tr>';
+
+                //
+                //t.row.appendChild(newrow);
+                /*
+                var testlist = document.getElementById('selectlist' + counter);
+                console.log(testlist);
+                
+                testlist.appendChild(listoptions);
                 counter = counter + 1;
-                //document.getElementsByClassName(counter).add(selecttt);
                 console.log(jsArray);
-                console.log(selecttt);
+                //console.log(selecttt);
+                //document.body.appendChild(selecttt);
+                */
             });
 
+
         })
+        
         function removerow(number) {
             var tableremove = $('#example1').DataTable();
             var id = number;
@@ -208,7 +250,7 @@
             tableremove.row(b.closest('tr')).remove().draw();
 
         }
-
+        
         /*
            $('#tbhold input[type="button"]').click(function () {
                 cell = $(this).parent().prev();
