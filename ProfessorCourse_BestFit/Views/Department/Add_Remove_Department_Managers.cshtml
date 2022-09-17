@@ -52,7 +52,7 @@
                                     }
                                 </div>
                                 <div class="col-4">
-                                    <button class="btn btn-primary" id="addRow">
+                                    <button class="btn btn-primary" id="addRow" onclick="addremove('add')">
                                         Add new manager
                                     </button>
                                 </div>
@@ -150,7 +150,70 @@
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
         });
 
-        $(document).ready(function () {
+        var alldata = [];
+
+        function addremove(number) {
+
+            var t = $('#example1').DataTable();
+            var select = document.getElementById('listofallusers');
+            var value;
+            var text;
+            var option;
+
+            if (number == 'add') {
+                option = select.options[select.selectedIndex];
+                text = option.text;
+                value = option.value;
+                if (value == -100) {
+                    alert('Please Select Name First');
+                } else {
+                    alldata.push(value);
+                    select.removeChild(option);
+                    console.log(alldata);
+
+                    t.row.add(["--",
+                        '<h6 type="text" text="' + text + '" name="' + value + '" id="h6' + counter + '">' + text + '</h6>',
+                        '<input id=' + counter + ' class="btn btn-danger btndeleterow" type="button" value="Remove" onclick="addremove(' + counter + ')"/>']).draw();
+                }              
+
+            } else {
+                var h6 = document.getElementById('h6' + number);
+                console.log(h6);
+                var textToAdd = h6.getAttribute("text");
+                var idToMackValue = h6.getAttribute("name");
+                console.log(textToAdd);
+                console.log(idToMackValue);
+
+                /*
+                var optionn = document.createElement("option");
+                optionn.value = idToMackValue;
+                optionn.text = textToAdd+"";
+                */
+                option = document.createElement("option");
+                option.value = idToMackValue;
+                option.text = textToAdd;
+                select.options[select.appendChild(option)];
+
+                console.log(idToMackValue);
+
+                for (var c = 0; c < alldata.length; c++) {
+                    if (alldata[c] == idToMackValue) {
+                        alldata[c] = "-100";
+                    }
+                }
+
+                console.log(alldata);
+
+                var tableremove = $('#example1').DataTable();
+                var id = number;
+                var b = document.getElementById(id);
+                tableremove.row(b.closest('tr')).remove().draw();
+            }
+        }
+
+
+
+
             @*var jsArray = @Html.Raw(Json.Encode(Model.normal_Users));*@
 
             /*
@@ -181,27 +244,26 @@
             //s += "</select>";
             //console.log(s);
             //document.body.appendChild(selecttt);
+           // var newmanagers = [];
+            
 
-            var t = $('#example1').DataTable();
+        /*
             $('#addRow').on('click', function () {
-
+                var t = $('#example1').DataTable();
                 var select = document.getElementById('listofallusers');
                 var option = select.options[select.selectedIndex];
                 var text = option.text;
                 var value = option.value;
-                console.log(option.value);
-                console.log(option.text);
-                var optionn = document.createElement("option");
-                optionn.value = "50";
-                optionn.text = "hello";
-                select.appendChild(optionn);
+                newmanagers.push(value);
                 select.remove(value);
+                console.log(newmanagers);
+                
                 
                 t.row.add(["--",
-                    '<h6>' + text + '</h6>',
+                    '<h6 text="' + text +'" name="' + value + '" id="h6' + counter +'">' + text + '</h6>',
                     '<input id=' + counter + ' class="btn btn-danger btndeleterow" type="button" value="Remove" onclick="removerow(' + counter + ')"/>']).draw();
                     
-
+*/
 
 
 
@@ -238,19 +300,42 @@
                 //console.log(selecttt);
                 //document.body.appendChild(selecttt);
                 */
-            });
+            //});
 
-
-        })
         
+  /*
         function removerow(number) {
+            var select = document.getElementById('listofallusers');
+
+            var h6 = document.getElementById('h6' + number);
+            console.log(h6);
+            var textToAdd = h6.getAttribute("text");
+            var idToMackValue = h6.getAttribute("name");
+            console.log(textToAdd);
+            console.log(idToMackValue);
+
+            var optionn = document.createElement("option");
+            optionn.value = idToMackValue;
+            optionn.text = textToAdd;
+            select.appendChild(optionn);
+
+            console.log(idToMackValue);
+
+            for (var c = 0; c < newmanagers.length; c++) {
+                if (newmanagers[c] == idToMackValue) {
+                    newmanagers[c] = "-100";
+                }
+            }
+
+            console.log(newmanagers);
+
             var tableremove = $('#example1').DataTable();
             var id = number;
             var b = document.getElementById(id);
             tableremove.row(b.closest('tr')).remove().draw();
 
         }
-        
+        */
         /*
            $('#tbhold input[type="button"]').click(function () {
                 cell = $(this).parent().prev();
