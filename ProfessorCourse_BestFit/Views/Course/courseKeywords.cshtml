@@ -61,7 +61,7 @@
 
                                             <div class="icheck-primary">
 
-                                                <input class="btn check-box chmu" id="@keyword.KId" name="@keyword.kName" type="checkbox" @(keyword.IsActive == true ? "" : "checked")>
+                                                <input class="btn check-box chmu" id="@keyword.KId" name="@keyword.kName" type="checkbox"  @(keyword.IsActive == "0" ? "checked" : "")>
                                                 <label for="@keyword.KId">
                                                     @keyword.kName
                                                 </label>

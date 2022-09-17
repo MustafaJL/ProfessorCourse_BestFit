@@ -16,74 +16,138 @@
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
+
     <link rel="stylesheet" href="~/Content/plugins/fontawesome-free/css/all.min.css">
     <!-- icheck bootstrap -->
+    <link href="~/Content/login.css" rel="stylesheet" />
+
     <link rel="stylesheet" href="~/Content/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="~/Content/dist/css/adminlte.min.css">
+    <link href="~/Content/bootstrap-icons/font/bootstrap-icons.min.css" rel="stylesheet" />
+
+    <style>
+        .icheck-primary > input:first-child:checked + input[type=hidden] + label::before, .icheck-primary > input:first-child:checked + label::before {
+            background-color: #202a44;
+            border-color: #202a44;
+        }
+        .icheck-primary > input:first-child:not(:checked):not(:disabled):hover + input[type=hidden] + label::before, .icheck-primary > input:first-child:not(:checked):not(:disabled):hover + label::before {
+            border-color: #202a44;
+        }
+    </style>
+
 </head>
-<body class="hold-transition login-page">
+<body>
 
-    <div class="login-box">
-        @*<div class="login-logo">
-                <a href="../../index2.html"><b>Admin</b>LTE</a>
-            </div>*@
-        <!-- /.login-logo -->
-        <div class="card">
-            <div class="card-body login-card-body">
-                <p class="login-box-msg" style="font-weight:bold">Welcome back <i class="fa-solid fa-graduation-cap"></i></p>
+    <!--<div class="login-box">-->
+    @*<div class="login-logo">
+            <a href="../../index2.html"><b>Admin</b>LTE</a>
+        </div>*@
+    <!-- /.login-logo -->
+    <!--<div class="card">
+                <div class="card-body login-card-body">
+                    <h3 class="login-box-msg" style="font-weight:bold">Welcome back     <i class="bi bi-mortarboard-fill fa-2x"></i>
+    </h3>
 
-                @using (Html.BeginForm())
-                {
-                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                   @** @@using (Html.BeginForm())
+                    {
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-                    @Html.AntiForgeryToken()
-                    <div class="input-group mb-3">
+                        @Html.AntiForgeryToken()
+                        <div class="input-group mb-3">
 
-                        @*<input type="email" class="form-control" placeholder="Email">*@
-                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
-                        <div class="input-group-append">
-                            <div class="input-group-text">
-                                <span class="fas fa-envelope"></span>
+                            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", placeholder="Enter You'r Email" } })
+                            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <span class="fas fa-envelope"></span>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="input-group mb-3">
-                        @*<input type="password" class="form-control" placeholder="Password">*@
-                        @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" , required = "required"} })
-                        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
-                        <div class="input-group-append">
-                            <div class="input-group-text">
-                                <span class="fas fa-lock"></span>
+                        <div class="input-group mb-3">
+                          @*  @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" ,placeholder = "Enter You'r Password", required = "required"} })
+                            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <span class="fas fa-lock"></span>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-8">
-                            <div class="icheck-primary">
-                                @*<input type="checkbox" id="remember">*@
-                                @Html.EditorFor(model => model.RememberMe, new { htmlAttributes = new { @class = "btn", id = "remember" } })
-                                <label for="remember">
-                                    Remember Me
-                                </label>
+                        <div class="row">
+                            <div class="col-8">
+                                <div class="icheck-primary">
+                                 @*   @Html.EditorFor(model => model.RememberMe, new { htmlAttributes = new { @class = "btn", id = "remember" } })*@
+                                    <label for="remember">
+                                        Remember Me
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <button type="submit" class="btn btn-primary btn-block">Login</button>
                             </div>
                         </div>
-                        <!-- /.col -->
-                        <div class="col-12">
-                            <button type="submit" class="btn btn-primary btn-block">Login</button>
-                        </div>
-                        <!-- /.col -->
-                    </div>
-                }
+                    }
 
-                
+
+                </div>
             </div>
-            <!-- /.login-card-body -->
-        </div>
-    </div>
-    <!-- /.login-box -->
+        </div>-->
 
+
+    
+
+
+        <div class="container">
+            <div class="row align-items-center vh-100">
+                <div class="card border mx-auto shadow">
+                    <img src="~/Content/Images/login_Images/college.png" class="avatar shadow">
+                    <div class="card-body">
+                        <div class="title-section">
+                            <div class="second_logo">
+                                <img src="~/Content/Images/login_Images/download.png" width="48px"
+                                     height="48px" />
+                            </div>
+                            <div class="text-title">
+                                <span id="title_" class="align-items-center">Welcome Back!</span>
+                            </div>
+                        </div>
+                        @using (Html.BeginForm())
+                        {
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                            @Html.AntiForgeryToken()
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Email address</label>
+                                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                                       placeholder="Enter email" name="Email">
+
+                                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                                <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">Password</label>
+                                <input type="password" name="Password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                            </div>
+                            <div class="form-group">
+                                <div class="icheck-primary">
+                                    @Html.EditorFor(model => model.RememberMe, new { htmlAttributes = new { @class = "btn", id = "remember" } })
+                                    <label for="remember">
+                                        Remember Me
+                                    </label>
+
+
+                                </div>
+                            </div>
+                            <br />
+                            <button type="submit" class="btn custom-btn submit_button" style=" color: white; background-color: #202A44;">Sign in</button>
+                        }
+                        </div>
+                </div>
+            </div>
+        </div>
+
+
+    @*<script src="bootstrap/js/bootstrap.min.js"></script>*@
 
 <!-- jQuery -->
 <script src="~/Content/plugins/jquery/jquery.min.js"></script>

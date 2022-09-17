@@ -11,7 +11,7 @@ namespace ProfessorCourse_BestFit.Models.ViewModels
         [Display(Name = "Permission")]
         public string kName { get; set; }
 
-        public bool IsActive { get; set; }
+        public string IsActive { get; set; }
 
     }
 }

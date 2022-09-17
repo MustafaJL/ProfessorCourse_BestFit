@@ -2124,6 +2124,7 @@
     <Content Include="Content\dist\js\pages\dashboard.js" />
     <Content Include="Content\dist\js\pages\dashboard2.js" />
     <Content Include="Content\dist\js\pages\dashboard3.js" />
+    <Content Include="Content\login.css" />
     <Content Include="Content\Mystyle.css" />
     <Content Include="Content\DataTables\DataTables-1.12.1\css\dataTables.bootstrap.css" />
     <Content Include="Content\DataTables\DataTables-1.12.1\css\dataTables.bootstrap.min.css" />

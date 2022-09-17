@@ -55,7 +55,7 @@ namespace ProfessorCourse_BestFit.Controllers
 
 
             var user = _context.Users.SingleOrDefault(x => x.Uid == id);
-
+            ViewBag.gender = user.Gender;
             var model = new UserViewModel
             {
                 Id = id,
@@ -341,13 +341,23 @@ namespace ProfessorCourse_BestFit.Controllers
         public ActionResult userKeywords(int? id)
         {
             var user = _context.Users.SingleOrDefault(x => x.Uid == id);
-            var keywords = _sp.GetKeywordsByUserId((int)id);
+
+            //var keywords = _sp.GetKeywordsByUserId((int)id);
+
+            var keywords = _sp.GetAllKeywordsIncludesMatchingByUserId((int)id);
+            //var isActive = _context.UserKeywords.Where(u => u.isDeleted == false).ToList();
+
+
+
+
 
             UserKeywordsViewModel userKeywordsView = new UserKeywordsViewModel
             {
 
                 User = user,
-                Keywords = keywords
+                Keywords = keywords,
+
+
             };
             return View(userKeywordsView);
         }
@@ -360,6 +370,11 @@ namespace ProfessorCourse_BestFit.Controllers
             {
                 keywordsString = string.Join(",", keywords);
             }
+            else
+            {
+                keywordsString = "0";
+            }
+
 
             var a = _sp.UpdateUserKeyword(userId, keywordsString);
             return Json(new { success = true });

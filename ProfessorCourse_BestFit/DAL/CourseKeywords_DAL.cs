@@ -83,7 +83,44 @@ namespace ProfessorCourse_BestFit.DAL
                 {
                     KId = Convert.ToInt32(dr["KId"]),
                     kName = Convert.ToString(dr["KName"]),
-                    IsActive = Convert.ToBoolean(dr["isActive"])
+                    IsActive = Convert.ToString(dr["isActive"])
+
+                });
+            }
+
+
+            return keywordsList;
+        }
+
+        public List<KeywordsViewModel> GetAllKeywordsIncludesMatchingByCourseId(int CourseId)
+        {
+            List<KeywordsViewModel> keywordsList = new List<KeywordsViewModel>();
+
+            // create command
+            SqlCommand command = _connection.CreateCommand();
+            // specify the type of cammand
+            command.CommandType = CommandType.StoredProcedure;
+            // specify name of SP
+            command.CommandText = "spGetAllKeywordsIncludeMatchingCourse";
+            // pass the value of parameter
+            command.Parameters.AddWithValue("@CourseId", CourseId);
+
+            SqlDataAdapter adapter = new SqlDataAdapter(command);
+            DataTable dtKeywords = new DataTable();
+
+            // open connection
+            _connection.Open();
+            adapter.Fill(dtKeywords);
+            // close connection
+            _connection.Close();
+
+            foreach (DataRow dr in dtKeywords.Rows)
+            {
+                keywordsList.Add(new KeywordsViewModel
+                {
+                    KId = Convert.ToInt32(dr["KId"]),
+                    kName = Convert.ToString(dr["KName"]),
+                    IsActive = Convert.ToString(dr["Matching"])
 
                 });
             }
@@ -92,5 +129,5 @@ namespace ProfessorCourse_BestFit.DAL
             return keywordsList;
         }
     }
-
 }
+

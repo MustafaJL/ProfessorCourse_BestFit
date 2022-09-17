@@ -63,7 +63,7 @@ namespace ProfessorCourse_BestFit.Controllers
                     _context.SaveChanges();
                     // add spCreateRolePermisssions
                     //_sp.CreateRolePermissions(role.RoleId);
-                    _sp.CreateCourseKeywords(course.CId);
+                    //_sp.CreateCourseKeywords(course.CId);
                 }
                 else
                 {
@@ -92,7 +92,8 @@ namespace ProfessorCourse_BestFit.Controllers
         public ActionResult courseKeywords(int? id)
         {
             var course = _context.Courses.SingleOrDefault(x => x.CId == id);
-            var keywords = _sp.GetKeywordsByCourseId((int)id);
+
+            var keywords = _sp.GetAllKeywordsIncludesMatchingByCourseId((int)id);
 
             CourseKeywordsViewModel userKeywordsView = new CourseKeywordsViewModel
             {
@@ -110,6 +111,10 @@ namespace ProfessorCourse_BestFit.Controllers
             if (keywords != null && keywords.Length > 0)
             {
                 keywordsString = string.Join(",", keywords);
+            }
+            else
+            {
+                keywordsString = "0";
             }
 
             var a = _sp.UpdateCourseKeyword(courseId, keywordsString);

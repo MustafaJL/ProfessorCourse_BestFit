@@ -1,0 +1,71 @@
+﻿* {
+    font-family: 'Roboto', sans-serif;
+}
+
+label, ::placeholder {
+    font-size: 15px;
+}
+
+#emailHelp {
+    font-size: 13px;
+    font-style: italic;
+}
+
+
+body {
+    background-color: lightgray;
+}
+
+
+.avatar {
+    top: -15%;
+    position: absolute;
+    /* width: 80px;
+    height: 80px; */
+    margin-left: 40%;
+    border-radius: 20%;
+    background-color: white;
+    padding: 5px;
+    /* border: 0.2px solid #202A44; */
+}
+
+.card {
+    width: 500px;
+    min-height: 200px;
+}
+
+
+form .form-group label {
+    margin: 10px 10px 2px 0px;
+}
+
+
+
+.btn {
+    width: 100%;
+    padding: 10px;
+}
+
+.title-section {
+    display: flex;
+    margin-top: 20px;
+}
+
+
+.text-title {
+    flex: 1;
+    text-align: center;
+    margin-top: 10px;
+    font-weight: 500;
+    margin-left: -10%;
+}
+
+
+.second-logo {
+    flex: 1;
+}
+
+.submit_button {
+    color: white;
+    background-color: #202A44;
+}

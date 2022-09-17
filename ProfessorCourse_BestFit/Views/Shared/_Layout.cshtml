@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
 
-    <link href="~/Content/Site.css" rel="stylesheet" />
+    
 
     <link href="~/Content/bootstrap-icons/font/bootstrap-icons.min.css" rel="stylesheet" />
 
@@ -171,7 +171,7 @@
                     </div>
                 </li>
 
-                @*<li class="nav-item">
+                <li class="nav-item">
             <a class="nav-link" data-widget="fullscreen" href="#" role="button">
                 <i class="fas fa-expand-arrows-alt"></i>
             </a>
@@ -180,7 +180,7 @@
             <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
                 <i class="fas fa-th-large"></i>
             </a>
-        </li>*@
+        </li>
             </ul>
         </nav>
         <!-- /.navbar -->
@@ -363,6 +363,10 @@
 
     <script src="~/Content/plugins/jquery-ui/jquery-ui.min.js"></script>
     <script>
+        $(function () {
+            //Initialize Select2 Elements
+            $('.select2').select2()
+        })
         var logout = document.getElementById("logout");
 
         logout.addEventListener("click", function () {

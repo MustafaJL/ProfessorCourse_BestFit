@@ -32,92 +32,92 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-12">
+                   
 
+                        <div class="card">
+                            <div class="card-header">
+                                <form method="get" class="d-flex">
 
-                    <div class="card">
-                        <div class="card-header">
-                            <form method="get">
-                                <select name="courseId" class="form-control col-2 d-inline" >
-                                    <option disabled>--select--</option>
+                                    <select name="courseId" class="form-control select2 col-2 d-inline">
+                                        <option disabled>--select--</option>
 
-                                    @foreach (var item in ViewBag.courses)
-                                    {
-                                        <option value="@item.CId" @(item.CId == ViewBag.selectedCourse ? "selected" : "" ) >@item.CName</option>
-                                        
-                                    }
-                                </select>
-                                <button type="submit" class="btn btn-primary" style="margin-bottom : 4px;">
-                                    <i class="bi bi-search"></i>
-                                    
-                                </button>
-
-                            </form>
-
-                        </div>
-
-                        
-                        <!-- /.card-header -->
-                        <div class="card-body">
-                            <table id="example1" class="table table-bordered table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>
-                                            First Name
-                                        </th>
-                                        <th>
-                                            Middle Name
-                                        </th>
-                                        <th>
-                                            Last Name
-                                        </th>
-                                        <th>
-                                            Email
-                                        </th>
-                                        <th>
-                                            Count
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @if (Model == null)
-                                    {
-                                        <tr>
-                                           
-                                        </tr>
-                                    }
-                                    else
-                                    {
-                                        foreach (var item in Model)
+                                        @foreach (var item in ViewBag.courses)
                                         {
+                                            <option value="@item.CId" @(item.CId == ViewBag.selectedCourse ? "selected" : "" )>@item.CName</option>
 
-                                            <tr class="js-row">
-                                                <td>@(id++)</td>
-                                                <td>@item.FirstName</td>
-                                                <td>@item.MiddleName</td>
-                                                <td>@item.LastName</td>
-                                                <td>@item.Email</td>
-                                                <td>@item.Count</td>
+                                        }
+                                    </select>
+                                    <button type="submit" class="btn btn-primary mx-2" style="margin-bottom : 4px;">
+                                        <i class="bi bi-search"></i>
+
+                                    </button>
+
+                                </form>
+
+                            </div>
+
+
+                            <!-- /.card-header -->
+                            <div class="card-body">
+                                <table id="example1" class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>
+                                                First Name
+                                            </th>
+                                            <th>
+                                                Middle Name
+                                            </th>
+                                            <th>
+                                                Last Name
+                                            </th>
+                                            <th>
+                                                Email
+                                            </th>
+                                            <th>
+                                                Count
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @if (Model == null)
+                                        {
+                                            <tr>
                                             </tr>
                                         }
+                                        else
+                                        {
+                                            foreach (var item in Model)
+                                            {
+
+                                                <tr class="js-row">
+                                                    <td>@(id++)</td>
+                                                    <td>@item.FirstName</td>
+                                                    <td>@item.MiddleName</td>
+                                                    <td>@item.LastName</td>
+                                                    <td>@item.Email</td>
+                                                    <td>@item.Count</td>
+                                                </tr>
+                                            }
 
 
-                                    }
-                                </tbody>
+                                        }
+                                    </tbody>
 
                                 </table>
-                           
 
 
 
 
+
+                            </div>
+                            <!-- /.card-body -->
                         </div>
-                        <!-- /.card-body -->
+                        <!-- /.card -->
                     </div>
-                    <!-- /.card -->
+                    <!-- /.col -->
                 </div>
-                <!-- /.col -->
-            </div>
             <!-- /.row -->
         </div>
         <!-- /.container-fluid -->
@@ -131,9 +131,11 @@
 
     <script>
 
-
+       
+       
 
         $(function () {
+            
             $("#example1").DataTable({
                 "responsive": true, "lengthChange": false, "autoWidth": false,
                 "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]

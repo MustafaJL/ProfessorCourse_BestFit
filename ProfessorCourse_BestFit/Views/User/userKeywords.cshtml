@@ -61,7 +61,7 @@
 
                                             <div class="icheck-primary">
 
-                                                <input class="btn check-box chmu" id="@keyword.KId" name="@keyword.kName" type="checkbox" @(keyword.IsActive == true ? "" : "checked")>
+                                                <input class="btn check-box chmu" id="@keyword.KId" name="@keyword.kName" type="checkbox" @(keyword.IsActive == "0" ? "checked" : "")>
                                                 <label for="@keyword.KId">
                                                     @keyword.kName
                                                 </label>
@@ -77,7 +77,7 @@
                         <!-- /.card-body -->
                         @Html.HiddenFor(model => model.User.Uid)
                         <div class="card-footer">
-                            <a href="/Roles/Index" class="btn btn-warning"><i class="bi bi-arrow-left"></i> Back</a>
+                            <a href="/User/Index" class="btn btn-warning"><i class="bi bi-arrow-left"></i> Back</a>
                             <button type="button" id="click" class="btn btn-primary" data-userId="@Model.User.Uid">Update</button>
                         </div>
 

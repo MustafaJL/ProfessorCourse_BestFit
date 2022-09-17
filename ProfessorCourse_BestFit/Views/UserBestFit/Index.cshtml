@@ -40,8 +40,8 @@
 
                     <div class="card">
                         <div class="card-header">
-                            <form method="get">
-                                <select name="userId" class="form-control col-2 d-inline" >
+                            <form method="get" class="d-flex">
+                                <select name="userId" class="form-control select2 col-2 d-inline" >
             <option disabled>--select--</option>
 
             @foreach (var item in ViewBag.Users)
@@ -50,7 +50,7 @@
 
             }
         </select>
-        <button type="submit" class="btn btn-primary" style="margin-bottom : 4px;">
+        <button type="submit" class="btn btn-primary mx-2" style="margin-bottom : 4px;">
             <i class="bi bi-search"></i>
 
         </button>
