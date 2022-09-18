@@ -8,11 +8,11 @@ namespace ProfessorCourse_BestFit.Controllers
 {
     public class CourseController : Controller
     {
-        private readonly ProfessorCourseBestFit1Entities _context;
+        private readonly ProfessorCourseBestFit1Entities1 _context;
         private readonly CourseKeywords_DAL _sp;
         public CourseController()
         {
-            _context = new ProfessorCourseBestFit1Entities();
+            _context = new ProfessorCourseBestFit1Entities1();
             _sp = new CourseKeywords_DAL();
         }
         public ActionResult Index()

@@ -8,11 +8,11 @@ namespace ProfessorCourse_BestFit.Controllers
 {
     public class SemesterController : Controller
     {
-        private readonly ProfessorCourseBestFit1Entities _context;
+        private readonly ProfessorCourseBestFit1Entities1 _context;
 
         public SemesterController()
         {
-            _context = new ProfessorCourseBestFit1Entities();
+            _context = new ProfessorCourseBestFit1Entities1();
         }
 
         private bool Name_Required(string name)
@@ -71,7 +71,7 @@ namespace ProfessorCourse_BestFit.Controllers
             {
                 return View(semesterViewModel);
             }
-
+            /*
             var isExist = _context.Semesters.SingleOrDefault(x => x.SemesterId == semesterViewModel.semester.SemesterId);
             if (isExist == null)
             {
@@ -88,6 +88,7 @@ namespace ProfessorCourse_BestFit.Controllers
                 isExist.SemesterName = semesterViewModel.semester.SemesterName;
                 _context.SaveChanges();
             }
+            */
             return View(semesterViewModel);
         }
 

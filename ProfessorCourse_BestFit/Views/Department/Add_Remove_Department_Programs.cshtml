@@ -1,0 +1,233 @@
+﻿@model ProfessorCourse_BestFit.Models.ViewModels.DepartmentViewModel
+
+@{
+    int num = -200;
+}
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Departments</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="/Home">Home</a></li>
+                        <li class="breadcrumb-item active">Contact</li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+
+
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="row">
+                                <div class="col-2">
+
+                                    @if (Model.all_Programs != null)
+                                    {
+                                        <select id="listofallusers" class="form-control select2">
+                                            <option value="-100">
+                                                -- select --
+                                            </option>
+                                            @foreach (var option in Model.all_Programs)
+                                            {
+                                                <option value=@option.ProgramId>
+                                                    @option.ProgramName
+                                                </option>
+                                            }
+                                        </select>
+                                    }
+                                </div>
+                                <div class="col-4">
+                                    <button class="btn btn-primary" id="addRow" onclick="addremove('add')">
+                                        Add new program
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <table id="example1" class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Program Name</th>
+                                        <th>Option</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbhold">
+                                    @if (Model.department_Programs != null)
+                                    {
+                                        foreach (var program in Model.department_Programs)
+                                        {
+                                            <tr>
+                                                <td>--</td>
+                                                <td>
+                                                    <h6 class="result" type="text" text='@program.ProgramName' name=@program.ProgramId id="h6 @num">
+                                                        @program.ProgramName
+                                                    </h6>
+                                                </td>
+                                                <td>
+                                                    <input id=@num class="btn btn-danger btndeleterow" type="button" value="Remove" onclick="addremove(@num)" />
+                                                </td>
+                                            </tr>
+                                            { num--; }
+                                        }
+                                    }
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Program Name</th>
+                                        <th>Option</th>
+                                    </tr>
+                                </tfoot>
+
+                            </table>
+
+
+
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+                    <button class="btn btn-primary" type="submit" id="submit" data-id="@Model.Department.DepId">
+                        Save Changes
+                    </button>
+                </div>
+                <!-- /.col -->
+
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /.container-fluid -->
+
+    </section>
+    <!-- /.content -->
+
+
+
+
+</div>
+<!-- /.content-wrapper -->
+@section Scripts{
+
+<script>
+
+    var counter;
+
+    if (counter == null) {
+        counter = 0;
+    }
+
+
+
+    $(function () {
+        $("#example1").DataTable({
+            "responsive": true, "lengthChange": false, "autoWidth": false,
+            "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+        }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+    });
+
+    var alldata = [];
+
+    function addremove(number) {
+
+        var t = $('#example1').DataTable();
+        var select = document.getElementById('listofallusers');
+        var value;
+        var text;
+        var option;
+
+        if (number == 'add') {
+            option = select.options[select.selectedIndex];
+            text = option.text;
+            value = option.value;
+            if (value == -100) {
+                alert('Please Select Name First');
+            } else {
+                alldata.push(value);
+                select.removeChild(option);
+
+                t.row.add(["--",
+                    '<h6 type="text" text="' + text + '" name="' + value + '" id="h6 ' + counter + '">' + text + '</h6>',
+                    '<input id=' + counter + ' class="btn btn-danger btndeleterow" type="button" value="Remove" onclick="addremove(' + counter + ')"/>']).draw();
+            }
+
+        } else {
+            console.log(number);
+
+            var h6 = document.getElementById('h6 ' + number);
+
+            var textToAdd = h6.getAttribute("text");
+            var idToMackValue = h6.getAttribute("name");
+
+            option = document.createElement("option");
+            option.value = idToMackValue;
+            option.text = textToAdd;
+            select.options[select.appendChild(option)];
+
+
+            for (var c = 0; c < alldata.length; c++) {
+                if (alldata[c] == idToMackValue) {
+                    alldata[c] = "-100";
+                }
+            }
+
+            var tableremove = $('#example1').DataTable();
+            var id = number;
+            var b = document.getElementById(id);
+            tableremove.row(b.closest('tr')).remove().draw();
+        }
+
+
+
+    }
+
+    $(document).ready(function () {
+        //FOR SUBMITION
+        var allmanagers = document.getElementsByClassName("result");
+        var btn = document.getElementById("submit");
+        var listOfID = []
+        btn.addEventListener("click", () => {
+            for (let i = 0; i < allmanagers.length; i++) {
+                if (allmanagers[i].getAttribute("name") != -100 && allmanagers[i].getAttribute("name") != "-100") {
+                    listOfID.push(allmanagers[i].getAttribute("name"))
+                }
+            }
+
+            $.ajax({
+                url: '/Department/Add_Remove_Department_Employees/',
+                type: 'post',
+                data: {
+                    id: btn.getAttribute("data-id"),
+                    ids: listOfID
+                },
+                success: function (json) {
+                    if (json.isRedirect) {
+                        window.location.href = json.redirectUrl;
+                    }
+                }
+            });
+
+        })
+
+    });
+
+
+</script>
+
+
+}

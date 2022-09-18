@@ -10,13 +10,13 @@ namespace ProfessorCourse_BestFit.Controllers
     public class UserBestFitController : Controller
     {
         private readonly UserBestFitDAL _sp;
-        private readonly ProfessorCourseBestFit1Entities _context;
+        private readonly ProfessorCourseBestFit1Entities1 _context;
 
 
         public UserBestFitController()
         {
             _sp = new UserBestFitDAL();
-            _context = new ProfessorCourseBestFit1Entities();
+            _context = new ProfessorCourseBestFit1Entities1();
         }
 
         public ActionResult Index(int? userId)

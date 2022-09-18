@@ -8,11 +8,11 @@ namespace ProfessorCourse_BestFit.Controllers
 {
     public class RolesController : Controller
     {
-        private readonly ProfessorCourseBestFit1Entities _context;
+        private readonly ProfessorCourseBestFit1Entities1 _context;
         private readonly RolePermissions_DAL _sp;
         public RolesController()
         {
-            _context = new ProfessorCourseBestFit1Entities();
+            _context = new ProfessorCourseBestFit1Entities1();
             _sp = new RolePermissions_DAL();
         }
 

@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
 
-    
+
 
     <link href="~/Content/bootstrap-icons/font/bootstrap-icons.min.css" rel="stylesheet" />
 
@@ -154,19 +154,21 @@
                     </a>
                     <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                         <div class="dropdown-divider"></div>
-                        <a href="/User/Profile/@(User.Identity.Name.ToString().Substring(0,User.Identity.Name.ToString().IndexOf(",")))" class="dropdown-item">
-                            <i class="bi bi-person"></i> Profile
-                            <span class="float-right text-muted text-sm"></span>
-                        </a>
+                        @*
+        <a href="/User/Profile/@(User.Identity.Name.ToString().Substring(0,User.Identity.Name.ToString().IndexOf(",")))" class="dropdown-item">
+            <i class="bi bi-person"></i> Profile
+            <span class="float-right text-muted text-sm"></span>
+        </a>
+                        *@
                         <div class="dropdown-divider"></div>
                         <form action="/Account/Logout" method="post">
                             <button type="submit" class="dropdown-item" id="logout">
                                 <i class="bi bi-box-arrow-left"></i> Logout
                                 <span class="float-right text-muted text-sm"></span>
                             </button>
-                        </form> 
-                       
-                        
+                        </form>
+
+
                         <div class="dropdown-divider"></div>
                     </div>
                 </li>
@@ -196,10 +198,10 @@
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
 
             <div class="image">
-                <img src="@(Session["image"])" class="img-circle elevation-2" alt="User Image" style="width:50px;height:50px;">
+                @*<img src="@(Session["image"])" class="img-circle elevation-2" alt="User Image" style="width:50px;height:50px;">*@
             </div>
             <div class="info">
-                <a href="/User/Profile/@(User.Identity.Name.ToString().Substring(0,User.Identity.Name.ToString().IndexOf(",")))" class="d-block">@(Session["fullname"])</a>
+                @*<a href="/User/Profile/@(User.Identity.Name.ToString().Substring(0,User.Identity.Name.ToString().IndexOf(",")))" class="d-block">@(Session["fullname"])</a>*@
             </div>
         </div>
                 

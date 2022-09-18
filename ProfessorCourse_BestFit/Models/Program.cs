@@ -22,7 +22,7 @@ namespace ProfessorCourse_BestFit.Models
         }
     
         public int ProgramId { get; set; }
-        public int Dep_Id { get; set; }
+        public Nullable<int> Dep_Id { get; set; }
         public string ProgramName { get; set; }
         public System.DateTime CreatedOn { get; set; }
         public bool isDeleted { get; set; }

@@ -13,7 +13,7 @@ namespace ProfessorCourse_BestFit.Controllers
 {
     public class ProgramController : Controller
     {
-        private readonly ProfessorCourseBestFit1Entities _context;
+        private readonly ProfessorCourseBestFit1Entities1 _context;
         private readonly Program_DAL program_DAL;
         private readonly User_DAL user_DAL;
         private readonly Department_DAL department_DAL;
@@ -22,7 +22,7 @@ namespace ProfessorCourse_BestFit.Controllers
 
         public ProgramController()
         {
-            _context = new ProfessorCourseBestFit1Entities();
+            _context = new ProfessorCourseBestFit1Entities1();
             program_DAL = new Program_DAL();
             user_DAL = new User_DAL();
             department_DAL = new Department_DAL();

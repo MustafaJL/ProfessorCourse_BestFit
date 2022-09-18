@@ -7,18 +7,19 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using ProfessorCourse_BestFit.Messages;
+using Newtonsoft.Json;
 
 namespace ProfessorCourse_BestFit.Controllers
 {
     public class DepartmentController : Controller
     {
-        private readonly ProfessorCourseBestFit1Entities _context;
+        private readonly ProfessorCourseBestFit1Entities1 _context;
         private readonly Department_DAL department_DAL;
         private readonly User_DAL user_DAL;
         //private readonly Messages messages;
         public DepartmentController()
         {
-            _context = new ProfessorCourseBestFit1Entities();
+            _context = new ProfessorCourseBestFit1Entities1();
             department_DAL = new Department_DAL();
             user_DAL = new User_DAL();
             //messages = new Messages();
@@ -187,26 +188,46 @@ namespace ProfessorCourse_BestFit.Controllers
         public ActionResult Add_Remove_Department_Managers(int id)
         {
             var departmentViewModel = new DepartmentViewModel();
-            departmentViewModel.normal_Users = _context.Users.ToList();
-            //departmentViewModel.normal_Users = user_DAL.Get_Users_Department(id, 3);
+            departmentViewModel.Department = _context.Departments.Where(x => x.DepId == id).FirstOrDefault();
+            departmentViewModel.normal_Users = user_DAL.Get_Users_Department(id, 3);
             departmentViewModel.managers = user_DAL.Get_Users_Department(id, 1);
             return View(departmentViewModel);
         }
 
         [HttpPost]
-        public JsonResult Add_Remove_Department_Managers(int[] data)
+        public JsonResult Add_Remove_Department_Managers(int id, string[] ids)
         {
+            var data = ids;
             if (data == null || data.Length == 0)
             {
                 return Json(new
                 {
-                    redirectUrl = Url.Action("All_Departments", "Department"),
+                    redirectUrl = Url.Action("Add_Remove_Department_Managers", "Department"),
                     isRedirect = true
                 });
             }
+
+            var listManagers = new List<UserDepartment>();
+            for (int i = 0; i < data.Length; i++)
+            {
+                var UserDepartment = new UserDepartment
+                {
+                    Dep_Id = id,
+                    User_ID = Convert.ToInt32(data[i]),
+                    StartDate = DateTime.Now,
+                    isManager = true
+                };
+                listManagers.Add(UserDepartment);
+            }
+
+            var jsonString = JsonConvert.SerializeObject(listManagers);
+
+            _context.AddRemoveManagers(id, jsonString, "department");
+            _context.SaveChanges();
+
             return Json(new
             {
-                redirectUrl = Url.Action("Add_Remove_Department_Managers", "Department"),
+                redirectUrl = Url.Action("All_Departments", "Department"),
                 isRedirect = true
             });
         }
@@ -214,15 +235,67 @@ namespace ProfessorCourse_BestFit.Controllers
         //GET :
         public ActionResult Add_Remove_Department_Employees(int id)
         {
-            //Need some code
-            return View();
+            var departmentViewModel = new DepartmentViewModel();
+            departmentViewModel.Department = _context.Departments.Where(x => x.DepId == id).FirstOrDefault();
+            departmentViewModel.normal_Users = user_DAL.Get_Users_Department(id, 4);
+            departmentViewModel.employee = user_DAL.Get_Users_Department(id, 2);
+            return View(departmentViewModel);
+        }
+
+        [HttpPost]
+        public JsonResult Add_Remove_Department_Employees(int id, string[] ids)
+        {
+            var data = ids;
+            if (data == null || data.Length == 0)
+            {
+                return Json(new
+                {
+                    redirectUrl = Url.Action("Add_Remove_Department_Employees", "Department"),
+                    isRedirect = true
+                });
+            }
+
+            var listEmployees = new List<UserDepartment>();
+            for (int i = 0; i < data.Length; i++)
+            {
+                var UserDepartment = new UserDepartment
+                {
+                    Dep_Id = id,
+                    User_ID = Convert.ToInt32(data[i]),
+                    StartDate = DateTime.Now,
+                    isManager = true
+                };
+                listEmployees.Add(UserDepartment);
+            }
+
+            var jsonString = JsonConvert.SerializeObject(listEmployees);
+
+            return Json(new
+            {
+                redirectUrl = Url.Action("All_Departments", "Department"),
+                isRedirect = true
+            });
         }
 
         //GET :
         public ActionResult Add_Remove_Department_Programs(int id)
         {
-            //Need some code
-            return View();
+            var departmentViewModel = new DepartmentViewModel();
+            departmentViewModel.Department = _context.Departments.Where(x => x.DepId == id).FirstOrDefault();
+            departmentViewModel.department_Programs = _context.Programs.Where(y => y.Dep_Id == id && y.isDeleted == false).ToList();
+            departmentViewModel.all_Programs = _context.Programs.Where(z => z.Dep_Id == null && z.isDeleted == false).ToList();
+            return View(departmentViewModel);
+        }
+
+        [HttpPost]
+        public JsonResult Add_Remove_Department_Programs(int id, string[] ids)
+        {
+            // need some code
+            return Json(new
+            {
+                redirectUrl = Url.Action("All_Departments", "Department"),
+                isRedirect = true
+            });
         }
     }
 }
