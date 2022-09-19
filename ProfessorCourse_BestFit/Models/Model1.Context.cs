@@ -219,21 +219,29 @@ namespace ProfessorCourse_BestFit.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ProgramManagersToAdd_Result>("ProgramManagersToAdd", programIDParameter);
         }
     
-        public virtual int AddRemoveManagers(Nullable<int> departmentID, string json, string query)
+        public virtual int AddRemoveManagers(Nullable<int> departmentID, string @string, string query, string bIGDELIMER, string sMALLDELIMER)
         {
             var departmentIDParameter = departmentID.HasValue ?
                 new ObjectParameter("DepartmentID", departmentID) :
                 new ObjectParameter("DepartmentID", typeof(int));
     
-            var jsonParameter = json != null ?
-                new ObjectParameter("json", json) :
-                new ObjectParameter("json", typeof(string));
+            var stringParameter = @string != null ?
+                new ObjectParameter("string", @string) :
+                new ObjectParameter("string", typeof(string));
     
             var queryParameter = query != null ?
                 new ObjectParameter("Query", query) :
                 new ObjectParameter("Query", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("AddRemoveManagers", departmentIDParameter, jsonParameter, queryParameter);
+            var bIGDELIMERParameter = bIGDELIMER != null ?
+                new ObjectParameter("BIGDELIMER", bIGDELIMER) :
+                new ObjectParameter("BIGDELIMER", typeof(string));
+    
+            var sMALLDELIMERParameter = sMALLDELIMER != null ?
+                new ObjectParameter("SMALLDELIMER", sMALLDELIMER) :
+                new ObjectParameter("SMALLDELIMER", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("AddRemoveManagers", departmentIDParameter, stringParameter, queryParameter, bIGDELIMERParameter, sMALLDELIMERParameter);
         }
     
         public virtual ObjectResult<DepartmentEmployeesToAdd_Result> DepartmentEmployeesToAdd(Nullable<int> departmentID)
@@ -243,6 +251,53 @@ namespace ProfessorCourse_BestFit.Models
                 new ObjectParameter("DepartmentID", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<DepartmentEmployeesToAdd_Result>("DepartmentEmployeesToAdd", departmentIDParameter);
+        }
+    
+        public virtual int test()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("test");
+        }
+    
+        public virtual int AddRemove(Nullable<int> actionID, string @string, string query, string bIGDELIMER, string sMALLDELIMER)
+        {
+            var actionIDParameter = actionID.HasValue ?
+                new ObjectParameter("actionID", actionID) :
+                new ObjectParameter("actionID", typeof(int));
+    
+            var stringParameter = @string != null ?
+                new ObjectParameter("string", @string) :
+                new ObjectParameter("string", typeof(string));
+    
+            var queryParameter = query != null ?
+                new ObjectParameter("Query", query) :
+                new ObjectParameter("Query", typeof(string));
+    
+            var bIGDELIMERParameter = bIGDELIMER != null ?
+                new ObjectParameter("BIGDELIMER", bIGDELIMER) :
+                new ObjectParameter("BIGDELIMER", typeof(string));
+    
+            var sMALLDELIMERParameter = sMALLDELIMER != null ?
+                new ObjectParameter("SMALLDELIMER", sMALLDELIMER) :
+                new ObjectParameter("SMALLDELIMER", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("AddRemove", actionIDParameter, stringParameter, queryParameter, bIGDELIMERParameter, sMALLDELIMERParameter);
+        }
+    
+        public virtual int DeleteAll(Nullable<int> iD, string section, string target)
+        {
+            var iDParameter = iD.HasValue ?
+                new ObjectParameter("ID", iD) :
+                new ObjectParameter("ID", typeof(int));
+    
+            var sectionParameter = section != null ?
+                new ObjectParameter("section", section) :
+                new ObjectParameter("section", typeof(string));
+    
+            var targetParameter = target != null ?
+                new ObjectParameter("target", target) :
+                new ObjectParameter("target", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("DeleteAll", iDParameter, sectionParameter, targetParameter);
         }
     }
 }

@@ -107,7 +107,7 @@ namespace ProfessorCourse_BestFit.Controllers
                 x => x.ProgramId == id
                 ).FirstOrDefault();
 
-            programViewModel.managers = user_DAL.Get_Users_Program(id);
+            programViewModel.managers = user_DAL.Get_Users_Program(id,1);
 
             //programViewModel.program_Courses = course_DAL.Get_Program_Courses(id);
 
@@ -195,14 +195,104 @@ namespace ProfessorCourse_BestFit.Controllers
 
         public ActionResult Add_Remove_Program_Managers(int id)
         {
-            //Need some code
-            return View();
+            var programViewModel = new ProgramViewModel();
+            programViewModel.Program = _context.Programs.Where(x => x.ProgramId == id).FirstOrDefault();
+            programViewModel.normal_Users = user_DAL.Get_Users_Program(id,2);
+            programViewModel.managers = user_DAL.Get_Users_Program(id, 1);
+            return View(programViewModel);
+        }
+
+        [HttpPost]
+        public JsonResult Add_Remove_Program_Managers(int id, string[] ids)
+        {
+            var data = ids;
+            if (data == null || data.Length == 0)
+            {
+                return Json(new
+                {
+                    redirectUrl = Url.Action("All_Programs", "Program"),
+                    isRedirect = true
+                });
+            }
+
+            if (data[0] == "null data")
+            {
+                _context.DeleteAll(id, "programs", "managers");
+                _context.SaveChanges();
+
+                return Json(new
+                {
+                    redirectUrl = Url.Action("All_Programs", "Program"),
+                    isRedirect = true
+                });
+            }
+
+            var s = "";
+            for (int i = 0; i < data.Length; i++)
+            {
+                s += id + "," + data[i] +","+ true+ "]";
+            }
+
+            _context.AddRemove(id, s, "programmanagers", "]", ",");
+            _context.SaveChanges();
+
+
+            return Json(new
+            {
+                redirectUrl = Url.Action("All_Programs", "Program"),
+                isRedirect = true
+            });
         }
 
         public ActionResult Add_Remove_Program_Courses(int id)
         {
-            //Need some code
-            return View();
+            var programViewModel = new ProgramViewModel();
+            programViewModel.Program = _context.Programs.Where(x => x.ProgramId == id).FirstOrDefault();
+            programViewModel.all_courses = program_DAL.Get_Course_Programs(id, 2);
+            programViewModel.program_Courses = program_DAL.Get_Course_Programs(id, 1);
+            return View(programViewModel);
+        }
+
+        [HttpPost]
+        public JsonResult Add_Remove_Program_Courses(int id, string[] ids)
+        {
+            var data = ids;
+            if (data == null || data.Length == 0)
+            {
+                return Json(new
+                {
+                    redirectUrl = Url.Action("All_Programs", "Program"),
+                    isRedirect = true
+                });
+            }
+
+            if (data[0] == "null data")
+            {
+                _context.DeleteAll(id, "programs", "courses");
+                _context.SaveChanges();
+
+                return Json(new
+                {
+                    redirectUrl = Url.Action("All_Programs", "Program"),
+                    isRedirect = true
+                });
+            }
+
+            var s = "";
+            for (int i = 0; i < data.Length; i++)
+            {
+                s += id + "," + data[i] + "]";
+            }
+
+            _context.AddRemove(id, s, "programcourses", "]", ",");
+            _context.SaveChanges();
+
+
+            return Json(new
+            {
+                redirectUrl = Url.Action("All_Programs", "Program"),
+                isRedirect = true
+            });
         }
     }
 }

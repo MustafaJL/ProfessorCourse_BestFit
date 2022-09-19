@@ -63,7 +63,7 @@
                                 <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>Professor Name</th>
+                                        <th>Manager Name</th>
                                         <th>Option</th>
                                     </tr>
                                 </thead>
@@ -90,7 +90,7 @@
                                 <tfoot>
                                     <tr>
                                         <th>#</th>
-                                        <th>Professor Name</th>
+                                        <th>Manager Name</th>
                                         <th>Option</th>
                                     </tr>
                                 </tfoot>
@@ -103,9 +103,14 @@
                         <!-- /.card-body -->
                     </div>
                     <!-- /.card -->
-                    <button class="btn btn-primary" type="submit" id="submit" data-id="@Model.Program.ProgramId">
-                        Save Changes
-                    </button>
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <a href="/Program/All_Programs" class="btn btn-warning"><i class="bi bi-arrow-left"></i> Back/Cancel</a>
+                            <button class="btn btn-primary" type="submit" id="submit" data-id="@Model.Program.ProgramId">
+                                Save Changes
+                            </button>
+                        </div>
+                    </div>
                 </div>
                 <!-- /.col -->
 
@@ -216,8 +221,12 @@
                 }
             }
 
+            if (listOfID.length <= 0) {
+                listOfID.push("null data")
+            }
+
             $.ajax({
-                url: '/Department/Add_Remove_Department_Managers/',
+                url: '/Program/Add_Remove_Program_Managers/',
                 type: 'post',
                 data: {
                     id: btn.getAttribute("data-id"),
@@ -234,3 +243,4 @@
 
         });
     </script>
+}

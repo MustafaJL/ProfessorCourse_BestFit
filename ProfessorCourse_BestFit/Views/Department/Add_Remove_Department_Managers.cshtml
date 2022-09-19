@@ -103,9 +103,14 @@
                         <!-- /.card-body -->
                     </div>
                     <!-- /.card -->
-                    <button class="btn btn-primary" type="submit" id="submit" data-id="@Model.Department.DepId">
-                        Save Changes
-                    </button>
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <a href="/Department/All_Departments" class="btn btn-warning"><i class="bi bi-arrow-left"></i> Back/Cancel</a>
+                            <button class="btn btn-primary" type="submit" id="submit" data-id="@Model.Department.DepId">
+                                Save Changes
+                            </button>
+                        </div>
+                    </div>
                 </div>
                 <!-- /.col -->
 
@@ -369,6 +374,10 @@
                 if (allmanagers[i].getAttribute("name") != -100 && allmanagers[i].getAttribute("name") != "-100") {
                     listOfID.push(allmanagers[i].getAttribute("name"))
                 }
+            }
+
+            if (listOfID.length <= 0) {
+                listOfID.push("null data")
             }
 
             /*

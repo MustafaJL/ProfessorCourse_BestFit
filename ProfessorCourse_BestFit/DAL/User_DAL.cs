@@ -223,7 +223,7 @@ namespace ProfessorCourse_BestFit.DAL
             return resut;
         }
 
-        public IEnumerable<User> Get_Users_Program(int programID)
+        public IEnumerable<User> Get_Users_Program(int programID, int option)
         {
             //the options come from department_DAL base on the method action
 
@@ -236,7 +236,14 @@ namespace ProfessorCourse_BestFit.DAL
             command.CommandType = CommandType.StoredProcedure;
 
             // specify name of SP
-            command.CommandText = "ProgramManagers";
+            if(option == 1)
+            {
+                command.CommandText = "ProgramManagers";
+            }
+            if(option == 2)
+            {
+                command.CommandText = "ProgramManagersToAdd";
+            }
 
 
             command.Parameters.AddWithValue("@ProgramID", programID);

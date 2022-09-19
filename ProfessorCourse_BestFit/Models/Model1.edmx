@@ -373,10 +373,12 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Function Name="AddRemoveManagers" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="DepartmentID" Type="int" Mode="In" />
-          <Parameter Name="json" Type="varchar(max)" Mode="In" />
+        <Function Name="AddRemove" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="actionID" Type="int" Mode="In" />
+          <Parameter Name="string" Type="varchar(max)" Mode="In" />
           <Parameter Name="Query" Type="varchar(max)" Mode="In" />
+          <Parameter Name="BIGDELIMER" Type="varchar" Mode="In" />
+          <Parameter Name="SMALLDELIMER" Type="varchar" Mode="In" />
         </Function>
         <Function Name="CourseDeleteRelations" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="CourseID" Type="int" Mode="In" />
@@ -392,6 +394,11 @@
         </Function>
         <Function Name="CourseUsersToBeProfessors" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="CourseID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="DeleteAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ID" Type="int" Mode="In" />
+          <Parameter Name="section" Type="varchar(max)" Mode="In" />
+          <Parameter Name="target" Type="varchar(max)" Mode="In" />
         </Function>
         <Function Name="DepartmentAddRemoveManagers" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="DepartmentID" Type="int" Mode="In" />
@@ -417,6 +424,7 @@
         <Function Name="ProgramManagersToAdd" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ProgramID" Type="int" Mode="In" />
         </Function>
+        <Function Name="test" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="ProfessorCourseBestFit1ModelStoreContainer">
           <EntitySet Name="Course" EntityType="Self.Course" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CourseKeyword" EntityType="Self.CourseKeyword" Schema="dbo" store:Type="Tables" />
@@ -1051,11 +1059,26 @@
           </FunctionImport>
           <FunctionImport Name="AddRemoveManagers">
             <Parameter Name="DepartmentID" Mode="In" Type="Int32" />
-            <Parameter Name="json" Mode="In" Type="String" />
+            <Parameter Name="string" Mode="In" Type="String" />
             <Parameter Name="Query" Mode="In" Type="String" />
+            <Parameter Name="BIGDELIMER" Mode="In" Type="String" />
+            <Parameter Name="SMALLDELIMER" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="DepartmentEmployeesToAdd" ReturnType="Collection(ProfessorCourseBestFit1Model.DepartmentEmployeesToAdd_Result)">
           <Parameter Name="DepartmentID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="test" />
+          <FunctionImport Name="AddRemove">
+            <Parameter Name="actionID" Mode="In" Type="Int32" />
+            <Parameter Name="string" Mode="In" Type="String" />
+            <Parameter Name="Query" Mode="In" Type="String" />
+            <Parameter Name="BIGDELIMER" Mode="In" Type="String" />
+            <Parameter Name="SMALLDELIMER" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="DeleteAll">
+            <Parameter Name="ID" Mode="In" Type="Int32" />
+            <Parameter Name="section" Mode="In" Type="String" />
+            <Parameter Name="target" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="CourseProfessors_Result">
@@ -1619,7 +1642,6 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="AddRemoveManagers" FunctionName="ProfessorCourseBestFit1Model.Store.AddRemoveManagers" />
           <FunctionImportMapping FunctionImportName="DepartmentEmployeesToAdd" FunctionName="ProfessorCourseBestFit1Model.Store.DepartmentEmployeesToAdd">
             <ResultMapping>
               <ComplexTypeMapping TypeName="ProfessorCourseBestFit1Model.DepartmentEmployeesToAdd_Result">
@@ -1642,6 +1664,9 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="test" FunctionName="ProfessorCourseBestFit1Model.Store.test" />
+          <FunctionImportMapping FunctionImportName="AddRemove" FunctionName="ProfessorCourseBestFit1Model.Store.AddRemove" />
+          <FunctionImportMapping FunctionImportName="DeleteAll" FunctionName="ProfessorCourseBestFit1Model.Store.DeleteAll" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

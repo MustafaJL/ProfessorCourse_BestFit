@@ -202,27 +202,31 @@ namespace ProfessorCourse_BestFit.Controllers
             {
                 return Json(new
                 {
-                    redirectUrl = Url.Action("Add_Remove_Department_Managers", "Department"),
+                    redirectUrl = Url.Action("All_Departments", "Department"),
                     isRedirect = true
                 });
             }
 
-            var listManagers = new List<UserDepartment>();
-            for (int i = 0; i < data.Length; i++)
+            if (data[0] == "null data")
             {
-                var UserDepartment = new UserDepartment
+                _context.DeleteAll(id, "department", "managers");
+                _context.SaveChanges();
+
+                return Json(new
                 {
-                    Dep_Id = id,
-                    User_ID = Convert.ToInt32(data[i]),
-                    StartDate = DateTime.Now,
-                    isManager = true
-                };
-                listManagers.Add(UserDepartment);
+                    redirectUrl = Url.Action("All_Departments", "Department"),
+                    isRedirect = true
+                });
             }
 
-            var jsonString = JsonConvert.SerializeObject(listManagers);
 
-            _context.AddRemoveManagers(id, jsonString, "department");
+            var s = "";
+            for (int i = 0; i < data.Length; i++)
+            {
+                s += id + "," + data[i] + "," + DateTime.Now + "," + true + "]";
+            }
+
+            _context.AddRemove(id, s, "departmentmanagers", "]", ",");
             _context.SaveChanges();
 
             return Json(new
@@ -250,25 +254,32 @@ namespace ProfessorCourse_BestFit.Controllers
             {
                 return Json(new
                 {
-                    redirectUrl = Url.Action("Add_Remove_Department_Employees", "Department"),
+                    redirectUrl = Url.Action("All_Departments", "Department"),
                     isRedirect = true
                 });
             }
 
-            var listEmployees = new List<UserDepartment>();
-            for (int i = 0; i < data.Length; i++)
+            if (data[0] == "null data")
             {
-                var UserDepartment = new UserDepartment
+                _context.DeleteAll(id, "department", "employees");
+                _context.SaveChanges();
+
+                return Json(new
                 {
-                    Dep_Id = id,
-                    User_ID = Convert.ToInt32(data[i]),
-                    StartDate = DateTime.Now,
-                    isManager = true
-                };
-                listEmployees.Add(UserDepartment);
+                    redirectUrl = Url.Action("All_Departments", "Department"),
+                    isRedirect = true
+                });
             }
 
-            var jsonString = JsonConvert.SerializeObject(listEmployees);
+            var s = "";
+            for (int i = 0; i < data.Length; i++)
+            {
+                s+= id+","+data[i]+","+DateTime.Now+","+false+"]";
+            }
+
+            _context.AddRemove(id, s, "departmentemployees", "]", ",");
+            _context.SaveChanges();
+
 
             return Json(new
             {
@@ -290,7 +301,38 @@ namespace ProfessorCourse_BestFit.Controllers
         [HttpPost]
         public JsonResult Add_Remove_Department_Programs(int id, string[] ids)
         {
-            // need some code
+            var data = ids;
+            if (data == null || data.Length == 0)
+            {
+                return Json(new
+                {
+                    redirectUrl = Url.Action("All_Departments", "Department"),
+                    isRedirect = true
+                });
+            }
+
+            if (data[0] == "null data")
+            {
+                _context.DeleteAll(id, "department", "programs");
+                _context.SaveChanges();
+
+                return Json(new
+                {
+                    redirectUrl = Url.Action("All_Departments", "Department"),
+                    isRedirect = true
+                });
+            }
+
+            var s = "";
+            for (int i = 0; i < data.Length; i++)
+            {
+                s += id + "," + data[i] + "]";
+            }
+
+            _context.AddRemove(id, s, "departmentprograms", "]", ",");
+            _context.SaveChanges();
+
+
             return Json(new
             {
                 redirectUrl = Url.Action("All_Departments", "Department"),

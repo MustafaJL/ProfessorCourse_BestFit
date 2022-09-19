@@ -23,11 +23,11 @@ namespace ProfessorCourse_BestFit.DAL
             //course_DAL = new Course_DAL();
         }
 
-        public IEnumerable<Program> Get_Course_Programs(int courseID, int option)
+        public IEnumerable<Course> Get_Course_Programs(int programID, int option)
         {
             //the options come from department_DAL base on the method action
 
-            List<Program> resut = new List<Program>();
+            List<Course> resut = new List<Course>();
 
             // create command
             SqlCommand command = _connection.CreateCommand();
@@ -38,14 +38,14 @@ namespace ProfessorCourse_BestFit.DAL
             // specify name of SP
             if (option == 1)
             {
-                command.CommandText = "CoursePrograms";
+                command.CommandText = "ProgramCourses";
             }
             if (option == 2)
             {
-                command.CommandText = "CourseProgramToAdd";
+                command.CommandText = "ProgramCoursesToAdd";
             }
 
-            command.Parameters.AddWithValue("@CourseID", courseID);
+            command.Parameters.AddWithValue("@ProgramID", programID);
 
             SqlDataAdapter adapter = new SqlDataAdapter(command);
             DataTable dtMails = new DataTable();
@@ -58,15 +58,16 @@ namespace ProfessorCourse_BestFit.DAL
 
             foreach (DataRow dr in dtMails.Rows)
             {
-                resut.Add(new Program
+                resut.Add(new Course
                 {
-                    ProgramId = Convert.ToInt32(dr["ProgramId"]),
-                    Dep_Id = Convert.ToInt32(dr["Dep_Id"]),
-                    ProgramName = Convert.ToString(dr["ProgramName"])
+                    CId = Convert.ToInt32(dr["CId"]),
+                    CName = Convert.ToString(dr["CName"]),
+                    Code = Convert.ToString(dr["Code"])
                 });
             }
 
             return resut;
         }
+
     }
 }

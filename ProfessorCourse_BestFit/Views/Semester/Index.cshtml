@@ -49,6 +49,12 @@
                                             Semester Name
                                         </th>
                                         <th>
+                                            Start Date
+                                        </th>
+                                        <th>
+                                            End Date
+                                        </th>
+                                        <th>
                                             Action
                                         </th>
                                     </tr>
@@ -61,6 +67,8 @@
                                         <tr class="js-row">
                                             <td>@(id++)</td>
                                             <td>@item.SemesterName</td>
+                                            <td>@item.StartDate</td>
+                                            <td>@item.EndDate</td>
                                             <td width="20%">
 
                                                 <a class="btn btn-outline-success" href="/Semester/Upsert/@item.SemesterId">

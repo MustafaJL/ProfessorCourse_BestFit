@@ -22,7 +22,7 @@
         <div class="container-fluid">
             <div class="row">
                 <!-- left column -->
-                <div class="col-md-12"
+                <div class="col-md-12">
                     <div class="card card-primary">
                         <div class="card-header">
                             <h3 class="card-title">Create Program</h3>
@@ -36,7 +36,7 @@
 
                             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                             <div class="form-group">
-                                <label>Program Name</label>
+                                <label style="margin-left:10px">Program Name</label>
                                 <div class="col-md-10">
                                     @if (ViewBag.nameExist != null)
                                     {
