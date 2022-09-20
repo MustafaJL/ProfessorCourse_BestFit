@@ -91,8 +91,8 @@ namespace ProfessorCourse_BestFit.Controllers
             */
             var semester = new Semester();
             semester.SemesterName = semesterViewModel.semester.SemesterName;
-            semester.StartDate = DateTime.Now;
-            semester.EndDate = DateTime.Now.AddMonths(4);
+            semester.StartDate = DateTime.Now.ToString();
+            semester.EndDate = DateTime.Now.AddMonths(4).ToString();
             _context.Semesters.Add(semester);
             _context.SaveChanges();
 

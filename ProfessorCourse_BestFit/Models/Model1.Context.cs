@@ -18,7 +18,7 @@ namespace ProfessorCourse_BestFit.Models
     public partial class ProfessorCourseBestFit1Entities1 : DbContext
     {
         public ProfessorCourseBestFit1Entities1()
-            : base("name=ProfessorCourseBestFit1Entities1")
+            : base("name=ProfessorCourseBestFitEntities")
         {
         }
     
@@ -44,71 +44,29 @@ namespace ProfessorCourse_BestFit.Models
         public virtual DbSet<UserProgram> UserPrograms { get; set; }
         public virtual DbSet<User> Users { get; set; }
     
-        public virtual int AddEditDepartmentManagers(string sTR, string dELIM, Nullable<int> departmentID, Nullable<System.DateTime> startdate, Nullable<System.DateTime> enddate)
+        public virtual int AddRemove(Nullable<int> actionID, string @string, string query, string bIGDELIMER, string sMALLDELIMER)
         {
-            var sTRParameter = sTR != null ?
-                new ObjectParameter("STR", sTR) :
-                new ObjectParameter("STR", typeof(string));
+            var actionIDParameter = actionID.HasValue ?
+                new ObjectParameter("actionID", actionID) :
+                new ObjectParameter("actionID", typeof(int));
     
-            var dELIMParameter = dELIM != null ?
-                new ObjectParameter("DELIM", dELIM) :
-                new ObjectParameter("DELIM", typeof(string));
+            var stringParameter = @string != null ?
+                new ObjectParameter("string", @string) :
+                new ObjectParameter("string", typeof(string));
     
-            var departmentIDParameter = departmentID.HasValue ?
-                new ObjectParameter("DepartmentID", departmentID) :
-                new ObjectParameter("DepartmentID", typeof(int));
+            var queryParameter = query != null ?
+                new ObjectParameter("Query", query) :
+                new ObjectParameter("Query", typeof(string));
     
-            var startdateParameter = startdate.HasValue ?
-                new ObjectParameter("startdate", startdate) :
-                new ObjectParameter("startdate", typeof(System.DateTime));
+            var bIGDELIMERParameter = bIGDELIMER != null ?
+                new ObjectParameter("BIGDELIMER", bIGDELIMER) :
+                new ObjectParameter("BIGDELIMER", typeof(string));
     
-            var enddateParameter = enddate.HasValue ?
-                new ObjectParameter("enddate", enddate) :
-                new ObjectParameter("enddate", typeof(System.DateTime));
+            var sMALLDELIMERParameter = sMALLDELIMER != null ?
+                new ObjectParameter("SMALLDELIMER", sMALLDELIMER) :
+                new ObjectParameter("SMALLDELIMER", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("AddEditDepartmentManagers", sTRParameter, dELIMParameter, departmentIDParameter, startdateParameter, enddateParameter);
-        }
-    
-        public virtual int AddEditDepartmentManagers2(string sTR, Nullable<int> cOUNT, Nullable<int> counter, Nullable<int> departmentID, Nullable<System.DateTime> startdate, Nullable<System.DateTime> enddate)
-        {
-            var sTRParameter = sTR != null ?
-                new ObjectParameter("STR", sTR) :
-                new ObjectParameter("STR", typeof(string));
-    
-            var cOUNTParameter = cOUNT.HasValue ?
-                new ObjectParameter("COUNT", cOUNT) :
-                new ObjectParameter("COUNT", typeof(int));
-    
-            var counterParameter = counter.HasValue ?
-                new ObjectParameter("counter", counter) :
-                new ObjectParameter("counter", typeof(int));
-    
-            var departmentIDParameter = departmentID.HasValue ?
-                new ObjectParameter("DepartmentID", departmentID) :
-                new ObjectParameter("DepartmentID", typeof(int));
-    
-            var startdateParameter = startdate.HasValue ?
-                new ObjectParameter("startdate", startdate) :
-                new ObjectParameter("startdate", typeof(System.DateTime));
-    
-            var enddateParameter = enddate.HasValue ?
-                new ObjectParameter("enddate", enddate) :
-                new ObjectParameter("enddate", typeof(System.DateTime));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("AddEditDepartmentManagers2", sTRParameter, cOUNTParameter, counterParameter, departmentIDParameter, startdateParameter, enddateParameter);
-        }
-    
-        public virtual int AddEditDepartmentManagers3(string sTR, Nullable<int> departmentID)
-        {
-            var sTRParameter = sTR != null ?
-                new ObjectParameter("STR", sTR) :
-                new ObjectParameter("STR", typeof(string));
-    
-            var departmentIDParameter = departmentID.HasValue ?
-                new ObjectParameter("departmentID", departmentID) :
-                new ObjectParameter("departmentID", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("AddEditDepartmentManagers3", sTRParameter, departmentIDParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("AddRemove", actionIDParameter, stringParameter, queryParameter, bIGDELIMERParameter, sMALLDELIMERParameter);
         }
     
         public virtual int CourseDeleteRelations(Nullable<int> courseID)
@@ -154,6 +112,23 @@ namespace ProfessorCourse_BestFit.Models
                 new ObjectParameter("CourseID", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<CourseUsersToBeProfessors_Result>("CourseUsersToBeProfessors", courseIDParameter);
+        }
+    
+        public virtual int DeleteAll(Nullable<int> iD, string section, string target)
+        {
+            var iDParameter = iD.HasValue ?
+                new ObjectParameter("ID", iD) :
+                new ObjectParameter("ID", typeof(int));
+    
+            var sectionParameter = section != null ?
+                new ObjectParameter("section", section) :
+                new ObjectParameter("section", typeof(string));
+    
+            var targetParameter = target != null ?
+                new ObjectParameter("target", target) :
+                new ObjectParameter("target", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("DeleteAll", iDParameter, sectionParameter, targetParameter);
         }
     
         public virtual ObjectResult<DepartmentAddRemoveManagers_Result> DepartmentAddRemoveManagers(Nullable<int> departmentID)
@@ -219,85 +194,192 @@ namespace ProfessorCourse_BestFit.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ProgramManagersToAdd_Result>("ProgramManagersToAdd", programIDParameter);
         }
     
-        public virtual int AddRemoveManagers(Nullable<int> departmentID, string @string, string query, string bIGDELIMER, string sMALLDELIMER)
+        public virtual int spCreateCourseKeywords(Nullable<int> courseId)
         {
-            var departmentIDParameter = departmentID.HasValue ?
-                new ObjectParameter("DepartmentID", departmentID) :
-                new ObjectParameter("DepartmentID", typeof(int));
+            var courseIdParameter = courseId.HasValue ?
+                new ObjectParameter("CourseId", courseId) :
+                new ObjectParameter("CourseId", typeof(int));
     
-            var stringParameter = @string != null ?
-                new ObjectParameter("string", @string) :
-                new ObjectParameter("string", typeof(string));
-    
-            var queryParameter = query != null ?
-                new ObjectParameter("Query", query) :
-                new ObjectParameter("Query", typeof(string));
-    
-            var bIGDELIMERParameter = bIGDELIMER != null ?
-                new ObjectParameter("BIGDELIMER", bIGDELIMER) :
-                new ObjectParameter("BIGDELIMER", typeof(string));
-    
-            var sMALLDELIMERParameter = sMALLDELIMER != null ?
-                new ObjectParameter("SMALLDELIMER", sMALLDELIMER) :
-                new ObjectParameter("SMALLDELIMER", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("AddRemoveManagers", departmentIDParameter, stringParameter, queryParameter, bIGDELIMERParameter, sMALLDELIMERParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spCreateCourseKeywords", courseIdParameter);
         }
     
-        public virtual ObjectResult<DepartmentEmployeesToAdd_Result> DepartmentEmployeesToAdd(Nullable<int> departmentID)
+        public virtual int spCreateKeywordCourse(Nullable<int> keywordId)
         {
-            var departmentIDParameter = departmentID.HasValue ?
-                new ObjectParameter("DepartmentID", departmentID) :
-                new ObjectParameter("DepartmentID", typeof(int));
+            var keywordIdParameter = keywordId.HasValue ?
+                new ObjectParameter("KeywordId", keywordId) :
+                new ObjectParameter("KeywordId", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<DepartmentEmployeesToAdd_Result>("DepartmentEmployeesToAdd", departmentIDParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spCreateKeywordCourse", keywordIdParameter);
         }
     
-        public virtual int test()
+        public virtual int spCreateKeywordUser(Nullable<int> keywordId)
         {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("test");
+            var keywordIdParameter = keywordId.HasValue ?
+                new ObjectParameter("KeywordId", keywordId) :
+                new ObjectParameter("KeywordId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spCreateKeywordUser", keywordIdParameter);
         }
     
-        public virtual int AddRemove(Nullable<int> actionID, string @string, string query, string bIGDELIMER, string sMALLDELIMER)
+        public virtual int spCreateRolePermissions(Nullable<int> roleId)
         {
-            var actionIDParameter = actionID.HasValue ?
-                new ObjectParameter("actionID", actionID) :
-                new ObjectParameter("actionID", typeof(int));
+            var roleIdParameter = roleId.HasValue ?
+                new ObjectParameter("RoleId", roleId) :
+                new ObjectParameter("RoleId", typeof(int));
     
-            var stringParameter = @string != null ?
-                new ObjectParameter("string", @string) :
-                new ObjectParameter("string", typeof(string));
-    
-            var queryParameter = query != null ?
-                new ObjectParameter("Query", query) :
-                new ObjectParameter("Query", typeof(string));
-    
-            var bIGDELIMERParameter = bIGDELIMER != null ?
-                new ObjectParameter("BIGDELIMER", bIGDELIMER) :
-                new ObjectParameter("BIGDELIMER", typeof(string));
-    
-            var sMALLDELIMERParameter = sMALLDELIMER != null ?
-                new ObjectParameter("SMALLDELIMER", sMALLDELIMER) :
-                new ObjectParameter("SMALLDELIMER", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("AddRemove", actionIDParameter, stringParameter, queryParameter, bIGDELIMERParameter, sMALLDELIMERParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spCreateRolePermissions", roleIdParameter);
         }
     
-        public virtual int DeleteAll(Nullable<int> iD, string section, string target)
+        public virtual int spCreateUserKeywords(Nullable<int> userId)
         {
-            var iDParameter = iD.HasValue ?
-                new ObjectParameter("ID", iD) :
-                new ObjectParameter("ID", typeof(int));
+            var userIdParameter = userId.HasValue ?
+                new ObjectParameter("UserId", userId) :
+                new ObjectParameter("UserId", typeof(int));
     
-            var sectionParameter = section != null ?
-                new ObjectParameter("section", section) :
-                new ObjectParameter("section", typeof(string));
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spCreateUserKeywords", userIdParameter);
+        }
     
-            var targetParameter = target != null ?
-                new ObjectParameter("target", target) :
-                new ObjectParameter("target", typeof(string));
+        public virtual ObjectResult<spGetAllKeywordsIncludeMatching_Result> spGetAllKeywordsIncludeMatching(Nullable<int> userId)
+        {
+            var userIdParameter = userId.HasValue ?
+                new ObjectParameter("UserId", userId) :
+                new ObjectParameter("UserId", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("DeleteAll", iDParameter, sectionParameter, targetParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<spGetAllKeywordsIncludeMatching_Result>("spGetAllKeywordsIncludeMatching", userIdParameter);
+        }
+    
+        public virtual ObjectResult<spGetAllKeywordsIncludeMatchingCourse_Result> spGetAllKeywordsIncludeMatchingCourse(Nullable<int> courseId)
+        {
+            var courseIdParameter = courseId.HasValue ?
+                new ObjectParameter("CourseId", courseId) :
+                new ObjectParameter("CourseId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<spGetAllKeywordsIncludeMatchingCourse_Result>("spGetAllKeywordsIncludeMatchingCourse", courseIdParameter);
+        }
+    
+        public virtual ObjectResult<spGetCoursesByUserId_Result> spGetCoursesByUserId(Nullable<int> userId)
+        {
+            var userIdParameter = userId.HasValue ?
+                new ObjectParameter("UserId", userId) :
+                new ObjectParameter("UserId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<spGetCoursesByUserId_Result>("spGetCoursesByUserId", userIdParameter);
+        }
+    
+        public virtual int spGetUserRoles()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spGetUserRoles");
+        }
+    
+        public virtual int spGetUserRolesById(Nullable<int> userId)
+        {
+            var userIdParameter = userId.HasValue ?
+                new ObjectParameter("UserId", userId) :
+                new ObjectParameter("UserId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spGetUserRolesById", userIdParameter);
+        }
+    
+        public virtual ObjectResult<spGetUsersByCourseId_Result> spGetUsersByCourseId(Nullable<int> courseId)
+        {
+            var courseIdParameter = courseId.HasValue ?
+                new ObjectParameter("CourseId", courseId) :
+                new ObjectParameter("CourseId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<spGetUsersByCourseId_Result>("spGetUsersByCourseId", courseIdParameter);
+        }
+    
+        public virtual int spIsRowExist(string tableName, string columnName, string rowValue)
+        {
+            var tableNameParameter = tableName != null ?
+                new ObjectParameter("tableName", tableName) :
+                new ObjectParameter("tableName", typeof(string));
+    
+            var columnNameParameter = columnName != null ?
+                new ObjectParameter("columnName", columnName) :
+                new ObjectParameter("columnName", typeof(string));
+    
+            var rowValueParameter = rowValue != null ?
+                new ObjectParameter("rowValue", rowValue) :
+                new ObjectParameter("rowValue", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spIsRowExist", tableNameParameter, columnNameParameter, rowValueParameter);
+        }
+    
+        public virtual ObjectResult<spKeywordsByCourseId_Result> spKeywordsByCourseId(Nullable<int> courseId)
+        {
+            var courseIdParameter = courseId.HasValue ?
+                new ObjectParameter("CourseId", courseId) :
+                new ObjectParameter("CourseId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<spKeywordsByCourseId_Result>("spKeywordsByCourseId", courseIdParameter);
+        }
+    
+        public virtual ObjectResult<spKeywordsByUserId_Result> spKeywordsByUserId(Nullable<int> userId)
+        {
+            var userIdParameter = userId.HasValue ?
+                new ObjectParameter("UserId", userId) :
+                new ObjectParameter("UserId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<spKeywordsByUserId_Result>("spKeywordsByUserId", userIdParameter);
+        }
+    
+        public virtual ObjectResult<spPermissionByRoleId_Result> spPermissionByRoleId(Nullable<int> roleId)
+        {
+            var roleIdParameter = roleId.HasValue ?
+                new ObjectParameter("RoleId", roleId) :
+                new ObjectParameter("RoleId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<spPermissionByRoleId_Result>("spPermissionByRoleId", roleIdParameter);
+        }
+    
+        public virtual ObjectResult<string> spUpdateCourseKeywords(string keywords, Nullable<int> courseId)
+        {
+            var keywordsParameter = keywords != null ?
+                new ObjectParameter("Keywords", keywords) :
+                new ObjectParameter("Keywords", typeof(string));
+    
+            var courseIdParameter = courseId.HasValue ?
+                new ObjectParameter("CourseId", courseId) :
+                new ObjectParameter("CourseId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("spUpdateCourseKeywords", keywordsParameter, courseIdParameter);
+        }
+    
+        public virtual ObjectResult<string> spUpdateRolePermissions(string permissions, Nullable<int> roleId)
+        {
+            var permissionsParameter = permissions != null ?
+                new ObjectParameter("permissions", permissions) :
+                new ObjectParameter("permissions", typeof(string));
+    
+            var roleIdParameter = roleId.HasValue ?
+                new ObjectParameter("RoleId", roleId) :
+                new ObjectParameter("RoleId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("spUpdateRolePermissions", permissionsParameter, roleIdParameter);
+        }
+    
+        public virtual ObjectResult<string> spUpdateUserKeywords(string keywords, Nullable<int> userId)
+        {
+            var keywordsParameter = keywords != null ?
+                new ObjectParameter("Keywords", keywords) :
+                new ObjectParameter("Keywords", typeof(string));
+    
+            var userIdParameter = userId.HasValue ?
+                new ObjectParameter("UserId", userId) :
+                new ObjectParameter("UserId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("spUpdateUserKeywords", keywordsParameter, userIdParameter);
+        }
+    
+        public virtual int spUserPermissionsName()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spUserPermissionsName");
+        }
+    
+        public virtual int spUserRolesName()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spUserRolesName");
         }
     }
 }

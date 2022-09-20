@@ -109,7 +109,7 @@ namespace ProfessorCourse_BestFit.Controllers
             if (ModelState.IsValid)
             {
                 User user = new User();
-                if (model.User.Id == 0 || model.User.Id == null)
+                if (model.User.Id == 0)
                 {
 
                     var isExist = IsEmailExist(model.User.Email);
@@ -118,7 +118,8 @@ namespace ProfessorCourse_BestFit.Controllers
                         var roles = _context.Roles.Where(x => x.isDeleted == false).ToList();
 
                         ViewBag.Error = "Email already Exist";
-
+                        ViewBag.gender = model.User.Gender;
+                        ViewBag.id = model.User.Id;
                         var viewModel = new UserRolesViewModel
                         {
                             User = model.User,
