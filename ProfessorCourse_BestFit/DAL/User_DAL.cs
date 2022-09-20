@@ -144,7 +144,7 @@ namespace ProfessorCourse_BestFit.DAL
             }
             if (option == 4)
             {
-                command.CommandText = "DepartmentEmployeesToAdd";
+                command.CommandText = "DepartmentEmployeesToAdd";//need to add
             }
 
             command.Parameters.AddWithValue("@DepartmentID", departmentID);

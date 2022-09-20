@@ -8,12 +8,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Departments</h1>
+                    <h1>@(Session["Language"] != "Engilsh" ? "الأقسام" : "Departments")</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="/Home">Home</a></li>
-                        <li class="breadcrumb-item active">Contact</li>
+                        <li class="breadcrumb-item"><a href="/Home">@(Session["Language"] != "Engilsh" ? "الصفحة الرئيسية" : "Home")</a></li>
+                        <li class="breadcrumb-item active">@(Session["Language"] != "Engilsh" ? "تواصل معنا" : "Contact")</li>
                     </ol>
                 </div>
             </div>
@@ -30,7 +30,7 @@
                         <div class="card-header">
                             <a href="/Department/Create_Department" class="btn btn-primary">
                                 <i class="bi bi-plus-circle"></i>
-                                Create
+                                @(Session["Language"] != "Engilsh" ? "إنشاء قسم" : "Create")
                             </a>
                         </div>
                         <!-- /.card-header -->
@@ -39,8 +39,8 @@
                                 <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>Department Name</th>
-                                        <th>Action</th>
+                                        <th>@(Session["Language"] != "Engilsh" ? "إسم القسم" : "Department Name")</th>
+                                        <th>@(Session["Language"] != "Engilsh" ? "الخيارات" : "Options")</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -58,32 +58,32 @@
                                                     <td>
 
                                                         <a class="btn bg-gradient-info" href="/Department/view_Department_Information/@item.DepId">
-                                                            View Information
+                                                            @(Session["Language"] != "Engilsh" ? "مشاهدة المعلومات" : "View Information")
                                                         </a>
 
                                                         <a class="btn bg-gradient-success" href="/Department/Edit_Department_Name/@item.DepId">
                                                             <i class="bi bi-pencil-square"></i>
-                                                            Edit
+                                                            @(Session["Language"] != "Engilsh" ? "تعديل" : "Edit")
                                                         </a>
 
                                                         <a class="btn bg-gradient-success" href="/Department/Add_Remove_Department_Managers/@item.DepId">
                                                             <i class="bi bi-pencil"></i>
-                                                            Add/Remove Managers
+                                                            @(Session["Language"] != "Engilsh" ? "إضافة/إزالة المدراء" : "Add/Remove Managers")
                                                         </a>
 
                                                         <a class="btn bg-gradient-success" href="/Department/Add_Remove_Department_Employees/@item.DepId">
                                                             <i class="bi bi-pencil"></i>
-                                                            Add/Remove Employees
+                                                            @(Session["Language"] != "Engilsh" ? "إضافة/إزالة الموظفين" : "Add/Remove Employees")
                                                         </a>
 
                                                         <a class="btn bg-gradient-success" href="/Department/Add_Remove_Department_Programs/@item.DepId">
                                                             <i class="bi bi-pencil"></i>
-                                                            Add/Remove Programs
+                                                            @(Session["Language"] != "Engilsh" ? "إضافة/إزالة البرامج" : "Add/Remove Programs")
                                                         </a>
 
                                                         <button type="button" class="btn btn-danger js-delete" data-toggle="modal" data-target="#modal-danger" uid-data="@item.DepId">
                                                             <i class="bi bi-exclamation-triangle"></i>
-                                                            Deactivate
+                                                            @(Session["Language"] != "Engilsh" ? "تعطيل" : "Deactivate")
                                                         </button>
 
                                                     </td>
@@ -98,12 +98,12 @@
                                                     <td>
 
                                                         <a class="btn bg-gradient-info" href="/Department/view_Department_Information/@item.DepId">
-                                                            View Information
+                                                            @(Session["Language"] != "Engilsh" ? "مشاهدة المعلومات" : "View Information")
                                                         </a>
 
                                                         <button type="button" class="btn btn-warning js-activate" data-toggle="modal" data-target="#modal-warning" uid-data="@item.DepId">
                                                             <i class="bi bi-shield-exclamation"></i>
-                                                            Activate
+                                                            @(Session["Language"] != "Engilsh" ? "تفعيل" : "Activate")
                                                         </button>
 
                                                     </td>
@@ -115,8 +115,8 @@
                                 <tfoot>
                                     <tr>
                                         <th>#</th>
-                                        <th>Department Name</th>
-                                        <th>Action</th>
+                                        <th>@(Session["Language"] != "Engilsh" ? "إسم القسم" : "Department Name")</th>
+                                        <th>@(Session["Language"] != "Engilsh" ? "الخيارات" : "Options")</th>
                                     </tr>
                                 </tfoot>
 
@@ -127,17 +127,17 @@
                                 <div class="modal-dialog">
                                     <div class="modal-content bg-danger">
                                         <div class="modal-header">
-                                            <h4 class="modal-title">Deactivate</h4>
+                                            <h4 class="modal-title">@(Session["Language"] != "Engilsh" ? "تعطيل" : "Deactivate")</h4>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
                                         <div class="modal-body">
-                                            <p>Are you sure you want to deactivate this Department?</p>
+                                            <p>@(Session["Language"] != "Engilsh" ? "هل أنت متأكد من أنك تريد تعطيل هذا القسم" : "Are you sure you want to deactivate this Department?")</p>
                                         </div>
                                         <div class="modal-footer justify-content-between">
-                                            <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
-                                            <button type="button" class="btn btn-outline-light delete-department" data-dismiss="modal">Save changes</button>
+                                            <button type="button" class="btn btn-outline-light" data-dismiss="modal">@(Session["Language"] != "Engilsh" ? "إغلاق" : "Close")</button>
+                                            <button type="button" class="btn btn-outline-light delete-department" data-dismiss="modal">@(Session["Language"] != "Engilsh" ? "حفظ التعديلات" : "Save changes")</button>
                                         </div>
                                     </div>
                                     <!-- /.modal-content -->
@@ -149,17 +149,17 @@
                                 <div class="modal-dialog">
                                     <div class="modal-content bg-warning">
                                         <div class="modal-header">
-                                            <h4 class="modal-title">Activate</h4>
+                                            <h4 class="modal-title">@(Session["Language"] != "Engilsh" ? "تفعيل" : "Activate")</h4>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
                                         <div class="modal-body">
-                                            <p>Are you sure you want to activate this department?</p>
+                                            <p>@(Session["Language"] != "Engilsh" ? "هل أنت متأكد من أنك تريد تفعيل هذا القسم" : "Are you sure you want to activate this department?")</p>
                                         </div>
                                         <div class="modal-footer justify-content-between">
-                                            <button type="button" class="btn btn-outline-dark" data-dismiss="modal">Close</button>
-                                            <button type="button" class="btn btn-outline-dark reset-pass-model activatedepartment" data-dismiss="modal">Save changes</button>
+                                            <button type="button" class="btn btn-outline-dark" data-dismiss="modal">@(Session["Language"] != "Engilsh" ? "إغلاق" : "Close")</button>
+                                            <button type="button" class="btn btn-outline-dark reset-pass-model activatedepartment" data-dismiss="modal">@(Session["Language"] != "Engilsh" ? "حفظ التعديلات" : "Save changes")</button>
                                         </div>
                                     </div>
                                     <!-- /.modal-content -->
