@@ -42,130 +42,134 @@
                         <!-- /.card-header -->
                         <!-- form start -->
                         @using (Html.BeginForm("Upsert_User", "User", FormMethod.Post, new { enctype = "multipart/form-data" }))
-                        {
-                            @Html.AntiForgeryToken()
+                         {
+                            @*@Html.AntiForgeryToken()*@
                             @Html.HiddenFor(model => model.User.Id)
-                    <div class="card-body">
+                            <div class="card-body">
 
-                        <div class="form-group">
-                            <label>FirstName</label>
-                            @Html.EditorFor(model => model.User.FirstName, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter User First Name" } })
-                            @Html.ValidationMessageFor(model => model.User.FirstName, "", new { @class = "text-danger" })
-                        </div>
+                                <div class="form-group d-flex flex-column flex-md-row  col-12 justify-content-around">
+                                    <div class="form-group col-10 col-md-3">
+                                        <label>FirstName</label>
+                                        @Html.EditorFor(model => model.User.FirstName, new { htmlAttributes = new { @class = "form-control", required = "required", placeholder = "Enter User First Name" } })
+                                        @Html.ValidationMessageFor(model => model.User.FirstName, "", new { @class = "text-danger" })
+                                    </div>
 
-                        <div class="form-group">
-                            <label>MiddleName</label>
-                            @Html.EditorFor(model => model.User.MiddleName, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter User Middle Name" } })
-                            @Html.ValidationMessageFor(model => model.User.MiddleName, "", new { @class = "text-danger" })
-                        </div>
+                                    <div class="form-group col-10 col-md-3">
+                                        <label>MiddleName</label>
+                                        @Html.EditorFor(model => model.User.MiddleName, new { htmlAttributes = new { @class = "form-control", required = "required", placeholder = "Enter User Middle Name" } })
+                                        @Html.ValidationMessageFor(model => model.User.MiddleName, "", new { @class = "text-danger" })
+                                    </div>
 
-                        <div class="form-group">
-                            <label>LastName</label>
-                            @Html.EditorFor(model => model.User.LastName, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter User Last Name" } })
-                            @Html.ValidationMessageFor(model => model.User.LastName, "", new { @class = "text-danger" })
-                        </div>
+                                    <div class="form-group col-10 col-md-3">
+                                        <label>LastName</label>
+                                        @Html.EditorFor(model => model.User.LastName, new { htmlAttributes = new { @class = "form-control", required = "required", placeholder = "Enter User Last Name" } })
+                                        @Html.ValidationMessageFor(model => model.User.LastName, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
 
-                        <div class="form-group">
-                            <label>Email</label>
-                            @Html.EditorFor(model => model.User.Email, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter User Email" } })
-                            @Html.ValidationMessageFor(model => model.User.Email, "", new { @class = "text-danger" })
-                        </div>
+                                <div class="form-group d-flex flex-column flex-md-row  col-12 justify-content-around">
+                                    <div class="form-group col-10 col-md-3">
+                                        <label>Email</label>
+                                        @if (ViewBag.id == 0 || ViewBag.id == null)
+                                        {
+                                            @Html.EditorFor(model => model.User.Email, new { htmlAttributes = new { @class = "form-control", required = "required", placeholder = "Enter User Email" } })
 
-                        <div class="form-group">
-                            <label>DOB</label>
+                                        }
+                                        else
+                                        {
+                                            @Html.EditorFor(model => model.User.Email, new { htmlAttributes = new { @class = "form-control", required = "required", placeholder = "Enter User Email", @readonly = "readonly" } })
 
-                            @Html.EditorFor(model => model.User.DateOfBirth, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Date of Birth", type = "date", min = "1930-01-01", max = DateTime.Now.ToString("yyyy-MM-dd") } })
-                            @Html.ValidationMessageFor(model => model.User.DateOfBirth, "", new { @class = "text-danger" })
+                                        }
+                                        @Html.ValidationMessageFor(model => model.User.Email, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="form-group col-10 col-md-3">
+                                        <label>Address</label>
+                                        @Html.EditorFor(model => model.User.Address, new { htmlAttributes = new { @class = "form-control", required = "required", placeholder = "Enter User Addres" } })
+                                        @Html.ValidationMessageFor(model => model.User.Address, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="form-group col-10 col-md-3">
+                                        <label>Phone</label>
+                                        @Html.EditorFor(model => model.User.PhoneNumber, new { htmlAttributes = new { @class = "form-control", required = "required", placeholder = "Enter User Phone Number", minlength = "8", maxlength = "8", oninput = validate } })
+                                        @Html.ValidationMessageFor(model => model.User.PhoneNumber, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
 
-                        </div>
+                                <div class="form-group d-flex flex-column flex-md-row  col-12 justify-content-around">
+                                    <div class="form-group col-10 col-md-3">
+                                        <label>DOB</label>
 
-                        @*<div class="form-group">
-                            <label>Gender</label>
-                            @Html.EditorFor(model => model.User.Gender, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter User LastName" } })
+                                        @Html.EditorFor(model => model.User.DateOfBirth, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter Date of Birth", type = "date", min = "1930-01-01", required = "required", max = DateTime.Now.ToString("yyyy-MM-dd") } })
+                                        @Html.ValidationMessageFor(model => model.User.DateOfBirth, "", new { @class = "text-danger" })
 
+                                    </div>
 
-                            @Html.ValidationMessageFor(model => model.User.Gender, "", new { @class = "text-danger" })
-                        </div>*@
+                                    <div class="form-group col-10 col-md-3">
+                                        <label>Gender</label>
+                                        <select name="User.Gender" class="form-control select2">
+                                            <option>--select--</option>
+                                            <option  value="Male" @(ViewBag.gender == "Male" ? "selected" : "")>Male</option>
+                                            <option value="Female" @(ViewBag.gender == "Female" ? "selected" : "")>Female</option>
 
-
-                        <div class="form-group">
-                            <label>Gender</label>
-                            <select name="User.Gender" class="form-control select2">
-                                <option disabled>--Selected--</option>
-
-                                <option selected value="Male" @(ViewBag.gender == "Male" ? "selected" : "")>Male</option>
-                                <option value="Female" @(ViewBag.gender == "Female" ? "selected" : "")>Female</option>
-
-                            </select>
-
-
-                            @Html.ValidationMessageFor(model => model.User.Gender, "", new { @class = "text-danger" })
-                        </div>
-
-
-                        <div class="form-group">
-                            <label>Address</label>
-                            @Html.EditorFor(model => model.User.Address, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter User Addres" } })
-                            @Html.ValidationMessageFor(model => model.User.Address, "", new { @class = "text-danger" })
-                        </div>
-
-                        <div class="form-group">
-                            <label>Education</label>
-                            @Html.EditorFor(model => model.User.Education, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter User Education" } })
-                            @Html.ValidationMessageFor(model => model.User.Education, "", new { @class = "text-danger" })
-                        </div>
+                                        </select>
 
 
-                        <div class="form-group">
-                            <label>Phone</label>
-                            @Html.EditorFor(model => model.User.PhoneNumber, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter User Phone Number", minlength = "8", maxlength = "8", oninput = validate } })
-                            @Html.ValidationMessageFor(model => model.User.PhoneNumber, "", new { @class = "text-danger" })
-                        </div>
+                                        @Html.ValidationMessageFor(model => model.User.Gender, "", new { @class = "text-danger" })
+                                    </div>
 
-                        <div class="form-group">
-                            <label>Role</label>
-                            @*<select class="form-control">
-                <option>--select</option>
-                @foreach (var role in ViewBag.roles)
-                {
-                    <option name="Role" value="@role.RoleId">@role.RoleName</option>
-                }
-            </select>*@
-                            @Html.DropDownListFor(model => model.User.RoleId, new SelectList(Model.Roles, "RoleId", "RoleName"), "---Select---", new { @class = "form-control select2 col-6", id = "select-js" })
-                            @*@Html.DropDownListFor(m => m.Customer.MemberShipId, new SelectList(Model.MemberShips, "Id", "Name"), "---Select---", new { @class = "form-control col-6" })*@
+                                    <div class="form-group col-10 col-md-3">
+                                        <label>Role</label>
 
-                        </div>
 
-                        <div class="form-group">
-                            <label for="exampleInputFile">Image</label>
+                                        <select name="User.RoleId" class="form-control select2">
+                                            @if (Model.Roles != null)
+                                            {
+                                                <option>--select--</option>
+                                                foreach (var item in Model.Roles)
+                                                {
 
-                            <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="exampleInputFile" name="ImageFile">
-                                <label class="custom-file-label pointer-event" for="exampleInputFile">Choose Image</label>
+                                                    <option value="@item.RoleId">@item.RoleName</option>
+                                                }
+                                            }
+
+                                        </select>
+                                        @*@Html.DropDownListFor(m => m.User.RoleId, new SelectList(Model.Roles, "RoleId", "RoleName"), "---Select---", new { @class = "form-control select2" })*@
+
+
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group d-flex flex-column flex-md-row col-12 justify-content-around">
+                                    <div class="form-group col-10 col-md-5">
+                                        <label>Education</label>
+                                        @Html.EditorFor(model => model.User.Education, new { htmlAttributes = new { @class = "form-control", required = "required", placeholder = "Enter User Education" } })
+                                        @Html.ValidationMessageFor(model => model.User.Education, "", new { @class = "text-danger" })
+                                    </div>
+
+
+
+
+
+
+                                    <div class="form-group col-10 col-md-5">
+                                        <label for="exampleInputFile">Image</label>
+
+                                        <div class="custom-file">
+                                            <input type="file" class="custom-file-input" id="exampleInputFile" name="ImageFile">
+                                            <label class="custom-file-label pointer-event" for="exampleInputFile">Choose Image</label>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+
+
+
+
+
+
+
                             </div>
-
-
-                        </div>
-
-
-
-                        @*<div class="form-group">
-            @Html.LabelFor(model => model.Password)
-            @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
-        </div>
-
-        <div class="form-group">
-
-            @Html.LabelFor(model => model.ConfirmPassword)
-
-            @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
-        </div>*@
-
-
-
-                    </div>
 
                             <!-- /.card-body -->
 
@@ -174,7 +178,9 @@
                                     <i class="bi bi-arrow-left"></i>
                                     Back
                                 </a>
-                                <button type="submit" class="btn @(ViewBag.id > 0 ? "btn-success" : "btn-primary")">@(ViewBag.id > 0 ? "Update" : "Submit")</button>
+                                @*<button type="submit" class="btn @(ViewBag.id > 0 ? "btn-success" : "btn-primary")">@(ViewBag.id > 0 ? "Update" : "Submit")</button>*@
+
+                                <input type="submit" value="submit"/>
                             </div>
                         }
                     </div>
@@ -192,15 +198,15 @@
 <!-- /.content-wrapper -->
 
 @section Scripts{
-    
+
     <script>
 
-        
+
 
         $("select option:first").attr("disabled", "true");
 
 
     </script>
-    
-    
-    }
+
+
+}

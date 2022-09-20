@@ -14,7 +14,8 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="text-muted">@(ViewBag.Error != null ? @ViewBag.Error : "Add Roles" )</h1>
+                    <h1 class="text-muted">@(ViewBag.id > 0 ? "Update Role" : "Add Role")</h1>
+                   
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -33,11 +34,16 @@
                 <!-- left column -->
                 <div class="col-md-12">
                     <!-- general form elements -->
-                    <div class="card @(ViewBag.Error != null ? "card-danger" : "card-primary")">
+                    <div class="card @( ViewBag.id > 0 ? "card-success" :"card-primary")">
+                         
                         <div class="card-header">
 
-                            <h3 class="card-title">@(ViewBag.Error != null ? @ViewBag.Error : "Add Roles" )</h3>
+                            <h3 class="card-title">@(ViewBag.id > 0 ? "Update Role" : "Add Role")</h3>
                         </div>
+
+                        <div class="col-12 text-danger @((ViewBag.isExist != null ? "" : "d-none" ))"  role="alert">
+                        *@(ViewBag.isExist != null ? @ViewBag.isExist : "" )
+                    </div>
                         <!-- /.card-header -->
                         <!-- form start -->
                         @using (Html.BeginForm())
@@ -60,7 +66,7 @@
                             @Html.HiddenFor(model => model.RoleId)
                             <div class="card-footer">
                                 <a href="/Roles/Index" class="btn btn-warning"><i class="bi bi-arrow-left"></i> Back</a>
-                                <button type="submit" class="btn btn-primary">@(ViewBag.id > 0 ? "Update" : "Submit")</button>
+                                <button type="submit" class="btn @(ViewBag.id > 0 ? "btn-success" : "btn-primary")">@(ViewBag.id > 0 ? "Update" : "Submit")</button>
                             </div>
                         }
                     </div>

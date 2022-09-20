@@ -2,7 +2,6 @@
 
 @{
     ViewBag.Title = "Index";
-    ViewBag.bodyClass = "sidebar-mini layout-navbar-fixed sidebar-collapse layout-fixed layout-footer-fixed sidebar-closed";
     int id = 1;
 }
 
@@ -19,7 +18,7 @@
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="/Home">Home</a></li>
+                        <li class="breadcrumb-item"><a href="/Home/Index">Home</a></li>
                         <li class="breadcrumb-item active">Users</li>
                     </ol>
                 </div>
@@ -64,11 +63,11 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    
+
                                     @foreach (var item in Model)
                                     {
 
-                                        <tr class="js-row">
+                                        <tr class="delete-row">
                                             <td width="10%">@(id++)</td>
                                             <td width="10%">@item.FirstName</td>
                                             <td width="10%">@item.MiddleName</td>
@@ -85,14 +84,15 @@
                                             <td width="10%">@item.Address</td>
                                             <td width="10%">@item.Education</td>
                                             <td width="10%">@item.Role.RoleName</td>
-                                            <td >
+                                            <td class="tg">
 
-                                                <div class="d-flex">
+                                                <div class="d-flex test">
                                                     <a class="btn btn-outline-success" href="/User/Upsert_User/@item.Uid">
                                                         <i class="bi bi-pencil"></i>
                                                         Edit
                                                     </a>
-                                                    <button type="button" class="btn mx-2 btn-outline-danger js-delete" data-toggle="modal" data-target="#modal-default" uid-data="@item.Uid">
+
+                                                    <button type="button" class="btn mx-2 btn-outline-danger delete-btn my-delete" data-toggle="modal" data-target="#modal-default" uid-data="@item.Uid">
                                                         <i class="bi bi-trash"></i>
                                                         Delete
                                                     </button>
@@ -101,26 +101,27 @@
                                                         <i class="bi bi-arrow-clockwise"></i>                                                    Reset
                                                     </button>
 
+
                                                     <a class="btn btn-outline-warning" href="/User/userKeywords/@item.Uid">
                                                         <i class="bi bi-bag-check"></i>                                                    Skills
                                                     </a>
                                                 </div>
 
 
-                                                
+
 
                                             </td>
                                         </tr>
                                     }
                                 </tbody>
-
+                                
                             </table>
                             <div class="modal fade" id="modal-default">
                                 <div class="modal-dialog">
                                     <div class="modal-content bg-light">
                                         <div class="modal-header">
                                             <h4 class="modal-title">Delete</h4>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="ok">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
@@ -137,9 +138,9 @@
                                             Delete</button>
                                         </div>
                                     </div>
-                                    <!-- /.modal-content -->
+                                     /.modal-content 
                                 </div>
-                                <!-- /.modal-dialog -->
+                                 /.modal-dialog 
                             </div>
 
                             <div class="modal fade" id="modal-default1">
@@ -160,7 +161,7 @@
                                                 <i class="bi bi-x-circle"></i>
                                                 Close
                                             </button>
-                                            <button type="button" class="btn btn-danger delete-user" data-dismiss="modal">
+                                            <button type="button" class="btn btn-danger reset-user" data-dismiss="modal">
                                                 <i class="bi bi-trash"></i>
                                                 Delete
                                             </button>
@@ -203,14 +204,12 @@
 
     <script>
 
-       
+        $(document).ready(function () {
 
-        $(function () {
-            $("#example1").DataTable({
-                "responsive": true, "lengthChange": false, "autoWidth": false,
-                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-            $('#example2').DataTable({
+            
+           
+
+            $('#example1').DataTable({
                 "paging": true,
                 "lengthChange": false,
                 "searching": false,
@@ -219,67 +218,74 @@
                 "autoWidth": false,
                 "responsive": true,
             });
-        });
 
 
-            $(".js-row .js-delete").on("click", function () {
+            $('#example1 tbody').on('click', '.my-delete', function () {
+                let button = $(this);
+                $(".delete-user").on("click", function () {
+                    $.ajax({
+                        url: "/User/delete/" + button.attr("uid-data"),
+                        method: "post",
+                        success: function () {
+
+                            Swal.fire({
+                                position: 'top-end',
+                                icon: 'success',
+                                title: 'Deleted  successfully',
+                                showConfirmButton: false,
+                                timer: 1500
+                            })
+                            setTimeout(function () {
+                                location.reload()
+                            }, 2000)
+                            
+                            
+
+                        },
+
+                        error: function () {
+
+                        }
+                    })
+
+                })
+            });
+
+            $("#example1 tbody").on('click','.js-reset-pass' ,function () {
                 let button = $(this);
 
-            $(".delete-user").on("click", function () {
+                $(".reset-user").on("click", function () {
+                    console.log('reseted')
+                    $.ajax({
+                        url: "/User/ResetPassword/" + button.attr("uid-data"),
+                        method: "post",
+                        success: function () {
 
-                $.ajax({
-                    url: "/User/delete/" + button.attr("uid-data"),
-                    method: "post",
-                    success: function () {
+                            Swal.fire({
+                                position: 'top-end',
+                                icon: 'success',
+                                title: 'Password reset successfully',
+                                showConfirmButton: false,
+                                timer: 1500
+                            })
 
-                        button.parents(".js-row").fadeOut();
-                        Swal.fire({
-                            position: 'top-end',
-                            icon: 'success',
-                            title: 'Deleted  successfully',
-                            showConfirmButton: false,
-                            timer: 1500
-                        })
 
-                    },
+                        },
 
-                    error: function () {
+                        error: function () {
 
-                    }
+                        }
+                    })
+
                 })
-
-            })
             })
 
-        $(".js-row .js-reset-pass").on("click", function () {
-            let button = $(this);
 
-            $(".swalDefaultSuccess").on("click", function () {
+        });
 
-                $.ajax({
-                    url: "/User/ResetPassword/" + button.attr("uid-data"),
-                    method: "post",
-                    success: function () {
-
-                        Swal.fire({
-                            position: 'top-end',
-                            icon: 'success',
-                            title: 'Password reset successfully',
-                            showConfirmButton: false,
-                            timer: 1500
-                        })
-                        
-
-                    },
-
-                    error: function () {
-                        
-                    }
-                })
-
-            })
-        })
-
+             
+       
+         
         
 
 

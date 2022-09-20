@@ -147,6 +147,7 @@
     <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="CustomSecurity\CustomAuthentication.cs" />
     <Compile Include="CustomSecurity\CustomAuthorization.cs" />
+    <Compile Include="DAL\isExistChecker.cs" />
     <Compile Include="DAL\UserBestFitDAL .cs" />
     <Compile Include="DAL\CourseBestFitDAL.cs" />
     <Compile Include="DAL\Department_DAL.cs" />
@@ -276,6 +277,7 @@
     <Compile Include="Models\ViewModels\UserRolesViewModel.cs" />
     <Compile Include="Models\ViewModels\UserViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <None Include="Views\Course\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-grid.css" />
@@ -2156,10 +2158,7 @@
     <Content Include="Content\dist\img\user8-128x128.jpg" />
     <Content Include="Content\dist\js\adminlte.js" />
     <Content Include="Content\dist\js\adminlte.min.js" />
-    <Content Include="Content\dist\js\demo.js" />
     <Content Include="Content\dist\js\pages\dashboard.js" />
-    <Content Include="Content\dist\js\pages\dashboard2.js" />
-    <Content Include="Content\dist\js\pages\dashboard3.js" />
     <Content Include="Content\login.css" />
     <Content Include="Content\Mystyle.css" />
     <Content Include="Content\DataTables\DataTables-1.12.1\css\dataTables.bootstrap.css" />
@@ -4296,7 +4295,6 @@
     <Content Include="Views\Keywords\Index.cshtml" />
     <Content Include="Views\Keywords\Upsert.cshtml" />
     <Content Include="Views\User\userKeywords.cshtml" />
-    <Content Include="Views\Course\Index.cshtml" />
     <Content Include="Views\Course\Upsert.cshtml" />
     <Content Include="Views\Department\Add_Remove_Department_Managers.cshtml" />
     <Content Include="Views\Department\all_Departments.cshtml" />

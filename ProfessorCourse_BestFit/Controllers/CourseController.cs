@@ -48,8 +48,18 @@ namespace ProfessorCourse_BestFit.Controllers
 
             if (ModelState.IsValid)
             {
-                var isExist = _context.Courses.SingleOrDefault(x => x.CId == model.CId);
-                if (isExist == null)
+                var isExist = _context.Courses.Where(u => u.CName == model.CName || u.Code == model.CourseCode).ToList();
+
+                if (isExist.Any())
+                {
+                    ViewBag.id = model.CId;
+                    ViewBag.Error = "It seems the course name or course code " +
+                        "you are trying to add or update is already exist.";
+                    return View(model);
+
+                }
+                var isExistId = _context.Courses.SingleOrDefault(x => x.CId == model.CId);
+                if (isExistId == null)
                 {
                     Course course = new Course
                     {
@@ -61,15 +71,13 @@ namespace ProfessorCourse_BestFit.Controllers
                     _context.Courses.Add(course);
 
                     _context.SaveChanges();
-                    // add spCreateRolePermisssions
-                    //_sp.CreateRolePermissions(role.RoleId);
-                    //_sp.CreateCourseKeywords(course.CId);
+
                 }
                 else
                 {
-                    isExist.CName = model.CName;
-                    isExist.Duration = model.Duration;
-                    isExist.Code = model.CourseCode;
+                    isExistId.CName = model.CName;
+                    isExistId.Duration = model.Duration;
+                    isExistId.Code = model.CourseCode;
                     _context.SaveChanges();
                 }
                 return RedirectToAction("Index");
