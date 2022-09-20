@@ -48,6 +48,18 @@ namespace ProfessorCourse_BestFit.Controllers
             if (ModelState.IsValid)
             {
                 var isExist = _context.Keywords.SingleOrDefault(x => x.KId == model.KId);
+                var KeywordName = _context.Keywords.Where(u => u.KName == model.kName);
+
+                if (KeywordName.Any())
+                {
+                    ViewBag.id = model.KId;
+                    ViewBag.Error = "It seems the Keyword name" +
+                        " you are trying to add or update is already exist.";
+                    return View(model);
+
+                }
+
+
                 if (isExist == null)
                 {
                     Keyword keyword = new Keyword
@@ -59,8 +71,7 @@ namespace ProfessorCourse_BestFit.Controllers
                     _context.Keywords.Add(keyword);
                     _context.SaveChanges();
 
-                    _sp.CreateKeywordUser(keyword.KId);
-                    _sp.CreateKeywordCourse(keyword.KId);
+
 
                 }
                 else

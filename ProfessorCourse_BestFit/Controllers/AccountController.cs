@@ -31,14 +31,9 @@ namespace ProfessorCourse_BestFit.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Login(LoginViewModel model)
         {
-            // check if email exist in data base
-            //if (!_context.Users.Any(x => x.Email == model.Email))
-            //{
-            //    ModelState.AddModelError("", "Email or Password is not valid");
-            //}
-            // get all data of this email
+
             User dbObj = _context.Users.FirstOrDefault(x => x.Email == model.Email);
-            if (dbObj == null)
+            if (dbObj == null || dbObj.isDeleted == true)
             {
                 ModelState.AddModelError("", "Email or Password is not valid");
                 return View(model);

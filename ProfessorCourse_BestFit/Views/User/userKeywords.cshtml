@@ -97,41 +97,41 @@
 
 
 <script>
-        var checkboxes = document.getElementsByClassName("chmu")
+    var checkboxes = document.getElementsByClassName("chmu")
 
-        var btn = document.getElementById("click");
+    var btn = document.getElementById("click");
 
-        var Keywords = []
-        btn.addEventListener("click", () => {
+    var Keywords = []
+    btn.addEventListener("click", () => {
 
-            for (let i = 0; i < checkboxes.length; i++) {
-                if (checkboxes[i].checked) {
+        for (let i = 0; i < checkboxes.length; i++) {
+            if (checkboxes[i].checked) {
 
-                    Keywords.push(checkboxes[i].getAttribute("id"))
-                }
+                Keywords.push(checkboxes[i].getAttribute("id"))
             }
+        }
+        console.log(Keywords)
 
 
-            $.ajax({
-                url: '/User/userKeywords/',
-                type: 'POST',
-                data: {
-                    userId: btn.getAttribute("data-userId"),
-                    keywords: Keywords != null && Keywords.length > 0 ? Keywords : null
-                },
+        $.ajax({
+            url: '/User/userKeywords/',
+            type: 'POST',
+            data: {
+                userId: btn.getAttribute("data-userId"),
+                keywords: Keywords != null && Keywords.length > 0 ? Keywords : null
+            },
 
-                success: function () {
-                    Swal.fire({
-                        position: 'top-end',
-                        icon: 'success',
-                        title: 'Deleted  successfully',
-                        showConfirmButton: false,
-                        timer: 1500
-                    })
-                }
-            });
-        })
+            success: function () {
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Deleted  successfully',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+            }
+        });
+    })
 
 
 </script>
-

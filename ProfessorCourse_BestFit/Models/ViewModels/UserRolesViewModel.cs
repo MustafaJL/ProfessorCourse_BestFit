@@ -8,7 +8,11 @@ namespace ProfessorCourse_BestFit.Models.ViewModels
 
         public UserViewModel User { get; set; }
 
-        public IEnumerable<Role> Roles { get; set; }
+
+
+
+        public List<Role> Roles { get; set; }
+
 
 
 

@@ -61,7 +61,7 @@
                                         <div class="icheck-primary">
 
                                             @*@Html.CheckBoxFor(model => model.Permissions)*@
-                                            <input class="btn check-box chmu"  id="@permission.PId" name="@permission.PName" type="checkbox"  @(permission.IsActive == true ? "":"checked")>
+                                            <input class="btn check-box chmu"  id="@permission.PId" name="@permission.PName" type="checkbox"  @(permission.IsActive == false ? "":"checked")>
                                             <label for="@permission.PId">
                                             @permission.PName
                                             </label>
@@ -111,7 +111,7 @@
                 }
             }
 
-
+            console.log('clicked')
             $.ajax({
                 url: '/Roles/RolePermission/',
                 type: 'POST',

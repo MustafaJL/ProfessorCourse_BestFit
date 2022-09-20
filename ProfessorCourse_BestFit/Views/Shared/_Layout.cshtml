@@ -15,8 +15,8 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
-@*<body class="hold-transition login-page">*@
-<body class="sidebar-collapse sidebar-closed">
+
+<body class=" sidebar-closed">
 
 
 
@@ -39,7 +39,7 @@
             <!-- Right navbar links -->
             <ul class="navbar-nav ml-auto">
                 <!-- Navbar Search -->
-                <li class="nav-item">
+                @*<li class="nav-item">
                     <a class="nav-link" data-widget="navbar-search" href="#" role="button">
                         <i class="fas fa-search"></i>
                     </a>
@@ -58,7 +58,7 @@
                             </div>
                         </form>
                     </div>
-                </li>
+                </li>*@
 
                 <!-- Messages Dropdown Menu -->
                 <!--<li class="nav-item dropdown">
@@ -171,7 +171,7 @@
                     </div>
                 </li>
 
-                <li class="nav-item">
+                @*<li class="nav-item">
             <a class="nav-link" data-widget="fullscreen" href="#" role="button">
                 <i class="fas fa-expand-arrows-alt"></i>
             </a>
@@ -180,7 +180,7 @@
             <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
                 <i class="fas fa-th-large"></i>
             </a>
-        </li>
+        </li>*@
             </ul>
         </nav>
         <!-- /.navbar -->
@@ -196,7 +196,7 @@
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
 
             <div class="image">
-                <img src="@(Session["image"])" class="img-circle elevation-2" alt="User Image" style="width:50px;height:50px;">
+                <img src="@(Session["image"])" class="img-circle elevation-2 bg-light" alt="User Image" style="width:50px;height:50px;">
             </div>
             <div class="info">
                 <a href="/User/Profile/@(User.Identity.Name.ToString().Substring(0,User.Identity.Name.ToString().IndexOf(",")))" class="d-block">@(Session["fullname"])</a>
@@ -385,7 +385,7 @@
 
     </script>
 
-    @RenderSection("scripts", required: false)
+    @RenderSection("Scripts", required: false)
 
 
 </body>

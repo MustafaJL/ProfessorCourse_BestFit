@@ -10,10 +10,13 @@ namespace ProfessorCourse_BestFit.Controllers
     {
         private readonly ProfessorCourseBestFit1Entities _context;
         private readonly RolePermissions_DAL _sp;
+
+        private readonly isExistChecker isExistChecker;
         public RolesController()
         {
             _context = new ProfessorCourseBestFit1Entities();
             _sp = new RolePermissions_DAL();
+            isExistChecker = new isExistChecker();
         }
 
         public ActionResult Index()
@@ -50,8 +53,21 @@ namespace ProfessorCourse_BestFit.Controllers
             if (ModelState.IsValid)
             {
                 var isExist = _context.Roles.SingleOrDefault(x => x.RoleId == model.RoleId);
+                var isExistName = _context.Roles.Where(u => u.RoleName == model.RoleName);
+                if (isExistName.Any())
+                {
+                    RolesViewModel roleView = new RolesViewModel
+                    {
+                        RoleId = 0,
+                        RoleName = model.RoleName
+                    };
+                    ViewBag.id = model.RoleId;
+                    ViewBag.IsExist = "It seems the role you are trying to add or update is already exist.";
+                    return View(roleView);
+                }
                 if (isExist == null)
                 {
+
                     Role role = new Role
                     {
                         RoleName = model.RoleName

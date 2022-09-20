@@ -36,11 +36,15 @@
                 <!-- left column -->
                 <div class="col-md-12">
                     <!-- general form elements -->
-                    <div class="card @(ViewBag.Error != null ? "card-danger" : ViewBag.id > 0 ? "card-success" :"card-primary")">
+                    <div class="card @(ViewBag.id > 0 ? "card-success" :"card-primary")">
                         <div class="card-header">
 
-                            <h3 class="card-title">@(ViewBag.Error != null ? @ViewBag.Error : ViewBag.id > 0 ? "Update Keyword" : "Add Keyword" ) </h3>
+                            <h3 class="card-title">@( ViewBag.id > 0 ? "Update Keyword" : "Add Keyword" ) </h3>
                         </div>
+                        <div class="col-12 text-danger @((ViewBag.Error != null ? "" : "d-none" ))" role="alert">
+                            *@(ViewBag.Error != null ? @ViewBag.Error : "" )
+                        </div>
+
                         <!-- /.card-header -->
                         <!-- form start -->
                         @using (Html.BeginForm())

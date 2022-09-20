@@ -15,13 +15,12 @@ namespace ProfessorCourse_BestFit.Controllers
         }
         public ActionResult Index()
         {
-            var userNumber = _context.Users.ToList().Count;
-            var courseNumber = _context.Courses.ToList().Count;
-            var profNumber = _context.Users.Where(u => u.RoleId == 20).ToList().Count();
+            var courseNumber = _context.Courses.Where(u => u.isDeleted == false).ToList().Count;
+            var userNumber = _context.Users.Where(u => u.isDeleted == false).ToList().Count();
 
             ViewBag.userNumber = userNumber.ToString();
             ViewBag.courseNumber = courseNumber.ToString();
-            ViewBag.profNumber = profNumber.ToString();
+            ViewBag.profNumber = userNumber.ToString();
             return View();
         }
         [CustomAuthorization("Admin,Professor")]

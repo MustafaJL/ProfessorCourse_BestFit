@@ -22,14 +22,10 @@ namespace ProfessorCourse_BestFit
 
                         "~/Content/plugins/jquery/jquery.min.js",
 
-
-                        "~/Content/plugins/bootstrap/js/bootstrap.bundle.min.js",
-                                                "~/Content/plugins/select2/js/select2.full.min.js",
-                                                                        "~/Content/plugins/sweetalert2/sweetalert2.min.js",
-
+                        "~/Content/plugins/sweetalert2/sweetalert2.min.js",
                         "~/Content/plugins/chart.js/Chart.min.js",
                         "~/Content/plugins/sparklines/sparkline.js",
-                        "~/Content/plugins/jqvmap/jquery.vmap.min.js",
+                        "~/Content/plugins/jqvmap/jquery.vmap.js",
                         "~/Content/plugins/jqvmap/maps/jquery.vmap.usa.js",
                         "~/Content/plugins/jquery-knob/jquery.knob.min.js",
                         "~/Content/plugins/moment/moment.min.js",
@@ -38,9 +34,7 @@ namespace ProfessorCourse_BestFit
                         "~/Content/plugins/summernote/summernote-bs4.min.js",
                         "~/Content/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js",
                         "~/Content/dist/js/adminlte.min.js",
-                        "~/Content/dist/js/demo.js",
                         "~/Content/dist/js/pages/dashboard.js",
-
                         "~/Content/plugins/datatables/jquery.dataTables.min.js",
                         "~/Content/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js",
                         "~/Content/plugins/datatables-responsive/js/dataTables.responsive.min.js",
@@ -52,27 +46,18 @@ namespace ProfessorCourse_BestFit
                         "~/Content/plugins/pdfmake/vfs_fonts.js",
                         "~/Content/plugins/datatables-buttons/js/buttons.html5.min.js",
                         "~/Content/plugins/datatables-buttons/js/buttons.print.min.js",
-                        "~/Content/plugins/datatables-buttons/js/buttons.colVis.min.js"
-
-
-
-
-
-
-
-
+                        "~/Content/plugins/datatables-buttons/js/buttons.colVis.min.js",
+                        "~/Content/plugins/bootstrap/js/bootstrap.bundle.min.js",
+                        "~/Content/plugins/select2/js/select2.full.min.js"
 
                       ));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                "~/Content/plugins/select2/css/select2.min.css",
-                 "~/Content/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css",
 
+                      "~/Content/plugins/select2/css/select2.min.css",
+                      "~/Content/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css",
                       "~/Content/plugins/fontawesome-free/css/all.min.css",
                       "~/Content/plugins/icheck-bootstrap/icheck-bootstrap.min.css",
-
-
-
                       "~/Content/dist/css/adminlte.min.css",
                       "~/Content/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css",
                       "~/Content/plugins/jqvmap/jqvmap.min.css",
@@ -83,9 +68,9 @@ namespace ProfessorCourse_BestFit
                       "~/Content/plugins/datatables-responsive/css/responsive.bootstrap4.min.css",
                       "~/Content/plugins/datatables-buttons/css/buttons.bootstrap4.min.css",
                       "~/Content/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css",
+                      "~/Content/site.css"
 
-
-                      "~/Content/site.css"));
+                      ));
         }
     }
 }

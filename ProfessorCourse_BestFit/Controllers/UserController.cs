@@ -58,7 +58,6 @@ namespace ProfessorCourse_BestFit.Controllers
             ViewBag.gender = user.Gender;
             var model = new UserViewModel
             {
-                Id = id,
                 FirstName = user.FirstName,
                 MiddleName = user.MiddleName,
                 LastName = user.LastName,
@@ -81,8 +80,9 @@ namespace ProfessorCourse_BestFit.Controllers
             return View(viewModel1);
         }
 
+
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         public ActionResult Upsert_User(UserRolesViewModel model)
         {
             var image = "";
@@ -109,14 +109,22 @@ namespace ProfessorCourse_BestFit.Controllers
             if (ModelState.IsValid)
             {
                 User user = new User();
-                if (model.User.Id == null)
+                if (model.User.Id == 0 || model.User.Id == null)
                 {
 
                     var isExist = IsEmailExist(model.User.Email);
                     if (isExist)
                     {
+                        var roles = _context.Roles.Where(x => x.isDeleted == false).ToList();
+
                         ViewBag.Error = "Email already Exist";
-                        return View(model);
+
+                        var viewModel = new UserRolesViewModel
+                        {
+                            User = model.User,
+                            Roles = roles
+                        };
+                        return View(viewModel);
                     }
 
                     user.FirstName = model.User.FirstName;
@@ -150,7 +158,8 @@ namespace ProfessorCourse_BestFit.Controllers
                     _context.SaveChanges();
 
 
-                    _sp.CreateUserKeywords(user.Uid);
+                    Session["fullname"] = user.FirstName.ToUpper() + " " + user.LastName.ToUpper();
+                    Session["image"] = user.ImageUrl.Substring(user.ImageUrl.IndexOf("/"));
 
                 }
                 else if (model.User.Id > 0)
@@ -178,6 +187,9 @@ namespace ProfessorCourse_BestFit.Controllers
 
                     // Save object to the Database
                     _context.SaveChanges();
+
+                    Session["fullname"] = userDb.FirstName.ToUpper() + " " + userDb.LastName.ToUpper();
+                    Session["image"] = userDb.ImageUrl.Substring(userDb.ImageUrl.IndexOf("/"));
 
                 }
 
@@ -325,6 +337,9 @@ namespace ProfessorCourse_BestFit.Controllers
 
 
             _context.SaveChanges();
+
+            Session["fullname"] = user.FirstName.ToUpper() + " " + user.LastName.ToUpper();
+            Session["image"] = user.ImageUrl.Substring(user.ImageUrl.IndexOf("/"));
             return RedirectToAction("Profile");
         }
 
@@ -334,22 +349,21 @@ namespace ProfessorCourse_BestFit.Controllers
             var user = _context.Users.SingleOrDefault(x => x.Uid == id);
             user.ImageUrl = "~/Content/Images/Users/account.png";
             _context.SaveChanges();
-            RedirectToAction("Profile");
+
+            Session["image"] = user.ImageUrl.Substring(user.ImageUrl.IndexOf("/"));
             return Json(new { success = true });
+
+
         }
+
+
+
 
         public ActionResult userKeywords(int? id)
         {
             var user = _context.Users.SingleOrDefault(x => x.Uid == id);
 
-            //var keywords = _sp.GetKeywordsByUserId((int)id);
-
             var keywords = _sp.GetAllKeywordsIncludesMatchingByUserId((int)id);
-            //var isActive = _context.UserKeywords.Where(u => u.isDeleted == false).ToList();
-
-
-
-
 
             UserKeywordsViewModel userKeywordsView = new UserKeywordsViewModel
             {
@@ -374,7 +388,6 @@ namespace ProfessorCourse_BestFit.Controllers
             {
                 keywordsString = "0";
             }
-
 
             var a = _sp.UpdateUserKeyword(userId, keywordsString);
             return Json(new { success = true });
