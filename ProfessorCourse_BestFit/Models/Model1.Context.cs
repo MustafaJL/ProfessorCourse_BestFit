@@ -15,9 +15,9 @@ namespace ProfessorCourse_BestFit.Models
     using System.Data.Entity.Core.Objects;
     using System.Linq;
     
-    public partial class ProfessorCourseBestFitEntities : DbContext
+    public partial class ProfessorCourseBestFit1Entities1 : DbContext
     {
-        public ProfessorCourseBestFitEntities()
+        public ProfessorCourseBestFit1Entities1()
             : base("name=ProfessorCourseBestFitEntities")
         {
         }
