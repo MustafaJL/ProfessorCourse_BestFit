@@ -1,4 +1,5 @@
-﻿using ProfessorCourse_BestFit.DAL;
+﻿using ProfessorCourse_BestFit.CustomSecurity;
+using ProfessorCourse_BestFit.DAL;
 using ProfessorCourse_BestFit.Helper;
 using ProfessorCourse_BestFit.Models;
 using ProfessorCourse_BestFit.Models.ViewModels;
@@ -24,6 +25,8 @@ namespace ProfessorCourse_BestFit.Controllers
         }
         // GET: Professor
 
+        [CustomAuthorization(Permissions: "Read")]
+
         public ActionResult Index()
         {
             var userList = _context.Users.Include(m => m.Role).Where(x => x.isDeleted == false).ToList();
@@ -34,6 +37,8 @@ namespace ProfessorCourse_BestFit.Controllers
         }
         // [CustomAuthorization(Permissions: "Create")]
 
+
+        [CustomAuthorization(Permissions: "Create")]
         public ActionResult Create()
         {
             var roles = _context.Roles.Where(x => x.isDeleted == false).ToList();
@@ -117,8 +122,8 @@ namespace ProfessorCourse_BestFit.Controllers
             _context.SaveChanges();
 
 
-            Session["fullname"] = user.FirstName.ToUpper() + " " + user.LastName.ToUpper();
-            Session["image"] = user.ImageUrl.Substring(user.ImageUrl.IndexOf("/"));
+            //Session["fullname"] = user.FirstName.ToUpper() + " " + user.LastName.ToUpper();
+            //Session["image"] = user.ImageUrl.Substring(user.ImageUrl.IndexOf("/"));
 
             return RedirectToAction("Index");
         }
@@ -225,8 +230,8 @@ namespace ProfessorCourse_BestFit.Controllers
             // Save object to the Database
             _context.SaveChanges();
 
-            Session["fullname"] = userDb.FirstName.ToUpper() + " " + userDb.LastName.ToUpper();
-            Session["image"] = userDb.ImageUrl.Substring(userDb.ImageUrl.IndexOf("/"));
+            //Session["fullname"] = userDb.FirstName.ToUpper() + " " + userDb.LastName.ToUpper();
+            //Session["image"] = userDb.ImageUrl.Substring(userDb.ImageUrl.IndexOf("/"));
 
             return RedirectToAction("Index");
         }

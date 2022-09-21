@@ -76,7 +76,7 @@ namespace ProfessorCourse_BestFit.Controllers
 
                     _context.SaveChanges();
                     // add spCreateRolePermisssions
-                    _sp.CreateRolePermissions(role.RoleId);
+                    //_sp.CreateRolePermissions(role.RoleId);
                 }
                 else
                 {
@@ -93,9 +93,9 @@ namespace ProfessorCourse_BestFit.Controllers
         {
             var role = _context.Roles.SingleOrDefault(x => x.RoleId == id);
 
-            var permission = _sp.GetPermissionsByRoleId((int)id);
+            var permission = _sp.GetAllKeywordsIncludesMatchingByRoleId((int)id);
 
-            ViewBag.roleid = role.RoleId;
+            //ViewBag.roleid = role.RoleId;
             RolesPermissionsViewModel roleView = new RolesPermissionsViewModel
             {
 
@@ -114,9 +114,15 @@ namespace ProfessorCourse_BestFit.Controllers
                 perms = string.Join(",", permissions);
 
             }
+            else
+            {
+                perms = "0";
+            }
             _sp.UpdateRolePermissions(roleId, perms);
             return Json(new { success = true });
         }
+
+
 
         [HttpPost]
         public JsonResult Delete(int id)

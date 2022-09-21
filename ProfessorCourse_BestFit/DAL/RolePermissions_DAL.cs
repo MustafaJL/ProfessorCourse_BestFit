@@ -16,23 +16,23 @@ namespace ProfessorCourse_BestFit.DAL
             _connection = new SqlConnection(_Conn);
         }
 
-        public bool CreateRolePermissions(int RoleId)
-        {
-            int success = 0;
-            // create command
-            SqlCommand command = new SqlCommand("spCreateRolePermissions", _connection);
-            command.CommandType = CommandType.StoredProcedure;
-            command.Parameters.AddWithValue("@RoleId", RoleId);
+        //public bool CreateRolePermissions(int RoleId)
+        //{
+        //    int success = 0;
+        //    // create command
+        //    SqlCommand command = new SqlCommand("spCreateRolePermissions", _connection);
+        //    command.CommandType = CommandType.StoredProcedure;
+        //    command.Parameters.AddWithValue("@RoleId", RoleId);
 
 
-            _connection.Open();
-            success = command.ExecuteNonQuery();
-            _connection.Close();
+        //    _connection.Open();
+        //    success = command.ExecuteNonQuery();
+        //    _connection.Close();
 
-            return success > 0 ? true : false;
+        //    return success > 0 ? true : false;
 
 
-        }
+        //}
 
         public bool UpdateRolePermissions(int RoleId, string permissions)
         {
@@ -90,6 +90,44 @@ namespace ProfessorCourse_BestFit.DAL
 
 
             return permissiobList;
+        }
+
+
+        public List<PermissionsViewModel> GetAllKeywordsIncludesMatchingByRoleId(int RoleId)
+        {
+            List<PermissionsViewModel> permissionsList = new List<PermissionsViewModel>();
+
+            // create command
+            SqlCommand command = _connection.CreateCommand();
+            // specify the type of cammand
+            command.CommandType = CommandType.StoredProcedure;
+            // specify name of SP
+            command.CommandText = "spGetAllPermissionsIncludeMatchingRoles";
+            // pass the value of parameter
+            command.Parameters.AddWithValue("@RoleId", RoleId);
+
+            SqlDataAdapter adapter = new SqlDataAdapter(command);
+            DataTable dtKeywords = new DataTable();
+
+            // open connection
+            _connection.Open();
+            adapter.Fill(dtKeywords);
+            // close connection
+            _connection.Close();
+
+            foreach (DataRow dr in dtKeywords.Rows)
+            {
+                permissionsList.Add(new PermissionsViewModel
+                {
+                    PId = Convert.ToInt32(dr["PId"]),
+                    PName = Convert.ToString(dr["PName"]),
+                    IsActive = Convert.ToString(dr["Matching"]) == "1" ? true : false
+
+                }); ;
+            }
+
+
+            return permissionsList;
         }
     }
 

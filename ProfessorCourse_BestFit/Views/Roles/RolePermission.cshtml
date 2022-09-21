@@ -2,7 +2,6 @@
 
 @{
     ViewBag.Title = "Upsert";
-    ViewBag.bodyClass = "sidebar-collapse layout-fixed sidebar-mini layout-navbar-fixed sidebar-closed";
 }
 
 
@@ -61,7 +60,7 @@
                                         <div class="icheck-primary">
 
                                             @*@Html.CheckBoxFor(model => model.Permissions)*@
-                                            <input class="btn check-box chmu"  id="@permission.PId" name="@permission.PName" type="checkbox"  @(permission.IsActive == false ? "":"checked")>
+                                            <input class="btn check-box chmu"  id="@permission.PId" name="@permission.PName" type="checkbox"  @(permission.IsActive != false ? "":"checked")>
                                             <label for="@permission.PId">
                                             @permission.PName
                                             </label>
@@ -78,7 +77,7 @@
                             @Html.HiddenFor(model => model.Role.RoleId)
                             <div class="card-footer">
                                 <a href="/Roles/Index" class="btn btn-warning"><i class="bi bi-arrow-left"></i> Back</a>
-                                <button type="button" id="click" class="btn btn-primary" data-roleId="@ViewBag.roleid">Update</button>
+                                <button type="button" id="click" class="btn btn-primary" data-roleId="@Model.Role.RoleId">Update</button>
                             </div>
                         
                     </div>
@@ -104,14 +103,16 @@
         var permissions = []
         btn.addEventListener("click", () => {
 
-            for (let i = 0; i < 4; i++) {
+            for (let i = 0; i < checkboxes.length; i++) {
                 if (checkboxes[i].checked) {
 
                     permissions.push(checkboxes[i].getAttribute("id"))
                 }
+
             }
 
-            console.log('clicked')
+
+            console.log(permissions)
             $.ajax({
                 url: '/Roles/RolePermission/',
                 type: 'POST',

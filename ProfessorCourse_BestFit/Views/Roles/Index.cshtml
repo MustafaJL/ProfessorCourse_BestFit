@@ -166,14 +166,14 @@
 
         $(".js-row .js-delete").on("click", function () {
             let button = $(this);
+            console.log(button.attr("uid-data"))
 
             $(".sure").on("click", function () {
-                
                     $.ajax({
                             url: "/roles/delete/" + button.attr("uid-data"),
                             method: "post",
-                            success: function () {
-
+                        success: function () {
+                            
                                 button.parents(".js-row").fadeOut();
                                 Swal.fire({
                                     position: 'top-end',
@@ -182,7 +182,9 @@
                                     showConfirmButton: false,
                                     timer: 1500
                                 })
-
+                            setTimeout(function () {
+                                location.reload()
+                            },1000)
                             }
                 })
 
