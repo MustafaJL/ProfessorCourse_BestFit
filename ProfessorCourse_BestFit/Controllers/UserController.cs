@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Web.Mvc;
 
+
 namespace ProfessorCourse_BestFit.Controllers
 {
     public class UserController : Controller
@@ -30,6 +31,10 @@ namespace ProfessorCourse_BestFit.Controllers
         public ActionResult Index()
         {
             var userList = _context.Users.Include(m => m.Role).Where(x => x.isDeleted == false).ToList();
+            var permissions = User.Identity.Name;
+            bool isValid = Validator.IsDependent(permissions, "Create_User");
+            ViewBag.create_user = isValid;
+
             return View(userList);
 
 
@@ -38,7 +43,7 @@ namespace ProfessorCourse_BestFit.Controllers
         // [CustomAuthorization(Permissions: "Create")]
 
 
-        [CustomAuthorization(Permissions: "Create")]
+        [CustomAuthorization(Permissions: "Create_User")]
         public ActionResult Create()
         {
             var roles = _context.Roles.Where(x => x.isDeleted == false).ToList();

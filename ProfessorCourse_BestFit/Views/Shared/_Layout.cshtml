@@ -149,6 +149,7 @@
 
                 <li class="nav-item dropdown">
                     <a class="nav-link" data-toggle="dropdown" href="#">
+                        <i class="bi bi-person-circle" style="font-size:25px"></i>
                         <i class="bi bi-chevron-down"></i>
                         <span class="badge badge-warning navbar-badge"></span>
                     </a>
@@ -156,6 +157,10 @@
                         <div class="dropdown-divider"></div>
                         <a href="/User/Profile/@(User.Identity.Name.ToString().Substring(0,User.Identity.Name.ToString().IndexOf(",")))" class="dropdown-item">
                             <i class="bi bi-person"></i> Profile
+                            <span class="float-right text-muted text-sm"></span>
+                        </a>
+                        <a href="/User/ChangePassword/@(User.Identity.Name.ToString().Substring(0,User.Identity.Name.ToString().IndexOf(",")))" class="dropdown-item">
+                            <i class="bi bi-lock-fill"></i> Change Password
                             <span class="float-right text-muted text-sm"></span>
                         </a>
                         <div class="dropdown-divider"></div>
@@ -173,7 +178,7 @@
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link" data-toggle="dropdown" href="#">
-                        <i class="bi bi-translate"></i>
+                        <i class="bi bi-translate" style="font-size:15px"></i>
                         <span class="badge badge-warning navbar-badge"></span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
