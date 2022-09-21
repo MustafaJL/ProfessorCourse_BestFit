@@ -34,56 +34,20 @@ namespace ProfessorCourse_BestFit.Controllers
         }
         // [CustomAuthorization(Permissions: "Create")]
 
-        public ActionResult Upsert_User(int? id)
+        public ActionResult Create()
         {
-
-            ViewBag.id = id;
             var roles = _context.Roles.Where(x => x.isDeleted == false).ToList();
-
-
-
-
-            if (id == 0 || id == null)
+            var viewModel = new UserRolesViewModel
             {
-                var viewModel = new UserRolesViewModel
-                {
-                    User = new UserViewModel(),
-                    Roles = roles
-                };
-                return View(viewModel);
-            }
-
-
-            var user = _context.Users.SingleOrDefault(x => x.Uid == id);
-            ViewBag.gender = user.Gender;
-            var model = new UserViewModel
-            {
-                FirstName = user.FirstName,
-                MiddleName = user.MiddleName,
-                LastName = user.LastName,
-                Email = user.Email,
-                DateOfBirth = user.DateOfBirth,
-                Gender = user.Gender,
-                Address = user.Address,
-                Education = user.Education,
-                PhoneNumber = user.Phone,
-                RoleId = user.RoleId
-
-
-            };
-
-            var viewModel1 = new UserRolesViewModel
-            {
-                User = model,
+                User = new UserViewModel(),
                 Roles = roles
             };
-            return View(viewModel1);
+            return View(viewModel);
         }
 
-
         [HttpPost]
-        //[ValidateAntiForgeryToken]
-        public ActionResult Upsert_User(UserRolesViewModel model)
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(UserRolesViewModel model)
         {
             var image = "";
             if (model.User.ImageFile == null)
@@ -104,112 +68,170 @@ namespace ProfessorCourse_BestFit.Controllers
 
                 model.User.ImageFile.SaveAs(fileName);
             }
+            User user = new User();
 
-
-            if (ModelState.IsValid)
+            var isExist = IsEmailExist(model.User.Email, 0);
+            if (isExist)
             {
-                User user = new User();
-                if (model.User.Id == 0)
+                var roles = _context.Roles.Where(x => x.isDeleted == false).ToList();
+
+                ViewBag.Error = "Email already Exist";
+                ViewBag.gender = model.User.Gender;
+                ViewBag.id = model.User.Id;
+                var viewModel = new UserRolesViewModel
                 {
-
-                    var isExist = IsEmailExist(model.User.Email);
-                    if (isExist)
-                    {
-                        var roles = _context.Roles.Where(x => x.isDeleted == false).ToList();
-
-                        ViewBag.Error = "Email already Exist";
-                        ViewBag.gender = model.User.Gender;
-                        ViewBag.id = model.User.Id;
-                        var viewModel = new UserRolesViewModel
-                        {
-                            User = model.User,
-                            Roles = roles
-                        };
-                        return View(viewModel);
-                    }
-
-                    user.FirstName = model.User.FirstName;
-                    user.MiddleName = model.User.MiddleName;
-                    user.LastName = model.User.LastName;
-
-                    user.Email = model.User.Email;
-                    user.DateOfBirth = model.User.DateOfBirth;
-                    user.CreatedOn = DateTime.Now;
-
-                    user.Gender = model.User.Gender;
-                    user.Phone = model.User.PhoneNumber;
-                    user.ImageUrl = image;
-
-                    user.Education = model.User.Education;
-                    user.Address = model.User.Address;
-
-
-                    user.RoleId = model.User.RoleId;
-                    #region // Generate a salt
-                    var userSalt = CryptoService.GenerateSalt();
-                    user.PasswordSalt = Convert.ToBase64String(userSalt);
-                    #endregion
-
-                    #region // Hash the password using PasswordSalt
-                    var userPasswor = Encoding.UTF8.GetBytes("S@s123456");
-                    var hmac = CryptoService.ComputeHMAC256(userPasswor, userSalt);
-                    user.Password = Convert.ToBase64String(hmac);
-                    #endregion
-                    _context.Users.Add(user);
-                    _context.SaveChanges();
-
-
-                    Session["fullname"] = user.FirstName.ToUpper() + " " + user.LastName.ToUpper();
-                    Session["image"] = user.ImageUrl.Substring(user.ImageUrl.IndexOf("/"));
-
-                }
-                else if (model.User.Id > 0)
-                {
-
-
-                    var userDb = _context.Users.SingleOrDefault(u => u.Uid == model.User.Id);
-
-
-                    userDb.FirstName = model.User.FirstName;
-                    userDb.LastName = model.User.LastName;
-                    userDb.Email = model.User.Email;
-                    userDb.DateOfBirth = model.User.DateOfBirth;
-                    userDb.CreatedOn = DateTime.Now;
-                    userDb.Gender = model.User.Gender;
-                    userDb.Phone = model.User.PhoneNumber;
-                    userDb.MiddleName = model.User.MiddleName;
-                    userDb.Address = model.User.Address;
-                    userDb.Education = model.User.Education;
-                    userDb.RoleId = model.User.RoleId;
-
-                    userDb.ImageUrl = model.User.ImageFile == null ? userDb.ImageUrl : image;
-
-
-
-                    // Save object to the Database
-                    _context.SaveChanges();
-
-                    Session["fullname"] = userDb.FirstName.ToUpper() + " " + userDb.LastName.ToUpper();
-                    Session["image"] = userDb.ImageUrl.Substring(userDb.ImageUrl.IndexOf("/"));
-
-                }
-
-
-
-
-
-
-
-
-
-                return RedirectToAction("Index");
+                    User = model.User,
+                    Roles = roles
+                };
+                return View(viewModel);
             }
-            else
-            {
-                var errors = ModelState.Values.SelectMany(v => v.Errors);
-                return View();
-            }
+
+            user.FirstName = model.User.FirstName;
+            user.MiddleName = model.User.MiddleName;
+            user.LastName = model.User.LastName;
+
+            user.Email = model.User.Email;
+            user.DateOfBirth = model.User.DateOfBirth;
+            user.CreatedOn = DateTime.Now;
+
+            user.Gender = model.User.Gender;
+            user.Phone = model.User.PhoneNumber;
+            user.ImageUrl = image;
+
+            user.Education = model.User.Education;
+            user.Address = model.User.Address;
+
+
+            user.RoleId = model.User.RoleId;
+            #region // Generate a salt
+            var userSalt = CryptoService.GenerateSalt();
+            user.PasswordSalt = Convert.ToBase64String(userSalt);
+            #endregion
+
+            #region // Hash the password using PasswordSalt
+            var userPasswor = Encoding.UTF8.GetBytes("S@s123456");
+            var hmac = CryptoService.ComputeHMAC256(userPasswor, userSalt);
+            user.Password = Convert.ToBase64String(hmac);
+            #endregion
+            _context.Users.Add(user);
+            _context.SaveChanges();
+
+
+            Session["fullname"] = user.FirstName.ToUpper() + " " + user.LastName.ToUpper();
+            Session["image"] = user.ImageUrl.Substring(user.ImageUrl.IndexOf("/"));
+
+            return RedirectToAction("Index");
         }
+
+
+
+
+        public ActionResult Update(int? id)
+        {
+            if (id == 0 || id == null)
+            {
+                return HttpNotFound();
+            }
+
+            var user = _context.Users.Where(u => u.isDeleted == false).SingleOrDefault(u => u.Uid == id);
+
+            var model = new UserViewModel
+            {
+                Id = id,
+                FirstName = user.FirstName,
+                MiddleName = user.MiddleName,
+                LastName = user.LastName,
+                Email = user.Email,
+                DateOfBirth = user.DateOfBirth,
+                Gender = user.Gender,
+                Address = user.Address,
+                Education = user.Education,
+                PhoneNumber = user.Phone,
+                RoleId = user.RoleId
+
+
+            };
+
+            var roles = _context.Roles.Where(x => x.isDeleted == false).ToList();
+            var viewModel = new UserRolesViewModel
+            {
+                User = model,
+                Roles = roles
+            };
+
+            return View(viewModel);
+
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Update(UserRolesViewModel model)
+        {
+            var isExist = IsEmailExist(model.User.Email, model.User.Id);
+            if (isExist)
+            {
+                var roles = _context.Roles.Where(x => x.isDeleted == false).ToList();
+
+                ViewBag.Error = "Email already Exist";
+                ViewBag.gender = model.User.Gender;
+                ViewBag.id = model.User.Id;
+                var viewModel = new UserRolesViewModel
+                {
+                    User = model.User,
+                    Roles = roles
+                };
+                return View(viewModel);
+            }
+
+            var image = "";
+            if (model.User.ImageFile == null)
+            {
+                image = "~/Content/Images/Users/account.png";
+            }
+
+            else if (model.User.ImageFile != null)
+            {
+                string fileName = Path.GetFileNameWithoutExtension(model.User.ImageFile.FileName);
+                string extension = Path.GetExtension(model.User.ImageFile.FileName);
+
+                fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+
+                image = "~/Content/Images/Users/" + fileName;
+
+                fileName = Path.Combine(Server.MapPath("~/Content/Images/Users/"), fileName);
+
+                model.User.ImageFile.SaveAs(fileName);
+            }
+
+            var userDb = _context.Users.SingleOrDefault(u => u.Uid == model.User.Id);
+
+
+            userDb.FirstName = model.User.FirstName;
+            userDb.LastName = model.User.LastName;
+            userDb.Email = model.User.Email;
+            userDb.DateOfBirth = model.User.DateOfBirth;
+            userDb.CreatedOn = DateTime.Now;
+            userDb.Gender = model.User.Gender;
+            userDb.Phone = model.User.PhoneNumber;
+            userDb.MiddleName = model.User.MiddleName;
+            userDb.Address = model.User.Address;
+            userDb.Education = model.User.Education;
+            userDb.RoleId = model.User.RoleId;
+
+            userDb.ImageUrl = model.User.ImageFile == null ? userDb.ImageUrl : image;
+
+
+
+            // Save object to the Database
+            _context.SaveChanges();
+
+            Session["fullname"] = userDb.FirstName.ToUpper() + " " + userDb.LastName.ToUpper();
+            Session["image"] = userDb.ImageUrl.Substring(userDb.ImageUrl.IndexOf("/"));
+
+            return RedirectToAction("Index");
+        }
+
+
 
 
 
@@ -255,11 +277,11 @@ namespace ProfessorCourse_BestFit.Controllers
         }
 
         [NonAction]
-        public bool IsEmailExist(string emailID)
+        public bool IsEmailExist(string emailID, int? UId)
         {
 
 
-            var dbEmails = _context.Users.Where(e => e.Email == emailID).FirstOrDefault();
+            var dbEmails = _context.Users.Where(e => e.Email == emailID).FirstOrDefault(u => u.Uid != UId);
             // dbEmails != null => true, otherwise it is false
             return dbEmails != null;
 
