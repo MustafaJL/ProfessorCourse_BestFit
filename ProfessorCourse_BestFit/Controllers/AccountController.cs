@@ -135,7 +135,7 @@ namespace ProfessorCourse_BestFit.Controllers
         [HttpPost]
         public JsonResult Languages(int isEnglish, string path)
         {
-            if(isEnglish == 1)
+            if (isEnglish == 1)
             {
                 Session["Language"] = "Engilsh";
                 return Json(new
@@ -152,7 +152,7 @@ namespace ProfessorCourse_BestFit.Controllers
                     redirectUrl = path,
                     isRedirect = true
                 });
-            }  
+            }
         }
     }
 

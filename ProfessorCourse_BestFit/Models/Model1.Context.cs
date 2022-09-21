@@ -381,14 +381,5 @@ namespace ProfessorCourse_BestFit.Models
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spUserRolesName");
         }
-    
-        public virtual ObjectResult<DepartmentEmployeesToAdd_Result> DepartmentEmployeesToAdd(Nullable<int> departmentID)
-        {
-            var departmentIDParameter = departmentID.HasValue ?
-                new ObjectParameter("DepartmentID", departmentID) :
-                new ObjectParameter("DepartmentID", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<DepartmentEmployeesToAdd_Result>("DepartmentEmployeesToAdd", departmentIDParameter);
-        }
     }
 }

@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="ProfessorCourseBestFitModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="ProfessorCourseBestFitModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Course">
           <Key>
             <PropertyRef Name="CId" />
@@ -125,7 +125,7 @@
           <Property Name="Dep_Id" Type="int" Nullable="false" />
           <Property Name="User_ID" Type="int" Nullable="false" />
           <Property Name="StartDate" Type="datetime" Nullable="false" />
-          <Property Name="EndDate" Type="datetime" />
+          <Property Name="EndDate" Type="datetime" Nullable="false" />
           <Property Name="isDeleted" Type="bit" Nullable="false" />
           <Property Name="isManager" Type="bit" Nullable="false" />
         </EntityType>
@@ -406,9 +406,6 @@
         <Function Name="Departmentemployees" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="DepartmentID" Type="int" Mode="In" />
         </Function>
-        <Function Name="DepartmentEmployeesToAdd" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="DepartmentID" Type="int" Mode="In" />
-        </Function>
         <Function Name="DepartmentManagers" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="DepartmentID" Type="int" Mode="In" />
         </Function>
@@ -569,7 +566,8 @@
             <End Role="Users" EntitySet="Users" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ProfessorCourseBestFitModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -716,7 +714,7 @@
           <Property Name="Dep_Id" Type="Int32" Nullable="false" />
           <Property Name="User_ID" Type="Int32" Nullable="false" />
           <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="EndDate" Type="DateTime" Precision="3" />
+          <Property Name="EndDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="isDeleted" Type="Boolean" Nullable="false" />
           <Property Name="isManager" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Department" Relationship="Self.FK_DepartmentUser" FromRole="UserDepartment" ToRole="Department" />
@@ -1068,19 +1066,19 @@
             <Parameter Name="SMALLDELIMER" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="CourseDeleteRelations">
-          <Parameter Name="CourseID" Mode="In" Type="Int32" />
+            <Parameter Name="CourseID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="CourseProfessors" ReturnType="Collection(ProfessorCourseBestFitModel.CourseProfessors_Result)">
-          <Parameter Name="CourseID" Mode="In" Type="Int32" />
+            <Parameter Name="CourseID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="CoursePrograms1" ReturnType="Collection(ProfessorCourseBestFitModel.CoursePrograms1_Result)">
-          <Parameter Name="CourseID" Mode="In" Type="Int32" />
+            <Parameter Name="CourseID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="CourseProgramToAdd" ReturnType="Collection(ProfessorCourseBestFitModel.CourseProgramToAdd_Result)">
-          <Parameter Name="CourseID" Mode="In" Type="Int32" />
+            <Parameter Name="CourseID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="CourseUsersToBeProfessors" ReturnType="Collection(ProfessorCourseBestFitModel.CourseUsersToBeProfessors_Result)">
-          <Parameter Name="CourseID" Mode="In" Type="Int32" />
+            <Parameter Name="CourseID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="DeleteAll">
             <Parameter Name="ID" Mode="In" Type="Int32" />
@@ -1088,56 +1086,56 @@
             <Parameter Name="target" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="DepartmentAddRemoveManagers" ReturnType="Collection(ProfessorCourseBestFitModel.DepartmentAddRemoveManagers_Result)">
-          <Parameter Name="DepartmentID" Mode="In" Type="Int32" />
+            <Parameter Name="DepartmentID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="Departmentemployees" ReturnType="Collection(ProfessorCourseBestFitModel.Departmentemployees_Result)">
-          <Parameter Name="DepartmentID" Mode="In" Type="Int32" />
+            <Parameter Name="DepartmentID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="DepartmentManagers" ReturnType="Collection(ProfessorCourseBestFitModel.DepartmentManagers_Result)">
-          <Parameter Name="DepartmentID" Mode="In" Type="Int32" />
+            <Parameter Name="DepartmentID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="ProgramCourses" ReturnType="Collection(ProfessorCourseBestFitModel.ProgramCourses_Result)">
-          <Parameter Name="ProgramID" Mode="In" Type="Int32" />
+            <Parameter Name="ProgramID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="ProgramCoursesToAdd" ReturnType="Collection(ProfessorCourseBestFitModel.ProgramCoursesToAdd_Result)">
-          <Parameter Name="ProgramID" Mode="In" Type="Int32" />
+            <Parameter Name="ProgramID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="ProgramManagers" ReturnType="Collection(ProfessorCourseBestFitModel.ProgramManagers_Result)">
-          <Parameter Name="ProgramID" Mode="In" Type="Int32" />
+            <Parameter Name="ProgramID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="ProgramManagersToAdd" ReturnType="Collection(ProfessorCourseBestFitModel.ProgramManagersToAdd_Result)">
-          <Parameter Name="ProgramID" Mode="In" Type="Int32" />
+            <Parameter Name="ProgramID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spCreateCourseKeywords">
-          <Parameter Name="CourseId" Mode="In" Type="Int32" />
+            <Parameter Name="CourseId" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spCreateKeywordCourse">
-          <Parameter Name="KeywordId" Mode="In" Type="Int32" />
+            <Parameter Name="KeywordId" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spCreateKeywordUser">
-          <Parameter Name="KeywordId" Mode="In" Type="Int32" />
+            <Parameter Name="KeywordId" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spCreateRolePermissions">
-          <Parameter Name="RoleId" Mode="In" Type="Int32" />
+            <Parameter Name="RoleId" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spCreateUserKeywords">
-          <Parameter Name="UserId" Mode="In" Type="Int32" />
+            <Parameter Name="UserId" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spGetAllKeywordsIncludeMatching" ReturnType="Collection(ProfessorCourseBestFitModel.spGetAllKeywordsIncludeMatching_Result)">
-          <Parameter Name="UserId" Mode="In" Type="Int32" />
+            <Parameter Name="UserId" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spGetAllKeywordsIncludeMatchingCourse" ReturnType="Collection(ProfessorCourseBestFitModel.spGetAllKeywordsIncludeMatchingCourse_Result)">
-          <Parameter Name="CourseId" Mode="In" Type="Int32" />
+            <Parameter Name="CourseId" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spGetCoursesByUserId" ReturnType="Collection(ProfessorCourseBestFitModel.spGetCoursesByUserId_Result)">
-          <Parameter Name="UserId" Mode="In" Type="Int32" />
+            <Parameter Name="UserId" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spGetUserRoles" />
           <FunctionImport Name="spGetUserRolesById">
-          <Parameter Name="UserId" Mode="In" Type="Int32" />
+            <Parameter Name="UserId" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spGetUsersByCourseId" ReturnType="Collection(ProfessorCourseBestFitModel.spGetUsersByCourseId_Result)">
-          <Parameter Name="CourseId" Mode="In" Type="Int32" />
+            <Parameter Name="CourseId" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spIsRowExist">
             <Parameter Name="tableName" Mode="In" Type="String" />
@@ -1145,13 +1143,13 @@
             <Parameter Name="rowValue" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="spKeywordsByCourseId" ReturnType="Collection(ProfessorCourseBestFitModel.spKeywordsByCourseId_Result)">
-          <Parameter Name="CourseId" Mode="In" Type="Int32" />
+            <Parameter Name="CourseId" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spKeywordsByUserId" ReturnType="Collection(ProfessorCourseBestFitModel.spKeywordsByUserId_Result)">
-          <Parameter Name="UserId" Mode="In" Type="Int32" />
+            <Parameter Name="UserId" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spPermissionByRoleId" ReturnType="Collection(ProfessorCourseBestFitModel.spPermissionByRoleId_Result)">
-          <Parameter Name="RoleId" Mode="In" Type="Int32" />
+            <Parameter Name="RoleId" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spUpdateCourseKeywords" ReturnType="Collection(String)">
             <Parameter Name="Keywords" Mode="In" Type="String" />
@@ -1167,9 +1165,6 @@
           </FunctionImport>
           <FunctionImport Name="spUserPermissionsName" />
           <FunctionImport Name="spUserRolesName" />
-          <FunctionImport Name="DepartmentEmployeesToAdd" ReturnType="Collection(ProfessorCourseBestFitModel.DepartmentEmployeesToAdd_Result)">
-          <Parameter Name="DepartmentID" Mode="In" Type="Int32" />
-          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="CourseProfessors_Result">
           <Property Type="Int32" Name="Uid" Nullable="false" />
@@ -1364,24 +1359,6 @@
           <Property Type="Int32" Name="PID" Nullable="false" />
           <Property Type="String" Name="PName" Nullable="false" MaxLength="50" />
           <Property Type="Boolean" Name="isActive" Nullable="false" />
-        </ComplexType>
-        <ComplexType Name="DepartmentEmployeesToAdd_Result">
-          <Property Type="Int32" Name="Uid" Nullable="false" />
-          <Property Type="String" Name="FirstName" Nullable="false" MaxLength="50" />
-          <Property Type="String" Name="MiddleName" Nullable="false" MaxLength="50" />
-          <Property Type="String" Name="LastName" Nullable="false" MaxLength="50" />
-          <Property Type="String" Name="Email" Nullable="false" MaxLength="150" />
-          <Property Type="String" Name="PasswordSalt" Nullable="false" MaxLength="500" />
-          <Property Type="String" Name="Password" Nullable="false" MaxLength="500" />
-          <Property Type="DateTime" Name="CreatedOn" Nullable="false" Precision="23" />
-          <Property Type="String" Name="DateOfBirth" Nullable="false" MaxLength="50" />
-          <Property Type="Boolean" Name="isDeleted" Nullable="false" />
-          <Property Type="String" Name="Gender" Nullable="false" MaxLength="50" />
-          <Property Type="String" Name="Phone" Nullable="false" MaxLength="100" />
-          <Property Type="String" Name="ImageUrl" Nullable="false" MaxLength="300" />
-          <Property Type="String" Name="Address" Nullable="false" MaxLength="250" />
-          <Property Type="String" Name="Education" Nullable="false" />
-          <Property Type="Int32" Name="RoleId" Nullable="false" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1851,28 +1828,6 @@
           <FunctionImportMapping FunctionImportName="spUpdateUserKeywords" FunctionName="ProfessorCourseBestFitModel.Store.spUpdateUserKeywords" />
           <FunctionImportMapping FunctionImportName="spUserPermissionsName" FunctionName="ProfessorCourseBestFitModel.Store.spUserPermissionsName" />
           <FunctionImportMapping FunctionImportName="spUserRolesName" FunctionName="ProfessorCourseBestFitModel.Store.spUserRolesName" />
-          <FunctionImportMapping FunctionImportName="DepartmentEmployeesToAdd" FunctionName="ProfessorCourseBestFitModel.Store.DepartmentEmployeesToAdd">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="ProfessorCourseBestFitModel.DepartmentEmployeesToAdd_Result">
-                <ScalarProperty Name="Uid" ColumnName="Uid" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="PasswordSalt" ColumnName="PasswordSalt" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
-                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
-                <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
-                <ScalarProperty Name="Gender" ColumnName="Gender" />
-                <ScalarProperty Name="Phone" ColumnName="Phone" />
-                <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="Education" ColumnName="Education" />
-                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
