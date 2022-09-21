@@ -7,12 +7,12 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-6">
-                    <h1>@(Session["Language"] != "Engilsh" ? "الأقسام" : "Departments")</h1>
+                    <h1>Departments</h1>
                 </div>
                 <div class="col">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="/Home">@(Session["Language"] != "Engilsh" ? "الصفحة الرئيسية" : "Home")</a></li>
-                        <li class="breadcrumb-item active">@(Session["Language"] != "Engilsh" ? "تواصل معنا" : "Contact")</li>
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">Contact</li>
                     </ol>
                 </div>
             </div>
@@ -26,7 +26,7 @@
             <div class="col-xl-12">
                 <div class="card card-primary">
                     <div class="card-header">
-                        <h3 class="card-title">@(Session["Language"] != "Engilsh" ? "القسم" : "Department")</h3>
+                        <h3 class="card-title">Department</h3>
 
                         <div class="card-tools">
                             <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
@@ -42,7 +42,7 @@
                                 <div class="col-xl-12">
                                     <div class="card card-primary">
                                         <div class="card-header">
-                                            <h3 class="card-title">@(Session["Language"] != "Engilsh" ? "معلومات القسم" : "Department Information")</h3>
+                                            <h3 class="card-title">Department Information</h3>
 
                                             <div class="card-tools">
                                                 <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
@@ -70,7 +70,7 @@
                                 <div class="col-xl-12">
                                     <div class="card card-primary">
                                         <div class="card-header">
-                                            <h3 class="card-title">@(Session["Language"] != "Engilsh" ? "مدراء القسم" : "Department Managers")</h3>
+                                            <h3 class="card-title">Department Managers</h3>
 
                                             <div class="card-tools">
                                                 <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
@@ -94,9 +94,9 @@
                                                                         <thead>
                                                                             <tr>
                                                                                 <th>#</th>
-                                                                                <th>@(Session["Language"] != "Engilsh" ? "اسم المدير" : "Managers Name")</th>
-                                                                                <th>@(Session["Language"] != "Engilsh" ? "البريد الإلكتروني" : "Email")</th>
-                                                                                <th>@(Session["Language"] != "Engilsh" ? "رقم الهاتف" : "Phone Number")</th>
+                                                                                <th>Managers Name</th>
+                                                                                <th>Email</th>
+                                                                                <th>Phone Number</th>
                                                                             </tr>
                                                                         </thead>
                                                                         <tbody>
@@ -117,9 +117,9 @@
                                                                         <tfoot>
                                                                             <tr>
                                                                                 <th>#</th>
-                                                                                <th>@(Session["Language"] != "Engilsh" ? "اسم المدير" : "Managers Name")</th>
-                                                                                <th>@(Session["Language"] != "Engilsh" ? "البريد الإلكتروني" : "Email")</th>
-                                                                                <th>@(Session["Language"] != "Engilsh" ? "رقم الهاتف" : "Phone Number")</th>
+                                                                                <th>Managers Name</th>
+                                                                                <th>Email</th>
+                                                                                <th>Phone Number</th>
                                                                             </tr>
                                                                         </tfoot>
 
@@ -154,7 +154,7 @@
                                 <div class="col-xl-12">
                                     <div class="card card-primary">
                                         <div class="card-header">
-                                            <h3 class="card-title">@(Session["Language"] != "Engilsh" ? "موظفوا القسم" : "Department Employees")</h3>
+                                            <h3 class="card-title">Department Employees</h3>
 
                                             <div class="card-tools">
                                                 <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
@@ -178,9 +178,9 @@
                                                                         <thead>
                                                                             <tr>
                                                                                 <th>#</th>
-                                                                                <th>@(Session["Language"] != "Engilsh" ? "اسم الموظف" : "Employees Name")</th>
-                                                                                <th>@(Session["Language"] != "Engilsh" ? "البريد الإلكتروني" : "Email")</th>
-                                                                                <th>@(Session["Language"] != "Engilsh" ? "رقم الهاتف" : "Phone Number")</th>
+                                                                                <th>Employees Name</th>
+                                                                                <th>Email</th>
+                                                                                <th>Phone Number</th>
                                                                             </tr>
                                                                         </thead>
                                                                         <tbody>
@@ -201,9 +201,9 @@
                                                                         <tfoot>
                                                                             <tr>
                                                                                 <th>#</th>
-                                                                                <th>@(Session["Language"] != "Engilsh" ? "اسم الموظف" : "Employees Name")</th>
-                                                                                <th>@(Session["Language"] != "Engilsh" ? "البريد الإلكتروني" : "Email")</th>
-                                                                                <th>@(Session["Language"] != "Engilsh" ? "رقم الهاتف" : "Phone Number")</th>
+                                                                                <th>Employees Name</th>
+                                                                                <th>Email</th>
+                                                                                <th>Phone Number</th>
                                                                             </tr>
                                                                         </tfoot>
 
@@ -242,10 +242,10 @@
         </div>
         <div class="row py-3">
             <div class="col-12">
-                <a href="/Department/All_Departments" class="btn btn-primary"><i class="bi bi-arrow-left"></i> @(Session["Language"] != "Engilsh" ? "رجوع" : "Back")</a>
+                <a href="/Department/All_Departments" class="btn btn-primary"><i class="bi bi-arrow-left"></i>Back</a>
                 @if (Model.Department.isDeleted == false)
                 {
-                    <a href="/Department/Edit_Department_Name/@Model.Department.DepId" class="btn btn-success">  @(Session["Language"] != "Engilsh" ? "تعديل الاسم" : "Edit Name")<i class="bi bi-arrow-right"></i></a>
+                    <a href="/Department/Edit_Department_Name/@Model.Department.DepId" class="btn btn-success">Edit Name<i class="bi bi-arrow-right"></i></a>
                 }
             </div>
         </div>

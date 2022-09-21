@@ -6,12 +6,12 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-6">
-                    <h1>@(Session["Language"] != "Engilsh" ? "البرامج" : "Programs")</h1>
+                    <h1>Programs</h1>
                 </div>
                 <div class="col">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="#">@(Session["Language"] != "Engilsh" ? "الصفحة الرئيسية" : "Home")</a></li>
-                        <li class="breadcrumb-item active">@(Session["Language"] != "Engilsh" ? "تواصل معنا" : "Contact")</li>
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">Contact</li>
                     </ol>
                 </div>
             </div>
@@ -25,7 +25,7 @@
             <div class="col-xl-12">
                 <div class="card card-primary">
                     <div class="card-header">
-                        <h3 class="card-title">@(Session["Language"] != "Engilsh" ? "البرنامج" : "Program")</h3>
+                        <h3 class="card-title">Program</h3>
 
                         <div class="card-tools">
                             <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
@@ -41,7 +41,7 @@
                                 <div class="col-xl-12">
                                     <div class="card card-primary">
                                         <div class="card-header">
-                                            <h3 class="card-title"> @(Session["Language"] != "Engilsh" ? "معلومات البرنامج" : "Program Information")</h3>
+                                            <h3 class="card-title"> Program Information</h3>
 
                                             <div class="card-tools">
                                                 <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
@@ -70,7 +70,7 @@
                                 <div class="col-xl-12">
                                     <div class="card card-primary">
                                         <div class="card-header">
-                                            <h3 class="card-title"> @(Session["Language"] != "Engilsh" ? "مدراء البرنامج" : "Program Managers")</h3>
+                                            <h3 class="card-title"> Program Managers</h3>
 
                                             <div class="card-tools">
                                                 <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
@@ -94,9 +94,9 @@
                                                                         <thead>
                                                                             <tr>
                                                                                 <th>#</th>
-                                                                                <th>@(Session["Language"] != "Engilsh" ? "اسم المدير" : "Managers Name")</th>
-                                                                                <th>@(Session["Language"] != "Engilsh" ? "البريد الإلكتروني" : "Email")</th>
-                                                                                <th>@(Session["Language"] != "Engilsh" ? "رقم الهاتف" : "Phone Number")</th>
+                                                                                <th>Managers Name</th>
+                                                                                <th>Email</th>
+                                                                                <th>Phone Number</th>
                                                                             </tr>
                                                                         </thead>
                                                                         <tbody>
@@ -117,9 +117,9 @@
                                                                         <tfoot>
                                                                             <tr>
                                                                                 <th>#</th>
-                                                                                <th>@(Session["Language"] != "Engilsh" ? "اسم المدير" : "Managers Name")</th>
-                                                                                <th>@(Session["Language"] != "Engilsh" ? "البريد الإلكتروني" : "Email")</th>
-                                                                                <th>@(Session["Language"] != "Engilsh" ? "رقم الهاتف" : "Phone Number")</th>
+                                                                                <th>Managers Name</th>
+                                                                                <th>Email</th>
+                                                                                <th>Phone Number</th>
                                                                             </tr>
                                                                         </tfoot>
 
@@ -154,7 +154,7 @@
                                 <div class="col-xl-12">
                                     <div class="card card-primary">
                                         <div class="card-header">
-                                            <h3 class="card-title">@(Session["Language"] != "Engilsh" ? "مواد البرنامج" : "Program Courses")</h3>
+                                            <h3 class="card-title">Program Courses</h3>
 
                                             <div class="card-tools">
                                                 <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
@@ -178,10 +178,10 @@
                                                                         <thead>
                                                                             <tr>
                                                                                 <th>#</th>
-                                                                                <th>@(Session["Language"] != "Engilsh" ? "اسم المادة" : "Course Name")</th>
-                                                                                <th>@(Session["Language"] != "Engilsh" ? "الرمز المتعلق بالمادة" : "Course Code")</th>
-                                                                                <th>@(Session["Language"] != "Engilsh" ? "تاريخ الإنشاء" : "Created Date")</th>
-                                                                                <th>@(Session["Language"] != "Engilsh" ? "المدة" : "Duration")</th>
+                                                                                <th>Course Name</th>
+                                                                                <th>Course Code</th>
+                                                                                <th>Created Date</th>
+                                                                                <th>Duration</th>
                                                                             </tr>
                                                                         </thead>
                                                                         <tbody>
@@ -203,10 +203,10 @@
                                                                         <tfoot>
                                                                             <tr>
                                                                                 <th>#</th>
-                                                                                <th>@(Session["Language"] != "Engilsh" ? "اسم المادة" : "Course Name")</th>
-                                                                                <th>@(Session["Language"] != "Engilsh" ? "الرمز المتعلق بالمادة" : "Course Code")</th>
-                                                                                <th>@(Session["Language"] != "Engilsh" ? "تاريخ الإنشاء" : "Created Date")</th>
-                                                                                <th>@(Session["Language"] != "Engilsh" ? "المدة" : "Duration")</th>
+                                                                                <th>Course Name</th>
+                                                                                <th>Course Code</th>
+                                                                                <th>Created Date</th>
+                                                                                <th>Duration</th>
                                                                             </tr>
                                                                         </tfoot>
 
@@ -245,10 +245,10 @@
         </div>
         <div class="row py-3">
             <div class="col-12">
-                <a href="/Program/All_Programs" class="btn btn-primary"><i class="bi bi-arrow-left"></i> @(Session["Language"] != "Engilsh" ? "رجوع" : "Back")</a>
+                <a href="/Program/All_Programs" class="btn btn-primary"><i class="bi bi-arrow-left"></i> Back</a>
                 @if (Model.Program.isDeleted == false)
                 {
-                    <a href="/Program/Edit_Program_Name/@Model.Program.ProgramId" class="btn btn-success"> @(Session["Language"] != "Engilsh" ? "تعديل الاسم" : "Edit Name") <i class="bi bi-arrow-right"></i></a>
+                    <a href="/Program/Edit_Program_Name/@Model.Program.ProgramId" class="btn btn-success">Edit Name <i class="bi bi-arrow-right"></i></a>
                 }
             </div>
         </div>

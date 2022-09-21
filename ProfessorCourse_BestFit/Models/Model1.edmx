@@ -125,7 +125,7 @@
           <Property Name="Dep_Id" Type="int" Nullable="false" />
           <Property Name="User_ID" Type="int" Nullable="false" />
           <Property Name="StartDate" Type="datetime" Nullable="false" />
-          <Property Name="EndDate" Type="datetime" Nullable="false" />
+          <Property Name="EndDate" Type="datetime" />
           <Property Name="isDeleted" Type="bit" Nullable="false" />
           <Property Name="isManager" Type="bit" Nullable="false" />
         </EntityType>
@@ -716,7 +716,7 @@
           <Property Name="Dep_Id" Type="Int32" Nullable="false" />
           <Property Name="User_ID" Type="Int32" Nullable="false" />
           <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="EndDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EndDate" Type="DateTime" Precision="3" />
           <Property Name="isDeleted" Type="Boolean" Nullable="false" />
           <Property Name="isManager" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Department" Relationship="Self.FK_DepartmentUser" FromRole="UserDepartment" ToRole="Department" />
@@ -1168,7 +1168,7 @@
           <FunctionImport Name="spUserPermissionsName" />
           <FunctionImport Name="spUserRolesName" />
           <FunctionImport Name="DepartmentEmployeesToAdd" ReturnType="Collection(ProfessorCourseBestFitModel.DepartmentEmployeesToAdd_Result)">
-            <Parameter Name="DepartmentID" Mode="In" Type="Int32" />
+          <Parameter Name="DepartmentID" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="CourseProfessors_Result">
