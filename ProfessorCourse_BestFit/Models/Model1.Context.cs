@@ -15,9 +15,9 @@ namespace ProfessorCourse_BestFit.Models
     using System.Data.Entity.Core.Objects;
     using System.Linq;
     
-    public partial class ProfessorCourseBestFit1Entities1 : DbContext
+    public partial class ProfessorCourseBestFitEntities : DbContext
     {
-        public ProfessorCourseBestFit1Entities1()
+        public ProfessorCourseBestFitEntities()
             : base("name=ProfessorCourseBestFitEntities")
         {
         }
@@ -380,6 +380,15 @@ namespace ProfessorCourse_BestFit.Models
         public virtual int spUserRolesName()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spUserRolesName");
+        }
+    
+        public virtual ObjectResult<DepartmentEmployeesToAdd_Result> DepartmentEmployeesToAdd(Nullable<int> departmentID)
+        {
+            var departmentIDParameter = departmentID.HasValue ?
+                new ObjectParameter("DepartmentID", departmentID) :
+                new ObjectParameter("DepartmentID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<DepartmentEmployeesToAdd_Result>("DepartmentEmployeesToAdd", departmentIDParameter);
         }
     }
 }

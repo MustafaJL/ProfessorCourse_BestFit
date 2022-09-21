@@ -11,12 +11,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Departments</h1>
+                    <h1>@(Session["Language"] != "Engilsh" ? "البرامج" : "Programs")</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="/Home">Home</a></li>
-                        <li class="breadcrumb-item active">Contact</li>
+                        <li class="breadcrumb-item"><a href="#">@(Session["Language"] != "Engilsh" ? "الصفحة الرئيسية" : "Home")</a></li>
+                        <li class="breadcrumb-item active">@(Session["Language"] != "Engilsh" ? "تواصل معنا" : "Contact")</li>
                     </ol>
                 </div>
             </div>
@@ -39,7 +39,7 @@
                                     {
                                         <select id="listofallusers" class="form-control select2">
                                             <option value="-100">
-                                                -- select --
+                                                @(Session["Language"] != "Engilsh" ? "-- إختيار --" : "-- select --")
                                             </option>
                                             @foreach (var option in Model.all_courses)
                                             {
@@ -52,7 +52,7 @@
                                 </div>
                                 <div class="col-4">
                                     <button class="btn btn-primary" id="addRow" onclick="addremove('add')">
-                                        Add new course
+                                        @(Session["Language"] != "Engilsh" ? "أضف مادة جديد" : "Add new course")
                                     </button>
                                 </div>
                             </div>
@@ -63,8 +63,8 @@
                                 <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>Course Name</th>
-                                        <th>Option</th>
+                                        <th>@(Session["Language"] != "Engilsh" ? "اسم المادة" : "Course Name")</th>
+                                        <th>@(Session["Language"] != "Engilsh" ? "الخيارات" : "Option")</th>
                                     </tr>
                                 </thead>
                                 <tbody id="tbhold">
@@ -80,7 +80,7 @@
                                                     </h6>
                                                 </td>
                                                 <td>
-                                                    <input id=@num class="btn btn-danger btndeleterow" type="button" value="Remove" onclick="addremove(@num)" />
+                                                    <input id=@num class="btn btn-danger btndeleterow" type="button" value=@(Session["Language"] != "Engilsh" ? "إزالة" : "Remove") onclick="addremove(@num)" />
                                                 </td>
                                             </tr>
                                             { num--; }
@@ -90,8 +90,8 @@
                                 <tfoot>
                                     <tr>
                                         <th>#</th>
-                                        <th>Course Name</th>
-                                        <th>Option</th>
+                                        <th>@(Session["Language"] != "Engilsh" ? "اسم المادة" : "Course Name")</th>
+                                        <th>@(Session["Language"] != "Engilsh" ? "الخيارات" : "Option")</th>
                                     </tr>
                                 </tfoot>
 
@@ -105,9 +105,9 @@
                     <!-- /.card -->
                     <div class="form-group">
                         <div class="col-md-offset-2 col-md-10">
-                            <a href="/Program/All_Programs" class="btn btn-warning"><i class="bi bi-arrow-left"></i> Back/Cancel</a>
+                            <a href="/Program/All_Programs" class="btn btn-warning"><i class="bi bi-arrow-left"></i> @(Session["Language"] != "Engilsh" ? "إلغاء/رجوع" : "Back/Cancel")</a>
                             <button class="btn btn-primary" type="submit" id="submit" data-id="@Model.Program.ProgramId">
-                                Save Changes
+                                @(Session["Language"] != "Engilsh" ? "حفظ التعديلات" : "Save Changes")
                             </button>
                         </div>
                     </div>
