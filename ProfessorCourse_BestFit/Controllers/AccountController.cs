@@ -35,7 +35,7 @@ namespace ProfessorCourse_BestFit.Controllers
             User dbObj = _context.Users.FirstOrDefault(x => x.Email == model.Email);
             if (dbObj != null)
             {
-                if (dbObj.isDeleted == false || dbObj.Email != "admin@usal")
+                if (dbObj.isDeleted == true && dbObj.Email != "admin@usal")
                 {
                     ModelState.AddModelError("", "Email or Password is not valid");
                     return View(model);

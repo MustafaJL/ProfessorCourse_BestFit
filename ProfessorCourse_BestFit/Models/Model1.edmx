@@ -64,7 +64,7 @@
             <PropertyRef Name="ProgramId" />
           </Key>
           <Property Name="ProgramId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Dep_Id" Type="int" Nullable="false" />
+          <Property Name="Dep_Id" Type="int" />
           <Property Name="ProgramName" Type="varchar" MaxLength="150" Nullable="false" />
           <Property Name="CreatedOn" Type="datetime" Nullable="false" />
           <Property Name="isDeleted" Type="bit" Nullable="false" />
@@ -76,7 +76,6 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="RId" Type="int" Nullable="false" />
           <Property Name="PId" Type="int" Nullable="false" />
-          <Property Name="CreatedOn" Type="datetime" Nullable="false" />
           <Property Name="isDeleted" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Roles">
@@ -406,6 +405,9 @@
         <Function Name="Departmentemployees" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="DepartmentID" Type="int" Mode="In" />
         </Function>
+        <Function Name="DepartmentEmployeesToAdd" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="DepartmentID" Type="int" Mode="In" />
+        </Function>
         <Function Name="DepartmentManagers" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="DepartmentID" Type="int" Mode="In" />
         </Function>
@@ -441,6 +443,9 @@
         </Function>
         <Function Name="spGetAllKeywordsIncludeMatchingCourse" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="CourseId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spGetAllPermissionsIncludeMatchingRoles" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="RoleId" Type="int" Mode="In" />
         </Function>
         <Function Name="spGetCoursesByUserId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="UserId" Type="int" Mode="In" />
@@ -642,7 +647,7 @@
             <PropertyRef Name="ProgramId" />
           </Key>
           <Property Name="ProgramId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Dep_Id" Type="Int32" Nullable="false" />
+          <Property Name="Dep_Id" Type="Int32" />
           <Property Name="ProgramName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="isDeleted" Type="Boolean" Nullable="false" />
@@ -656,7 +661,6 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="RId" Type="Int32" Nullable="false" />
           <Property Name="PId" Type="Int32" Nullable="false" />
-          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="isDeleted" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Permission" Relationship="Self.FK_Permission" FromRole="RolePermission" ToRole="Permission" />
           <NavigationProperty Name="Role" Relationship="Self.FK_Role" FromRole="RolePermission" ToRole="Roles" />
@@ -1091,6 +1095,9 @@
           <FunctionImport Name="Departmentemployees" ReturnType="Collection(ProfessorCourseBestFitModel.Departmentemployees_Result)">
             <Parameter Name="DepartmentID" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="DepartmentEmployeesToAdd" ReturnType="Collection(ProfessorCourseBestFitModel.DepartmentEmployeesToAdd_Result)">
+            <Parameter Name="DepartmentID" Mode="In" Type="Int32" />
+          </FunctionImport>
           <FunctionImport Name="DepartmentManagers" ReturnType="Collection(ProfessorCourseBestFitModel.DepartmentManagers_Result)">
             <Parameter Name="DepartmentID" Mode="In" Type="Int32" />
           </FunctionImport>
@@ -1126,6 +1133,9 @@
           </FunctionImport>
           <FunctionImport Name="spGetAllKeywordsIncludeMatchingCourse" ReturnType="Collection(ProfessorCourseBestFitModel.spGetAllKeywordsIncludeMatchingCourse_Result)">
             <Parameter Name="CourseId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spGetAllPermissionsIncludeMatchingRoles" ReturnType="Collection(ProfessorCourseBestFitModel.spGetAllPermissionsIncludeMatchingRoles_Result)">
+            <Parameter Name="RoleId" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spGetCoursesByUserId" ReturnType="Collection(ProfessorCourseBestFitModel.spGetCoursesByUserId_Result)">
             <Parameter Name="UserId" Mode="In" Type="Int32" />
@@ -1186,14 +1196,14 @@
         </ComplexType>
         <ComplexType Name="CoursePrograms1_Result">
           <Property Type="Int32" Name="ProgramId" Nullable="false" />
-          <Property Type="Int32" Name="Dep_Id" Nullable="false" />
+          <Property Type="Int32" Name="Dep_Id" Nullable="true" />
           <Property Type="String" Name="ProgramName" Nullable="false" MaxLength="150" />
           <Property Type="DateTime" Name="CreatedOn" Nullable="false" Precision="23" />
           <Property Type="Boolean" Name="isDeleted" Nullable="false" />
         </ComplexType>
         <ComplexType Name="CourseProgramToAdd_Result">
           <Property Type="Int32" Name="ProgramId" Nullable="false" />
-          <Property Type="Int32" Name="Dep_Id" Nullable="false" />
+          <Property Type="Int32" Name="Dep_Id" Nullable="true" />
           <Property Type="String" Name="ProgramName" Nullable="false" MaxLength="150" />
           <Property Type="DateTime" Name="CreatedOn" Nullable="false" Precision="23" />
           <Property Type="Boolean" Name="isDeleted" Nullable="false" />
@@ -1235,6 +1245,24 @@
           <Property Type="Int32" Name="RoleId" Nullable="false" />
         </ComplexType>
         <ComplexType Name="Departmentemployees_Result">
+          <Property Type="Int32" Name="Uid" Nullable="false" />
+          <Property Type="String" Name="FirstName" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="MiddleName" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="LastName" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Email" Nullable="false" MaxLength="150" />
+          <Property Type="String" Name="PasswordSalt" Nullable="false" MaxLength="500" />
+          <Property Type="String" Name="Password" Nullable="false" MaxLength="500" />
+          <Property Type="DateTime" Name="CreatedOn" Nullable="false" Precision="23" />
+          <Property Type="String" Name="DateOfBirth" Nullable="false" MaxLength="50" />
+          <Property Type="Boolean" Name="isDeleted" Nullable="false" />
+          <Property Type="String" Name="Gender" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Phone" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="ImageUrl" Nullable="false" MaxLength="300" />
+          <Property Type="String" Name="Address" Nullable="false" MaxLength="250" />
+          <Property Type="String" Name="Education" Nullable="false" />
+          <Property Type="Int32" Name="RoleId" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="DepartmentEmployeesToAdd_Result">
           <Property Type="Int32" Name="Uid" Nullable="false" />
           <Property Type="String" Name="FirstName" Nullable="false" MaxLength="50" />
           <Property Type="String" Name="MiddleName" Nullable="false" MaxLength="50" />
@@ -1330,6 +1358,11 @@
         <ComplexType Name="spGetAllKeywordsIncludeMatchingCourse_Result">
           <Property Type="Int32" Name="KId" Nullable="false" />
           <Property Type="String" Name="KName" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="Matching" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="spGetAllPermissionsIncludeMatchingRoles_Result">
+          <Property Type="Int32" Name="PId" Nullable="false" />
+          <Property Type="String" Name="PName" Nullable="false" MaxLength="50" />
           <Property Type="Int32" Name="Matching" Nullable="false" />
         </ComplexType>
         <ComplexType Name="spGetCoursesByUserId_Result">
@@ -1443,7 +1476,6 @@
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="RId" ColumnName="RId" />
                 <ScalarProperty Name="PId" ColumnName="PId" />
-                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
                 <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1659,6 +1691,28 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="DepartmentEmployeesToAdd" FunctionName="ProfessorCourseBestFitModel.Store.DepartmentEmployeesToAdd">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ProfessorCourseBestFitModel.DepartmentEmployeesToAdd_Result">
+                <ScalarProperty Name="Uid" ColumnName="Uid" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="PasswordSalt" ColumnName="PasswordSalt" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+                <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Education" ColumnName="Education" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="DepartmentManagers" FunctionName="ProfessorCourseBestFitModel.Store.DepartmentManagers">
             <ResultMapping>
               <ComplexTypeMapping TypeName="ProfessorCourseBestFitModel.DepartmentManagers_Result">
@@ -1768,6 +1822,15 @@
               <ComplexTypeMapping TypeName="ProfessorCourseBestFitModel.spGetAllKeywordsIncludeMatchingCourse_Result">
                 <ScalarProperty Name="KId" ColumnName="KId" />
                 <ScalarProperty Name="KName" ColumnName="KName" />
+                <ScalarProperty Name="Matching" ColumnName="Matching" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spGetAllPermissionsIncludeMatchingRoles" FunctionName="ProfessorCourseBestFitModel.Store.spGetAllPermissionsIncludeMatchingRoles">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ProfessorCourseBestFitModel.spGetAllPermissionsIncludeMatchingRoles_Result">
+                <ScalarProperty Name="PId" ColumnName="PId" />
+                <ScalarProperty Name="PName" ColumnName="PName" />
                 <ScalarProperty Name="Matching" ColumnName="Matching" />
               </ComplexTypeMapping>
             </ResultMapping>

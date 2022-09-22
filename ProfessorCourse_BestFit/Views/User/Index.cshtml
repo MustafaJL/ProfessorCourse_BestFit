@@ -69,7 +69,8 @@
 
                                     @foreach (var item in Model)
                                     {
-
+                                        if (item.Role.RoleName != "Admin")
+                                        {
                                         <tr class="delete-row">
                                             <td width="10%">@(id++)</td>
                                             <td width="10%">@item.FirstName</td>
@@ -115,6 +116,7 @@
 
                                             </td>
                                         </tr>
+                                        }
                                     }
                                 </tbody>
                                 

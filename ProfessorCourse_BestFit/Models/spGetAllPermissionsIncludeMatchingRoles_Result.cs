@@ -11,12 +11,10 @@ namespace ProfessorCourse_BestFit.Models
 {
     using System;
     
-    public partial class CoursePrograms1_Result
+    public partial class spGetAllPermissionsIncludeMatchingRoles_Result
     {
-        public int ProgramId { get; set; }
-        public Nullable<int> Dep_Id { get; set; }
-        public string ProgramName { get; set; }
-        public System.DateTime CreatedOn { get; set; }
-        public bool isDeleted { get; set; }
+        public int PId { get; set; }
+        public string PName { get; set; }
+        public int Matching { get; set; }
     }
 }
