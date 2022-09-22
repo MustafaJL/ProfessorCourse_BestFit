@@ -53,7 +53,7 @@ namespace ProfessorCourse_BestFit.Controllers
             if (ModelState.IsValid)
             {
                 var isExist = _context.Roles.SingleOrDefault(x => x.RoleId == model.RoleId);
-                var isExistName = _context.Roles.Where(u => u.RoleName == model.RoleName);
+                var isExistName = _context.Roles.Where(u => u.RoleName == model.RoleName && u.RoleId != model.RoleId);
                 if (isExistName.Any())
                 {
                     RolesViewModel roleView = new RolesViewModel

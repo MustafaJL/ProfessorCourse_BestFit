@@ -26,14 +26,22 @@ namespace ProfessorCourse_BestFit.Controllers
         }
         // GET: Professor
 
-        [CustomAuthorization(Permissions: "Read")]
+        [CustomAuthorization(Permissions: "View-User")]
 
         public ActionResult Index()
         {
             var userList = _context.Users.Include(m => m.Role).Where(x => x.isDeleted == false).ToList();
+
+
             var permissions = User.Identity.Name;
-            bool isValid = Validator.IsDependent(permissions, "Create_User");
-            ViewBag.create_user = isValid;
+            bool createValid = Validator.IsDependent(permissions, "Add-User");
+            bool deleteValid = Validator.IsDependent(permissions, "Delete-User");
+            bool updateValid = Validator.IsDependent(permissions, "Update-User");
+            //bool deleteValid = Validator.IsDependent(permissions, "Delete-User");
+
+            ViewBag.create_user = createValid;
+            ViewBag.update_user = updateValid;
+            ViewBag.delete_user = deleteValid;
 
             return View(userList);
 
@@ -43,7 +51,7 @@ namespace ProfessorCourse_BestFit.Controllers
         // [CustomAuthorization(Permissions: "Create")]
 
 
-        [CustomAuthorization(Permissions: "Create_User")]
+        [CustomAuthorization(Permissions: "Add-User")]
         public ActionResult Create()
         {
             var roles = _context.Roles.Where(x => x.isDeleted == false).ToList();
@@ -135,7 +143,7 @@ namespace ProfessorCourse_BestFit.Controllers
 
 
 
-
+        [CustomAuthorization(Permissions: "Update-User")]
         public ActionResult Update(int? id)
         {
             if (id == 0 || id == null)
@@ -244,7 +252,7 @@ namespace ProfessorCourse_BestFit.Controllers
 
 
 
-
+        [CustomAuthorization(Permissions: "Delete-User")]
         [HttpPost]
         public JsonResult Delete(int id)
         {
@@ -424,6 +432,50 @@ namespace ProfessorCourse_BestFit.Controllers
 
             var a = _sp.UpdateUserKeyword(userId, keywordsString);
             return Json(new { success = true });
+        }
+
+
+        public ActionResult ChangePassword()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult ChangePassword(int id, string oldPassword, string newPassword, string confirmPassword)
+        {
+            if (!(newPassword.Equals(confirmPassword)))
+            {
+                ViewBag.confirm = "Password does not match";
+                return View();
+            }
+            var dbObj = _context.Users.Where(u => u.isDeleted == false || u.Email == "admin@usal").SingleOrDefault(u => u.Uid == id);
+            // get PasswordSalt from Databse as array of bytes
+            byte[] PasswordSalt = Convert.FromBase64String(dbObj.PasswordSalt);
+
+            // convert Password inserted by user from string into array of bytes
+            byte[] Password = Encoding.UTF8.GetBytes(oldPassword);
+
+            // Hash the inserted password with salt
+            byte[] HashedPassword = CryptoService.ComputeHMAC256(Password, PasswordSalt);
+
+            // Convert password from byte array to string
+            string stringPassword = Convert.ToBase64String(HashedPassword);
+
+            // Get the original password from Database
+            string dbPassword = dbObj.Password;
+
+            // check if password is the same
+            if (dbPassword != stringPassword)
+            {
+                ViewBag.oldpass = "The old password you have been entered is wrong";
+                return View();
+            }
+            var userPasswor = Encoding.UTF8.GetBytes(newPassword);
+            var hmac = CryptoService.ComputeHMAC256(userPasswor, PasswordSalt);
+            dbObj.Password = Convert.ToBase64String(hmac);
+
+            _context.SaveChanges();
+            return RedirectToAction("Index");
+
         }
     }
 }
