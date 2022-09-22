@@ -402,7 +402,7 @@
             var btn1 = document.getElementById("Engilsh");
             var btn2 = document.getElementById("Arabic");
             btn1.addEventListener("click", () => {
-                if (@Session["Language"] != "Engilsh")
+                if (@Session["Language"] != "en")
                 {
                     $.ajax({
                         url: '/Account/Languages/',
@@ -420,7 +420,7 @@
                 }
             })
             btn2.addEventListener("click", () => {
-                if (@Session["Language"] != "Arabic")
+                if (@Session["Language"] != "ar")
                 {
                     $.ajax({
                         url: '/Account/Languages/',

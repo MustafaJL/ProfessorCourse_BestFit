@@ -82,7 +82,7 @@ namespace ProfessorCourse_BestFit.Controllers
 
             // Add Cookie
             Response.Cookies.Add(cookie);
-            Session["Language"] = "Engilsh";
+            Session["Language"] = "en";
             ViewBag.Uid = dbObj.Uid;
             return RedirectToAction("Index", "Home");
 
@@ -137,7 +137,7 @@ namespace ProfessorCourse_BestFit.Controllers
         {
             if(isEnglish == 1)
             {
-                Session["Language"] = "Engilsh";
+                Session["Language"] = "en";
                 return Json(new
                 {
                     redirectUrl = path,
@@ -146,7 +146,7 @@ namespace ProfessorCourse_BestFit.Controllers
             }
             else
             {
-                Session["Language"] = "Arabic";
+                Session["Language"] = "ar";
                 return Json(new
                 {
                     redirectUrl = path,

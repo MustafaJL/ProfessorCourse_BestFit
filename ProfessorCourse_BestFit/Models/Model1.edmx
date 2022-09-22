@@ -64,7 +64,7 @@
             <PropertyRef Name="ProgramId" />
           </Key>
           <Property Name="ProgramId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Dep_Id" Type="int" Nullable="false" />
+          <Property Name="Dep_Id" Type="int" />
           <Property Name="ProgramName" Type="varchar" MaxLength="150" Nullable="false" />
           <Property Name="CreatedOn" Type="datetime" Nullable="false" />
           <Property Name="isDeleted" Type="bit" Nullable="false" />
@@ -644,7 +644,7 @@
             <PropertyRef Name="ProgramId" />
           </Key>
           <Property Name="ProgramId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Dep_Id" Type="Int32" Nullable="false" />
+          <Property Name="Dep_Id" Type="Int32" />
           <Property Name="ProgramName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="isDeleted" Type="Boolean" Nullable="false" />

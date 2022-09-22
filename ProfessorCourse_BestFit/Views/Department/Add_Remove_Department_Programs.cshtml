@@ -161,7 +161,11 @@
             text = option.text;
             value = option.value;
             if (value == -100) {
-                alert('Please Select Name First');
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'You need to select name first!'
+                });
             } else {
                 alldata.push(value);
                 select.removeChild(option);

@@ -69,23 +69,23 @@ namespace ProfessorCourse_BestFit.Controllers
         {
             if (Name_Required(departmentViewModel.Department.Dep_Name))
             {
-               // ViewBag.nameRequired = messages.name_Required;
-                //.data_not_saved = messages.data_not_saved;
+               ViewBag.nameRequired = "Please you should write name first.";
+                ViewBag.data_not_saved = "The data is not saved.";
                 return View(departmentViewModel);
             }
 
             if (Name_Exist(departmentViewModel.Department.Dep_Name))
             {
-                //ViewBag.nameExist = messages.name_exist;
-                //ViewBag.data_not_saved = messages.data_not_saved;
+                ViewBag.nameExist = "The name you entered is already exist please chose another name.";
+                ViewBag.data_not_saved = "The data is not saved."; 
                 return View(departmentViewModel);
             }
 
             _context.Departments.Add(departmentViewModel.Department);
             _context.SaveChanges();
 
-            //ViewBag.Done = messages.message_success_submit_title;
-            //ViewBag.Saved = messages.message_success_submit_body;
+            ViewBag.Done = "Done...";
+            ViewBag.Saved = "The data has been saved successfully.";
 
             return View(departmentViewModel);
         }
@@ -125,15 +125,15 @@ namespace ProfessorCourse_BestFit.Controllers
         {
             if (Name_Required(departmentViewModel.Department.Dep_Name))
             {
-               // ViewBag.nameRequired = messages.name_Required;
-//ViewBag.data_not_saved = messages.data_not_saved;
+                ViewBag.nameRequired = "Please you should write name first.";
+                ViewBag.data_not_saved = "The data is not saved.";
                 return View(departmentViewModel);
             }
 
             if (Name_Exist(departmentViewModel.Department.Dep_Name))
             {
-               // ViewBag.nameExist = messages.name_exist;
-               // ViewBag.data_not_saved = messages.data_not_saved;
+                ViewBag.nameExist = "The name you entered is already exist please chose another name.";
+                ViewBag.data_not_saved = "The data is not saved.";
                 return View(departmentViewModel);
             }
 
@@ -144,8 +144,8 @@ namespace ProfessorCourse_BestFit.Controllers
             edit_Department.Dep_Name = departmentViewModel.Department.Dep_Name;
             _context.SaveChanges();
 
-           // ViewBag.Done = messages.message_success_submit_title;
-           // ViewBag.Saved = messages.message_success_submit_body;
+            ViewBag.Done = "Done...";
+            ViewBag.Saved = "The data has been saved successfully.";
 
             return View(departmentViewModel);
         }

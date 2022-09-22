@@ -161,6 +161,16 @@
     </Compile>
     <Compile Include="Helper\CryptoService.cs" />
     <Compile Include="Helper\Validator.cs" />
+    <Compile Include="Languages\ArabicResource .Designer.cs">
+      <DependentUpon>ArabicResource .resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Languages\EnglishResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EnglishResource.resx</DependentUpon>
+    </Compile>
     <Compile Include="Messages\Messages.cs" />
     <Compile Include="Models\Course.cs">
       <DependentUpon>Model1.tt</DependentUpon>
@@ -4347,6 +4357,16 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Languages\ArabicResource .resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ArabicResource .Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Languages\EnglishResource.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>EnglishResource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

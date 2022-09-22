@@ -76,15 +76,15 @@ namespace ProfessorCourse_BestFit.Controllers
         {
             if (Name_Required(programViewModel.Program.ProgramName))
             {
-               // ViewBag.nameRequired = messages.name_Required;
-              //  ViewBag.data_not_saved = messages.data_not_saved;
+                ViewBag.nameRequired = "Please you should write name first.";
+                ViewBag.data_not_saved = "The data is not saved.";
                 return View(programViewModel);
             }
 
             if (Name_Exist(programViewModel.Program.ProgramName))
             {
-              //  ViewBag.nameExist = messages.name_exist;
-              //  ViewBag.data_not_saved = messages.data_not_saved;
+                ViewBag.nameExist = "The name you entered is already exist please chose another name.";
+                ViewBag.data_not_saved = "The data is not saved.";
                 return View(programViewModel);
             }
 
@@ -92,8 +92,8 @@ namespace ProfessorCourse_BestFit.Controllers
             _context.Programs.Add(programViewModel.Program);
             _context.SaveChanges();
 
-           // ViewBag.Done = messages.message_success_submit_title;
-           // ViewBag.Saved = messages.message_success_submit_body;
+            ViewBag.Done = "Done...";
+            ViewBag.Saved = "The data has been saved successfully.";
 
             return View();
         }
@@ -132,15 +132,15 @@ namespace ProfessorCourse_BestFit.Controllers
         {
             if (Name_Required(programViewModel.Program.ProgramName))
             {
-             //   ViewBag.nameRequired = messages.name_Required;
-             //   ViewBag.data_not_saved = messages.data_not_saved;
+                ViewBag.nameRequired = "Please you should write name first.";
+                ViewBag.data_not_saved = "The data is not saved.";
                 return View(programViewModel);
             }
 
             if (Name_Exist(programViewModel.Program.ProgramName))
             {
-              //  ViewBag.nameExist = messages.name_exist;
-             //   ViewBag.data_not_saved = messages.data_not_saved;
+                ViewBag.nameExist = "The name you entered is already exist please chose another name.";
+                ViewBag.data_not_saved = "The data is not saved.";
                 return View(programViewModel);
             }
 
@@ -151,8 +151,8 @@ namespace ProfessorCourse_BestFit.Controllers
             program.ProgramName = programViewModel.Program.ProgramName;
             _context.SaveChanges();
 
-          //  ViewBag.Done = messages.message_success_submit_title;
-//ViewBag.Saved = messages.message_success_submit_body;
+            ViewBag.Done = "Done...";
+            ViewBag.Saved = "The data has been saved successfully.";
 
             return View(programViewModel);
         }
