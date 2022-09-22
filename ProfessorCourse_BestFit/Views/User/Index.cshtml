@@ -1,8 +1,10 @@
 ﻿@model IEnumerable<ProfessorCourse_BestFit.Models.User>
 
+
 @{
     ViewBag.Title = "Index";
     int id = 1;
+   
 }
 
 
@@ -35,8 +37,9 @@
 
                     <div class="card">
                         <div class="card-header">
-                            <a href="/User/Upsert_User" class="btn btn-primary">
+                            <a href="/User/Create" class="btn btn-primary @(ViewBag.create_user != true ? "d-none" : "")">
                                 <i class="bi bi-plus-circle"></i>
+
                             Create</a>
                         </div>
                         <!-- /.card-header -->
@@ -66,7 +69,8 @@
 
                                     @foreach (var item in Model)
                                     {
-
+                                        if (item.Role.RoleName != "Admin")
+                                        {
                                         <tr class="delete-row">
                                             <td width="10%">@(id++)</td>
                                             <td width="10%">@item.FirstName</td>
@@ -87,22 +91,22 @@
                                             <td class="tg">
 
                                                 <div class="d-flex test">
-                                                    <a class="btn btn-outline-success" href="/User/Upsert_User/@item.Uid">
+                                                    <a class="btn btn-outline-success  @(ViewBag.update_user != true ? "d-none" : "")" href="/User/Update/@item.Uid">
                                                         <i class="bi bi-pencil"></i>
                                                         Edit
                                                     </a>
 
-                                                    <button type="button" class="btn mx-2 btn-outline-danger delete-btn my-delete" data-toggle="modal" data-target="#modal-default" uid-data="@item.Uid">
+                                                    <button type="button" class="btn mx-2 btn-outline-danger delete-btn my-delete  @(ViewBag.delete_user != true ? "d-none" : "")" data-toggle="modal" data-target="#modal-default" uid-data="@item.Uid">
                                                         <i class="bi bi-trash"></i>
                                                         Delete
                                                     </button>
 
-                                                    <button type="button" class="btn mx-2 btn-outline-secondary js-reset-pass" data-toggle="modal" data-target="#modal-default1" uid-data="@item.Uid">
+                                                    <button type="button" class="btn mx-2 btn-outline-secondary js-reset-pass  @(ViewBag.update_user != true ? "d-none" : "")" data-toggle="modal" data-target="#modal-default1" uid-data="@item.Uid">
                                                         <i class="bi bi-arrow-clockwise"></i>                                                    Reset
                                                     </button>
 
 
-                                                    <a class="btn btn-outline-warning" href="/User/userKeywords/@item.Uid">
+                                                    <a class="btn btn-outline-warning  @(ViewBag.update_user != true ? "d-none" : "")" href="/User/userKeywords/@item.Uid">
                                                         <i class="bi bi-bag-check"></i>                                                    Skills
                                                     </a>
                                                 </div>
@@ -112,6 +116,7 @@
 
                                             </td>
                                         </tr>
+                                        }
                                     }
                                 </tbody>
                                 

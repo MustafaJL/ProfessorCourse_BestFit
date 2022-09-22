@@ -33,12 +33,21 @@ namespace ProfessorCourse_BestFit.Controllers
         {
 
             User dbObj = _context.Users.FirstOrDefault(x => x.Email == model.Email);
-            if (dbObj == null || dbObj.isDeleted == true)
+            if (dbObj != null)
+            {
+                if (dbObj.isDeleted == true && dbObj.Email != "admin@usal")
+                {
+                    ModelState.AddModelError("", "Email or Password is not valid");
+                    return View(model);
+
+                }
+            }
+            else
             {
                 ModelState.AddModelError("", "Email or Password is not valid");
                 return View(model);
-
             }
+
 
             // get PasswordSalt from Databse as array of bytes
             byte[] PasswordSalt = Convert.FromBase64String(dbObj.PasswordSalt);
@@ -135,7 +144,7 @@ namespace ProfessorCourse_BestFit.Controllers
         [HttpPost]
         public JsonResult Languages(int isEnglish, string path)
         {
-            if(isEnglish == 1)
+            if (isEnglish == 1)
             {
                 Session["Language"] = "en";
                 return Json(new
@@ -152,7 +161,7 @@ namespace ProfessorCourse_BestFit.Controllers
                     redirectUrl = path,
                     isRedirect = true
                 });
-            }  
+            }
         }
     }
 

@@ -149,6 +149,15 @@ namespace ProfessorCourse_BestFit.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Departmentemployees_Result>("Departmentemployees", departmentIDParameter);
         }
     
+        public virtual ObjectResult<DepartmentEmployeesToAdd_Result> DepartmentEmployeesToAdd(Nullable<int> departmentID)
+        {
+            var departmentIDParameter = departmentID.HasValue ?
+                new ObjectParameter("DepartmentID", departmentID) :
+                new ObjectParameter("DepartmentID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<DepartmentEmployeesToAdd_Result>("DepartmentEmployeesToAdd", departmentIDParameter);
+        }
+    
         public virtual ObjectResult<DepartmentManagers_Result> DepartmentManagers(Nullable<int> departmentID)
         {
             var departmentIDParameter = departmentID.HasValue ?
@@ -255,6 +264,15 @@ namespace ProfessorCourse_BestFit.Models
                 new ObjectParameter("CourseId", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<spGetAllKeywordsIncludeMatchingCourse_Result>("spGetAllKeywordsIncludeMatchingCourse", courseIdParameter);
+        }
+    
+        public virtual ObjectResult<spGetAllPermissionsIncludeMatchingRoles_Result> spGetAllPermissionsIncludeMatchingRoles(Nullable<int> roleId)
+        {
+            var roleIdParameter = roleId.HasValue ?
+                new ObjectParameter("RoleId", roleId) :
+                new ObjectParameter("RoleId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<spGetAllPermissionsIncludeMatchingRoles_Result>("spGetAllPermissionsIncludeMatchingRoles", roleIdParameter);
         }
     
         public virtual ObjectResult<spGetCoursesByUserId_Result> spGetCoursesByUserId(Nullable<int> userId)
@@ -380,15 +398,6 @@ namespace ProfessorCourse_BestFit.Models
         public virtual int spUserRolesName()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spUserRolesName");
-        }
-    
-        public virtual ObjectResult<DepartmentEmployeesToAdd_Result> DepartmentEmployeesToAdd(Nullable<int> departmentID)
-        {
-            var departmentIDParameter = departmentID.HasValue ?
-                new ObjectParameter("DepartmentID", departmentID) :
-                new ObjectParameter("DepartmentID", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<DepartmentEmployeesToAdd_Result>("DepartmentEmployeesToAdd", departmentIDParameter);
         }
     }
 }
