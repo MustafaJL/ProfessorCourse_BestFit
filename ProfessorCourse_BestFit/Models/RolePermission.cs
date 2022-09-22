@@ -17,6 +17,7 @@ namespace ProfessorCourse_BestFit.Models
         public int Id { get; set; }
         public int RId { get; set; }
         public int PId { get; set; }
+        public System.DateTime CreatedOn { get; set; }
         public bool isDeleted { get; set; }
     
         public virtual Permission Permission { get; set; }

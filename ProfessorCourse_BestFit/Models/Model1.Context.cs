@@ -266,15 +266,6 @@ namespace ProfessorCourse_BestFit.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<spGetAllKeywordsIncludeMatchingCourse_Result>("spGetAllKeywordsIncludeMatchingCourse", courseIdParameter);
         }
     
-        public virtual ObjectResult<spGetAllPermissionsIncludeMatchingRoles_Result> spGetAllPermissionsIncludeMatchingRoles(Nullable<int> roleId)
-        {
-            var roleIdParameter = roleId.HasValue ?
-                new ObjectParameter("RoleId", roleId) :
-                new ObjectParameter("RoleId", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<spGetAllPermissionsIncludeMatchingRoles_Result>("spGetAllPermissionsIncludeMatchingRoles", roleIdParameter);
-        }
-    
         public virtual ObjectResult<spGetCoursesByUserId_Result> spGetCoursesByUserId(Nullable<int> userId)
         {
             var userIdParameter = userId.HasValue ?

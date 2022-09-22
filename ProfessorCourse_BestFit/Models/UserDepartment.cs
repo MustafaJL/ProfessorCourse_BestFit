@@ -18,7 +18,7 @@ namespace ProfessorCourse_BestFit.Models
         public int Dep_Id { get; set; }
         public int User_ID { get; set; }
         public System.DateTime StartDate { get; set; }
-        public System.DateTime EndDate { get; set; }
+        public Nullable<System.DateTime> EndDate { get; set; }
         public bool isDeleted { get; set; }
         public bool isManager { get; set; }
     
