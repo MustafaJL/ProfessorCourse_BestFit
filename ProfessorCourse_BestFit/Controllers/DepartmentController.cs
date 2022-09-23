@@ -103,6 +103,8 @@ namespace ProfessorCourse_BestFit.Controllers
 
             departmentViewModel.employee = user_DAL.Get_Users_Department(id, 2);
 
+            departmentViewModel.department_Programs = _context.Programs.Where(x => x.isDeleted == false && x.Dep_Id == id).ToList();
+
             return View(departmentViewModel);
         }
 

@@ -100,7 +100,7 @@
                                                                             </tr>
                                                                         </thead>
                                                                         <tbody>
-                                                                            @{ int num = 0;}
+                                                                            @{ int num = 1;}
                                                                             @if (Model.managers != null)
                                                                             {
                                                                                 foreach (var item in Model.managers)
@@ -184,7 +184,7 @@
                                                                             </tr>
                                                                         </thead>
                                                                         <tbody>
-                                                                            @{ int number = 0;}
+                                                                            @{ int number = 1;}
                                                                             @if (Model.managers != null)
                                                                             {
                                                                                 foreach (var item in Model.employee)
@@ -231,6 +231,89 @@
                                 </div>
                             </div>
                         </section>
+
+
+
+                        <section class="content">
+                            <div class="row">
+                                <div class="col-xl-12">
+                                    <div class="card card-primary">
+                                        <div class="card-header">
+                                            <h3 class="card-title">Department Programs</h3>
+
+                                            <div class="card-tools">
+                                                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                                                    <i class="fas fa-minus"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="card-body">
+
+
+                                            <section class="content">
+                                                <div class="container-fluid">
+                                                    <div class="row">
+                                                        <div class="col-12">
+
+
+                                                            <div class="card">
+                                                                <!-- /.card-header -->
+                                                                <div class="card-body">
+                                                                    <table id="example2" class="table table-bordered table-striped">
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th>#</th>
+                                                                                <th>Program Name</th>
+                                                                                <th>Created Date</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            @{ int count = 1;}
+                                                                            @if (Model.department_Programs != null)
+                                                                            {
+                                                                                foreach (var item in Model.department_Programs)
+                                                                                {
+                                                                                    <tr class="js-row">
+                                                                                        <td>@(count++)</td>
+                                                                                        <td>@item.ProgramName</td>
+                                                                                        <td>@item.CreatedOn</td>
+                                                                                    </tr>
+                                                                                }
+                                                                            }
+                                                                        </tbody>
+                                                                        <tfoot>
+                                                                            <tr>
+                                                                                <th>#</th>
+                                                                                <th>Program Name</th>
+                                                                                <th>Created Date</th>
+                                                                            </tr>
+                                                                        </tfoot>
+
+                                                                    </table>
+
+                                                                    <!-- /.modal -->
+
+                                                                </div>
+                                                                <!-- /.card-body -->
+                                                            </div>
+                                                            <!-- /.card -->
+                                                        </div>
+                                                        <!-- /.col -->
+                                                    </div>
+                                                    <!-- /.row -->
+                                                </div>
+                                                <!-- /.container-fluid -->
+                                            </section>
+
+
+                                        </div>
+                                        <!-- /.card-body -->
+                                    </div>
+                                    <!-- /.card -->
+                                </div>
+                            </div>
+                        </section>
+
 
 
 
