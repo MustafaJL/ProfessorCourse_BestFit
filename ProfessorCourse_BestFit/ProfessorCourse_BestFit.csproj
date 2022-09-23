@@ -134,6 +134,8 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\LanguageMang.cs" />
+    <Compile Include="Controllers\MyControllerController.cs" />
     <Compile Include="Controllers\UserBestFitController.cs" />
     <Compile Include="Controllers\CourseBestFitController.cs" />
     <Compile Include="Controllers\CourseController.cs" />
@@ -161,15 +163,15 @@
     </Compile>
     <Compile Include="Helper\CryptoService.cs" />
     <Compile Include="Helper\Validator.cs" />
-    <Compile Include="Languages\ArabicResource .Designer.cs">
-      <DependentUpon>ArabicResource .resx</DependentUpon>
+    <Compile Include="Resource\ProgramArabicResource .Designer.cs">
+      <DependentUpon>ProgramArabicResource .resx</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Languages\EnglishResource.Designer.cs">
+    <Compile Include="Resource\ProgramEnglishResource.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>EnglishResource.resx</DependentUpon>
+      <DependentUpon>ProgramEnglishResource.resx</DependentUpon>
     </Compile>
     <Compile Include="Messages\Messages.cs" />
     <Compile Include="Models\Course.cs">
@@ -4351,6 +4353,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\Images\Users\" />
+    <Folder Include="Views\MyController\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -4361,13 +4364,13 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Languages\ArabicResource .resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>ArabicResource .Designer.cs</LastGenOutput>
+    <EmbeddedResource Include="Resource\ProgramArabicResource .resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ProgramArabicResource .Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Languages\EnglishResource.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>EnglishResource.Designer.cs</LastGenOutput>
+    <EmbeddedResource Include="Resource\ProgramEnglishResource.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ProgramEnglishResource.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

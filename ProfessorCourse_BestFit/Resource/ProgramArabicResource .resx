@@ -118,48 +118,48 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Activate" xml:space="preserve">
-    <value>Activate</value>
+    <value>تفعيل</value>
   </data>
   <data name="AddRemove Courses" xml:space="preserve">
-    <value>Add/Remove Courses</value>
+    <value>اضافة/ازالة مادة</value>
   </data>
   <data name="AddRemoveManagers" xml:space="preserve">
-    <value>Add/Remove Managers</value>
+    <value>اضافة /ازالة مدير</value>
   </data>
   <data name="Close" xml:space="preserve">
-    <value>Close</value>
+    <value>إغلاق</value>
   </data>
   <data name="Contact" xml:space="preserve">
-    <value>Contact</value>
+    <value>تواصل معنا</value>
   </data>
   <data name="Create" xml:space="preserve">
-    <value>Create</value>
+    <value>إنشاء</value>
   </data>
   <data name="CreatedDay" xml:space="preserve">
-    <value>Created Day</value>
+    <value>تاريخ الإنشاء</value>
   </data>
   <data name="Deactivate" xml:space="preserve">
-    <value>Deactivate</value>
+    <value>إيقاف التفعيل</value>
   </data>
   <data name="Edit" xml:space="preserve">
-    <value>Edit</value>
+    <value>تعديل</value>
   </data>
   <data name="Home" xml:space="preserve">
-    <value>Home</value>
+    <value>الصفحة الرئيسية</value>
   </data>
   <data name="Option" xml:space="preserve">
-    <value>Option</value>
+    <value>خيارات</value>
   </data>
   <data name="ProgramName" xml:space="preserve">
-    <value>Program Name</value>
+    <value>اسم البرنامج</value>
   </data>
   <data name="Programs" xml:space="preserve">
-    <value>Programs</value>
+    <value>البرامج.</value>
   </data>
   <data name="Save changes" xml:space="preserve">
-    <value>Save changes</value>
+    <value>حفظ التغييرات</value>
   </data>
   <data name="ViewInformation" xml:space="preserve">
-    <value>View Information</value>
+    <value>مشاهدة المعلومات</value>
   </data>
 </root>

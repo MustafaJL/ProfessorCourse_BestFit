@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ProfessorCourse_BestFit.Languages {
+namespace ProfessorCourse_BestFit.Resource {
     using System;
     
     
@@ -22,24 +22,24 @@ namespace ProfessorCourse_BestFit.Languages {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class EnglishResource {
+    public class ProgramArabicResource_ {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal EnglishResource() {
+        internal ProgramArabicResource_() {
         }
         
         /// <summary>
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("ProfessorCourse_BestFit.Languages.EnglishResource", typeof(EnglishResource).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("ProfessorCourse_BestFit.Resource.ProgramArabicResource ", typeof(ProgramArabicResource_).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -51,7 +51,7 @@ namespace ProfessorCourse_BestFit.Languages {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -61,135 +61,135 @@ namespace ProfessorCourse_BestFit.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Activate.
+        ///   Looks up a localized string similar to تفعيل.
         /// </summary>
-        internal static string Activate {
+        public static string Activate {
             get {
                 return ResourceManager.GetString("Activate", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add/Remove Courses.
+        ///   Looks up a localized string similar to اضافة/ازالة مادة.
         /// </summary>
-        internal static string AddRemove_Courses {
+        public static string AddRemove_Courses {
             get {
                 return ResourceManager.GetString("AddRemove Courses", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add/Remove Managers.
+        ///   Looks up a localized string similar to اضافة /ازالة مدير.
         /// </summary>
-        internal static string AddRemoveManagers {
+        public static string AddRemoveManagers {
             get {
                 return ResourceManager.GetString("AddRemoveManagers", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Close.
+        ///   Looks up a localized string similar to إغلاق.
         /// </summary>
-        internal static string Close {
+        public static string Close {
             get {
                 return ResourceManager.GetString("Close", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Contact.
+        ///   Looks up a localized string similar to تواصل معنا.
         /// </summary>
-        internal static string Contact {
+        public static string Contact {
             get {
                 return ResourceManager.GetString("Contact", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Create.
+        ///   Looks up a localized string similar to إنشاء.
         /// </summary>
-        internal static string Create {
+        public static string Create {
             get {
                 return ResourceManager.GetString("Create", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Created Day.
+        ///   Looks up a localized string similar to تاريخ الإنشاء.
         /// </summary>
-        internal static string CreatedDay {
+        public static string CreatedDay {
             get {
                 return ResourceManager.GetString("CreatedDay", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Deactivate.
+        ///   Looks up a localized string similar to إيقاف التفعيل.
         /// </summary>
-        internal static string Deactivate {
+        public static string Deactivate {
             get {
                 return ResourceManager.GetString("Deactivate", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Edit.
+        ///   Looks up a localized string similar to تعديل.
         /// </summary>
-        internal static string Edit {
+        public static string Edit {
             get {
                 return ResourceManager.GetString("Edit", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Home.
+        ///   Looks up a localized string similar to الصفحة الرئيسية.
         /// </summary>
-        internal static string Home {
+        public static string Home {
             get {
                 return ResourceManager.GetString("Home", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Option.
+        ///   Looks up a localized string similar to خيارات.
         /// </summary>
-        internal static string Option {
+        public static string Option {
             get {
                 return ResourceManager.GetString("Option", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Program Name.
+        ///   Looks up a localized string similar to اسم البرنامج.
         /// </summary>
-        internal static string ProgramName {
+        public static string ProgramName {
             get {
                 return ResourceManager.GetString("ProgramName", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Programs.
+        ///   Looks up a localized string similar to البرامج..
         /// </summary>
-        internal static string Programs {
+        public static string Programs {
             get {
                 return ResourceManager.GetString("Programs", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Save changes.
+        ///   Looks up a localized string similar to حفظ التغييرات.
         /// </summary>
-        internal static string Save_changes {
+        public static string Save_changes {
             get {
                 return ResourceManager.GetString("Save changes", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to View Information.
+        ///   Looks up a localized string similar to مشاهدة المعلومات.
         /// </summary>
-        internal static string ViewInformation {
+        public static string ViewInformation {
             get {
                 return ResourceManager.GetString("ViewInformation", resourceCulture);
             }

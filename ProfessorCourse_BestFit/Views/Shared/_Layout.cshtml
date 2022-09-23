@@ -403,17 +403,15 @@
             })
         })
 
-        @*$(document).ready(function () {
+        $(document).ready(function () {
             var btn1 = document.getElementById("Engilsh");
             var btn2 = document.getElementById("Arabic");
             btn1.addEventListener("click", () => {
-                if (@Session["Language"] != "en")
-                {
                     $.ajax({
-                        url: '/Account/Languages/',
+                        url: '/Account/ChangeLanguage/',
                         type: 'post',
                         data: {
-                            isEnglish: 1,
+                            lang: "en",
                             path: "" + window.location.href
                         },
                         success: function (json) {
@@ -422,16 +420,14 @@
                             }
                         }
                     });
-                }
+                
             })
-            btn2.addEventListener("click", () => {
-                if (@Session["Language"] != "ar")
-                {
+            btn2.addEventListener("click", () => {                
                     $.ajax({
-                        url: '/Account/Languages/',
+                        url: '/Account/ChangeLanguage/',
                         type: 'post',
                         data: {
-                            isEnglish: 0,
+                            lang: "Ar",
                             path: "" + window.location.href
                         },
                         success: function (json) {
@@ -440,9 +436,9 @@
                             }
                         }
                     });
-                }
+                
             })
-        });*@
+        });
 
     </script>
 

@@ -91,7 +91,7 @@ namespace ProfessorCourse_BestFit.Controllers
 
             // Add Cookie
             Response.Cookies.Add(cookie);
-            Session["Language"] = "en";
+            //Session["Language"] = "en";
             ViewBag.Uid = dbObj.Uid;
             return RedirectToAction("Index", "Home");
 
@@ -142,6 +142,18 @@ namespace ProfessorCourse_BestFit.Controllers
         }
 
         [HttpPost]
+        public JsonResult ChangeLanguage(string lang, string path)
+        {
+            new LanguageMang().SetLanguage(lang);
+            return Json(new
+            {
+                redirectUrl = path,
+                isRedirect = true
+            });
+        }
+
+        /*
+        [HttpPost]
         public JsonResult Languages(int isEnglish, string path)
         {
             if (isEnglish == 1)
@@ -163,7 +175,7 @@ namespace ProfessorCourse_BestFit.Controllers
                 });
             }
         }
+        */
+
     }
-
-
 }

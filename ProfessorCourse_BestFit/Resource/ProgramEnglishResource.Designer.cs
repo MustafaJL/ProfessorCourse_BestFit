@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ProfessorCourse_BestFit.Languages {
+namespace ProfessorCourse_BestFit.Resource {
     using System;
     
     
@@ -22,24 +22,24 @@ namespace ProfessorCourse_BestFit.Languages {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class ArabicResource_ {
+    public class ProgramEnglishResource {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal ArabicResource_() {
+        internal ProgramEnglishResource() {
         }
         
         /// <summary>
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("ProfessorCourse_BestFit.Languages.ArabicResource ", typeof(ArabicResource_).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("ProfessorCourse_BestFit.Resource.ProgramEnglishResource", typeof(ProgramEnglishResource).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -51,7 +51,7 @@ namespace ProfessorCourse_BestFit.Languages {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +63,7 @@ namespace ProfessorCourse_BestFit.Languages {
         /// <summary>
         ///   Looks up a localized string similar to Activate.
         /// </summary>
-        internal static string Activate {
+        public static string Activate {
             get {
                 return ResourceManager.GetString("Activate", resourceCulture);
             }
@@ -72,7 +72,7 @@ namespace ProfessorCourse_BestFit.Languages {
         /// <summary>
         ///   Looks up a localized string similar to Add/Remove Courses.
         /// </summary>
-        internal static string AddRemove_Courses {
+        public static string AddRemove_Courses {
             get {
                 return ResourceManager.GetString("AddRemove Courses", resourceCulture);
             }
@@ -81,7 +81,7 @@ namespace ProfessorCourse_BestFit.Languages {
         /// <summary>
         ///   Looks up a localized string similar to Add/Remove Managers.
         /// </summary>
-        internal static string AddRemoveManagers {
+        public static string AddRemoveManagers {
             get {
                 return ResourceManager.GetString("AddRemoveManagers", resourceCulture);
             }
@@ -90,7 +90,7 @@ namespace ProfessorCourse_BestFit.Languages {
         /// <summary>
         ///   Looks up a localized string similar to Close.
         /// </summary>
-        internal static string Close {
+        public static string Close {
             get {
                 return ResourceManager.GetString("Close", resourceCulture);
             }
@@ -99,7 +99,7 @@ namespace ProfessorCourse_BestFit.Languages {
         /// <summary>
         ///   Looks up a localized string similar to Contact.
         /// </summary>
-        internal static string Contact {
+        public static string Contact {
             get {
                 return ResourceManager.GetString("Contact", resourceCulture);
             }
@@ -108,7 +108,7 @@ namespace ProfessorCourse_BestFit.Languages {
         /// <summary>
         ///   Looks up a localized string similar to Create.
         /// </summary>
-        internal static string Create {
+        public static string Create {
             get {
                 return ResourceManager.GetString("Create", resourceCulture);
             }
@@ -117,7 +117,7 @@ namespace ProfessorCourse_BestFit.Languages {
         /// <summary>
         ///   Looks up a localized string similar to Created Day.
         /// </summary>
-        internal static string CreatedDay {
+        public static string CreatedDay {
             get {
                 return ResourceManager.GetString("CreatedDay", resourceCulture);
             }
@@ -126,7 +126,7 @@ namespace ProfessorCourse_BestFit.Languages {
         /// <summary>
         ///   Looks up a localized string similar to Deactivate.
         /// </summary>
-        internal static string Deactivate {
+        public static string Deactivate {
             get {
                 return ResourceManager.GetString("Deactivate", resourceCulture);
             }
@@ -135,7 +135,7 @@ namespace ProfessorCourse_BestFit.Languages {
         /// <summary>
         ///   Looks up a localized string similar to Edit.
         /// </summary>
-        internal static string Edit {
+        public static string Edit {
             get {
                 return ResourceManager.GetString("Edit", resourceCulture);
             }
@@ -144,7 +144,7 @@ namespace ProfessorCourse_BestFit.Languages {
         /// <summary>
         ///   Looks up a localized string similar to Home.
         /// </summary>
-        internal static string Home {
+        public static string Home {
             get {
                 return ResourceManager.GetString("Home", resourceCulture);
             }
@@ -153,7 +153,7 @@ namespace ProfessorCourse_BestFit.Languages {
         /// <summary>
         ///   Looks up a localized string similar to Option.
         /// </summary>
-        internal static string Option {
+        public static string Option {
             get {
                 return ResourceManager.GetString("Option", resourceCulture);
             }
@@ -162,7 +162,7 @@ namespace ProfessorCourse_BestFit.Languages {
         /// <summary>
         ///   Looks up a localized string similar to Program Name.
         /// </summary>
-        internal static string ProgramName {
+        public static string ProgramName {
             get {
                 return ResourceManager.GetString("ProgramName", resourceCulture);
             }
@@ -171,7 +171,7 @@ namespace ProfessorCourse_BestFit.Languages {
         /// <summary>
         ///   Looks up a localized string similar to Programs.
         /// </summary>
-        internal static string Programs {
+        public static string Programs {
             get {
                 return ResourceManager.GetString("Programs", resourceCulture);
             }
@@ -180,7 +180,7 @@ namespace ProfessorCourse_BestFit.Languages {
         /// <summary>
         ///   Looks up a localized string similar to Save changes.
         /// </summary>
-        internal static string Save_changes {
+        public static string Save_changes {
             get {
                 return ResourceManager.GetString("Save changes", resourceCulture);
             }
@@ -189,7 +189,7 @@ namespace ProfessorCourse_BestFit.Languages {
         /// <summary>
         ///   Looks up a localized string similar to View Information.
         /// </summary>
-        internal static string ViewInformation {
+        public static string ViewInformation {
             get {
                 return ResourceManager.GetString("ViewInformation", resourceCulture);
             }
