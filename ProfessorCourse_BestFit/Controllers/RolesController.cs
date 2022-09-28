@@ -1,4 +1,5 @@
-﻿using ProfessorCourse_BestFit.DAL;
+﻿using ProfessorCourse_BestFit.CustomSecurity;
+using ProfessorCourse_BestFit.DAL;
 using ProfessorCourse_BestFit.Models;
 using ProfessorCourse_BestFit.Models.ViewModels;
 using System.Linq;
@@ -18,7 +19,7 @@ namespace ProfessorCourse_BestFit.Controllers
             _sp = new RolePermissions_DAL();
             isExistChecker = new isExistChecker();
         }
-
+        [CustomAuthorization(Permissions: "View-Role")]
         public ActionResult Index()
         {
             var roles = _context.Roles.Where(x => x.isDeleted == false).ToList();
@@ -27,6 +28,7 @@ namespace ProfessorCourse_BestFit.Controllers
 
 
 
+        [CustomAuthorization(Permissions: "Upsert-Role")]
 
         public ActionResult Upsert(int? id)
         {
@@ -88,6 +90,7 @@ namespace ProfessorCourse_BestFit.Controllers
             return View(model);
         }
 
+        [CustomAuthorization(Permissions: "Upsert-Role")]
 
         public ActionResult RolePermission(int? id)
         {
@@ -123,6 +126,7 @@ namespace ProfessorCourse_BestFit.Controllers
         }
 
 
+        [CustomAuthorization(Permissions: "Delete-Role")]
 
         [HttpPost]
         public JsonResult Delete(int id)

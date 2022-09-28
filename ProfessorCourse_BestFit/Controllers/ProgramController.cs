@@ -1,13 +1,11 @@
-﻿using ProfessorCourse_BestFit.DAL;
+﻿using ProfessorCourse_BestFit.CustomSecurity;
+using ProfessorCourse_BestFit.DAL;
 using ProfessorCourse_BestFit.Models;
+using ProfessorCourse_BestFit.Models.ViewModels;
 using System;
-using System.Collections.Generic;
-using System.Configuration;
 using System.Data;
 using System.Linq;
 using System.Web.Mvc;
-using System.Data.SqlClient;
-using ProfessorCourse_BestFit.Models.ViewModels;
 
 namespace ProfessorCourse_BestFit.Controllers
 {
@@ -54,6 +52,9 @@ namespace ProfessorCourse_BestFit.Controllers
 
 
         // GET: 
+
+
+        [CustomAuthorization(Permissions: "View-Program")]
         public ActionResult All_Programs()
         {
             var programViewModel = new ProgramViewModel();
@@ -64,6 +65,7 @@ namespace ProfessorCourse_BestFit.Controllers
         }
 
         //GET :
+        [CustomAuthorization(Permissions: "Create-Program")]
         public ActionResult Create_Program()
         {
             return View();
@@ -99,6 +101,8 @@ namespace ProfessorCourse_BestFit.Controllers
         }
 
         //GET :
+        [CustomAuthorization(Permissions: "Update-Program")]
+
         public ActionResult view_Program_Information(int id)
         {
             var programViewModel = new ProgramViewModel();
@@ -107,14 +111,14 @@ namespace ProfessorCourse_BestFit.Controllers
                 x => x.ProgramId == id
                 ).FirstOrDefault();
 
-            programViewModel.managers = user_DAL.Get_Users_Program(id,1);
+            programViewModel.managers = user_DAL.Get_Users_Program(id, 1);
 
             //programViewModel.program_Courses = course_DAL.Get_Program_Courses(id);
 
             return View(programViewModel);
         }
 
-        //GET :
+        [CustomAuthorization(Permissions: "Update-Program")]
         public ActionResult Edit_Program_Name(int id)
         {
             var programViewModel = new ProgramViewModel();
@@ -157,6 +161,7 @@ namespace ProfessorCourse_BestFit.Controllers
             return View(programViewModel);
         }
 
+        [CustomAuthorization(Permissions: "Update-Program")]
 
         [HttpPost]
         public JsonResult Deactivate_Program(int id)
@@ -175,7 +180,10 @@ namespace ProfessorCourse_BestFit.Controllers
             });
         }
 
+        [CustomAuthorization(Permissions: "Update-Program")]
         [HttpPost]
+
+
         public JsonResult Activate_Program(int id)
         {
             var deleted_Program = _context.Programs.Where(
@@ -192,17 +200,19 @@ namespace ProfessorCourse_BestFit.Controllers
             });
         }
 
+        [CustomAuthorization(Permissions: "Update-Program")]
 
         public ActionResult Add_Remove_Program_Managers(int id)
         {
             var programViewModel = new ProgramViewModel();
             programViewModel.Program = _context.Programs.Where(x => x.ProgramId == id).FirstOrDefault();
-            programViewModel.normal_Users = user_DAL.Get_Users_Program(id,2);
+            programViewModel.normal_Users = user_DAL.Get_Users_Program(id, 2);
             programViewModel.managers = user_DAL.Get_Users_Program(id, 1);
             return View(programViewModel);
         }
 
         [HttpPost]
+
         public JsonResult Add_Remove_Program_Managers(int id, string[] ids)
         {
             var data = ids;
@@ -230,7 +240,7 @@ namespace ProfessorCourse_BestFit.Controllers
             var s = "";
             for (int i = 0; i < data.Length; i++)
             {
-                s += id + "," + data[i] +","+ true+ "]";
+                s += id + "," + data[i] + "," + true + "]";
             }
 
             _context.AddRemove(id, s, "programmanagers", "]", ",");
@@ -243,6 +253,7 @@ namespace ProfessorCourse_BestFit.Controllers
                 isRedirect = true
             });
         }
+        [CustomAuthorization(Permissions: "Update-Program")]
 
         public ActionResult Add_Remove_Program_Courses(int id)
         {

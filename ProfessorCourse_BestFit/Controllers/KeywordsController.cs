@@ -1,4 +1,5 @@
-﻿using ProfessorCourse_BestFit.DAL;
+﻿using ProfessorCourse_BestFit.CustomSecurity;
+using ProfessorCourse_BestFit.DAL;
 using ProfessorCourse_BestFit.Models;
 using ProfessorCourse_BestFit.Models.ViewModels;
 using System.Linq;
@@ -17,12 +18,13 @@ namespace ProfessorCourse_BestFit.Controllers
         }
 
         // GET: Keywords
+        [CustomAuthorization(Permissions: "View-Keywrod")]
         public ActionResult Index()
         {
             var keywords = _context.Keywords.Where(u => u.isDeleted == false).ToList();
             return View(keywords);
         }
-
+        [CustomAuthorization(Permissions: "Upsert-Keyword")]
         public ActionResult Upsert(int? id)
         {
             ViewBag.id = id;
@@ -84,6 +86,8 @@ namespace ProfessorCourse_BestFit.Controllers
             }
             return View(model);
         }
+
+        [CustomAuthorization(Permissions: "Delete-Keyword")]
 
         [HttpPost]
         public JsonResult Delete(int id)

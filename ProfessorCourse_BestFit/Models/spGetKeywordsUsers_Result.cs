@@ -10,16 +10,10 @@
 namespace ProfessorCourse_BestFit.Models
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class RolePermission
+    public partial class spGetKeywordsUsers_Result
     {
-        public int Id { get; set; }
-        public int RId { get; set; }
-        public int PId { get; set; }
-        public bool isDeleted { get; set; }
-    
-        public virtual Permission Permission { get; set; }
-        public virtual Role Role { get; set; }
+        public string Email { get; set; }
+        public Nullable<int> counting { get; set; }
     }
 }

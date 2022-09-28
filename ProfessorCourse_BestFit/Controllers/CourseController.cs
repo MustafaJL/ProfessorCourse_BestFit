@@ -1,4 +1,5 @@
-﻿using ProfessorCourse_BestFit.DAL;
+﻿using ProfessorCourse_BestFit.CustomSecurity;
+using ProfessorCourse_BestFit.DAL;
 using ProfessorCourse_BestFit.Models;
 using ProfessorCourse_BestFit.Models.ViewModels;
 using System.Linq;
@@ -15,12 +16,15 @@ namespace ProfessorCourse_BestFit.Controllers
             _context = new ProfessorCourseBestFit1Entities1();
             _sp = new CourseKeywords_DAL();
         }
+
+        [CustomAuthorization(Permissions: "View-Course")]
         public ActionResult Index()
         {
             var courses = _context.Courses.Where(x => x.isDeleted == false).ToList();
             return View(courses);
         }
 
+        [CustomAuthorization(Permissions: "Upsert-Course")]
         public ActionResult Upsert(int? id)
         {
             ViewBag.id = id;
@@ -86,7 +90,7 @@ namespace ProfessorCourse_BestFit.Controllers
         }
 
 
-
+        [CustomAuthorization(Permissions: "Delete-Course")]
         [HttpPost]
         public JsonResult Delete(int id)
         {

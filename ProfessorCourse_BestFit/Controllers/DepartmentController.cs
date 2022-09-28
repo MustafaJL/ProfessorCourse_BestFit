@@ -1,13 +1,10 @@
-﻿using ProfessorCourse_BestFit.DAL;
+﻿using ProfessorCourse_BestFit.CustomSecurity;
+using ProfessorCourse_BestFit.DAL;
 using ProfessorCourse_BestFit.Models;
 using ProfessorCourse_BestFit.Models.ViewModels;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using ProfessorCourse_BestFit.Messages;
-using Newtonsoft.Json;
 
 namespace ProfessorCourse_BestFit.Controllers
 {
@@ -48,6 +45,8 @@ namespace ProfessorCourse_BestFit.Controllers
         }
 
         //GET :
+        [CustomAuthorization(Permissions: "View-Department")]
+
         public ActionResult All_Departments()
         {
             var departmentViewModel = new DepartmentViewModel();
@@ -58,6 +57,8 @@ namespace ProfessorCourse_BestFit.Controllers
         }
 
         //GET :
+        [CustomAuthorization(Permissions: "View-Department")]
+
         public ActionResult Create_Department()
         {
             return View();
@@ -69,7 +70,7 @@ namespace ProfessorCourse_BestFit.Controllers
         {
             if (Name_Required(departmentViewModel.Department.Dep_Name))
             {
-               ViewBag.nameRequired = "Please you should write name first.";
+                ViewBag.nameRequired = "Please you should write name first.";
                 ViewBag.data_not_saved = "The data is not saved.";
                 return View(departmentViewModel);
             }
@@ -77,7 +78,7 @@ namespace ProfessorCourse_BestFit.Controllers
             if (Name_Exist(departmentViewModel.Department.Dep_Name))
             {
                 ViewBag.nameExist = "The name you entered is already exist please chose another name.";
-                ViewBag.data_not_saved = "The data is not saved."; 
+                ViewBag.data_not_saved = "The data is not saved.";
                 return View(departmentViewModel);
             }
 
@@ -91,6 +92,8 @@ namespace ProfessorCourse_BestFit.Controllers
         }
 
         //GET :
+        [CustomAuthorization(Permissions: "View-Department")]
+
         public ActionResult view_Department_Information(int id)
         {
             var departmentViewModel = new DepartmentViewModel();
@@ -109,6 +112,8 @@ namespace ProfessorCourse_BestFit.Controllers
         }
 
         //GET :
+        [CustomAuthorization(Permissions: "Update-Department")]
+
         public ActionResult Edit_Department_Name(int id)
         {
             var departmentViewModel = new DepartmentViewModel();
@@ -153,6 +158,8 @@ namespace ProfessorCourse_BestFit.Controllers
         }
 
         [HttpPost]
+        [CustomAuthorization(Permissions: "Update-Department")]
+
         public JsonResult Deactivate_Department(int id)
         {
             var delete_Department = _context.Departments.Where(
@@ -170,6 +177,8 @@ namespace ProfessorCourse_BestFit.Controllers
         }
 
         [HttpPost]
+        [CustomAuthorization(Permissions: "Update-Department")]
+
         public JsonResult Activate_Department(int id)
         {
             var delete_Department = _context.Departments.Where(
@@ -187,6 +196,8 @@ namespace ProfessorCourse_BestFit.Controllers
         }
 
         //GET :
+        [CustomAuthorization(Permissions: "Update-Department")]
+
         public ActionResult Add_Remove_Department_Managers(int id)
         {
             var departmentViewModel = new DepartmentViewModel();
@@ -239,6 +250,8 @@ namespace ProfessorCourse_BestFit.Controllers
         }
 
         //GET :
+        [CustomAuthorization(Permissions: "Update-Department")]
+
         public ActionResult Add_Remove_Department_Employees(int id)
         {
             var departmentViewModel = new DepartmentViewModel();
@@ -276,7 +289,7 @@ namespace ProfessorCourse_BestFit.Controllers
             var s = "";
             for (int i = 0; i < data.Length; i++)
             {
-                s+= id+","+data[i]+","+DateTime.Now+","+false+"]";
+                s += id + "," + data[i] + "," + DateTime.Now + "," + false + "]";
             }
 
             _context.AddRemove(id, s, "departmentemployees", "]", ",");
@@ -291,6 +304,8 @@ namespace ProfessorCourse_BestFit.Controllers
         }
 
         //GET :
+        [CustomAuthorization(Permissions: "Update-Department")]
+
         public ActionResult Add_Remove_Department_Programs(int id)
         {
             var departmentViewModel = new DepartmentViewModel();

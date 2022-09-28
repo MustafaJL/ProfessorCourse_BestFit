@@ -163,17 +163,6 @@
     </Compile>
     <Compile Include="Helper\CryptoService.cs" />
     <Compile Include="Helper\Validator.cs" />
-    <Compile Include="Resource\ProgramArabicResource .Designer.cs">
-      <DependentUpon>ProgramArabicResource .resx</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Resource\ProgramEnglishResource.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ProgramEnglishResource.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Messages\Messages.cs" />
     <Compile Include="Models\Course.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -264,7 +253,13 @@
     <Compile Include="Models\spGetAllKeywordsIncludeMatching_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\spGetAllPermissionsIncludeMatchingRoles_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\spGetCoursesByUserId_Result.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\spGetKeywordsUsers_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\spGetUsersByCourseId_Result.cs">
@@ -294,6 +289,17 @@
     <Compile Include="Models\UserProgram.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Resource\ProgramArabicResource .Designer.cs">
+      <DependentUpon>ProgramArabicResource .resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Resource\ProgramEnglishResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ProgramEnglishResource.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Messages\Messages.cs" />
     <Compile Include="Models\ViewModels\UserBestFitViewModel.cs" />
     <Compile Include="Models\ViewModels\CourseBestFitViewModel.cs" />
     <Compile Include="Models\ViewModels\CoursesViewModel.cs" />
@@ -4353,7 +4359,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\Images\Users\" />
-    <Folder Include="Views\MyController\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
