@@ -76,7 +76,6 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="RId" Type="int" Nullable="false" />
           <Property Name="PId" Type="int" Nullable="false" />
-          <Property Name="CreatedOn" Type="datetime" Nullable="false" />
           <Property Name="isDeleted" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Roles">
@@ -125,7 +124,7 @@
           <Property Name="Dep_Id" Type="int" Nullable="false" />
           <Property Name="User_ID" Type="int" Nullable="false" />
           <Property Name="StartDate" Type="datetime" Nullable="false" />
-          <Property Name="EndDate" Type="datetime" />
+          <Property Name="EndDate" Type="datetime" Nullable="false" />
           <Property Name="isDeleted" Type="bit" Nullable="false" />
           <Property Name="isManager" Type="bit" Nullable="false" />
         </EntityType>
@@ -445,6 +444,9 @@
         <Function Name="spGetAllKeywordsIncludeMatchingCourse" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="CourseId" Type="int" Mode="In" />
         </Function>
+        <Function Name="spGetAllPermissionsIncludeMatchingRoles" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="RoleId" Type="int" Mode="In" />
+        </Function>
         <Function Name="spGetCoursesByUserId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="UserId" Type="int" Mode="In" />
         </Function>
@@ -659,7 +661,6 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="RId" Type="Int32" Nullable="false" />
           <Property Name="PId" Type="Int32" Nullable="false" />
-          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="isDeleted" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Permission" Relationship="Self.FK_Permission" FromRole="RolePermission" ToRole="Permission" />
           <NavigationProperty Name="Role" Relationship="Self.FK_Role" FromRole="RolePermission" ToRole="Roles" />
@@ -717,7 +718,7 @@
           <Property Name="Dep_Id" Type="Int32" Nullable="false" />
           <Property Name="User_ID" Type="Int32" Nullable="false" />
           <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="EndDate" Type="DateTime" Precision="3" />
+          <Property Name="EndDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="isDeleted" Type="Boolean" Nullable="false" />
           <Property Name="isManager" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Department" Relationship="Self.FK_DepartmentUser" FromRole="UserDepartment" ToRole="Department" />
@@ -1133,6 +1134,9 @@
           <FunctionImport Name="spGetAllKeywordsIncludeMatchingCourse" ReturnType="Collection(ProfessorCourseBestFitModel.spGetAllKeywordsIncludeMatchingCourse_Result)">
             <Parameter Name="CourseId" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="spGetAllPermissionsIncludeMatchingRoles" ReturnType="Collection(ProfessorCourseBestFitModel.spGetAllPermissionsIncludeMatchingRoles_Result)">
+            <Parameter Name="RoleId" Mode="In" Type="Int32" />
+          </FunctionImport>
           <FunctionImport Name="spGetCoursesByUserId" ReturnType="Collection(ProfessorCourseBestFitModel.spGetCoursesByUserId_Result)">
             <Parameter Name="UserId" Mode="In" Type="Int32" />
           </FunctionImport>
@@ -1356,6 +1360,11 @@
           <Property Type="String" Name="KName" Nullable="false" MaxLength="50" />
           <Property Type="Int32" Name="Matching" Nullable="false" />
         </ComplexType>
+        <ComplexType Name="spGetAllPermissionsIncludeMatchingRoles_Result">
+          <Property Type="Int32" Name="PId" Nullable="false" />
+          <Property Type="String" Name="PName" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="Matching" Nullable="false" />
+        </ComplexType>
         <ComplexType Name="spGetCoursesByUserId_Result">
           <Property Type="String" Name="CourseName" Nullable="false" MaxLength="50" />
           <Property Type="String" Name="CourseCode" Nullable="false" MaxLength="50" />
@@ -1467,7 +1476,6 @@
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="RId" ColumnName="RId" />
                 <ScalarProperty Name="PId" ColumnName="PId" />
-                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
                 <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1814,6 +1822,15 @@
               <ComplexTypeMapping TypeName="ProfessorCourseBestFitModel.spGetAllKeywordsIncludeMatchingCourse_Result">
                 <ScalarProperty Name="KId" ColumnName="KId" />
                 <ScalarProperty Name="KName" ColumnName="KName" />
+                <ScalarProperty Name="Matching" ColumnName="Matching" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spGetAllPermissionsIncludeMatchingRoles" FunctionName="ProfessorCourseBestFitModel.Store.spGetAllPermissionsIncludeMatchingRoles">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ProfessorCourseBestFitModel.spGetAllPermissionsIncludeMatchingRoles_Result">
+                <ScalarProperty Name="PId" ColumnName="PId" />
+                <ScalarProperty Name="PName" ColumnName="PName" />
                 <ScalarProperty Name="Matching" ColumnName="Matching" />
               </ComplexTypeMapping>
             </ResultMapping>
