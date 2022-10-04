@@ -4,7 +4,11 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
+<<<<<<< HEAD
       <Diagram DiagramId="f57a930cedc648d5a6c8e81b3a7c019e" Name="Diagram1">
+=======
+      <Diagram DiagramId="8a7580c254414e1292fc437cd6c33d96" Name="Diagram1">
+>>>>>>> save
         <EntityTypeShape EntityType="ProfessorCourseBestFitModel.Course" Width="1.5" PointX="3" PointY="15.5" IsExpanded="true" />
         <EntityTypeShape EntityType="ProfessorCourseBestFitModel.CourseKeyword" Width="1.5" PointX="8.25" PointY="7.625" IsExpanded="true" />
         <EntityTypeShape EntityType="ProfessorCourseBestFitModel.CourseProgram" Width="1.5" PointX="5.25" PointY="18.75" IsExpanded="true" />

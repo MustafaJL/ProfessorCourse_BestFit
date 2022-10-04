@@ -52,7 +52,7 @@ namespace ProfessorCourse_BestFit.Controllers
 
             if (ModelState.IsValid)
             {
-                var isExist = _context.Courses.Where(u => (u.CName == model.CName || u.Code == model.CourseCode) && u.CId != model.CId).ToList();
+                var isExist = _context.Courses.Where(u => (u.CName == model.CName || u.Code == model.CourseCode) && u.CId != model.CId && u.isDeleted == false).ToList();
 
                 if (isExist.Any())
                 {

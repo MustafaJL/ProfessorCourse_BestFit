@@ -63,3 +63,87 @@
 .show {
     display: block;
 }
+
+
+.Events {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.eventsBlock {
+    margin: 20px;
+    min-width: 350px;
+    background-color: #202a44;
+    color: white;
+    overflow: hidden;
+    padding: 20px;
+    position: relative;
+    height: 350px;
+    border-radius: 5px;
+}
+
+
+
+
+
+@media (max-width: 768px) {
+    .Events {
+        flex-direction: column;
+    }
+
+    .eventsBlock {
+        width: 350px;
+        height:auto;
+    }
+}
+
+
+
+.pull-left {
+    color: white;
+    margin-bottom: 0px;
+    border: 1px solid white;
+    background-color: navy;
+    padding: 6px 12px;
+    width: 100px;
+    text-align: center;
+    position: absolute;
+}
+
+@media (max-width: 300px) {
+}
+
+.withLine {
+    position: relative;
+    height: 150px;
+}
+
+p +.pull-left {
+    right: 0;
+}
+
+.withLine .pull-right {
+    display: none;
+}
+
+a +.pull-left {
+    display: none;
+}
+
+.date {
+    display: block;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    margin: 10px;
+}
+
+
+.eventsBlock div label a {
+    color: white;
+    padding-top: 20px;
+}
+
+.clearfix {
+    display: none;
+}

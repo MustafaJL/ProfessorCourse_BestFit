@@ -68,7 +68,7 @@ namespace ProfessorCourse_BestFit
                       "~/Content/plugins/datatables-responsive/css/responsive.bootstrap4.min.css",
                       "~/Content/plugins/datatables-buttons/css/buttons.bootstrap4.min.css",
                       "~/Content/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css",
-                      "~/Content/site.css"
+                      "~/Content/ite.css"
 
                       ));
         }

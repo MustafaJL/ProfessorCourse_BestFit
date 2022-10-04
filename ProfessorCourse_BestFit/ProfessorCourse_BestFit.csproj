@@ -134,6 +134,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\EventsController.cs" />
     <Compile Include="Controllers\LanguageMang.cs" />
     <Compile Include="Controllers\MyControllerController.cs" />
     <Compile Include="Controllers\UserBestFitController.cs" />
@@ -310,6 +311,7 @@
     <Compile Include="Models\ViewModels\ProgramViewModel.cs" />
     <Compile Include="Models\ViewModels\SemesterViewModel.cs" />
     <Compile Include="Models\ViewModels\CourseKeywordsViewModel.cs" />
+    <Compile Include="Models\ViewModels\UserGraphViewModel.cs" />
     <Compile Include="Models\ViewModels\UserKeywordsViewModel.cs" />
     <Compile Include="Models\ViewModels\RolesPermissionsViewModel.cs" />
     <Compile Include="Models\ViewModels\RolesViewModel.cs" />
@@ -323,6 +325,7 @@
     <Content Include="Models\Model1.edmx.diagram">
       <DependentUpon>Model1.edmx</DependentUpon>
     </Content>
+    <Content Include="Views\Events\Index.cshtml" />
     <None Include="Views\User\ChangePassword.cshtml" />
     <None Include="Views\Course\Index.cshtml" />
     <Content Include="Models\Model1.Context.tt">
